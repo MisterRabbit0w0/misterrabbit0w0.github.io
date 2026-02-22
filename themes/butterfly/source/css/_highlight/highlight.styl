@@ -24,6 +24,14 @@ wordWrap = $highlight_enable && !$highlight_line_number && hexo-config('code_blo
   --hlscrollbar-bg: lighten(#121212, 5)
   --hlexpand-bg: linear-gradient(180deg, rgba(lighten(#121212, 2), .6), rgba(lighten(#121212, 2), .9))
 
+$scrollbar-style
+  // scrollbar - firefox
+  @-moz-document url-prefix()
+    scrollbar-color: var(--hlscrollbar-bg) transparent
+
+  &::-webkit-scrollbar-thumb
+    background: var(--hlscrollbar-bg)
+
 if $highlight_enable
   @require 'highlight/index'
 
@@ -87,6 +95,11 @@ $code-block
 
         &:hover
           border-bottom-color: var(--hl-color)
+
+    &.default
+      pre
+        padding: 10px 20px
+        @extend $scrollbar-style
 
     &.copy-true
       user-select: all

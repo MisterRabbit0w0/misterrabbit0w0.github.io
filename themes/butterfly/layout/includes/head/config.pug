@@ -72,20 +72,16 @@
     })
   }
 
-  let highlight = 'undefined'
-  let syntaxHighlighter = config.syntax_highlighter
-  let highlightEnable = syntaxHighlighter ? ['highlight.js', 'prismjs'].includes(syntaxHighlighter) : (config.highlight.enable || config.prismjs.enable)
-  if (highlightEnable) {
-    const { copy, language, height_limit, fullpage, macStyle } = theme.code_blocks
-    highlight = JSON.stringify({
-      plugin: syntaxHighlighter ? syntaxHighlighter : config.highlight.enable ? 'highlight.js' : 'prismjs',
-      highlightCopy: copy,
-      highlightLang: language,
-      highlightHeightLimit: height_limit,
-      highlightFullpage: fullpage,
-      highlightMacStyle: macStyle
-    })
-  }
+  let highlightProvider = config.syntax_highlighter || (config.highlight.enable ? 'highlight.js' : config.prismjs.enable ? 'prismjs' : null)
+  const { copy, language, height_limit, fullpage, macStyle, shrink } = theme.code_blocks
+  let highlight = JSON.stringify({
+    plugin: highlightProvider,
+    highlightCopy: copy,
+    highlightLang: language,
+    highlightHeightLimit: height_limit,
+    highlightFullpage: fullpage,
+    highlightMacStyle: macStyle
+  })
 
 script.
   const GLOBAL_CONFIG = {

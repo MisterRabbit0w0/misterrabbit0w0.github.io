@@ -179,6 +179,7 @@ module.exports = {
       enable: true,
       limit: 40,
       color: false,
+      custom_colors: null,
       orderby: 'random',
       order: 1,
       sort_order: null
@@ -522,7 +523,9 @@ module.exports = {
     theme: {
       light: 'default',
       dark: 'dark'
-    }
+    },
+    open_in_new_tab: true,
+    zoom_pan: true
   },
   chartjs: {
     enable: false,

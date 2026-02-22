@@ -24,7 +24,7 @@ script.
             const options = { ...params, responsive: "resize" }
 
             // Render the music score using ABCJS.renderAbc
-            ABCJS.renderAbc(ele, ele.innerHTML, options)
+            ABCJS.renderAbc(ele, ele.textContent, options)
           }
         }, 100)
       }
