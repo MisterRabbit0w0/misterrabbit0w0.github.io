@@ -15,19 +15,19 @@ tags:
 ## 目录
 
 - [译者的话](/algorithms/translators-word/)
-- [关于本书](/2026/02/25/algorithms/book/)
-- [第一章](/2026/02/25/algorithms/list-1/)
-- [第二章](/2026/02/25/algorithms/list-2/)
-- [第三章](/2026/02/25/algorithms/list-3/)
-- [第四章](/2026/02/25/algorithms/list-4/)
-- [第五章](/2026/02/25/algorithms/list-5/)
-- [第六章](/2026/02/25/algorithms/list-6/)
-- [第七章](/2026/02/25/algorithms/list-7/)
-- [第八章](/2026/02/25/algorithms/list-8/)
-- [第九章](/2026/02/25/algorithms/list-9/)
-- [第十章](/2026/02/25/algorithms/list-10/)
-- [速查表](/2026/02/25/algorithms/cheatsheet/)
-- [计划书](/2026/02/25/algorithms/plan/)
+- [关于本书](/algorithms/book/)
+- [第一章](/algorithms/list-1/)
+- [第二章](/algorithms/list-2/)
+- [第三章](/algorithms/list-3/)
+- [第四章](/algorithms/list-4/)
+- [第五章](/algorithms/list-5/)
+- [第六章](/algorithms/list-6/)
+- [第七章](/algorithms/list-7/)
+- [第八章](/algorithms/list-8/)
+- [第九章](/algorithms/list-9/)
+- [第十章](/algorithms/list-10/)
+- [速查表](/algorithms/cheatsheet/)
+- [计划书](/algorithms/plan/)
 
 ## Citation
 

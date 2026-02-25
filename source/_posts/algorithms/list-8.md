@@ -1,6 +1,7 @@
 ---
 title: 第八章
 date: 2026-02-25 06:00:00
+permalink: algorithms/list-8/
 disableNunjucks: true
 tags:
   - 算法

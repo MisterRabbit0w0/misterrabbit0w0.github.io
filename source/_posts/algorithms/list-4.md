@@ -1,6 +1,7 @@
 ---
 title: 第四章
 date: 2026-02-25 10:00:00
+permalink: algorithms/list-4/
 disableNunjucks: true
 tags:
   - 算法

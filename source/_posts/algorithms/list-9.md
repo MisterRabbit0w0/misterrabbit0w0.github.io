@@ -1,6 +1,7 @@
 ---
 title: 第九章
 date: 2026-02-25 05:00:00
+permalink: algorithms/list-9/
 disableNunjucks: true
 tags:
   - 算法

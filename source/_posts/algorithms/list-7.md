@@ -1,6 +1,7 @@
 ---
 title: 第七章
 date: 2026-02-25 07:00:00
+permalink: algorithms/list-7/
 disableNunjucks: true
 tags:
   - 算法

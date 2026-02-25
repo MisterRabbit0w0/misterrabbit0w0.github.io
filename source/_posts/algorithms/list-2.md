@@ -1,6 +1,7 @@
 ---
 title: 第二章
 date: 2026-02-25 12:00:00
+permalink: algorithms/list-2/
 disableNunjucks: true
 tags:
   - 算法

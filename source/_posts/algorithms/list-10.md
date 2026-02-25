@@ -1,6 +1,7 @@
 ---
 title: 第十章
 date: 2026-02-25 04:00:00
+permalink: algorithms/list-10/
 disableNunjucks: true
 tags:
   - 算法

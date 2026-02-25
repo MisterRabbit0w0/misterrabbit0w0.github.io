@@ -1,6 +1,7 @@
 ---
 title: 速查表
 date: 2026-02-25 03:00:00
+permalink: algorithms/cheatsheet/
 disableNunjucks: true
 tags:
   - 算法

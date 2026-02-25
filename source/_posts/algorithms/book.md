@@ -1,6 +1,7 @@
 ---
 title: 关于本书
 date: 2026-02-25 14:00:00
+permalink: algorithms/book/
 disableNunjucks: true
 tags:
   - 算法
