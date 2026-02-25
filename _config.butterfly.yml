@@ -18,10 +18,8 @@ nav:
   fixed: false
 
 menu:
-  # Home: / || fas fa-home
-  # List||fas fa-list:
-  #   Music: /music/ || fas fa-music
-  #   Movie: /movies/ || fas fa-video
+  首页: / || fas fa-home
+  算法小书: /algorithms/ || fas fa-book
 
 # --------------------------------------
 # Code Blocks Settings
@@ -192,9 +190,9 @@ index_post_content:
 
 toc:
   post: true
-  page: false
-  number: true
-  expand: false
+  page: true
+  number: false
+  expand: true
   # Only for post
   style_simple: false
   scroll_percent: true
@@ -452,7 +450,7 @@ busuanzi:
 math:
   # Choose: mathjax, katex
   # Leave it empty if you don't need math
-  use:
+  use: mathjax
   per_page: true
   hide_scrollbar: false
 
