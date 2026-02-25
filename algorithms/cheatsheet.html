@@ -1,0 +1,3829 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>速查表 | MisterRabbit's Blog</title><meta name="author" content="MisterRabbit"><meta name="copyright" content="MisterRabbit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="速查表第 1 页：概览与复杂度一份快速参考，助你理解算法、效率与增长率。阅读或编码时，可将此页置于手边。 什么是算法？算法是一个清晰、逐步解决问题的过程。    特性 描述    精确性 每个步骤都明确无误   有限性 必须在有限步后停止   有效性 每个步骤机器或人都可执行   确定性 相同输入，相同输出（通常如此）   可以将其想象成一个食谱：  输入：食材 步骤：说明 输出：最终菜肴  核心">
+<meta property="og:type" content="website">
+<meta property="og:title" content="速查表">
+<meta property="og:url" content="http://misterrabbit0w0.github.io/algorithms/cheatsheet.html">
+<meta property="og:site_name" content="MisterRabbit&#39;s Blog">
+<meta property="og:description" content="速查表第 1 页：概览与复杂度一份快速参考，助你理解算法、效率与增长率。阅读或编码时，可将此页置于手边。 什么是算法？算法是一个清晰、逐步解决问题的过程。    特性 描述    精确性 每个步骤都明确无误   有限性 必须在有限步后停止   有效性 每个步骤机器或人都可执行   确定性 相同输入，相同输出（通常如此）   可以将其想象成一个食谱：  输入：食材 步骤：说明 输出：最终菜肴  核心">
+<meta property="og:locale">
+<meta property="og:image" content="http://misterrabbit0w0.github.io/img/avatar/avatar.jpg">
+<meta property="article:published_time" content="2025-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-25T07:20:44.572Z">
+<meta property="article:author" content="MisterRabbit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://misterrabbit0w0.github.io/img/avatar/avatar.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon/favicon.ico"><link rel="canonical" href="http://misterrabbit0w0.github.io/algorithms/cheatsheet.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '速查表',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'page'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/algorithms/"><i class="fa-fw fas fa-book"></i><span> 算法小书</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(/img/banner/default.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">MisterRabbit's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/algorithms/"><i class="fa-fw fas fa-book"></i><span> 算法小书</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">速查表</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><h1 id="速查表"><a href="#速查表" class="headerlink" title="速查表"></a>速查表</h1><h3 id="第-1-页：概览与复杂度"><a href="#第-1-页：概览与复杂度" class="headerlink" title="第 1 页：概览与复杂度"></a>第 1 页：概览与复杂度</h3><p>一份快速参考，助你理解算法、效率与增长率。<br>阅读或编码时，可将此页置于手边。</p>
+<h4 id="什么是算法？"><a href="#什么是算法？" class="headerlink" title="什么是算法？"></a>什么是算法？</h4><p>算法是一个清晰、逐步解决问题的过程。</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>精确性</td>
+<td>每个步骤都明确无误</td>
+</tr>
+<tr>
+<td>有限性</td>
+<td>必须在有限步后停止</td>
+</tr>
+<tr>
+<td>有效性</td>
+<td>每个步骤机器或人都可执行</td>
+</tr>
+<tr>
+<td>确定性</td>
+<td>相同输入，相同输出（通常如此）</td>
+</tr>
+</tbody></table>
+<p>可以将其想象成一个食谱：</p>
+<ul>
+<li>输入：食材</li>
+<li>步骤：说明</li>
+<li>输出：最终菜肴</li>
+</ul>
+<h4 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h4><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>要问的问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>正确性</td>
+<td>它是否总能解决问题？</td>
+</tr>
+<tr>
+<td>终止性</td>
+<td>它最终会停止吗？</td>
+</tr>
+<tr>
+<td>复杂度</td>
+<td>它需要多少时间和空间？</td>
+</tr>
+<tr>
+<td>清晰性</td>
+<td>它是否易于理解和实现？</td>
+</tr>
+</tbody></table>
+<h4 id="为什么复杂度很重要"><a href="#为什么复杂度很重要" class="headerlink" title="为什么复杂度很重要"></a>为什么复杂度很重要</h4><p>随着输入规模 $n$ 的增加，不同算法的增长方式不同。</p>
+<table>
+<thead>
+<tr>
+<th>增长率</th>
+<th>示例算法</th>
+<th>当 $n$ 翻倍时的影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$O(1)$</td>
+<td>哈希查找</td>
+<td>无变化</td>
+</tr>
+<tr>
+<td>$O(\log n)$</td>
+<td>二分查找</td>
+<td>轻微增加</td>
+</tr>
+<tr>
+<td>$O(n)$</td>
+<td>线性扫描</td>
+<td>翻倍</td>
+</tr>
+<tr>
+<td>$O(n\log n)$</td>
+<td>归并排序</td>
+<td>略高于 2 倍</td>
+</tr>
+<tr>
+<td>$O(n^2)$</td>
+<td>冒泡排序</td>
+<td>变为 4 倍</td>
+</tr>
+<tr>
+<td>$O(2^n)$</td>
+<td>子集生成</td>
+<td>急剧增长</td>
+</tr>
+<tr>
+<td>$O(n!)$</td>
+<td>暴力排列（穷举）</td>
+<td>当 $n&gt;10$ 时基本不可用</td>
+</tr>
+</tbody></table>
+<h4 id="度量时间与空间"><a href="#度量时间与空间" class="headerlink" title="度量时间与空间"></a>度量时间与空间</h4><table>
+<thead>
+<tr>
+<th>度量</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时间复杂度</td>
+<td>操作次数</td>
+<td>从 1 循环到 $n$：$O(n)$</td>
+</tr>
+<tr>
+<td>空间复杂度</td>
+<td>内存使用量（栈、堆、数据结构）</td>
+<td>递归调用深度：$O(n)$</td>
+</tr>
+</tbody></table>
+<p>简单规则：</p>
+<ul>
+<li>顺序步骤：成本求和</li>
+<li>嵌套循环：规模相乘</li>
+<li>递归：使用递推关系</li>
+</ul>
+<h4 id="常见模式"><a href="#常见模式" class="headerlink" title="常见模式"></a>常见模式</h4><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>成本公式</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单层循环（1 到 $n$）</td>
+<td>$T(n) &#x3D; n$</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>嵌套循环（$n \times n$）</td>
+<td>$T(n) &#x3D; n^2$</td>
+<td>$O(n^2)$</td>
+</tr>
+<tr>
+<td>每次减半</td>
+<td>$T(n) &#x3D; \log_2 n$</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>分治法（分成两半）</td>
+<td>$T(n) &#x3D; 2T(n&#x2F;2)+n$</td>
+<td>$O(n\log n)$</td>
+</tr>
+</tbody></table>
+<h4 id="翻倍规则"><a href="#翻倍规则" class="headerlink" title="翻倍规则"></a>翻倍规则</h4><p>用 $n$ 和 $2n$ 运行算法：</p>
+<table>
+<thead>
+<tr>
+<th>观察结果</th>
+<th>可能的复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>时间恒定</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>时间翻倍</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>时间变为 4 倍</td>
+<td>$O(n^2)$</td>
+</tr>
+<tr>
+<td>时间乘以对数因子</td>
+<td>$O(n\log n)$</td>
+</tr>
+</tbody></table>
+<h4 id="微型代码：二分查找"><a href="#微型代码：二分查找" class="headerlink" title="微型代码：二分查找"></a>微型代码：二分查找</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">binary_search</span>(<span class="params">arr, x</span>):</span><br><span class="line">    lo, hi = <span class="number">0</span>, <span class="built_in">len</span>(arr) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> lo &lt;= hi:</span><br><span class="line">        mid = (lo + hi) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> arr[mid] == x:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">elif</span> arr[mid] &lt; x:</span><br><span class="line">            lo = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            hi = mid - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>复杂度：<br>$$T(n) &#x3D; T(n&#x2F;2) + 1 \Rightarrow O(\log n)$$</p>
+<h4 id="常见陷阱"><a href="#常见陷阱" class="headerlink" title="常见陷阱"></a>常见陷阱</h4><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>提示</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>差一错误</td>
+<td>仔细检查循环边界</td>
+</tr>
+<tr>
+<td>无限循环</td>
+<td>确保终止条件可达</td>
+</tr>
+<tr>
+<td>中点溢出（C&#x2F;C++）</td>
+<td>使用 <code>mid = lo + (hi - lo) / 2</code></td>
+</tr>
+<tr>
+<td>在搜索中使用未排序的数据</td>
+<td>二分查找仅适用于已排序的输入</td>
+</tr>
+</tbody></table>
+<h4 id="增长率快速总结"><a href="#增长率快速总结" class="headerlink" title="增长率快速总结"></a>增长率快速总结</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>公式示例</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>常数</td>
+<td>$1$</td>
+<td>固定时间</td>
+</tr>
+<tr>
+<td>对数</td>
+<td>$\log n$</td>
+<td>每次减半</td>
+</tr>
+<tr>
+<td>线性</td>
+<td>$n$</td>
+<td>遍历所有项</td>
+</tr>
+<tr>
+<td>线性对数</td>
+<td>$n \log n$</td>
+<td>类似排序的复杂度</td>
+</tr>
+<tr>
+<td>平方</td>
+<td>$n^2$</td>
+<td>双层循环</td>
+</tr>
+<tr>
+<td>立方</td>
+<td>$n^3$</td>
+<td>三层嵌套循环</td>
+</tr>
+<tr>
+<td>指数</td>
+<td>$2^n$</td>
+<td>所有子集</td>
+</tr>
+<tr>
+<td>阶乘</td>
+<td>$n!$</td>
+<td>所有排列</td>
+</tr>
+</tbody></table>
+<h4 id="简单经验法则"><a href="#简单经验法则" class="headerlink" title="简单经验法则"></a>简单经验法则</h4><p>手动追踪小例子。<br>计算步数、内存使用和递归深度。<br>在运行代码之前，你就能看出增长趋势。</p>
+<h3 id="第-2-页：递归式与主定理"><a href="#第-2-页：递归式与主定理" class="headerlink" title="第 2 页：递归式与主定理"></a>第 2 页：递归式与主定理</h3><p>本页将帮助你分解递归算法，并使用递归式估算其运行时间。</p>
+<h4 id="什么是递归式？"><a href="#什么是递归式？" class="headerlink" title="什么是递归式？"></a>什么是递归式？</h4><p>递归关系式用更小的子问题的成本来表达问题成本 $T(n)$。</p>
+<p>典型结构：</p>
+<p>$$<br>T(n) &#x3D; a , T\left(\frac{n}{b}\right) + f(n)<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$a$ &#x3D; 子问题的数量</li>
+<li>$b$ &#x3D; 输入规模缩小的因子</li>
+<li>$f(n)$ &#x3D; 每次调用额外的工作量（合并、组合等）</li>
+</ul>
+<h4 id="常见的递归式"><a href="#常见的递归式" class="headerlink" title="常见的递归式"></a>常见的递归式</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>递归式形式</th>
+<th>解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>二分查找</td>
+<td>$T(n)&#x3D;T(n&#x2F;2)+1$</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>$T(n)&#x3D;2T(n&#x2F;2)+n$</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>快速排序（平均）</td>
+<td>$T(n)&#x3D;2T(n&#x2F;2)+O(n)$</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>快速排序（最坏）</td>
+<td>$T(n)&#x3D;T(n-1)+O(n)$</td>
+<td>$O(n^2)$</td>
+</tr>
+<tr>
+<td>矩阵乘法</td>
+<td>$T(n)&#x3D;8T(n&#x2F;2)+O(n^2)$</td>
+<td>$O(n^3)$</td>
+</tr>
+<tr>
+<td>Karatsuba 算法</td>
+<td>$T(n)&#x3D;3T(n&#x2F;2)+O(n)$</td>
+<td>$O(n^{\log_2 3})$</td>
+</tr>
+</tbody></table>
+<h4 id="求解递归式"><a href="#求解递归式" class="headerlink" title="求解递归式"></a>求解递归式</h4><p>有几种方法可以求解递归式：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+<th>最适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>迭代法</td>
+<td>逐步展开</td>
+<td>简单的递归式</td>
+</tr>
+<tr>
+<td>代入法</td>
+<td>猜测并用归纳法证明</td>
+<td>验证</td>
+</tr>
+<tr>
+<td>递归树法</td>
+<td>可视化每一层的总工作量</td>
+<td>分治算法</td>
+</tr>
+<tr>
+<td>主定理</td>
+<td>求解 $T(n)&#x3D;aT(n&#x2F;b)+f(n)$ 的捷径</td>
+<td>标准形式</td>
+</tr>
+</tbody></table>
+<h4 id="主定理"><a href="#主定理" class="headerlink" title="主定理"></a>主定理</h4><p>给定 $$T(n) &#x3D; aT(n&#x2F;b) + f(n)$$</p>
+<p>令 $$n^{\log_b a}$$ 为“临界项”</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>条件</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>如果 $f(n) &#x3D; O(n^{\log_b a - \varepsilon})$</td>
+<td>$T(n) &#x3D; \Theta(n^{\log_b a})$</td>
+</tr>
+<tr>
+<td>2</td>
+<td>如果 $f(n) &#x3D; \Theta(n^{\log_b a}\log^k n)$</td>
+<td>$T(n) &#x3D; \Theta(n^{\log_b a}\log^{k+1} n)$</td>
+</tr>
+<tr>
+<td>3</td>
+<td>如果 $f(n) &#x3D; \Omega(n^{\log_b a + \varepsilon})$ 且满足正则条件</td>
+<td>$T(n) &#x3D; \Theta(f(n))$</td>
+</tr>
+</tbody></table>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>$a$</th>
+<th>$b$</th>
+<th>$f(n)$</th>
+<th>情况</th>
+<th>$T(n)$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>归并排序</td>
+<td>2</td>
+<td>2</td>
+<td>$n$</td>
+<td>2</td>
+<td>$\Theta(n\log n)$</td>
+</tr>
+<tr>
+<td>二分查找</td>
+<td>1</td>
+<td>2</td>
+<td>$1$</td>
+<td>1</td>
+<td>$\Theta(\log n)$</td>
+</tr>
+<tr>
+<td>Strassen 矩阵乘法</td>
+<td>7</td>
+<td>2</td>
+<td>$n^2$</td>
+<td>2</td>
+<td>$\Theta(n^{\log_2 7})$</td>
+</tr>
+<tr>
+<td>快速排序（平均）</td>
+<td>2</td>
+<td>2</td>
+<td>$n$</td>
+<td>2</td>
+<td>$\Theta(n\log n)$</td>
+</tr>
+</tbody></table>
+<h4 id="递归树可视化"><a href="#递归树可视化" class="headerlink" title="递归树可视化"></a>递归树可视化</h4><p>将成本分解到各层：</p>
+<p>示例：$T(n)&#x3D;2T(n&#x2F;2)+n$</p>
+<table>
+<thead>
+<tr>
+<th>层数</th>
+<th>节点数</th>
+<th>每个节点的工作量</th>
+<th>总工作量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>1</td>
+<td>$n$</td>
+<td>$n$</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>$n&#x2F;2$</td>
+<td>$n$</td>
+</tr>
+<tr>
+<td>2</td>
+<td>4</td>
+<td>$n&#x2F;4$</td>
+<td>$n$</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<p>对 $\log_2 n$ 层求和：</p>
+<p>$$T(n) &#x3D; n \log_2 n$$</p>
+<h4 id="微型代码：快速幂运算"><a href="#微型代码：快速幂运算" class="headerlink" title="微型代码：快速幂运算"></a>微型代码：快速幂运算</h4><p>高效计算 $a^n$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">power</span>(<span class="params">a, n</span>):</span><br><span class="line">    res = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">if</span> n % <span class="number">2</span> == <span class="number">1</span>:</span><br><span class="line">            res *= a</span><br><span class="line">        a *= a</span><br><span class="line">        n //= <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<p>递归式：</p>
+<p>$$T(n) &#x3D; T(n&#x2F;2) + O(1) \Rightarrow O(\log n)$$</p>
+<h4 id="迭代法示例"><a href="#迭代法示例" class="headerlink" title="迭代法示例"></a>迭代法示例</h4><p>求解 $T(n)&#x3D;T(n&#x2F;2)+n$</p>
+<p>展开：</p>
+<p>$$<br>\begin{aligned}<br>T(n) &amp;&#x3D; T(n&#x2F;2) + n \<br>&amp;&#x3D; T(n&#x2F;4) + n&#x2F;2 + n \<br>&amp;&#x3D; T(n&#x2F;8) + n&#x2F;4 + n&#x2F;2 + n \<br>&amp;&#x3D; \ldots + n(1 + 1&#x2F;2 + 1&#x2F;4 + \ldots) \<br>&amp;&#x3D; O(n)<br>\end{aligned}<br>$$</p>
+<h4 id="常见形式"><a href="#常见形式" class="headerlink" title="常见形式"></a>常见形式</h4><table>
+<thead>
+<tr>
+<th>形式</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$T(n)&#x3D;T(n-1)+O(1)$</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>$T(n)&#x3D;T(n&#x2F;2)+O(1)$</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>$T(n)&#x3D;2T(n&#x2F;2)+O(1)$</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>$T(n)&#x3D;2T(n&#x2F;2)+O(n)$</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>$T(n)&#x3D;T(n&#x2F;2)+O(n)$</td>
+<td>$O(n)$</td>
+</tr>
+</tbody></table>
+<h4 id="快速检查清单"><a href="#快速检查清单" class="headerlink" title="快速检查清单"></a>快速检查清单</h4><ol>
+<li>识别 $a$、$b$ 和 $f(n)$</li>
+<li>比较 $f(n)$ 与 $n^{\log_b a}$</li>
+<li>应用正确的情况</li>
+<li>确认假设（正则条件）</li>
+<li>给出最终的复杂度</li>
+</ol>
+<p>理解递归式有助于你在编码前估算性能。<br>始终关注子问题的数量、大小以及合并成本。</p>
+<h3 id="第-3-页：排序概览"><a href="#第-3-页：排序概览" class="headerlink" title="第 3 页：排序概览"></a>第 3 页：排序概览</h3><p>排序是最常见的算法任务之一。本页帮助您快速比较各种排序方法、它们的复杂度、稳定性以及适用场景。</p>
+<h4 id="为什么排序很重要"><a href="#为什么排序很重要" class="headerlink" title="为什么排序很重要"></a>为什么排序很重要</h4><p>排序可以组织数据，使搜索、合并和分析变得高效。<br>一旦输入数据被排序，许多问题就会变得更简单。</p>
+<h4 id="快速比较表"><a href="#快速比较表" class="headerlink" title="快速比较表"></a>快速比较表</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>最佳情况</th>
+<th>平均情况</th>
+<th>最坏情况</th>
+<th>空间复杂度</th>
+<th>稳定</th>
+<th>原地</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>冒泡排序</td>
+<td>$O(n)$</td>
+<td>$O(n^2)$</td>
+<td>$O(n^2)$</td>
+<td>$O(1)$</td>
+<td>是</td>
+<td>是</td>
+<td>简单，适合教学</td>
+</tr>
+<tr>
+<td>选择排序</td>
+<td>$O(n^2)$</td>
+<td>$O(n^2)$</td>
+<td>$O(n^2)$</td>
+<td>$O(1)$</td>
+<td>否</td>
+<td>是</td>
+<td>交换次数少</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>$O(n)$</td>
+<td>$O(n^2)$</td>
+<td>$O(n^2)$</td>
+<td>$O(1)$</td>
+<td>是</td>
+<td>是</td>
+<td>适用于小数据或部分有序数据</td>
+</tr>
+<tr>
+<td>归并排序</td>
+<td>$O(n\log n)$</td>
+<td>$O(n\log n)$</td>
+<td>$O(n\log n)$</td>
+<td>$O(n)$</td>
+<td>是</td>
+<td>否</td>
+<td>稳定，分治策略</td>
+</tr>
+<tr>
+<td>快速排序</td>
+<td>$O(n\log n)$</td>
+<td>$O(n\log n)$</td>
+<td>$O(n^2)$</td>
+<td>$O(\log n)$</td>
+<td>否</td>
+<td>是</td>
+<td>平均速度快，原地排序</td>
+</tr>
+<tr>
+<td>堆排序</td>
+<td>$O(n\log n)$</td>
+<td>$O(n\log n)$</td>
+<td>$O(n\log n)$</td>
+<td>$O(1)$</td>
+<td>否</td>
+<td>是</td>
+<td>不稳定</td>
+</tr>
+<tr>
+<td>计数排序</td>
+<td>$O(n+k)$</td>
+<td>$O(n+k)$</td>
+<td>$O(n+k)$</td>
+<td>$O(n+k)$</td>
+<td>是</td>
+<td>否</td>
+<td>仅适用于整数键</td>
+</tr>
+<tr>
+<td>基数排序</td>
+<td>$O(d(n+k))$</td>
+<td>$O(d(n+k))$</td>
+<td>$O(d(n+k))$</td>
+<td>$O(n+k)$</td>
+<td>是</td>
+<td>否</td>
+<td>按位排序</td>
+</tr>
+<tr>
+<td>桶排序</td>
+<td>$O(n+k)$</td>
+<td>$O(n+k)$</td>
+<td>$O(n^2)$</td>
+<td>$O(n)$</td>
+<td>是</td>
+<td>否</td>
+<td>需要数据均匀分布</td>
+</tr>
+</tbody></table>
+<h4 id="如何选择排序算法"><a href="#如何选择排序算法" class="headerlink" title="如何选择排序算法"></a>如何选择排序算法</h4><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>最佳选择</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小数组或接近有序的数据</td>
+<td>插入排序</td>
+</tr>
+<tr>
+<td>需要稳定排序，一般情况</td>
+<td>归并排序或 Timsort</td>
+</tr>
+<tr>
+<td>需要原地排序且平均速度快</td>
+<td>快速排序</td>
+</tr>
+<tr>
+<td>保证最坏情况 $O(n\log n)$</td>
+<td>堆排序</td>
+</tr>
+<tr>
+<td>小整数键或有限范围</td>
+<td>计数排序或基数排序</td>
+</tr>
+<tr>
+<td>外部排序（大数据）</td>
+<td>外部归并排序</td>
+</tr>
+</tbody></table>
+<h4 id="微型代码：插入排序"><a href="#微型代码：插入排序" class="headerlink" title="微型代码：插入排序"></a>微型代码：插入排序</h4><p>对初学者来说简单直观。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">insertion_sort</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(a)):</span><br><span class="line">        key = a[i]</span><br><span class="line">        j = i - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> a[j] &gt; key:</span><br><span class="line">            a[j + <span class="number">1</span>] = a[j]</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        a[j + <span class="number">1</span>] = key</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
+
+<p>复杂度：<br>$$T(n) &#x3D; O(n^2)$$ 平均情况，$$O(n)$$ 最佳情况（已排序）</p>
+<h4 id="分治排序"><a href="#分治排序" class="headerlink" title="分治排序"></a>分治排序</h4><h5 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h5><p>分割列表，排序子序列，合并结果。</p>
+<p>递归式：<br>$$T(n) &#x3D; 2T(n&#x2F;2) + O(n) &#x3D; O(n\log n)$$</p>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">merge_sort</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    mid = <span class="built_in">len</span>(a)//<span class="number">2</span></span><br><span class="line">    L = merge_sort(a[:mid])</span><br><span class="line">    R = merge_sort(a[mid:])</span><br><span class="line">    i = j = <span class="number">0</span></span><br><span class="line">    res = []</span><br><span class="line">    <span class="keyword">while</span> i &lt; <span class="built_in">len</span>(L) <span class="keyword">and</span> j &lt; <span class="built_in">len</span>(R):</span><br><span class="line">        <span class="keyword">if</span> L[i] &lt;= R[j]:</span><br><span class="line">            res.append(L[i]); i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            res.append(R[j]); j += <span class="number">1</span></span><br><span class="line">    res.extend(L[i:]); res.extend(R[j:])</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><p>选择枢轴，分区，排序子数组。</p>
+<p>递归式：<br>$$T(n) &#x3D; T(k) + T(n-k-1) + O(n)$$<br>平均情况：$$O(n\log n)$$<br>最坏情况：$$O(n^2)$$</p>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">quick_sort</span>(<span class="params">a</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    pivot = a[<span class="built_in">len</span>(a)//<span class="number">2</span>]</span><br><span class="line">    left  = [x <span class="keyword">for</span> x <span class="keyword">in</span> a <span class="keyword">if</span> x &lt; pivot]</span><br><span class="line">    mid   = [x <span class="keyword">for</span> x <span class="keyword">in</span> a <span class="keyword">if</span> x == pivot]</span><br><span class="line">    right = [x <span class="keyword">for</span> x <span class="keyword">in</span> a <span class="keyword">if</span> x &gt; pivot]</span><br><span class="line">    <span class="keyword">return</span> quick_sort(left) + mid + quick_sort(right)</span><br></pre></td></tr></table></figure>
+
+<h4 id="稳定排序-vs-不稳定排序"><a href="#稳定排序-vs-不稳定排序" class="headerlink" title="稳定排序 vs 不稳定排序"></a>稳定排序 vs 不稳定排序</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>稳定</td>
+<td>相等元素保持原始顺序</td>
+<td>归并排序，插入排序</td>
+</tr>
+<tr>
+<td>不稳定</td>
+<td>可能重排相等元素的顺序</td>
+<td>快速排序，堆排序</td>
+</tr>
+</tbody></table>
+<h4 id="可视化技巧"><a href="#可视化技巧" class="headerlink" title="可视化技巧"></a>可视化技巧</h4><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>冒泡</td>
+<td>比较并交换相邻元素</td>
+</tr>
+<tr>
+<td>选择</td>
+<td>每轮选择最小值</td>
+</tr>
+<tr>
+<td>插入</td>
+<td>逐步扩展有序区域</td>
+</tr>
+<tr>
+<td>归并</td>
+<td>分割，征服，合并</td>
+</tr>
+<tr>
+<td>快速</td>
+<td>分区并递归</td>
+</tr>
+<tr>
+<td>堆</td>
+<td>建堆，重复提取</td>
+</tr>
+</tbody></table>
+<h4 id="总结表"><a href="#总结表" class="headerlink" title="总结表"></a>总结表</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>类别</th>
+<th>复杂度</th>
+<th>稳定</th>
+<th>空间复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>简单排序</td>
+<td>冒泡，选择</td>
+<td>$O(n^2)$</td>
+<td>视情况而定</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>插入排序</td>
+<td>增量式</td>
+<td>$O(n^2)$</td>
+<td>是</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>分治排序</td>
+<td>归并，快速</td>
+<td>$O(n\log n)$</td>
+<td>归并稳定</td>
+<td>归并非原地</td>
+</tr>
+<tr>
+<td>分布排序</td>
+<td>计数，基数</td>
+<td>$O(n+k)$</td>
+<td>是</td>
+<td>$O(n+k)$</td>
+</tr>
+<tr>
+<td>混合排序</td>
+<td>Timsort, IntroSort</td>
+<td>$O(n\log n)$</td>
+<td>是</td>
+<td>视情况而定</td>
+</tr>
+</tbody></table>
+<p>如有疑问，可以从 Timsort（Python）或 std::sort（C++）开始，它们能动态适应。</p>
+<h3 id="第-4-页：搜索与选择"><a href="#第-4-页：搜索与选择" class="headerlink" title="第 4 页：搜索与选择"></a>第 4 页：搜索与选择</h3><p>搜索意味着从集合中找到你需要的元素。选择意味着挑选特定的元素，例如最小、最大或第 k 个元素。本页对两者进行总结。</p>
+<h4 id="搜索基础"><a href="#搜索基础" class="headerlink" title="搜索基础"></a>搜索基础</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+<th>数据要求</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线性搜索</td>
+<td>逐个检查</td>
+<td>无</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>二分搜索</td>
+<td>每一步将范围除以 2</td>
+<td>已排序</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>跳跃搜索</td>
+<td>向前跳过固定步数</td>
+<td>已排序</td>
+<td>$O(\sqrt n)$</td>
+</tr>
+<tr>
+<td>插值搜索</td>
+<td>基于值猜测位置</td>
+<td>已排序，均匀分布</td>
+<td>平均 $O(\log\log n)$</td>
+</tr>
+<tr>
+<td>指数搜索</td>
+<td>扩展窗口，然后二分搜索</td>
+<td>已排序</td>
+<td>$O(\log n)$</td>
+</tr>
+</tbody></table>
+<h4 id="线性搜索"><a href="#线性搜索" class="headerlink" title="线性搜索"></a>线性搜索</h4><p>简单，但对于大型输入较慢。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">linear_search</span>(<span class="params">a, x</span>):</span><br><span class="line">    <span class="keyword">for</span> i, v <span class="keyword">in</span> <span class="built_in">enumerate</span>(a):</span><br><span class="line">        <span class="keyword">if</span> v == x:</span><br><span class="line">            <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>复杂度：<br>$$T(n) &#x3D; O(n)$$</p>
+<h4 id="二分搜索"><a href="#二分搜索" class="headerlink" title="二分搜索"></a>二分搜索</h4><p>在已排序列表上快速。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">binary_search</span>(<span class="params">a, x</span>):</span><br><span class="line">    lo, hi = <span class="number">0</span>, <span class="built_in">len</span>(a) - <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> lo &lt;= hi:</span><br><span class="line">        mid = (lo + hi) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> a[mid] == x:</span><br><span class="line">            <span class="keyword">return</span> mid</span><br><span class="line">        <span class="keyword">elif</span> a[mid] &lt; x:</span><br><span class="line">            lo = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            hi = mid - <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>复杂度：<br>$$T(n) &#x3D; T(n&#x2F;2) + 1 \Rightarrow O(\log n)$$</p>
+<h4 id="二分搜索变体"><a href="#二分搜索变体" class="headerlink" title="二分搜索变体"></a>二分搜索变体</h4><table>
+<thead>
+<tr>
+<th>变体</th>
+<th>目标</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>下界</td>
+<td>第一个满足 $a[i] \ge x$ 的索引</td>
+<td>第一个 ≥ x 的位置</td>
+</tr>
+<tr>
+<td>上界</td>
+<td>第一个满足 $a[i] &gt; x$ 的索引</td>
+<td>第一个 &gt; x 的位置</td>
+</tr>
+<tr>
+<td>计数范围</td>
+<td><code>upper_bound - lower_bound</code></td>
+<td>排序数组中 $x$ 的个数</td>
+</tr>
+</tbody></table>
+<h4 id="常见的二分搜索陷阱"><a href="#常见的二分搜索陷阱" class="headerlink" title="常见的二分搜索陷阱"></a>常见的二分搜索陷阱</h4><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>修复方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无限循环</td>
+<td>正确更新边界</td>
+</tr>
+<tr>
+<td>差一错误</td>
+<td>仔细检查中间值的包含关系</td>
+</tr>
+<tr>
+<td>不适用于未排序数据</td>
+<td>排序或使用基于哈希的搜索</td>
+</tr>
+<tr>
+<td>溢出（C&#x2F;C++）</td>
+<td><code>mid = lo + (hi - lo) / 2</code></td>
+</tr>
+</tbody></table>
+<h4 id="指数搜索"><a href="#指数搜索" class="headerlink" title="指数搜索"></a>指数搜索</h4><p>用于无界或大型已排序列表。</p>
+<ol>
+<li>检查位置 $1, 2, 4, 8, …$ 直到 $a[i] \ge x$</li>
+<li>在最后找到的区间内进行二分搜索</li>
+</ol>
+<p>复杂度：<br>$$O(\log n)$$</p>
+<h4 id="选择问题"><a href="#选择问题" class="headerlink" title="选择问题"></a>选择问题</h4><p>查找第 $k$ 个最小或最大元素。</p>
+<table>
+<thead>
+<tr>
+<th>任务</th>
+<th>示例用例</th>
+<th>算法</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最小值 &#x2F; 最大值</td>
+<td>最小 &#x2F; 最大元素</td>
+<td>线性扫描</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>第 k 小元素</td>
+<td>顺序统计量</td>
+<td>快速选择</td>
+<td>平均 $O(n)$</td>
+</tr>
+<tr>
+<td>中位数</td>
+<td>中间元素</td>
+<td>快速选择</td>
+<td>平均 $O(n)$</td>
+</tr>
+<tr>
+<td>前 k 个元素</td>
+<td>部分排序</td>
+<td>堆 &#x2F; 分区</td>
+<td>$O(n\log k)$</td>
+</tr>
+<tr>
+<td>中位数的中位数</td>
+<td>最坏情况线性选择</td>
+<td>确定性算法</td>
+<td>$O(n)$</td>
+</tr>
+</tbody></table>
+<h4 id="微型代码：快速选择（第-k-小元素）"><a href="#微型代码：快速选择（第-k-小元素）" class="headerlink" title="微型代码：快速选择（第 k 小元素）"></a>微型代码：快速选择（第 k 小元素）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">quickselect</span>(<span class="params">a, k</span>):</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(a) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> a[<span class="number">0</span>]</span><br><span class="line">    pivot = random.choice(a)</span><br><span class="line">    left  = [x <span class="keyword">for</span> x <span class="keyword">in</span> a <span class="keyword">if</span> x &lt; pivot]</span><br><span class="line">    mid   = [x <span class="keyword">for</span> x <span class="keyword">in</span> a <span class="keyword">if</span> x == pivot]</span><br><span class="line">    right = [x <span class="keyword">for</span> x <span class="keyword">in</span> a <span class="keyword">if</span> x &gt; pivot]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> k &lt; <span class="built_in">len</span>(left):</span><br><span class="line">        <span class="keyword">return</span> quickselect(left, k)</span><br><span class="line">    <span class="keyword">elif</span> k &lt; <span class="built_in">len</span>(left) + <span class="built_in">len</span>(mid):</span><br><span class="line">        <span class="keyword">return</span> pivot</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> quickselect(right, k - <span class="built_in">len</span>(left) - <span class="built_in">len</span>(mid))</span><br></pre></td></tr></table></figure>
+
+<p>复杂度：<br>平均 $O(n)$，最坏 $O(n^2)$</p>
+<h4 id="微型代码：下界"><a href="#微型代码：下界" class="headerlink" title="微型代码：下界"></a>微型代码：下界</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">lower_bound</span>(<span class="params">a, x</span>):</span><br><span class="line">    lo, hi = <span class="number">0</span>, <span class="built_in">len</span>(a)</span><br><span class="line">    <span class="keyword">while</span> lo &lt; hi:</span><br><span class="line">        mid = (lo + hi) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> a[mid] &lt; x:</span><br><span class="line">            lo = mid + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            hi = mid</span><br><span class="line">    <span class="keyword">return</span> lo</span><br></pre></td></tr></table></figure>
+
+<h4 id="基于哈希的搜索"><a href="#基于哈希的搜索" class="headerlink" title="基于哈希的搜索"></a>基于哈希的搜索</h4><p>当顺序无关紧要时，哈希提供接近常数的查找时间。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>平均</th>
+<th>最坏</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>搜索</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+</tr>
+</tbody></table>
+<p>最适合大型、未排序的集合。</p>
+<h4 id="总结表-1"><a href="#总结表-1" class="headerlink" title="总结表"></a>总结表</h4><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>推荐方法</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>小型数组</td>
+<td>线性搜索</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>大型、已排序数组</td>
+<td>二分搜索</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>无界范围</td>
+<td>指数搜索</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>需要第 k 小元素</td>
+<td>快速选择</td>
+<td>平均 $O(n)$</td>
+</tr>
+<tr>
+<td>多次查找</td>
+<td>哈希表</td>
+<td>平均 $O(1)$</td>
+</tr>
+</tbody></table>
+<h4 id="快速提示"><a href="#快速提示" class="headerlink" title="快速提示"></a>快速提示</h4><ul>
+<li>在应用二分搜索之前，始终检查数据是否已排序。</li>
+<li>当你只需要第 k 个元素，而不是完全排序时，快速选择非常有用。</li>
+<li>对未排序数据使用哈希映射进行快速查找。</li>
+</ul>
+<h3 id="第-5-页：核心数据结构"><a href="#第-5-页：核心数据结构" class="headerlink" title="第 5 页：核心数据结构"></a>第 5 页：核心数据结构</h3><p>数据结构组织数据以实现高效的访问和修改。<br>选择合适的数据结构常常能使算法变得简单而快速。</p>
+<h4 id="数组和列表"><a href="#数组和列表" class="headerlink" title="数组和列表"></a>数组和列表</h4><table>
+<thead>
+<tr>
+<th>结构</th>
+<th>访问</th>
+<th>查找</th>
+<th>尾部插入</th>
+<th>中间插入</th>
+<th>删除</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>静态数组</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+<td>不支持</td>
+<td>$O(n)$</td>
+<td>$O(n)$</td>
+<td>固定大小</td>
+</tr>
+<tr>
+<td>动态数组</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+<td>均摊 $O(1)$</td>
+<td>$O(n)$</td>
+<td>$O(n)$</td>
+<td>自动调整大小</td>
+</tr>
+<tr>
+<td>单向链表</td>
+<td>$O(n)$</td>
+<td>$O(n)$</td>
+<td>头部 $O(1)$</td>
+<td>已知节点时 $O(1)$</td>
+<td>已知节点时 $O(1)$</td>
+<td>顺序访问</td>
+</tr>
+<tr>
+<td>双向链表</td>
+<td>$O(n)$</td>
+<td>$O(n)$</td>
+<td>头部&#x2F;尾部 $O(1)$</td>
+<td>已知节点时 $O(1)$</td>
+<td>已知节点时 $O(1)$</td>
+<td>双向遍历</td>
+</tr>
+</tbody></table>
+<ul>
+<li>单向链表：仅有 next 指针</li>
+<li>双向链表：有 next 和 prev 指针</li>
+<li>动态数组使用<em>倍增</em>策略来增加容量</li>
+</ul>
+<h4 id="微型代码：动态数组扩容（类-Python）"><a href="#微型代码：动态数组扩容（类-Python）" class="headerlink" title="微型代码：动态数组扩容（类 Python）"></a>微型代码：动态数组扩容（类 Python）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">resize</span>(<span class="params">arr, new_cap</span>):</span><br><span class="line">    new = [<span class="literal">None</span>] * new_cap</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(arr)):</span><br><span class="line">        new[i] = arr[i]</span><br><span class="line">    <span class="keyword">return</span> new</span><br></pre></td></tr></table></figure>
+
+<p>容量倍增策略使得尾部追加操作保持均摊 $O(1)$ 复杂度。</p>
+<h4 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h4><table>
+<thead>
+<tr>
+<th>结构</th>
+<th>入栈&#x2F;入队</th>
+<th>出栈&#x2F;出队</th>
+<th>查看顶部&#x2F;队首</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>栈 (LIFO)</td>
+<td>$O(1)$</td>
+<td>$O(1)$</td>
+<td>$O(1)$</td>
+<td>撤销操作，递归</td>
+</tr>
+<tr>
+<td>队列 (FIFO)</td>
+<td>$O(1)$</td>
+<td>$O(1)$</td>
+<td>$O(1)$</td>
+<td>调度，广度优先搜索</td>
+</tr>
+<tr>
+<td>双端队列</td>
+<td>$O(1)$</td>
+<td>$O(1)$</td>
+<td>$O(1)$</td>
+<td>可在两端插入&#x2F;删除</td>
+</tr>
+</tbody></table>
+<h4 id="微型代码：栈"><a href="#微型代码：栈" class="headerlink" title="微型代码：栈"></a>微型代码：栈</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stack = []</span><br><span class="line">stack.append(x)   <span class="comment"># 入栈</span></span><br><span class="line">x = stack.pop()   <span class="comment"># 出栈</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="微型代码：队列"><a href="#微型代码：队列" class="headerlink" title="微型代码：队列"></a>微型代码：队列</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line">q = deque()</span><br><span class="line">q.append(x)   <span class="comment"># 入队</span></span><br><span class="line">x = q.popleft()  <span class="comment"># 出队</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="优先队列（堆）"><a href="#优先队列（堆）" class="headerlink" title="优先队列（堆）"></a>优先队列（堆）</h4><p>存储元素，使得最小（或最大）的元素始终位于顶部。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>提取最小值</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>查看最小值</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>建堆</td>
+<td>$O(n)$</td>
+</tr>
+</tbody></table>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line">heap = []</span><br><span class="line">heapq.heappush(heap, value)</span><br><span class="line">x = heapq.heappop(heap)</span><br></pre></td></tr></table></figure>
+
+<p>堆用于 Dijkstra（迪杰斯特拉）算法、Prim（普里姆）算法和调度问题。</p>
+<h4 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h4><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>平均情况</th>
+<th>最坏情况</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+<td>哈希冲突会增加开销</td>
+</tr>
+<tr>
+<td>查找</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+<td>良好的哈希函数和低负载因子有帮助</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>$O(1)$</td>
+<td>$O(n)$</td>
+<td>通常使用开放寻址或链地址法</td>
+</tr>
+</tbody></table>
+<p>核心思想：</p>
+<ul>
+<li>使用哈希函数计算索引：<code>index = hash(key) % capacity</code></li>
+<li>通过链地址法或开放寻址法解决冲突</li>
+</ul>
+<h4 id="微型代码：哈希映射（简化版）"><a href="#微型代码：哈希映射（简化版）" class="headerlink" title="微型代码：哈希映射（简化版）"></a>微型代码：哈希映射（简化版）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">table = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">8</span>)]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">put</span>(<span class="params">key, value</span>):</span><br><span class="line">    i = <span class="built_in">hash</span>(key) % <span class="built_in">len</span>(table)</span><br><span class="line">    <span class="keyword">for</span> kv <span class="keyword">in</span> table[i]:</span><br><span class="line">        <span class="keyword">if</span> kv[<span class="number">0</span>] == key:</span><br><span class="line">            kv[<span class="number">1</span>] = value</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">    table[i].append([key, value])</span><br></pre></td></tr></table></figure>
+
+<h4 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h4><p>基于哈希的唯一元素集合。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>平均复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>添加</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>查找</td>
+<td>$O(1)$</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>$O(1)$</td>
+</tr>
+</tbody></table>
+<p>用于成员检查和去重。</p>
+<h4 id="并查集（不相交集）"><a href="#并查集（不相交集）" class="headerlink" title="并查集（不相交集）"></a>并查集（不相交集）</h4><p>跟踪连通分量。<br>两个主要操作：</p>
+<ul>
+<li>find(x)：获取 x 的代表元素</li>
+<li>union(a, b)：合并 a 和 b 所在的集合</li>
+</ul>
+<p>配合路径压缩和按秩合并 → 接近 $O(1)$。</p>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">DSU</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n</span>):</span><br><span class="line">        <span class="variable language_">self</span>.p = <span class="built_in">list</span>(<span class="built_in">range</span>(n))</span><br><span class="line">        <span class="variable language_">self</span>.r = [<span class="number">0</span>]*n</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.p[x] != x:</span><br><span class="line">            <span class="variable language_">self</span>.p[x] = <span class="variable language_">self</span>.find(<span class="variable language_">self</span>.p[x])</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.p[x]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">union</span>(<span class="params">self, a, b</span>):</span><br><span class="line">        ra, rb = <span class="variable language_">self</span>.find(a), <span class="variable language_">self</span>.find(b)</span><br><span class="line">        <span class="keyword">if</span> ra == rb: <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.r[ra] &lt; <span class="variable language_">self</span>.r[rb]: ra, rb = rb, ra</span><br><span class="line">        <span class="variable language_">self</span>.p[rb] = ra</span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>.r[ra] == <span class="variable language_">self</span>.r[rb]:</span><br><span class="line">            <span class="variable language_">self</span>.r[ra] += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="总结表格"><a href="#总结表格" class="headerlink" title="总结表格"></a>总结表格</h4><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>结构</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>序列</td>
+<td>数组，列表</td>
+<td>有序数据</td>
+</tr>
+<tr>
+<td>LIFO&#x2F;FIFO</td>
+<td>栈，队列</td>
+<td>递归，调度</td>
+</tr>
+<tr>
+<td>优先级</td>
+<td>堆</td>
+<td>最佳优先选择，优先队列问题</td>
+</tr>
+<tr>
+<td>基于哈希</td>
+<td>哈希表，集合</td>
+<td>快速查找，唯一性</td>
+</tr>
+<tr>
+<td>连通性</td>
+<td>并查集</td>
+<td>图连通分量，聚类</td>
+</tr>
+</tbody></table>
+<h4 id="快速提示-1"><a href="#快速提示-1" class="headerlink" title="快速提示"></a>快速提示</h4><ul>
+<li>当随机访问重要时，选择数组。</li>
+<li>当频繁插入&#x2F;删除时，选择链表。</li>
+<li>为控制流选择栈或队列。</li>
+<li>为优先级选择堆。</li>
+<li>为常量时间查找选择哈希表。</li>
+<li>为不相交集或图合并选择并查集。</li>
+</ul>
+<h3 id="第-6-页：图算法速查"><a href="#第-6-页：图算法速查" class="headerlink" title="第 6 页：图算法速查"></a>第 6 页：图算法速查</h3><p>图用于建模对象之间的连接关系。<br>它们无处不在：地图、网络、依赖关系和系统中。<br>本页为您提供了常见图算法的简明概览。</p>
+<h4 id="图基础"><a href="#图基础" class="headerlink" title="图基础"></a>图基础</h4><p>图由顶点（节点）和边（连接）组成。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无向图</td>
+<td>边是双向的</td>
+</tr>
+<tr>
+<td>有向图</td>
+<td>边具有方向</td>
+</tr>
+<tr>
+<td>加权图</td>
+<td>边带有成本或距离</td>
+</tr>
+<tr>
+<td>无权图</td>
+<td>所有边的成本为 1</td>
+</tr>
+</tbody></table>
+<h4 id="表示方法"><a href="#表示方法" class="headerlink" title="表示方法"></a>表示方法</h4><table>
+<thead>
+<tr>
+<th>表示方法</th>
+<th>空间复杂度</th>
+<th>最适合</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>邻接表</td>
+<td>$O(V+E)$</td>
+<td>稀疏图</td>
+<td>实践中常用</td>
+</tr>
+<tr>
+<td>邻接矩阵</td>
+<td>$O(V^2)$</td>
+<td>稠密图</td>
+<td>常数时间查找边</td>
+</tr>
+<tr>
+<td>边列表</td>
+<td>$O(E)$</td>
+<td>基于边的算法</td>
+<td>易于遍历边</td>
+</tr>
+</tbody></table>
+<p>邻接表示例（Python）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph = &#123;</span><br><span class="line">    <span class="number">0</span>: [(<span class="number">1</span>, <span class="number">2</span>), (<span class="number">2</span>, <span class="number">5</span>)],</span><br><span class="line">    <span class="number">1</span>: [(<span class="number">2</span>, <span class="number">1</span>)],</span><br><span class="line">    <span class="number">2</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>每个元组 <code>(neighbor, weight)</code> 代表一条边。</p>
+<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><h5 id="广度优先搜索（BFS）"><a href="#广度优先搜索（BFS）" class="headerlink" title="广度优先搜索（BFS）"></a>广度优先搜索（BFS）</h5><p>逐层访问（适用于无权图中的最短路径）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">bfs</span>(<span class="params">adj, s</span>):</span><br><span class="line">    dist = &#123;s: <span class="number">0</span>&#125;</span><br><span class="line">    q = deque([s])</span><br><span class="line">    <span class="keyword">while</span> q:</span><br><span class="line">        u = q.popleft()</span><br><span class="line">        <span class="keyword">for</span> v <span class="keyword">in</span> adj[u]:</span><br><span class="line">            <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> dist:</span><br><span class="line">                dist[v] = dist[u] + <span class="number">1</span></span><br><span class="line">                q.append(v)</span><br><span class="line">    <span class="keyword">return</span> dist</span><br></pre></td></tr></table></figure>
+
+<p>复杂度：$O(V+E)$</p>
+<h5 id="深度优先搜索（DFS）"><a href="#深度优先搜索（DFS）" class="headerlink" title="深度优先搜索（DFS）"></a>深度优先搜索（DFS）</h5><p>在回溯之前深入探索。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">adj, u, visited</span>):</span><br><span class="line">    visited.add(u)</span><br><span class="line">    <span class="keyword">for</span> v <span class="keyword">in</span> adj[u]:</span><br><span class="line">        <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> visited:</span><br><span class="line">            dfs(adj, v, visited)</span><br></pre></td></tr></table></figure>
+
+<p>复杂度：$O(V+E)$</p>
+<h4 id="最短路径算法"><a href="#最短路径算法" class="headerlink" title="最短路径算法"></a>最短路径算法</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>适用图类型</th>
+<th>允许负权边？</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BFS</td>
+<td>无权图</td>
+<td>否</td>
+<td>$O(V+E)$</td>
+<td>最短跳数</td>
+</tr>
+<tr>
+<td>Dijkstra</td>
+<td>加权图（非负权）</td>
+<td>否</td>
+<td>$O((V+E)\log V)$</td>
+<td>使用优先队列</td>
+</tr>
+<tr>
+<td>Bellman-Ford</td>
+<td>加权图</td>
+<td>是</td>
+<td>$O(VE)$</td>
+<td>可检测负权环</td>
+</tr>
+<tr>
+<td>Floyd-Warshall</td>
+<td>所有节点对</td>
+<td>是</td>
+<td>$O(V^3)$</td>
+<td>动态规划方法</td>
+</tr>
+</tbody></table>
+<h4 id="精简代码：Dijkstra-算法"><a href="#精简代码：Dijkstra-算法" class="headerlink" title="精简代码：Dijkstra 算法"></a>精简代码：Dijkstra 算法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> heapq</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dijkstra</span>(<span class="params">adj, s</span>):</span><br><span class="line">    INF = <span class="number">1018</span></span><br><span class="line">    dist = [INF] * <span class="built_in">len</span>(adj)</span><br><span class="line">    dist[s] = <span class="number">0</span></span><br><span class="line">    pq = [(<span class="number">0</span>, s)]</span><br><span class="line">    <span class="keyword">while</span> pq:</span><br><span class="line">        d, u = heapq.heappop(pq)</span><br><span class="line">        <span class="keyword">if</span> d != dist[u]: </span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">for</span> v, w <span class="keyword">in</span> adj[u]:</span><br><span class="line">            nd = d + w</span><br><span class="line">            <span class="keyword">if</span> nd &lt; dist[v]:</span><br><span class="line">                dist[v] = nd</span><br><span class="line">                heapq.heappush(pq, (nd, v))</span><br><span class="line">    <span class="keyword">return</span> dist</span><br></pre></td></tr></table></figure>
+
+<h4 id="拓扑排序（仅适用于有向无环图）"><a href="#拓扑排序（仅适用于有向无环图）" class="headerlink" title="拓扑排序（仅适用于有向无环图）"></a>拓扑排序（仅适用于有向无环图）</h4><p>对节点排序，使得每条边 $(u,v)$ 都从较早的节点指向较晚的节点。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>思路</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>基于 DFS</td>
+<td>后序栈反转</td>
+<td>$O(V+E)$</td>
+</tr>
+<tr>
+<td>Kahn 算法</td>
+<td>移除入度为 0 的节点</td>
+<td>$O(V+E)$</td>
+</tr>
+</tbody></table>
+<h4 id="最小生成树（MST）"><a href="#最小生成树（MST）" class="headerlink" title="最小生成树（MST）"></a>最小生成树（MST）</h4><p>以最小的总权重连接所有节点。</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>思路</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Kruskal</td>
+<td>对边排序，使用并查集</td>
+<td>$O(E\log E)$</td>
+<td>与边列表配合良好</td>
+</tr>
+<tr>
+<td>Prim</td>
+<td>使用优先队列生长树</td>
+<td>$O(E\log V)$</td>
+<td>可从任意顶点开始</td>
+</tr>
+</tbody></table>
+<h4 id="精简代码：Kruskal-MST"><a href="#精简代码：Kruskal-MST" class="headerlink" title="精简代码：Kruskal MST"></a>精简代码：Kruskal MST</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">kruskal</span>(<span class="params">edges, n</span>):</span><br><span class="line">    parent = <span class="built_in">list</span>(<span class="built_in">range</span>(n))</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">x</span>):</span><br><span class="line">        <span class="keyword">if</span> parent[x] != x:</span><br><span class="line">            parent[x] = find(parent[x])</span><br><span class="line">        <span class="keyword">return</span> parent[x]</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> w, u, v <span class="keyword">in</span> <span class="built_in">sorted</span>(edges):</span><br><span class="line">        ru, rv = find(u), find(v)</span><br><span class="line">        <span class="keyword">if</span> ru != rv:</span><br><span class="line">            res += w</span><br><span class="line">            parent[rv] = ru</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h4 id="强连通分量（SCC）"><a href="#强连通分量（SCC）" class="headerlink" title="强连通分量（SCC）"></a>强连通分量（SCC）</h4><p>子集中的每个节点都可以到达其他所有节点。<br>使用 Kosaraju 或 Tarjan 算法，两者复杂度均为 $O(V+E)$。</p>
+<h4 id="环检测"><a href="#环检测" class="headerlink" title="环检测"></a>环检测</h4><table>
+<thead>
+<tr>
+<th>图类型</th>
+<th>方法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>无向图</td>
+<td>带父节点信息的 DFS</td>
+<td>访问到非父节点的已访问边</td>
+</tr>
+<tr>
+<td>有向图</td>
+<td>带颜色&#x2F;状态的 DFS</td>
+<td>发现回边即存在环</td>
+</tr>
+</tbody></table>
+<h4 id="总结表-2"><a href="#总结表-2" class="headerlink" title="总结表"></a>总结表</h4><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>算法</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>访问所有节点</td>
+<td>DFS &#x2F; BFS</td>
+<td>$O(V+E)$</td>
+<td>遍历</td>
+</tr>
+<tr>
+<td>最短路径（无权图）</td>
+<td>BFS</td>
+<td>$O(V+E)$</td>
+<td>计算边数</td>
+</tr>
+<tr>
+<td>最短路径（加权图）</td>
+<td>Dijkstra</td>
+<td>$O(E\log V)$</td>
+<td>不允许负权</td>
+</tr>
+<tr>
+<td>允许负权边</td>
+<td>Bellman-Ford</td>
+<td>$O(VE)$</td>
+<td>可检测负权环</td>
+</tr>
+<tr>
+<td>所有节点对最短路径</td>
+<td>Floyd-Warshall</td>
+<td>$O(V^3)$</td>
+<td>动态规划矩阵</td>
+</tr>
+<tr>
+<td>最小生成树</td>
+<td>Kruskal &#x2F; Prim</td>
+<td>$O(E\log V)$</td>
+<td>最小连接成本</td>
+</tr>
+<tr>
+<td>有向无环图排序</td>
+<td>拓扑排序</td>
+<td>$O(V+E)$</td>
+<td>仅适用于有向无环图</td>
+</tr>
+</tbody></table>
+<h4 id="快速提示-2"><a href="#快速提示-2" class="headerlink" title="快速提示"></a>快速提示</h4><ul>
+<li>在无权图中寻找最短路径时使用 BFS。</li>
+<li>如果权重非负，使用 Dijkstra。</li>
+<li>在 Kruskal MST 中使用并查集。</li>
+<li>解决依赖关系时使用拓扑排序。</li>
+<li>在使用 Dijkstra 之前，务必检查是否存在负权边。</li>
+</ul>
+<h3 id="第-7-页：动态规划快速使用指南"><a href="#第-7-页：动态规划快速使用指南" class="headerlink" title="第 7 页：动态规划快速使用指南"></a>第 7 页：动态规划快速使用指南</h3><p>动态规划（DP）的核心思想是将大问题分解为重叠的子问题，并重用子问题的解。本页旨在帮助你快速识别动态规划的模式。</p>
+<h4 id="何时使用动态规划"><a href="#何时使用动态规划" class="headerlink" title="何时使用动态规划"></a>何时使用动态规划</h4><p>通常，如果问题具备以下特征，就可以应用动态规划：</p>
+<table>
+<thead>
+<tr>
+<th>特征</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最优子结构</td>
+<td>最优解由子问题的最优解构成</td>
+</tr>
+<tr>
+<td>重叠子问题</td>
+<td>相同的子结果会重复出现</td>
+</tr>
+<tr>
+<td>决策 + 递推关系</td>
+<td>可以定义状态之间的转移关系</td>
+</tr>
+</tbody></table>
+<h4 id="动态规划的实现方式"><a href="#动态规划的实现方式" class="headerlink" title="动态规划的实现方式"></a>动态规划的实现方式</h4><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自顶向下（记忆化）</td>
+<td>递归 + 缓存结果</td>
+<td>带记忆化的斐波那契数列</td>
+</tr>
+<tr>
+<td>自底向上（表格法）</td>
+<td>迭代填充表格</td>
+<td>背包问题的表格解法</td>
+</tr>
+<tr>
+<td>空间优化</td>
+<td>复用前一行&#x2F;前一个状态</td>
+<td>滚动数组</td>
+</tr>
+</tbody></table>
+<h4 id="斐波那契数列示例"><a href="#斐波那契数列示例" class="headerlink" title="斐波那契数列示例"></a>斐波那契数列示例</h4><p>递推关系：<br>$$F(n)&#x3D;F(n-1)+F(n-2),\quad F(0)&#x3D;0,F(1)&#x3D;1$$</p>
+<h5 id="自顶向下（记忆化）"><a href="#自顶向下（记忆化）" class="headerlink" title="自顶向下（记忆化）"></a>自顶向下（记忆化）</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">n, memo=&#123;&#125;</span>):</span><br><span class="line">    <span class="keyword">if</span> n &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> n</span><br><span class="line">    <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> memo:</span><br><span class="line">        memo[n] = fib(n-<span class="number">1</span>, memo) + fib(n-<span class="number">2</span>, memo)</span><br><span class="line">    <span class="keyword">return</span> memo[n]</span><br></pre></td></tr></table></figure>
+
+<h5 id="自底向上（表格法）"><a href="#自底向上（表格法）" class="headerlink" title="自底向上（表格法）"></a>自底向上（表格法）</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">fib</span>(<span class="params">n</span>):</span><br><span class="line">    dp = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n + <span class="number">1</span>):</span><br><span class="line">        dp.append(dp[i-<span class="number">1</span>] + dp[i-<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>
+
+<h4 id="解决动态规划问题的步骤"><a href="#解决动态规划问题的步骤" class="headerlink" title="解决动态规划问题的步骤"></a>解决动态规划问题的步骤</h4><ol>
+<li>定义状态<br>示例：$dp[i]$ &#x3D; 前 $i$ 个物品的最优解</li>
+<li>定义状态转移方程<br>示例：$dp[i]&#x3D;\max(dp[i-1], value[i]+dp[i-weight[i]])$</li>
+<li>设置基本情况<br>示例：$dp[0]&#x3D;0$</li>
+<li>选择计算顺序<br>自底向上或自顶向下</li>
+<li>返回答案<br>通常是 $dp[n]$ 或 $dp[target]$</li>
+</ol>
+<h4 id="常见的动态规划类别"><a href="#常见的动态规划类别" class="headerlink" title="常见的动态规划类别"></a>常见的动态规划类别</h4><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>示例问题</th>
+<th>状态形式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>序列</td>
+<td>最长递增子序列，最长公共子序列，编辑距离</td>
+<td>$dp[i][j]$ 基于前缀</td>
+</tr>
+<tr>
+<td>子集</td>
+<td>背包问题，子集和问题</td>
+<td>$dp[i][w]$ 基于容量</td>
+</tr>
+<tr>
+<td>划分</td>
+<td>回文划分，等和子集</td>
+<td>$dp[i]$ 基于切割点</td>
+</tr>
+<tr>
+<td>网格</td>
+<td>最小路径和，不同路径</td>
+<td>$dp[i][j]$ 基于单元格</td>
+</tr>
+<tr>
+<td>计数</td>
+<td>零钱兑换（组合数），爬楼梯</td>
+<td>从子问题累加方案数</td>
+</tr>
+<tr>
+<td>区间</td>
+<td>矩阵链乘法，戳气球</td>
+<td>$dp[i][j]$ 基于区间子问题</td>
+</tr>
+<tr>
+<td>状态压缩</td>
+<td>旅行商问题，任务分配</td>
+<td>$dp[mask][i]$ 基于子集状态</td>
+</tr>
+<tr>
+<td>数位</td>
+<td>满足约束的数字计数</td>
+<td>$dp[pos][tight][sum]$ 基于数位</td>
+</tr>
+<tr>
+<td>树形</td>
+<td>换根动态规划，子树动态规划</td>
+<td>$dp[u]$ 基于子节点</td>
+</tr>
+</tbody></table>
+<h4 id="经典问题"><a href="#经典问题" class="headerlink" title="经典问题"></a>经典问题</h4><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>状态定义</th>
+<th>状态转移方程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>爬楼梯</td>
+<td>$dp[i]&#x3D;$ 到达第 i 级台阶的方法数</td>
+<td>$dp[i]&#x3D;dp[i-1]+dp[i-2]$</td>
+</tr>
+<tr>
+<td>零钱兑换（组合数）</td>
+<td>$dp[x]&#x3D;$ 组成金额 x 的方法数</td>
+<td>$dp[x]+&#x3D;dp[x-coin]$</td>
+</tr>
+<tr>
+<td>0&#x2F;1 背包</td>
+<td>$dp[w]&#x3D;$ 重量不超过 w 的最大价值</td>
+<td>$dp[w]&#x3D;\max(dp[w],dp[w-w_i]+v_i)$</td>
+</tr>
+<tr>
+<td>最长递增子序列</td>
+<td>$dp[i]&#x3D;$ 以 i 结尾的最长递增子序列长度</td>
+<td>若 $a[j]&lt;a[i]$，则 $dp[i]&#x3D;dp[j]+1$</td>
+</tr>
+<tr>
+<td>编辑距离</td>
+<td>$dp[i][j]&#x3D;$ 编辑代价</td>
+<td>min(插入，删除，替换)</td>
+</tr>
+<tr>
+<td>矩阵链乘法</td>
+<td>$dp[i][j]&#x3D;$ 子链相乘的最小代价</td>
+<td>$dp[i][j]&#x3D;\min_k(dp[i][k]+dp[k+1][j])$</td>
+</tr>
+</tbody></table>
+<h4 id="精简代码：0-1-背包（一维空间优化）"><a href="#精简代码：0-1-背包（一维空间优化）" class="headerlink" title="精简代码：0&#x2F;1 背包（一维空间优化）"></a>精简代码：0&#x2F;1 背包（一维空间优化）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">knapsack</span>(<span class="params">weights, values, W</span>):</span><br><span class="line">    dp = [<span class="number">0</span>]*(W+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(weights)):</span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> <span class="built_in">range</span>(W, weights[i]-<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            dp[w] = <span class="built_in">max</span>(dp[w], dp[w-weights[i]] + values[i])</span><br><span class="line">    <span class="keyword">return</span> dp[W]</span><br></pre></td></tr></table></figure>
+
+<h4 id="序列对齐示例"><a href="#序列对齐示例" class="headerlink" title="序列对齐示例"></a>序列对齐示例</h4><p>编辑距离递推关系：</p>
+<p>$$<br>dp[i][j] &#x3D;<br>\begin{cases}<br>dp[i-1][j-1], &amp; \text{if } s[i] &#x3D; t[j],\<br>1 + \min(dp[i-1][j],\ dp[i][j-1],\ dp[i-1][j-1]), &amp; \text{otherwise.}<br>\end{cases}<br>$$</p>
+<h4 id="优化技巧"><a href="#优化技巧" class="headerlink" title="优化技巧"></a>优化技巧</h4><table>
+<thead>
+<tr>
+<th>技巧</th>
+<th>适用场景</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空间优化</td>
+<td>二维状态可复用为一维</td>
+<td>背包问题，最长公共子序列</td>
+</tr>
+<tr>
+<td>前缀&#x2F;后缀预处理</td>
+<td>区间聚合查询</td>
+<td>区间和&#x2F;最小值查询</td>
+</tr>
+<tr>
+<td>分治动态规划</td>
+<td>决策具有单调性</td>
+<td>矩阵链乘法</td>
+</tr>
+<tr>
+<td>凸包优化</td>
+<td>转移方程为线性函数取最小值</td>
+<td>基于直线的动态规划</td>
+</tr>
+<tr>
+<td>位集动态规划</td>
+<td>状态为大规模布尔集合</td>
+<td>子集和问题的优化</td>
+</tr>
+</tbody></table>
+<h4 id="调试技巧"><a href="#调试技巧" class="headerlink" title="调试技巧"></a>调试技巧</h4><ul>
+<li>打印部分 <code>dp</code> 数组以观察计算过程。</li>
+<li>仔细检查基本情况。</li>
+<li>确保循环顺序符合状态转移的依赖关系。</li>
+<li>在编码之前，务必确认递推关系是正确的。</li>
+</ul>
+<h3 id="第-8-页-算法快速数学指南"><a href="#第-8-页-算法快速数学指南" class="headerlink" title="第 8 页. 算法快速数学指南"></a>第 8 页. 算法快速数学指南</h3><p>数学为算法推理奠定了基础。<br>本页汇集了每个程序员都应该了解的基本公式和方法。</p>
+<h4 id="数论基础"><a href="#数论基础" class="headerlink" title="数论基础"></a>数论基础</h4><table>
+<thead>
+<tr>
+<th align="left">主题</th>
+<th align="left">描述</th>
+<th align="left">公式 &#x2F; 思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">最大公约数（欧几里得算法）</td>
+<td align="left">最大公约数</td>
+<td align="left">$gcd(a,b)&#x3D;gcd(b,a%b)$</td>
+</tr>
+<tr>
+<td align="left">扩展欧几里得算法</td>
+<td align="left">求解 $ax+by&#x3D;gcd(a,b)$</td>
+<td align="left">回溯系数</td>
+</tr>
+<tr>
+<td align="left">最小公倍数</td>
+<td align="left">最小公倍数</td>
+<td align="left">$lcm(a,b)&#x3D;\frac{a\cdot b}{gcd(a,b)}$</td>
+</tr>
+<tr>
+<td align="left">模加法</td>
+<td align="left">模 M 下的加法</td>
+<td align="left">$(a+b)\bmod M$</td>
+</tr>
+<tr>
+<td align="left">模乘法</td>
+<td align="left">模 M 下的乘法</td>
+<td align="left">$(a\cdot b)\bmod M$</td>
+</tr>
+<tr>
+<td align="left">模逆元</td>
+<td align="left">$a^{-1}\bmod M$</td>
+<td align="left">若 M 为质数，则 $a^{M-2}\bmod M$</td>
+</tr>
+<tr>
+<td align="left">模幂运算</td>
+<td align="left">快速幂运算</td>
+<td align="left">平方乘算法</td>
+</tr>
+<tr>
+<td align="left">中国剩余定理</td>
+<td align="left">合并同余式</td>
+<td align="left">求解方程组 $x\equiv a_i\pmod{m_i}$</td>
+</tr>
+</tbody></table>
+<p>微型代码（模幂运算）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">modpow</span>(<span class="params">a, n, M</span>):</span><br><span class="line">    res = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> n:</span><br><span class="line">        <span class="keyword">if</span> n &amp; <span class="number">1</span>:</span><br><span class="line">            res = res * a % M</span><br><span class="line">        a = a * a % M</span><br><span class="line">        n &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<h4 id="素数与因数分解"><a href="#素数与因数分解" class="headerlink" title="素数与因数分解"></a>素数与因数分解</h4><table>
+<thead>
+<tr>
+<th align="left">算法</th>
+<th align="left">用例</th>
+<th align="left">复杂度</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">试除法</td>
+<td align="left">小 n</td>
+<td align="left">$O(\sqrt{n})$</td>
+<td align="left">简单</td>
+</tr>
+<tr>
+<td align="left">埃拉托斯特尼筛法</td>
+<td align="left">生成素数</td>
+<td align="left">$O(n\log\log n)$</td>
+<td align="left">经典素数筛法</td>
+</tr>
+<tr>
+<td align="left">米勒-拉宾算法</td>
+<td align="left">概率性素数测试</td>
+<td align="left">$O(k\log^3 n)$</td>
+<td align="left">对大 n 快速</td>
+</tr>
+<tr>
+<td align="left">Pollard Rho 算法</td>
+<td align="left">分解合数</td>
+<td align="left">$O(n^{1&#x2F;4})$</td>
+<td align="left">随机化算法</td>
+</tr>
+<tr>
+<td align="left">Atkin 筛法</td>
+<td align="left">更快的变体</td>
+<td align="left">$O(n)$</td>
+<td align="left">实现复杂</td>
+</tr>
+</tbody></table>
+<h4 id="组合数学"><a href="#组合数学" class="headerlink" title="组合数学"></a>组合数学</h4><table>
+<thead>
+<tr>
+<th align="left">公式</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">$n! &#x3D; n\cdot(n-1)\cdots1$</td>
+<td align="left">阶乘</td>
+</tr>
+<tr>
+<td align="left">$\binom{n}{k}&#x3D;\dfrac{n!}{k!(n-k)!}$</td>
+<td align="left">组合数</td>
+</tr>
+<tr>
+<td align="left">$P(n,k)&#x3D;\dfrac{n!}{(n-k)!}$</td>
+<td align="left">排列数</td>
+</tr>
+<tr>
+<td align="left">帕斯卡法则：$\binom{n}{k}&#x3D;\binom{n-1}{k}+\binom{n-1}{k-1}$</td>
+<td align="left">构建帕斯卡三角形</td>
+</tr>
+<tr>
+<td align="left">卡特兰数：$C_n&#x3D;\dfrac{1}{n+1}\binom{2n}{n}$</td>
+<td align="left">括号计数</td>
+</tr>
+</tbody></table>
+<p>微型代码（使用阶乘和逆元计算 nCr 模 M）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">nCr</span>(<span class="params">n, r, fact, inv</span>):</span><br><span class="line">    <span class="keyword">return</span> fact[n]*inv[r]%M*inv[n-r]%M</span><br></pre></td></tr></table></figure>
+
+<h4 id="概率基础"><a href="#概率基础" class="headerlink" title="概率基础"></a>概率基础</h4><table>
+<thead>
+<tr>
+<th align="left">概念</th>
+<th align="left">公式或思路</th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">概率</td>
+<td align="left">$P(A)&#x3D;\frac{\text{有利情况}}{\text{总情况}}$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">补集</td>
+<td align="left">$P(\bar{A})&#x3D;1-P(A)$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">并集</td>
+<td align="left">$P(A\cup B)&#x3D;P(A)+P(B)-P(A\cap B)$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">条件概率</td>
+<td align="left">$P(A \mid B)&#x3D;\frac{P(A\cap B)}{P(B)}$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">贝叶斯定理</td>
+<td align="left">$P(A \mid B)&#x3D;\frac{P(B \mid A)P(A)}{P(B)}$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">期望值</td>
+<td align="left">$E[X]&#x3D;\sum x_iP(x_i)$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">方差</td>
+<td align="left">$Var(X)&#x3D;E[X^2]-E[X]^2$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="线性代数核心"><a href="#线性代数核心" class="headerlink" title="线性代数核心"></a>线性代数核心</h4><table>
+<thead>
+<tr>
+<th align="left">运算</th>
+<th align="left">公式 &#x2F; 方法</th>
+<th align="left">复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">高斯消元法</td>
+<td align="left">求解 $Ax&#x3D;b$</td>
+<td align="left">$O(n^3)$</td>
+</tr>
+<tr>
+<td align="left">行列式</td>
+<td align="left">主元的乘积</td>
+<td align="left">$O(n^3)$</td>
+</tr>
+<tr>
+<td align="left">矩阵乘法</td>
+<td align="left">$(AB)<em>{ij}&#x3D;\sum_kA</em>{ik}B_{kj}$</td>
+<td align="left">$O(n^3)$</td>
+</tr>
+<tr>
+<td align="left">转置</td>
+<td align="left">$A^T_{ij}&#x3D;A_{ji}$</td>
+<td align="left">$O(n^2)$</td>
+</tr>
+<tr>
+<td align="left">LU 分解</td>
+<td align="left">$A&#x3D;LU$（下三角，上三角）</td>
+<td align="left">$O(n^3)$</td>
+</tr>
+<tr>
+<td align="left">Cholesky 分解</td>
+<td align="left">$A&#x3D;LL^T$（对称正定）</td>
+<td align="left">$O(n^3)$</td>
+</tr>
+<tr>
+<td align="left">幂法</td>
+<td align="left">主特征值估计</td>
+<td align="left">迭代</td>
+</tr>
+</tbody></table>
+<p>微型代码（高斯消元法框架）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">    pivot = a[i][i]</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, n+<span class="number">1</span>):</span><br><span class="line">        a[i][j] /= pivot</span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        <span class="keyword">if</span> k != i:</span><br><span class="line">            ratio = a[k][i]</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i, n+<span class="number">1</span>):</span><br><span class="line">                a[k][j] -= ratio*a[i][j]</span><br></pre></td></tr></table></figure>
+
+<h4 id="快速变换"><a href="#快速变换" class="headerlink" title="快速变换"></a>快速变换</h4><table>
+<thead>
+<tr>
+<th align="left">变换</th>
+<th align="left">用例</th>
+<th align="left">复杂度</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">快速傅里叶变换</td>
+<td align="left">多项式卷积</td>
+<td align="left">$O(n\log n)$</td>
+<td align="left">复数</td>
+</tr>
+<tr>
+<td align="left">数论变换</td>
+<td align="left">模卷积</td>
+<td align="left">$O(n\log n)$</td>
+<td align="left">素数模数</td>
+</tr>
+<tr>
+<td align="left">快速沃尔什变换（异或）</td>
+<td align="left">基于异或的卷积</td>
+<td align="left">$O(n\log n)$</td>
+<td align="left">子集动态规划</td>
+</tr>
+</tbody></table>
+<p>FFT 公式：</p>
+<p>$$<br>X_k &#x3D; \sum_{n&#x3D;0}^{N-1} x_n e^{-2\pi i kn&#x2F;N}<br>$$</p>
+<h4 id="数值方法"><a href="#数值方法" class="headerlink" title="数值方法"></a>数值方法</h4><table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">目的</th>
+<th align="left">公式或思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">二分法</td>
+<td align="left">求根</td>
+<td align="left">中点二分直到 $f(x)&#x3D;0$</td>
+</tr>
+<tr>
+<td align="left">牛顿-拉夫森法</td>
+<td align="left">快速收敛</td>
+<td align="left">$x_{n+1}&#x3D;x_n-\frac{f(x_n)}{f’(x_n)}$</td>
+</tr>
+<tr>
+<td align="left">割线法</td>
+<td align="left">近似导数</td>
+<td align="left">$x_{n+1}&#x3D;x_n-f(x_n)\frac{x_n-x_{n-1}}{f(x_n)-f(x_{n-1})}$</td>
+</tr>
+<tr>
+<td align="left">辛普森法则</td>
+<td align="left">积分</td>
+<td align="left">$\int_a^bf(x)dx\approx\frac{h}{3}(f(a)+4f(m)+f(b))$</td>
+</tr>
+</tbody></table>
+<h4 id="优化与微积分"><a href="#优化与微积分" class="headerlink" title="优化与微积分"></a>优化与微积分</h4><table>
+<thead>
+<tr>
+<th align="left">概念</th>
+<th align="left">公式 &#x2F; 思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">导数</td>
+<td align="left">$f’(x)&#x3D;\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$</td>
+</tr>
+<tr>
+<td align="left">梯度下降</td>
+<td align="left">$x_{k+1}&#x3D;x_k-\eta\nabla f(x_k)$</td>
+</tr>
+<tr>
+<td align="left">拉格朗日乘数法</td>
+<td align="left">$\nabla f&#x3D;\lambda\nabla g$</td>
+</tr>
+<tr>
+<td align="left">凸函数</td>
+<td align="left">$f(\lambda x+(1-\lambda)y)\le\lambda f(x)+(1-\lambda)f(y)$</td>
+</tr>
+</tbody></table>
+<p>微型代码（梯度下降）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = x0</span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1000</span>):</span><br><span class="line">    grad = df(x)</span><br><span class="line">    x -= lr * grad</span><br></pre></td></tr></table></figure>
+
+<h4 id="代数技巧"><a href="#代数技巧" class="headerlink" title="代数技巧"></a>代数技巧</h4><table>
+<thead>
+<tr>
+<th align="left">主题</th>
+<th align="left">公式 &#x2F; 用途</th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">幂运算</td>
+<td align="left">通过平方乘算法计算 $a^n$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">多项式求导</td>
+<td align="left">$(ax^n)’ &#x3D; n\cdot a x^{n-1}$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">积分</td>
+<td align="left">$\int x^n dx &#x3D; \frac{x^{n+1}}{n+1}+C$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">莫比乌斯反演</td>
+<td align="left">$f(n)&#x3D;\sum_{d \mid n}g(d)\implies g(n)&#x3D;\sum_{d \mid n}\mu(d)\cdot f(n&#x2F;d)$</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h4 id="快速参考表"><a href="#快速参考表" class="headerlink" title="快速参考表"></a>快速参考表</h4><table>
+<thead>
+<tr>
+<th align="left">领域</th>
+<th align="left">必须掌握的算法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">数论</td>
+<td align="left">最大公约数，模幂运算，中国剩余定理</td>
+</tr>
+<tr>
+<td align="left">组合数学</td>
+<td align="left">帕斯卡法则，阶乘，卡特兰数</td>
+</tr>
+<tr>
+<td align="left">概率</td>
+<td align="left">贝叶斯定理，期望值</td>
+</tr>
+<tr>
+<td align="left">线性代数</td>
+<td align="left">高斯消元法</td>
+</tr>
+<tr>
+<td align="left">变换</td>
+<td align="left">快速傅里叶变换，数论变换</td>
+</tr>
+<tr>
+<td align="left">优化</td>
+<td align="left">梯度下降</td>
+</tr>
+</tbody></table>
+<h3 id="第-9-页：字符串与文本算法速查"><a href="#第-9-页：字符串与文本算法速查" class="headerlink" title="第 9 页：字符串与文本算法速查"></a>第 9 页：字符串与文本算法速查</h3><p>字符串是用于文本搜索、匹配和转换的字符序列。<br>本页提供了经典和现代字符串技术的快速参考。</p>
+<h4 id="字符串基础"><a href="#字符串基础" class="headerlink" title="字符串基础"></a>字符串基础</h4><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>字母表</td>
+<td>符号的集合</td>
+<td><code>{a, b, c}</code></td>
+</tr>
+<tr>
+<td>字符串长度</td>
+<td>字符的数量</td>
+<td><code>&quot;hello&quot;</code> → 5</td>
+</tr>
+<tr>
+<td>子串</td>
+<td>字符串的连续部分</td>
+<td><code>&quot;ell&quot;</code> 在 <code>&quot;hello&quot;</code> 中</td>
+</tr>
+<tr>
+<td>子序列</td>
+<td>有序子集（不一定连续）</td>
+<td><code>&quot;hlo&quot;</code> 来自 <code>&quot;hello&quot;</code></td>
+</tr>
+<tr>
+<td>前缀 &#x2F; 后缀</td>
+<td>字符串的起始 &#x2F; 结尾部分</td>
+<td><code>&quot;he&quot;</code>, <code>&quot;lo&quot;</code></td>
+</tr>
+</tbody></table>
+<p>索引：大多数算法使用从 0 开始的索引。</p>
+<h4 id="字符串搜索概述"><a href="#字符串搜索概述" class="headerlink" title="字符串搜索概述"></a>字符串搜索概述</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>复杂度</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>朴素搜索</td>
+<td>$O(nm)$</td>
+<td>检查所有位置</td>
+</tr>
+<tr>
+<td>KMP</td>
+<td>$O(n+m)$</td>
+<td>前缀-后缀跳转表</td>
+</tr>
+<tr>
+<td>Z 算法</td>
+<td>$O(n+m)$</td>
+<td>预计算匹配长度</td>
+</tr>
+<tr>
+<td>Rabin–Karp</td>
+<td>$O(n+m)$ 平均</td>
+<td>滚动哈希检查</td>
+</tr>
+<tr>
+<td>Boyer–Moore</td>
+<td>$O(n&#x2F;m)$ 平均</td>
+<td>反向扫描，跳过不匹配</td>
+</tr>
+</tbody></table>
+<h4 id="KMP-前缀函数"><a href="#KMP-前缀函数" class="headerlink" title="KMP 前缀函数"></a>KMP 前缀函数</h4><p>为模式计算前缀-后缀匹配。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$pi[i]$</td>
+<td>对于 $pattern[0:i]$，同时也是其后缀的最长真前缀的长度</td>
+</tr>
+</tbody></table>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">prefix_function</span>(<span class="params">p</span>):</span><br><span class="line">    pi = [<span class="number">0</span>]*<span class="built_in">len</span>(p)</span><br><span class="line">    j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(p)):</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> <span class="keyword">and</span> p[i] != p[j]:</span><br><span class="line">            j = pi[j-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> p[i] == p[j]:</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        pi[i] = j</span><br><span class="line">    <span class="keyword">return</span> pi</span><br></pre></td></tr></table></figure>
+
+<p>搜索时使用 <code>pi</code> 来跳过不匹配。</p>
+<h4 id="Z-算法"><a href="#Z-算法" class="headerlink" title="Z 算法"></a>Z 算法</h4><p>计算从位置 i 开始的子串与模式前缀匹配的最长长度。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Z[i]$</td>
+<td>从 i 开始的最长与模式前缀匹配的子串的长度</td>
+</tr>
+</tbody></table>
+<p>使用 <code>$S = pattern + &#39;$&#39; + text$</code> 来查找模式出现的位置。</p>
+<h4 id="Rabin–Karp-滚动哈希"><a href="#Rabin–Karp-滚动哈希" class="headerlink" title="Rabin–Karp 滚动哈希"></a>Rabin–Karp 滚动哈希</h4><table>
+<thead>
+<tr>
+<th>思路</th>
+<th>计算文本窗口的哈希值，滑动窗口，进行比较</th>
+</tr>
+</thead>
+</table>
+<p>哈希函数：<br>$$<br>h(s) &#x3D; (s_0p^{n-1} + s_1p^{n-2} + \dots + s_{n-1}) \bmod M<br>$$</p>
+<p>滑动一个字符时高效地更新哈希值。</p>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">rolling_hash</span>(<span class="params">s, base=<span class="number">257</span>, mod=<span class="number">109</span>+<span class="number">7</span></span>):</span><br><span class="line">    h = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> ch <span class="keyword">in</span> s:</span><br><span class="line">        h = (h*base + <span class="built_in">ord</span>(ch)) % mod</span><br><span class="line">    <span class="keyword">return</span> h</span><br></pre></td></tr></table></figure>
+
+<h4 id="高级模式匹配"><a href="#高级模式匹配" class="headerlink" title="高级模式匹配"></a>高级模式匹配</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>使用场景</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Boyer–Moore</td>
+<td>大字母表</td>
+<td>$O(n&#x2F;m)$ 平均</td>
+</tr>
+<tr>
+<td>Sunday</td>
+<td>最后字符移位启发式</td>
+<td>$O(n)$ 平均</td>
+</tr>
+<tr>
+<td>Bitap</td>
+<td>近似匹配</td>
+<td>$O(nm&#x2F;w)$</td>
+</tr>
+<tr>
+<td>Aho–Corasick</td>
+<td>多模式搜索</td>
+<td>$O(n+z)$</td>
+</tr>
+</tbody></table>
+<h4 id="Aho–Corasick-自动机"><a href="#Aho–Corasick-自动机" class="headerlink" title="Aho–Corasick 自动机"></a>Aho–Corasick 自动机</h4><p>从模式构建字典树并计算失败链接。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>构建字典树</td>
+<td>添加所有模式</td>
+</tr>
+<tr>
+<td>失败链接</td>
+<td>回退到下一个前缀</td>
+</tr>
+<tr>
+<td>输出链接</td>
+<td>记录模式匹配</td>
+</tr>
+</tbody></table>
+<p>微型代码框架：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> deque</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">build_ac</span>(<span class="params">patterns</span>):</span><br><span class="line">    trie = [&#123;&#125;]</span><br><span class="line">    fail = [<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> pat <span class="keyword">in</span> patterns:</span><br><span class="line">        node = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> pat:</span><br><span class="line">            node = trie[node].setdefault(c, <span class="built_in">len</span>(trie))</span><br><span class="line">            <span class="keyword">if</span> node == <span class="built_in">len</span>(trie):</span><br><span class="line">                trie.append(&#123;&#125;)</span><br><span class="line">                fail.append(<span class="number">0</span>)</span><br><span class="line">    <span class="comment"># 计算失败链接</span></span><br><span class="line">    q = deque()</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> trie[<span class="number">0</span>]:</span><br><span class="line">        q.append(trie[<span class="number">0</span>][c])</span><br><span class="line">    <span class="keyword">while</span> q:</span><br><span class="line">        u = q.popleft()</span><br><span class="line">        <span class="keyword">for</span> c, v <span class="keyword">in</span> trie[u].items():</span><br><span class="line">            f = fail[u]</span><br><span class="line">            <span class="keyword">while</span> f <span class="keyword">and</span> c <span class="keyword">not</span> <span class="keyword">in</span> trie[f]:</span><br><span class="line">                f = fail[f]</span><br><span class="line">            fail[v] = trie[f].get(c, <span class="number">0</span>)</span><br><span class="line">            q.append(v)</span><br><span class="line">    <span class="keyword">return</span> trie, fail</span><br></pre></td></tr></table></figure>
+
+<h4 id="后缀结构"><a href="#后缀结构" class="headerlink" title="后缀结构"></a>后缀结构</h4><table>
+<thead>
+<tr>
+<th>结构</th>
+<th>用途</th>
+<th>构建时间</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>后缀数组</td>
+<td>后缀索引的排序列表</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>LCP 数组</td>
+<td>后缀的最长公共前缀</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>后缀树</td>
+<td>后缀的字典树</td>
+<td>$O(n)$ (Ukkonen)</td>
+</tr>
+<tr>
+<td>后缀自动机</td>
+<td>子串的最小确定性有限自动机</td>
+<td>$O(n)$</td>
+</tr>
+</tbody></table>
+<p>后缀数组倍增法：</p>
+<ul>
+<li>对长度为 $2^k$ 的子串进行排名</li>
+<li>使用排名对进行排序和合并</li>
+</ul>
+<p>通过 Kasai 算法计算 LCP：<br>$$<br>LCP[i]&#x3D;\text{后缀 } S[SA[i]:] \text{ 和 } S[SA[i-1]:] \text{ 的公共前缀长度}<br>$$</p>
+<h4 id="回文检测"><a href="#回文检测" class="headerlink" title="回文检测"></a>回文检测</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>描述</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Manacher 算法</td>
+<td>最长回文子串</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>动态规划表</td>
+<td>检查子串是否为回文</td>
+<td>$O(n^2)$</td>
+</tr>
+<tr>
+<td>中心扩展</td>
+<td>围绕中心扩展</td>
+<td>$O(n^2)$</td>
+</tr>
+</tbody></table>
+<p>Manacher 算法核心：</p>
+<ul>
+<li>使用分隔符（<code>#</code>）进行转换</li>
+<li>跟踪每个中心周围回文的半径</li>
+</ul>
+<h4 id="编辑距离系列"><a href="#编辑距离系列" class="headerlink" title="编辑距离系列"></a>编辑距离系列</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>描述</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Levenshtein 距离</td>
+<td>插入&#x2F;删除&#x2F;替换</td>
+<td>$O(nm)$</td>
+</tr>
+<tr>
+<td>Damerau–Levenshtein</td>
+<td>增加相邻字符交换</td>
+<td>$O(nm)$</td>
+</tr>
+<tr>
+<td>Hirschberg</td>
+<td>空间优化的 LCS</td>
+<td>$O(nm)$ 时间，$O(n)$ 空间</td>
+</tr>
+</tbody></table>
+<p>递推关系：<br>$$<br>dp[i][j]&#x3D;\min<br>\begin{cases}<br>dp[i-1][j]+1 \<br>dp[i][j-1]+1 \<br>dp[i-1][j-1]+(s_i\neq t_j)<br>\end{cases}<br>$$</p>
+<h4 id="压缩技术"><a href="#压缩技术" class="headerlink" title="压缩技术"></a>压缩技术</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>类型</th>
+<th>思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Huffman 编码</td>
+<td>前缀码</td>
+<td>为高频字符分配更短的码字</td>
+</tr>
+<tr>
+<td>算术编码</td>
+<td>范围编码</td>
+<td>分数区间表示</td>
+</tr>
+<tr>
+<td>LZ77 &#x2F; LZ78</td>
+<td>基于字典</td>
+<td>重用先前的子串</td>
+</tr>
+<tr>
+<td>BWT + MTF + RLE</td>
+<td>块排序</td>
+<td>在编码前将相似字符分组</td>
+</tr>
+</tbody></table>
+<p>Huffman 原理：<br>为频率更高的符号分配更短的比特串。</p>
+<h4 id="哈希与校验和"><a href="#哈希与校验和" class="headerlink" title="哈希与校验和"></a>哈希与校验和</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>使用场景</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CRC32</td>
+<td>错误检测</td>
+<td>简单的多项式取模</td>
+</tr>
+<tr>
+<td>MD5</td>
+<td>哈希（旧版）</td>
+<td>不安全</td>
+</tr>
+<tr>
+<td>SHA-256</td>
+<td>安全哈希</td>
+<td>加密用途</td>
+</tr>
+<tr>
+<td>滚动哈希</td>
+<td>子串比较</td>
+<td>用于 Rabin–Karp</td>
+</tr>
+</tbody></table>
+<h4 id="快速参考"><a href="#快速参考" class="headerlink" title="快速参考"></a>快速参考</h4><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>算法</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单模式搜索</td>
+<td>KMP &#x2F; Z</td>
+<td>$O(n+m)$</td>
+</tr>
+<tr>
+<td>多模式搜索</td>
+<td>Aho–Corasick</td>
+<td>$O(n+z)$</td>
+</tr>
+<tr>
+<td>近似搜索</td>
+<td>Bitap &#x2F; Wu–Manber</td>
+<td>$O(kn)$</td>
+</tr>
+<tr>
+<td>子串查询</td>
+<td>后缀数组 + LCP</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>回文</td>
+<td>Manacher</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>压缩</td>
+<td>Huffman &#x2F; LZ77</td>
+<td>可变</td>
+</tr>
+<tr>
+<td>编辑距离</td>
+<td>动态规划表</td>
+<td>$O(nm)$</td>
+</tr>
+</tbody></table>
+<h3 id="第10页。几何、图形与空间算法速查"><a href="#第10页。几何、图形与空间算法速查" class="headerlink" title="第10页。几何、图形与空间算法速查"></a>第10页。几何、图形与空间算法速查</h3><p>几何帮助我们解决关于形状、距离和空间关系的问题。<br>本页通过简单的公式和示例总结了核心的计算几何技术。</p>
+<h4 id="坐标基础"><a href="#坐标基础" class="headerlink" title="坐标基础"></a>坐标基础</h4><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>描述</th>
+<th>公式 &#x2F; 示例</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>点距离</td>
+<td>$(x_1,y_1)$ 和 $(x_2,y_2)$ 之间的距离</td>
+<td>$d&#x3D;\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>中点</td>
+<td>两点之间</td>
+<td>$(\frac{x_1+x_2}{2}, \frac{y_1+y_2}{2})$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>点积</td>
+<td>角度与投影</td>
+<td>$\vec{a}\cdot\vec{b}&#x3D;</td>
+<td>a</td>
+<td></td>
+<td>b</td>
+<td>\cos\theta$</td>
+</tr>
+<tr>
+<td>叉积 (2D)</td>
+<td>有向面积，方向判定</td>
+<td>$a\times b &#x3D; a_xb_y - a_yb_x$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>方向测试</td>
+<td>逆时针、顺时针、共线检查</td>
+<td>$\text{sign}(a\times b)$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>微型代码 (方向测试):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">orient</span>(<span class="params">a, b, c</span>):</span><br><span class="line">    val = (b[<span class="number">0</span>]-a[<span class="number">0</span>])*(c[<span class="number">1</span>]-a[<span class="number">1</span>]) - (b[<span class="number">1</span>]-a[<span class="number">1</span>])*(c[<span class="number">0</span>]-a[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> val == <span class="number">0</span> <span class="keyword">else</span> (<span class="number">1</span> <span class="keyword">if</span> val &gt; <span class="number">0</span> <span class="keyword">else</span> -<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="凸包"><a href="#凸包" class="headerlink" title="凸包"></a>凸包</h4><p>寻找包含所有点的最小凸多边形。</p>
+<table>
+<thead>
+<tr>
+<th>算法</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Graham Scan</td>
+<td>$O(n\log n)$</td>
+<td>按角度排序，使用栈</td>
+</tr>
+<tr>
+<td>Andrew’s Monotone</td>
+<td>$O(n\log n)$</td>
+<td>按 x 排序，构建上&#x2F;下包</td>
+</tr>
+<tr>
+<td>Jarvis March</td>
+<td>$O(nh)$</td>
+<td>包裹法，h &#x3D; 凸包大小</td>
+</tr>
+<tr>
+<td>Chan’s Algorithm</td>
+<td>$O(n\log h)$</td>
+<td>输出敏感的凸包算法</td>
+</tr>
+</tbody></table>
+<p>步骤:</p>
+<ol>
+<li>对点排序</li>
+<li>构建下凸包</li>
+<li>构建上凸包</li>
+<li>连接</li>
+</ol>
+<h4 id="最近点对"><a href="#最近点对" class="headerlink" title="最近点对"></a>最近点对</h4><p>分治法。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>按 x 分割</td>
+<td>将点分成两半</td>
+</tr>
+<tr>
+<td>递归与合并</td>
+<td>跟踪跨越条带的最小距离</td>
+</tr>
+</tbody></table>
+<p>复杂度: $O(n\log n)$</p>
+<p>公式:<br>$$<br>d(p,q)&#x3D;\sqrt{(x_p-x_q)^2+(y_p-y_q)^2}<br>$$</p>
+<h4 id="线段相交"><a href="#线段相交" class="headerlink" title="线段相交"></a>线段相交</h4><p>两条线段 $(p_1,p_2)$ 和 $(q_1,q_2)$ 相交的条件是:</p>
+<ol>
+<li>方向测试结果不同</li>
+<li>如果共线，则线段在直线上有重叠</li>
+</ol>
+<p>微型代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">intersect</span>(<span class="params">p1, p2, q1, q2</span>):</span><br><span class="line">    o1 = orient(p1, p2, q1)</span><br><span class="line">    o2 = orient(p1, p2, q2)</span><br><span class="line">    o3 = orient(q1, q2, p1)</span><br><span class="line">    o4 = orient(q1, q2, p2)</span><br><span class="line">    <span class="keyword">return</span> o1 != o2 <span class="keyword">and</span> o3 != o4</span><br></pre></td></tr></table></figure>
+
+<h4 id="多边形面积-鞋带公式"><a href="#多边形面积-鞋带公式" class="headerlink" title="多边形面积 (鞋带公式)"></a>多边形面积 (鞋带公式)</h4><p>对于按顺序排列的顶点 $(x_i, y_i)$:</p>
+<p>$$<br>A&#x3D;\frac{1}{2}\left|\sum_{i&#x3D;0}^{n-1}(x_iy_{i+1}-x_{i+1}y_i)\right|<br>$$</p>
+<p>微型代码:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">area</span>(<span class="params">poly</span>):</span><br><span class="line">    s = <span class="number">0</span></span><br><span class="line">    n = <span class="built_in">len</span>(poly)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">        x1, y1 = poly[i]</span><br><span class="line">        x2, y2 = poly[(i+<span class="number">1</span>)%n]</span><br><span class="line">        s += x1*y2 - x2*y1</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">abs</span>(s)/<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="点是否在多边形内"><a href="#点是否在多边形内" class="headerlink" title="点是否在多边形内"></a>点是否在多边形内</h4><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>思路</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>射线法</td>
+<td>计算边交叉次数</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>环绕数法</td>
+<td>跟踪有向旋转次数</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>凸多边形测试</td>
+<td>检查所有方向</td>
+<td>$O(n)$</td>
+</tr>
+</tbody></table>
+<p>射线法: 交叉次数为奇数 → 在内部。</p>
+<h4 id="旋转卡尺"><a href="#旋转卡尺" class="headerlink" title="旋转卡尺"></a>旋转卡尺</h4><p>用于:</p>
+<ul>
+<li>多边形直径 (最远点对)</li>
+<li>最小包围矩形</li>
+<li>宽度与对跖点对</li>
+</ul>
+<p>思路: 使用切线围绕凸包扫描。<br>复杂度: 构建凸包后为 $O(n)$。</p>
+<h4 id="扫描线技术"><a href="#扫描线技术" class="headerlink" title="扫描线技术"></a>扫描线技术</h4><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>方法</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最近点对</td>
+<td>按 y 维护活动集</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>线段相交</td>
+<td>基于事件的扫描</td>
+<td>$O((n+k)\log n)$</td>
+</tr>
+<tr>
+<td>矩形并集面积</td>
+<td>垂直边事件</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>天际线问题</td>
+<td>按高度合并</td>
+<td>$O(n\log n)$</td>
+</tr>
+</tbody></table>
+<p>使用平衡树或优先队列维护活动集。</p>
+<h4 id="圆几何"><a href="#圆几何" class="headerlink" title="圆几何"></a>圆几何</h4><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>公式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>方程</td>
+<td>$(x-x_c)^2+(y-y_c)^2&#x3D;r^2$</td>
+</tr>
+<tr>
+<td>切线长度</td>
+<td>$\sqrt{d^2-r^2}$</td>
+</tr>
+<tr>
+<td>两圆相交</td>
+<td>基于距离的几何</td>
+</tr>
+</tbody></table>
+<h4 id="空间数据结构"><a href="#空间数据结构" class="headerlink" title="空间数据结构"></a>空间数据结构</h4><table>
+<thead>
+<tr>
+<th>结构</th>
+<th>用途</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>KD-Tree</td>
+<td>最近邻搜索</td>
+<td>轴对齐分割</td>
+</tr>
+<tr>
+<td>R-Tree</td>
+<td>范围查询</td>
+<td>包围盒层次结构</td>
+</tr>
+<tr>
+<td>Quadtree</td>
+<td>2D 递归细分</td>
+<td>图形学，碰撞检测</td>
+</tr>
+<tr>
+<td>Octree</td>
+<td>3D 扩展</td>
+<td>体积划分</td>
+</tr>
+<tr>
+<td>BSP Tree</td>
+<td>平面分割</td>
+<td>渲染，碰撞</td>
+</tr>
+</tbody></table>
+<h4 id="光栅化与图形学"><a href="#光栅化与图形学" class="headerlink" title="光栅化与图形学"></a>光栅化与图形学</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>目的</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Bresenham 直线</td>
+<td>在整数网格上绘制直线</td>
+<td>无需浮点数</td>
+</tr>
+<tr>
+<td>中点画圆</td>
+<td>圆的光栅化</td>
+<td>利用对称性</td>
+</tr>
+<tr>
+<td>扫描线填充</td>
+<td>多边形填充算法</td>
+<td>对边排序，水平扫描</td>
+</tr>
+<tr>
+<td>Z-Buffer</td>
+<td>隐藏面消除</td>
+<td>逐像素深度比较</td>
+</tr>
+<tr>
+<td>Phong 着色</td>
+<td>平滑光照</td>
+<td>插值法向量</td>
+</tr>
+</tbody></table>
+<h4 id="空间路径规划"><a href="#空间路径规划" class="headerlink" title="空间路径规划"></a>空间路径规划</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A*</td>
+<td>启发式最短路径</td>
+<td>$f(n)&#x3D;g(n)+h(n)$</td>
+</tr>
+<tr>
+<td>Theta*</td>
+<td>任意角度路径</td>
+<td>基于捷径</td>
+</tr>
+<tr>
+<td>RRT &#x2F; RRT*</td>
+<td>随机探索</td>
+<td>机器人规划</td>
+</tr>
+<tr>
+<td>PRM</td>
+<td>概率路线图</td>
+<td>采样图</td>
+</tr>
+<tr>
+<td>可见性图</td>
+<td>连接可见点</td>
+<td>几何规划</td>
+</tr>
+</tbody></table>
+<h4 id="快速总结"><a href="#快速总结" class="headerlink" title="快速总结"></a>快速总结</h4><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>算法</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>凸包</td>
+<td>Graham &#x2F; Andrew</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>最近点对</td>
+<td>分治法</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>线段相交检测</td>
+<td>扫描线</td>
+<td>$O(n\log n)$</td>
+</tr>
+<tr>
+<td>点是否在多边形内</td>
+<td>射线法</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>多边形面积</td>
+<td>鞋带公式</td>
+<td>$O(n)$</td>
+</tr>
+<tr>
+<td>最近邻搜索</td>
+<td>KD-Tree</td>
+<td>$O(\log n)$</td>
+</tr>
+<tr>
+<td>路径规划</td>
+<td>A*</td>
+<td>$O(E\log V)$</td>
+</tr>
+</tbody></table>
+<h4 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h4><ul>
+<li>几何预处理时，总是先对点排序。</li>
+<li>使用叉积进行方向测试。</li>
+<li>尽可能使用整数运算以避免浮点误差。</li>
+</ul>
+<h3 id="第11页：系统、数据库与分布式算法速查"><a href="#第11页：系统、数据库与分布式算法速查" class="headerlink" title="第11页：系统、数据库与分布式算法速查"></a>第11页：系统、数据库与分布式算法速查</h3><p>系统和数据库依赖于管理内存、并发、持久性和协调性的算法。本页概述了其中最重要的部分。</p>
+<h4 id="并发控制"><a href="#并发控制" class="headerlink" title="并发控制"></a>并发控制</h4><p>确保多个事务或线程同时运行时保持正确性。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心思想</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>两阶段锁 (2PL)</td>
+<td>先获取锁，提交后再释放</td>
+<td>保证可串行化</td>
+</tr>
+<tr>
+<td>严格两阶段锁</td>
+<td>持有所有锁直到提交</td>
+<td>防止级联中止</td>
+</tr>
+<tr>
+<td>保守两阶段锁</td>
+<td>执行前锁定所有所需资源</td>
+<td>无死锁但并行度较低</td>
+</tr>
+<tr>
+<td>时间戳排序</td>
+<td>按时间戳排序</td>
+<td>可能中止较晚的事务</td>
+</tr>
+<tr>
+<td>多版本并发控制 (MVCC)</td>
+<td>读取者获取快照</td>
+<td>用于 PostgreSQL, InnoDB</td>
+</tr>
+<tr>
+<td>乐观并发控制 (OCC)</td>
+<td>提交时验证</td>
+<td>适用于低冲突工作负载</td>
+</tr>
+</tbody></table>
+<h4 id="微型代码：时间戳排序"><a href="#微型代码：时间戳排序" class="headerlink" title="微型代码：时间戳排序"></a>微型代码：时间戳排序</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简化版</span></span><br><span class="line"><span class="keyword">if</span> write_ts[x] &gt; txn_ts <span class="keyword">or</span> read_ts[x] &gt; txn_ts:</span><br><span class="line">    abort()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    write_ts[x] = txn_ts</span><br></pre></td></tr></table></figure>
+
+<p>每个对象跟踪其读时间戳和写时间戳。</p>
+<h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>事务间形成循环等待。</p>
+<table>
+<thead>
+<tr>
+<th>检测</th>
+<th>构建等待图，检测环</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>预防</td>
+<td>Wait-Die（老等少） &#x2F; Wound-Wait（少中止）</td>
+</tr>
+</tbody></table>
+<p>检测复杂度：$O(V+E)$</p>
+<p>微型代码（等待图环检测）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">has_cycle</span>(<span class="params">graph</span>):</span><br><span class="line">    visited, stack = <span class="built_in">set</span>(), <span class="built_in">set</span>()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">u</span>):</span><br><span class="line">        visited.add(u)</span><br><span class="line">        stack.add(u)</span><br><span class="line">        <span class="keyword">for</span> v <span class="keyword">in</span> graph[u]:</span><br><span class="line">            <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> visited <span class="keyword">and</span> dfs(v): <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> v <span class="keyword">in</span> stack: <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        stack.remove(u)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">any</span>(dfs(u) <span class="keyword">for</span> u <span class="keyword">in</span> graph)</span><br></pre></td></tr></table></figure>
+
+<h4 id="日志与恢复"><a href="#日志与恢复" class="headerlink" title="日志与恢复"></a>日志与恢复</h4><table>
+<thead>
+<tr>
+<th>技术</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>预写日志</td>
+<td>数据写入前先写日志</td>
+<td>确保持久性</td>
+</tr>
+<tr>
+<td>ARIES</td>
+<td>分析、重做、撤销三阶段</td>
+<td>行业标准</td>
+</tr>
+<tr>
+<td>检查点</td>
+<td>保存一致性快照</td>
+<td>加速恢复</td>
+</tr>
+<tr>
+<td>影子分页</td>
+<td>写时复制更新</td>
+<td>简单但灵活性较差</td>
+</tr>
+</tbody></table>
+<p>崩溃后恢复步骤：</p>
+<ol>
+<li>分析：找出活跃事务</li>
+<li>重做：重新应用已提交的更改</li>
+<li>撤销：回滚未提交的更改</li>
+</ol>
+<h4 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h4><p>加速查找和范围查询。</p>
+<table>
+<thead>
+<tr>
+<th>索引类型</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B-树 &#x2F; B+树</td>
+<td>平衡多路树</td>
+<td>适合磁盘存储</td>
+</tr>
+<tr>
+<td>哈希索引</td>
+<td>仅支持精确匹配</td>
+<td>不支持范围查询</td>
+</tr>
+<tr>
+<td>GiST &#x2F; R-树</td>
+<td>空间数据</td>
+<td>边界框层次结构</td>
+</tr>
+<tr>
+<td>倒排索引</td>
+<td>文本搜索</td>
+<td>将词项映射到文档列表</td>
+</tr>
+</tbody></table>
+<p>B+树复杂度：$O(\log_B N)$ (B &#x3D; 分支因子)</p>
+<p>微型代码（索引中的二分查找）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">search</span>(<span class="params">node, key</span>):</span><br><span class="line">    i = bisect_left(node.keys, key)</span><br><span class="line">    <span class="keyword">if</span> i &lt; <span class="built_in">len</span>(node.keys) <span class="keyword">and</span> node.keys[i] == key:</span><br><span class="line">        <span class="keyword">return</span> node.values[i]</span><br><span class="line">    <span class="keyword">if</span> node.is_leaf:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">return</span> search(node.children[i], key)</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h4><table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>解析</td>
+<td>构建抽象语法树</td>
+</tr>
+<tr>
+<td>优化</td>
+<td>重排连接，选择索引</td>
+</tr>
+<tr>
+<td>执行计划</td>
+<td>为每个操作符选择算法</td>
+</tr>
+<tr>
+<td>执行</td>
+<td>评估迭代器或流水线</td>
+</tr>
+</tbody></table>
+<p>常见连接策略：</p>
+<table>
+<thead>
+<tr>
+<th>连接类型</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>嵌套循环连接</td>
+<td>$O(nm)$</td>
+<td>简单，慢</td>
+</tr>
+<tr>
+<td>哈希连接</td>
+<td>$O(n+m)$</td>
+<td>构建 + 探测</td>
+</tr>
+<tr>
+<td>排序合并连接</td>
+<td>$O(n\log n+m\log m)$</td>
+<td>输入已排序</td>
+</tr>
+</tbody></table>
+<h4 id="缓存与替换策略"><a href="#缓存与替换策略" class="headerlink" title="缓存与替换策略"></a>缓存与替换策略</h4><table>
+<thead>
+<tr>
+<th>策略</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LRU</td>
+<td>驱逐最近最少使用项</td>
+<td>简单，利用时间局部性</td>
+</tr>
+<tr>
+<td>LFU</td>
+<td>驱逐最不经常使用项</td>
+<td>适用于稳定模式</td>
+</tr>
+<tr>
+<td>ARC &#x2F; LIRS</td>
+<td>自适应混合策略</td>
+<td>处理混合工作负载</td>
+</tr>
+<tr>
+<td>随机</td>
+<td>随机驱逐</td>
+<td>简单，公平</td>
+</tr>
+</tbody></table>
+<p>微型代码（使用 OrderedDict 实现 LRU）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LRU</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, cap</span>):</span><br><span class="line">        <span class="variable language_">self</span>.cap = cap</span><br><span class="line">        <span class="variable language_">self</span>.cache = OrderedDict()</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get</span>(<span class="params">self, k</span>):</span><br><span class="line">        <span class="keyword">if</span> k <span class="keyword">not</span> <span class="keyword">in</span> <span class="variable language_">self</span>.cache: <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="variable language_">self</span>.cache.move_to_end(k)</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.cache[k]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">put</span>(<span class="params">self, k, v</span>):</span><br><span class="line">        <span class="keyword">if</span> k <span class="keyword">in</span> <span class="variable language_">self</span>.cache: <span class="variable language_">self</span>.cache.move_to_end(k)</span><br><span class="line">        <span class="variable language_">self</span>.cache[k] = v</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(<span class="variable language_">self</span>.cache) &gt; <span class="variable language_">self</span>.cap: <span class="variable language_">self</span>.cache.popitem(last=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="分布式系统核心"><a href="#分布式系统核心" class="headerlink" title="分布式系统核心"></a>分布式系统核心</h4><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>描述</th>
+<th>典型解决方案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>共识</td>
+<td>跨节点就某个值达成一致</td>
+<td>Paxos, Raft</td>
+</tr>
+<tr>
+<td>领导者选举</td>
+<td>选取协调者</td>
+<td>Bully, Raft</td>
+</tr>
+<tr>
+<td>复制</td>
+<td>维护副本</td>
+<td>日志复制</td>
+</tr>
+<tr>
+<td>分区</td>
+<td>拆分数据</td>
+<td>一致性哈希</td>
+</tr>
+<tr>
+<td>成员关系</td>
+<td>检测节点</td>
+<td>Gossip 协议</td>
+</tr>
+</tbody></table>
+<h4 id="Raft-共识算法（简化版）"><a href="#Raft-共识算法（简化版）" class="headerlink" title="Raft 共识算法（简化版）"></a>Raft 共识算法（简化版）</h4><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选举</td>
+<td>节点投票，选举领导者</td>
+</tr>
+<tr>
+<td>复制</td>
+<td>领导者追加日志条目</td>
+</tr>
+<tr>
+<td>提交</td>
+<td>一旦多数节点确认</td>
+</tr>
+</tbody></table>
+<p>安全性：已提交的条目永不改变。<br>活性：故障时选举出新领导者。</p>
+<p>微型代码草图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> vote_request.term &gt; term:</span><br><span class="line">    term = vote_request.term</span><br><span class="line">    voted_for = candidate</span><br></pre></td></tr></table></figure>
+
+<h4 id="一致性哈希"><a href="#一致性哈希" class="headerlink" title="一致性哈希"></a>一致性哈希</h4><p>平滑地将键分布到节点上。</p>
+<table>
+<thead>
+<tr>
+<th>步骤</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>将每个节点哈希到环上</td>
+<td>例如 hash(node_id)</td>
+</tr>
+<tr>
+<td>哈希每个键</td>
+<td>找到顺时针方向的下一个节点</td>
+</tr>
+<tr>
+<td>添加&#x2F;删除节点</td>
+<td>仅移动附近键</td>
+</tr>
+</tbody></table>
+<p>用于：Dynamo, Cassandra, Memcached。</p>
+<h4 id="容错模式"><a href="#容错模式" class="headerlink" title="容错模式"></a>容错模式</h4><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>复制</td>
+<td>多个副本</td>
+<td>主备复制</td>
+</tr>
+<tr>
+<td>检查点</td>
+<td>定期保存进度</td>
+<td>机器学习训练</td>
+</tr>
+<tr>
+<td>心跳</td>
+<td>活性检测</td>
+<td>集群管理器</td>
+</tr>
+<tr>
+<td>重试 + 退避</td>
+<td>处理瞬时故障</td>
+<td>API 调用</td>
+</tr>
+<tr>
+<td>法定读写</td>
+<td>需要多数节点同意</td>
+<td>Cassandra</td>
+</tr>
+</tbody></table>
+<h4 id="分布式协调"><a href="#分布式协调" class="headerlink" title="分布式协调"></a>分布式协调</h4><table>
+<thead>
+<tr>
+<th>工具 &#x2F; 协议</th>
+<th>描述</th>
+<th>示例用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ZooKeeper</td>
+<td>集中式协调</td>
+<td>锁，配置管理</td>
+</tr>
+<tr>
+<td>Raft</td>
+<td>分布式共识</td>
+<td>日志复制</td>
+</tr>
+<tr>
+<td>Etcd</td>
+<td>基于 Raft 的键值存储</td>
+<td>集群元数据</td>
+</tr>
+</tbody></table>
+<h4 id="总结表-3"><a href="#总结表-3" class="headerlink" title="总结表"></a>总结表</h4><table>
+<thead>
+<tr>
+<th>主题</th>
+<th>算法 &#x2F; 概念</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>锁</td>
+<td>2PL, MVCC, OCC</td>
+<td>可变</td>
+<td>事务隔离</td>
+</tr>
+<tr>
+<td>死锁</td>
+<td>Wait-Die, 检测</td>
+<td>$O(V+E)$</td>
+<td>基于图的检查</td>
+</tr>
+<tr>
+<td>恢复</td>
+<td>ARIES, WAL</td>
+<td>可变</td>
+<td>崩溃恢复</td>
+</tr>
+<tr>
+<td>索引</td>
+<td>B+树, 哈希索引</td>
+<td>$O(\log N)$</td>
+<td>加速查询</td>
+</tr>
+<tr>
+<td>连接</td>
+<td>哈希 &#x2F; 排序合并</td>
+<td>可变</td>
+<td>查询优化</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>LRU, LFU</td>
+<td>$O(1)$</td>
+<td>数据局部性</td>
+</tr>
+<tr>
+<td>共识</td>
+<td>Raft, Paxos</td>
+<td>$O(n)$ 消息</td>
+<td>容错</td>
+</tr>
+<tr>
+<td>分区</td>
+<td>一致性哈希</td>
+<td>$O(1)$ 平均</td>
+<td>可扩展性</td>
+</tr>
+</tbody></table>
+<h4 id="快速提示-3"><a href="#快速提示-3" class="headerlink" title="快速提示"></a>快速提示</h4><ul>
+<li>在并发中始终确保可串行化。</li>
+<li>对于读密集型工作负载，使用 MVCC。</li>
+<li>ARIES 通过 WAL 确保持久性。</li>
+<li>为了可扩展性，明智地进行分区和复制。</li>
+<li>共识对于共享状态的正确性是必需的。</li>
+</ul>
+<h3 id="第-12-页：AI、ML-与优化算法速查"><a href="#第-12-页：AI、ML-与优化算法速查" class="headerlink" title="第 12 页：AI、ML 与优化算法速查"></a>第 12 页：AI、ML 与优化算法速查</h3><p>本页汇集了驱动现代人工智能和机器学习系统的经典算法，涵盖从聚类和分类到基于梯度的学习和元启发式方法。</p>
+<h4 id="经典机器学习算法"><a href="#经典机器学习算法" class="headerlink" title="经典机器学习算法"></a>经典机器学习算法</h4><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>算法</th>
+<th>核心思想</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>聚类</td>
+<td>k-Means</td>
+<td>分配到最近的质心，更新中心点</td>
+<td>$O(nkt)$</td>
+</tr>
+<tr>
+<td>聚类</td>
+<td>k-Medoids (PAM)</td>
+<td>以代表性点作为中心点</td>
+<td>$O(k(n-k)^2)$</td>
+</tr>
+<tr>
+<td>聚类</td>
+<td>高斯混合模型 (EM)</td>
+<td>通过概率进行软分配</td>
+<td>每次迭代 $O(nkd)$</td>
+</tr>
+<tr>
+<td>分类</td>
+<td>朴素贝叶斯</td>
+<td>在特征独立的假设下应用贝叶斯规则</td>
+<td>$O(nd)$</td>
+</tr>
+<tr>
+<td>分类</td>
+<td>逻辑回归</td>
+<td>线性 + sigmoid 激活函数</td>
+<td>$O(nd)$</td>
+</tr>
+<tr>
+<td>分类</td>
+<td>SVM（线性）</td>
+<td>通过凸优化最大化间隔</td>
+<td>约 $O(nd)$</td>
+</tr>
+<tr>
+<td>分类</td>
+<td>k-NN</td>
+<td>基于最近邻投票</td>
+<td>每次查询 $O(nd)$</td>
+</tr>
+<tr>
+<td>树</td>
+<td>决策树 (CART)</td>
+<td>通过不纯度递归分割</td>
+<td>$O(nd\log n)$</td>
+</tr>
+<tr>
+<td>投影</td>
+<td>LDA &#x2F; PCA</td>
+<td>寻找最大化方差或类间分离度的投影</td>
+<td>$O(d^3)$</td>
+</tr>
+</tbody></table>
+<h4 id="微型代码：k-Means"><a href="#微型代码：k-Means" class="headerlink" title="微型代码：k-Means"></a>微型代码：k-Means</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random, math</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">kmeans</span>(<span class="params">points, k, iters=<span class="number">100</span></span>):</span><br><span class="line">    <span class="comment"># 随机选择 k 个点作为初始质心</span></span><br><span class="line">    centroids = random.sample(points, k)</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(iters):</span><br><span class="line">        <span class="comment"># 为每个质心创建分组</span></span><br><span class="line">        groups = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(k)]</span><br><span class="line">        <span class="keyword">for</span> p <span class="keyword">in</span> points:</span><br><span class="line">            <span class="comment"># 找到距离最近的质心索引</span></span><br><span class="line">            idx = <span class="built_in">min</span>(<span class="built_in">range</span>(k), key=<span class="keyword">lambda</span> i: (p[<span class="number">0</span>]-centroids[i][<span class="number">0</span>])<span class="number">2</span> + (p[<span class="number">1</span>]-centroids[i][<span class="number">1</span>])<span class="number">2</span>)</span><br><span class="line">            groups[idx].append(p)</span><br><span class="line">        new_centroids = []</span><br><span class="line">        <span class="keyword">for</span> g <span class="keyword">in</span> groups:</span><br><span class="line">            <span class="keyword">if</span> g:</span><br><span class="line">                <span class="comment"># 计算新质心作为组内点的平均值</span></span><br><span class="line">                x = <span class="built_in">sum</span>(p[<span class="number">0</span>] <span class="keyword">for</span> p <span class="keyword">in</span> g)/<span class="built_in">len</span>(g)</span><br><span class="line">                y = <span class="built_in">sum</span>(p[<span class="number">1</span>] <span class="keyword">for</span> p <span class="keyword">in</span> g)/<span class="built_in">len</span>(g)</span><br><span class="line">                new_centroids.append((x,y))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 如果分组为空，则随机选择一个点作为新质心</span></span><br><span class="line">                new_centroids.append(random.choice(points))</span><br><span class="line">        <span class="keyword">if</span> centroids == new_centroids: <span class="keyword">break</span></span><br><span class="line">        centroids = new_centroids</span><br><span class="line">    <span class="keyword">return</span> centroids</span><br></pre></td></tr></table></figure>
+
+<h4 id="线性模型"><a href="#线性模型" class="headerlink" title="线性模型"></a>线性模型</h4><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>公式</th>
+<th>损失函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线性回归</td>
+<td>$\hat{y}&#x3D;w^Tx+b$</td>
+<td>均方误差：$\frac{1}{n}\sum(y-\hat{y})^2$</td>
+</tr>
+<tr>
+<td>逻辑回归</td>
+<td>$\hat{y}&#x3D;\sigma(w^Tx+b)$</td>
+<td>交叉熵</td>
+</tr>
+<tr>
+<td>岭回归</td>
+<td>线性 + $L_2$ 惩罚项</td>
+<td>$L&#x3D;\text{MSE}+\lambda|w|^2$</td>
+</tr>
+<tr>
+<td>Lasso 回归</td>
+<td>线性 + $L_1$ 惩罚项</td>
+<td>$L&#x3D;\text{MSE}+\lambda|w|_1$</td>
+</tr>
+</tbody></table>
+<p>微型代码（线性回归的梯度下降）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train</span>(<span class="params">X, y, lr=<span class="number">0.01</span>, epochs=<span class="number">1000</span></span>):</span><br><span class="line">    w = [<span class="number">0</span>]*<span class="built_in">len</span>(X[<span class="number">0</span>])</span><br><span class="line">    b = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(epochs):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(y)):</span><br><span class="line">            <span class="comment"># 计算预测值</span></span><br><span class="line">            y_pred = <span class="built_in">sum</span>(w[j]*X[i][j] <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(w))) + b</span><br><span class="line">            err = y_pred - y[i]</span><br><span class="line">            <span class="comment"># 更新权重和偏置</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(w)):</span><br><span class="line">                w[j] -= lr * err * X[i][j]</span><br><span class="line">            b -= lr * err</span><br><span class="line">    <span class="keyword">return</span> w, b</span><br></pre></td></tr></table></figure>
+
+<h4 id="决策树与集成方法"><a href="#决策树与集成方法" class="headerlink" title="决策树与集成方法"></a>决策树与集成方法</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ID3 &#x2F; C4.5 &#x2F; CART</td>
+<td>基于信息增益或基尼指数进行分割</td>
+<td>递归的，可解释性强</td>
+</tr>
+<tr>
+<td>随机森林</td>
+<td>Bagging + 决策树</td>
+<td>降低方差</td>
+</tr>
+<tr>
+<td>梯度提升</td>
+<td>顺序拟合残差</td>
+<td>XGBoost, LightGBM, CatBoost</td>
+</tr>
+<tr>
+<td>AdaBoost</td>
+<td>加权弱学习器</td>
+<td>对噪声敏感</td>
+</tr>
+</tbody></table>
+<p>不纯度度量：</p>
+<ul>
+<li>基尼指数：$1-\sum p_i^2$</li>
+<li>熵：$-\sum p_i\log_2p_i$</li>
+</ul>
+<h4 id="支持向量机-SVM"><a href="#支持向量机-SVM" class="headerlink" title="支持向量机 (SVM)"></a>支持向量机 (SVM)</h4><p>寻找最大间隔超平面。</p>
+<p>目标函数：<br>$$<br>\min_{w,b} \frac{1}{2}|w|^2 + C\sum\xi_i<br>$$<br>约束条件：$y_i(w^Tx_i+b)\ge1-\xi_i$</p>
+<p>核技巧实现非线性分离：<br>$$K(x_i,x_j)&#x3D;\phi(x_i)\cdot\phi(x_j)$$</p>
+<h4 id="神经网络基础"><a href="#神经网络基础" class="headerlink" title="神经网络基础"></a>神经网络基础</h4><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>神经元</td>
+<td>$y&#x3D;\sigma(w\cdot x+b)$</td>
+</tr>
+<tr>
+<td>激活函数</td>
+<td>Sigmoid, ReLU, Tanh</td>
+</tr>
+<tr>
+<td>损失函数</td>
+<td>均方误差，交叉熵</td>
+</tr>
+<tr>
+<td>训练</td>
+<td>梯度下降 + 反向传播</td>
+</tr>
+<tr>
+<td>优化器</td>
+<td>SGD, Adam, RMSProp</td>
+</tr>
+</tbody></table>
+<p>前向传播：<br>$$a^{(l)} &#x3D; \sigma(W^{(l)}a^{(l-1)}+b^{(l)})$$<br>反向传播逐层计算梯度。</p>
+<h4 id="梯度下降变体"><a href="#梯度下降变体" class="headerlink" title="梯度下降变体"></a>梯度下降变体</h4><table>
+<thead>
+<tr>
+<th>变体</th>
+<th>思想</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>批量</td>
+<td>每一步使用所有数据</td>
+<td>稳定但慢</td>
+</tr>
+<tr>
+<td>随机</td>
+<td>每个样本更新一次</td>
+<td>有噪声，快</td>
+</tr>
+<tr>
+<td>小批量</td>
+<td>分组更新</td>
+<td>常见做法</td>
+</tr>
+<tr>
+<td>动量</td>
+<td>添加速度项</td>
+<td>收敛更快</td>
+</tr>
+<tr>
+<td>Adam</td>
+<td>自适应矩估计</td>
+<td>最流行</td>
+</tr>
+</tbody></table>
+<p>更新规则：<br>$$<br>w &#x3D; w - \eta \cdot \frac{\partial L}{\partial w}<br>$$</p>
+<h4 id="无监督学习"><a href="#无监督学习" class="headerlink" title="无监督学习"></a>无监督学习</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>描述</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PCA</td>
+<td>基于方差的投影</td>
+<td>特征分解</td>
+</tr>
+<tr>
+<td>ICA</td>
+<td>独立成分分析</td>
+<td>信号分离</td>
+</tr>
+<tr>
+<td>t-SNE</td>
+<td>保持局部结构</td>
+<td>仅用于可视化</td>
+</tr>
+<tr>
+<td>自编码器</td>
+<td>神经网络重构模型</td>
+<td>降维</td>
+</tr>
+</tbody></table>
+<p>PCA 公式：<br>协方差矩阵 $C&#x3D;\frac{1}{n}X^TX$，$C$ 的特征向量是主成分轴。</p>
+<h4 id="概率模型"><a href="#概率模型" class="headerlink" title="概率模型"></a>概率模型</h4><table>
+<thead>
+<tr>
+<th>模型</th>
+<th>描述</th>
+<th>备注</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>朴素贝叶斯</td>
+<td>独立性假设</td>
+<td>$P(y</td>
+<td>x)\propto P(y)\prod P(x_i</td>
+<td>y)$</td>
+</tr>
+<tr>
+<td>隐马尔可夫模型</td>
+<td>序列隐状态</td>
+<td>Viterbi 算法解码</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>马尔可夫链</td>
+<td>转移概率</td>
+<td>$P(x_t</td>
+<td>x_{t-1})$</td>
+<td></td>
+</tr>
+<tr>
+<td>高斯混合模型</td>
+<td>软聚类</td>
+<td>EM 算法</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="优化与元启发式算法"><a href="#优化与元启发式算法" class="headerlink" title="优化与元启发式算法"></a>优化与元启发式算法</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>类别</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>梯度下降</td>
+<td>凸优化</td>
+<td>目标函数可微</td>
+</tr>
+<tr>
+<td>牛顿法</td>
+<td>二阶方法</td>
+<td>使用海森矩阵</td>
+</tr>
+<tr>
+<td>模拟退火</td>
+<td>概率搜索</td>
+<td>逃离局部最小值</td>
+</tr>
+<tr>
+<td>遗传算法</td>
+<td>进化算法</td>
+<td>基于种群的搜索</td>
+</tr>
+<tr>
+<td>粒子群优化</td>
+<td>集体移动</td>
+<td>受群体行为启发</td>
+</tr>
+<tr>
+<td>爬山算法</td>
+<td>贪心搜索</td>
+<td>局部优化</td>
+</tr>
+</tbody></table>
+<h4 id="强化学习核心"><a href="#强化学习核心" class="headerlink" title="强化学习核心"></a>强化学习核心</h4><table>
+<thead>
+<tr>
+<th>概念</th>
+<th>描述</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>智能体</td>
+<td>学习者&#x2F;决策者</td>
+<td>机器人，策略</td>
+</tr>
+<tr>
+<td>环境</td>
+<td>提供状态和奖励</td>
+<td>游戏，模拟器</td>
+</tr>
+<tr>
+<td>策略</td>
+<td>状态到动作的映射</td>
+<td>$\pi(s)&#x3D;a$</td>
+</tr>
+<tr>
+<td>价值函数</td>
+<td>期望回报</td>
+<td>$V(s)$, $Q(s,a)$</td>
+</tr>
+</tbody></table>
+<p>Q-Learning 更新：<br>$$<br>Q(s,a)\leftarrow Q(s,a)+\alpha(r+\gamma\max_{a’}Q(s’,a’)-Q(s,a))<br>$$</p>
+<p>微型代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Q[s][a] += alpha * (r + gamma * <span class="built_in">max</span>(Q[s_next]) - Q[s][a])</span><br></pre></td></tr></table></figure>
+
+<h4 id="AI-搜索算法"><a href="#AI-搜索算法" class="headerlink" title="AI 搜索算法"></a>AI 搜索算法</h4><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>描述</th>
+<th>复杂度</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BFS</td>
+<td>无权图最短路径</td>
+<td>$O(V+E)$</td>
+<td>层序搜索</td>
+</tr>
+<tr>
+<td>DFS</td>
+<td>深度探索</td>
+<td>$O(V+E)$</td>
+<td>回溯</td>
+</tr>
+<tr>
+<td>A* 搜索</td>
+<td>启发式搜索</td>
+<td>$O(E\log V)$</td>
+<td>$f(n)&#x3D;g(n)+h(n)$</td>
+</tr>
+<tr>
+<td>IDA*</td>
+<td>迭代加深 A*</td>
+<td>内存效率高</td>
+<td>若 $h$ 可采纳则最优</td>
+</tr>
+<tr>
+<td>束搜索</td>
+<td>保留最好的 k 个状态</td>
+<td>近似</td>
+<td>NLP 解码</td>
+</tr>
+</tbody></table>
+<h4 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h4><table>
+<thead>
+<tr>
+<th>任务</th>
+<th>指标</th>
+<th>公式 &#x2F; 含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分类</td>
+<td>准确率，精确率，召回率</td>
+<td>$\frac{TP}{TP+FP}$, $\frac{TP}{TP+FN}$</td>
+</tr>
+<tr>
+<td>回归</td>
+<td>RMSE, MAE, $R^2$</td>
+<td>拟合度与误差大小</td>
+</tr>
+<tr>
+<td>聚类</td>
+<td>轮廓系数</td>
+<td>内聚性与分离性</td>
+</tr>
+<tr>
+<td>排序</td>
+<td>MAP, NDCG</td>
+<td>顺序敏感</td>
+</tr>
+</tbody></table>
+<p>混淆矩阵：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>预测 +</th>
+<th>预测 -</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>实际 +</td>
+<td>TP</td>
+<td>FN</td>
+</tr>
+<tr>
+<td>实际 -</td>
+<td>FP</td>
+<td>TN</td>
+</tr>
+</tbody></table>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>算法示例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>聚类</td>
+<td>k-Means, GMM</td>
+<td>无监督分组</td>
+</tr>
+<tr>
+<td>分类</td>
+<td>逻辑回归，SVM，决策树</td>
+<td>有监督标注</td>
+</tr>
+<tr>
+<td>回归</td>
+<td>线性回归，岭回归，Lasso</td>
+<td>预测连续值</td>
+</tr>
+<tr>
+<td>优化</td>
+<td>GD, Adam, 模拟退火</td>
+<td>最小化损失</td>
+</tr>
+<tr>
+<td>概率</td>
+<td>贝叶斯，HMM，EM</td>
+<td>不确定性建模</td>
+</tr>
+<tr>
+<td>强化学习</td>
+<td>Q-Learning, SARSA</td>
+<td>基于奖励的学习</td>
+</tr>
+</tbody></table>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">MisterRabbit</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MisterRabbit0w0"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9F%E6%9F%A5%E8%A1%A8"><span class="toc-text">速查表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-1-%E9%A1%B5%EF%BC%9A%E6%A6%82%E8%A7%88%E4%B8%8E%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">第 1 页：概览与复杂度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">什么是算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%89%B9%E6%80%A7"><span class="toc-text">核心特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%BE%88%E9%87%8D%E8%A6%81"><span class="toc-text">为什么复杂度很重要</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%A6%E9%87%8F%E6%97%B6%E9%97%B4%E4%B8%8E%E7%A9%BA%E9%97%B4"><span class="toc-text">度量时间与空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E6%A8%A1%E5%BC%8F"><span class="toc-text">常见模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BF%BB%E5%80%8D%E8%A7%84%E5%88%99"><span class="toc-text">翻倍规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE"><span class="toc-text">微型代码：二分查找</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%99%B7%E9%98%B1"><span class="toc-text">常见陷阱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E9%95%BF%E7%8E%87%E5%BF%AB%E9%80%9F%E6%80%BB%E7%BB%93"><span class="toc-text">增长率快速总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%BB%8F%E9%AA%8C%E6%B3%95%E5%88%99"><span class="toc-text">简单经验法则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-2-%E9%A1%B5%EF%BC%9A%E9%80%92%E5%BD%92%E5%BC%8F%E4%B8%8E%E4%B8%BB%E5%AE%9A%E7%90%86"><span class="toc-text">第 2 页：递归式与主定理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%80%92%E5%BD%92%E5%BC%8F%EF%BC%9F"><span class="toc-text">什么是递归式？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E9%80%92%E5%BD%92%E5%BC%8F"><span class="toc-text">常见的递归式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B1%82%E8%A7%A3%E9%80%92%E5%BD%92%E5%BC%8F"><span class="toc-text">求解递归式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E5%AE%9A%E7%90%86"><span class="toc-text">主定理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E6%A0%91%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-text">递归树可视化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E5%BF%AB%E9%80%9F%E5%B9%82%E8%BF%90%E7%AE%97"><span class="toc-text">微型代码：快速幂运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95%E7%A4%BA%E4%BE%8B"><span class="toc-text">迭代法示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%BD%A2%E5%BC%8F"><span class="toc-text">常见形式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%A3%80%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="toc-text">快速检查清单</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-3-%E9%A1%B5%EF%BC%9A%E6%8E%92%E5%BA%8F%E6%A6%82%E8%A7%88"><span class="toc-text">第 3 页：排序概览</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8E%92%E5%BA%8F%E5%BE%88%E9%87%8D%E8%A6%81"><span class="toc-text">为什么排序很重要</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%AF%94%E8%BE%83%E8%A1%A8"><span class="toc-text">快速比较表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="toc-text">如何选择排序算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-text">微型代码：插入排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%B2%BB%E6%8E%92%E5%BA%8F"><span class="toc-text">分治排序</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-text">快速排序</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%B3%E5%AE%9A%E6%8E%92%E5%BA%8F-vs-%E4%B8%8D%E7%A8%B3%E5%AE%9A%E6%8E%92%E5%BA%8F"><span class="toc-text">稳定排序 vs 不稳定排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96%E6%8A%80%E5%B7%A7"><span class="toc-text">可视化技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8"><span class="toc-text">总结表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-4-%E9%A1%B5%EF%BC%9A%E6%90%9C%E7%B4%A2%E4%B8%8E%E9%80%89%E6%8B%A9"><span class="toc-text">第 4 页：搜索与选择</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%9F%BA%E7%A1%80"><span class="toc-text">搜索基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%90%9C%E7%B4%A2"><span class="toc-text">线性搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><span class="toc-text">二分搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E5%8F%98%E4%BD%93"><span class="toc-text">二分搜索变体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E9%99%B7%E9%98%B1"><span class="toc-text">常见的二分搜索陷阱</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-text">指数搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E9%97%AE%E9%A2%98"><span class="toc-text">选择问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9%EF%BC%88%E7%AC%AC-k-%E5%B0%8F%E5%85%83%E7%B4%A0%EF%BC%89"><span class="toc-text">微型代码：快速选择（第 k 小元素）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E4%B8%8B%E7%95%8C"><span class="toc-text">微型代码：下界</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%93%88%E5%B8%8C%E7%9A%84%E6%90%9C%E7%B4%A2"><span class="toc-text">基于哈希的搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8-1"><span class="toc-text">总结表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8F%90%E7%A4%BA"><span class="toc-text">快速提示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-5-%E9%A1%B5%EF%BC%9A%E6%A0%B8%E5%BF%83%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">第 5 页：核心数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%97%E8%A1%A8"><span class="toc-text">数组和列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E6%89%A9%E5%AE%B9%EF%BC%88%E7%B1%BB-Python%EF%BC%89"><span class="toc-text">微型代码：动态数组扩容（类 Python）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97"><span class="toc-text">栈和队列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E6%A0%88"><span class="toc-text">微型代码：栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E9%98%9F%E5%88%97"><span class="toc-text">微型代码：队列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%EF%BC%88%E5%A0%86%EF%BC%89"><span class="toc-text">优先队列（堆）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8"><span class="toc-text">哈希表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E5%93%88%E5%B8%8C%E6%98%A0%E5%B0%84%EF%BC%88%E7%AE%80%E5%8C%96%E7%89%88%EF%BC%89"><span class="toc-text">微型代码：哈希映射（简化版）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-text">集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86%EF%BC%88%E4%B8%8D%E7%9B%B8%E4%BA%A4%E9%9B%86%EF%BC%89"><span class="toc-text">并查集（不相交集）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8%E6%A0%BC"><span class="toc-text">总结表格</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8F%90%E7%A4%BA-1"><span class="toc-text">快速提示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-6-%E9%A1%B5%EF%BC%9A%E5%9B%BE%E7%AE%97%E6%B3%95%E9%80%9F%E6%9F%A5"><span class="toc-text">第 6 页：图算法速查</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BE%E5%9F%BA%E7%A1%80"><span class="toc-text">图基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A1%A8%E7%A4%BA%E6%96%B9%E6%B3%95"><span class="toc-text">表示方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%81%8D%E5%8E%86"><span class="toc-text">遍历</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88BFS%EF%BC%89"><span class="toc-text">广度优先搜索（BFS）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%EF%BC%88DFS%EF%BC%89"><span class="toc-text">深度优先搜索（DFS）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95"><span class="toc-text">最短路径算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%BE%E7%AE%80%E4%BB%A3%E7%A0%81%EF%BC%9ADijkstra-%E7%AE%97%E6%B3%95"><span class="toc-text">精简代码：Dijkstra 算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F%EF%BC%88%E4%BB%85%E9%80%82%E7%94%A8%E4%BA%8E%E6%9C%89%E5%90%91%E6%97%A0%E7%8E%AF%E5%9B%BE%EF%BC%89"><span class="toc-text">拓扑排序（仅适用于有向无环图）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%EF%BC%88MST%EF%BC%89"><span class="toc-text">最小生成树（MST）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%BE%E7%AE%80%E4%BB%A3%E7%A0%81%EF%BC%9AKruskal-MST"><span class="toc-text">精简代码：Kruskal MST</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F%EF%BC%88SCC%EF%BC%89"><span class="toc-text">强连通分量（SCC）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%8E%AF%E6%A3%80%E6%B5%8B"><span class="toc-text">环检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8-2"><span class="toc-text">总结表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8F%90%E7%A4%BA-2"><span class="toc-text">快速提示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-7-%E9%A1%B5%EF%BC%9A%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%BF%AB%E9%80%9F%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97"><span class="toc-text">第 7 页：动态规划快速使用指南</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-text">何时使用动态规划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="toc-text">动态规划的实现方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97%E7%A4%BA%E4%BE%8B"><span class="toc-text">斐波那契数列示例</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E9%A1%B6%E5%90%91%E4%B8%8B%EF%BC%88%E8%AE%B0%E5%BF%86%E5%8C%96%EF%BC%89"><span class="toc-text">自顶向下（记忆化）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%87%AA%E5%BA%95%E5%90%91%E4%B8%8A%EF%BC%88%E8%A1%A8%E6%A0%BC%E6%B3%95%EF%BC%89"><span class="toc-text">自底向上（表格法）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="toc-text">解决动态规划问题的步骤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%B1%BB%E5%88%AB"><span class="toc-text">常见的动态规划类别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98"><span class="toc-text">经典问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B2%BE%E7%AE%80%E4%BB%A3%E7%A0%81%EF%BC%9A0-1-%E8%83%8C%E5%8C%85%EF%BC%88%E4%B8%80%E7%BB%B4%E7%A9%BA%E9%97%B4%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">精简代码：0&#x2F;1 背包（一维空间优化）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%8F%E5%88%97%E5%AF%B9%E9%BD%90%E7%A4%BA%E4%BE%8B"><span class="toc-text">序列对齐示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%8A%80%E5%B7%A7"><span class="toc-text">优化技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-text">调试技巧</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-8-%E9%A1%B5-%E7%AE%97%E6%B3%95%E5%BF%AB%E9%80%9F%E6%95%B0%E5%AD%A6%E6%8C%87%E5%8D%97"><span class="toc-text">第 8 页. 算法快速数学指南</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-text">数论基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A0%E6%95%B0%E4%B8%8E%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3"><span class="toc-text">素数与因数分解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6"><span class="toc-text">组合数学</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E5%9F%BA%E7%A1%80"><span class="toc-text">概率基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E6%A0%B8%E5%BF%83"><span class="toc-text">线性代数核心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%8F%98%E6%8D%A2"><span class="toc-text">快速变换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E6%96%B9%E6%B3%95"><span class="toc-text">数值方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E4%B8%8E%E5%BE%AE%E7%A7%AF%E5%88%86"><span class="toc-text">优化与微积分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%A3%E6%95%B0%E6%8A%80%E5%B7%A7"><span class="toc-text">代数技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%8F%82%E8%80%83%E8%A1%A8"><span class="toc-text">快速参考表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-9-%E9%A1%B5%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%96%87%E6%9C%AC%E7%AE%97%E6%B3%95%E9%80%9F%E6%9F%A5"><span class="toc-text">第 9 页：字符串与文本算法速查</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9F%BA%E7%A1%80"><span class="toc-text">字符串基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%90%9C%E7%B4%A2%E6%A6%82%E8%BF%B0"><span class="toc-text">字符串搜索概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#KMP-%E5%89%8D%E7%BC%80%E5%87%BD%E6%95%B0"><span class="toc-text">KMP 前缀函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Z-%E7%AE%97%E6%B3%95"><span class="toc-text">Z 算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Rabin%E2%80%93Karp-%E6%BB%9A%E5%8A%A8%E5%93%88%E5%B8%8C"><span class="toc-text">Rabin–Karp 滚动哈希</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E7%BA%A7%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">高级模式匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Aho%E2%80%93Corasick-%E8%87%AA%E5%8A%A8%E6%9C%BA"><span class="toc-text">Aho–Corasick 自动机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E7%BC%80%E7%BB%93%E6%9E%84"><span class="toc-text">后缀结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E6%96%87%E6%A3%80%E6%B5%8B"><span class="toc-text">回文检测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB%E7%B3%BB%E5%88%97"><span class="toc-text">编辑距离系列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E6%8A%80%E6%9C%AF"><span class="toc-text">压缩技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E4%B8%8E%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-text">哈希与校验和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E5%8F%82%E8%80%83"><span class="toc-text">快速参考</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC10%E9%A1%B5%E3%80%82%E5%87%A0%E4%BD%95%E3%80%81%E5%9B%BE%E5%BD%A2%E4%B8%8E%E7%A9%BA%E9%97%B4%E7%AE%97%E6%B3%95%E9%80%9F%E6%9F%A5"><span class="toc-text">第10页。几何、图形与空间算法速查</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%90%E6%A0%87%E5%9F%BA%E7%A1%80"><span class="toc-text">坐标基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%B8%E5%8C%85"><span class="toc-text">凸包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E7%82%B9%E5%AF%B9"><span class="toc-text">最近点对</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%AE%B5%E7%9B%B8%E4%BA%A4"><span class="toc-text">线段相交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%BE%B9%E5%BD%A2%E9%9D%A2%E7%A7%AF-%E9%9E%8B%E5%B8%A6%E5%85%AC%E5%BC%8F"><span class="toc-text">多边形面积 (鞋带公式)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85"><span class="toc-text">点是否在多边形内</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%8B%E8%BD%AC%E5%8D%A1%E5%B0%BA"><span class="toc-text">旋转卡尺</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%AB%E6%8F%8F%E7%BA%BF%E6%8A%80%E6%9C%AF"><span class="toc-text">扫描线技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%86%E5%87%A0%E4%BD%95"><span class="toc-text">圆几何</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">空间数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%89%E6%A0%85%E5%8C%96%E4%B8%8E%E5%9B%BE%E5%BD%A2%E5%AD%A6"><span class="toc-text">光栅化与图形学</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E9%97%B4%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92"><span class="toc-text">空间路径规划</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%80%BB%E7%BB%93"><span class="toc-text">快速总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA"><span class="toc-text">提示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC11%E9%A1%B5%EF%BC%9A%E7%B3%BB%E7%BB%9F%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95%E9%80%9F%E6%9F%A5"><span class="toc-text">第11页：系统、数据库与分布式算法速查</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="toc-text">并发控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9A%E6%97%B6%E9%97%B4%E6%88%B3%E6%8E%92%E5%BA%8F"><span class="toc-text">微型代码：时间戳排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-text">日志与恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-text">索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86"><span class="toc-text">查询处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E4%B8%8E%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5"><span class="toc-text">缓存与替换策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%A0%B8%E5%BF%83"><span class="toc-text">分布式系统核心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Raft-%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95%EF%BC%88%E7%AE%80%E5%8C%96%E7%89%88%EF%BC%89"><span class="toc-text">Raft 共识算法（简化版）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C"><span class="toc-text">一致性哈希</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E9%94%99%E6%A8%A1%E5%BC%8F"><span class="toc-text">容错模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83"><span class="toc-text">分布式协调</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93%E8%A1%A8-3"><span class="toc-text">总结表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8F%90%E7%A4%BA-3"><span class="toc-text">快速提示</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-12-%E9%A1%B5%EF%BC%9AAI%E3%80%81ML-%E4%B8%8E%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E9%80%9F%E6%9F%A5"><span class="toc-text">第 12 页：AI、ML 与优化算法速查</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95"><span class="toc-text">经典机器学习算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AE%E5%9E%8B%E4%BB%A3%E7%A0%81%EF%BC%9Ak-Means"><span class="toc-text">微型代码：k-Means</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="toc-text">线性模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95"><span class="toc-text">决策树与集成方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-SVM"><span class="toc-text">支持向量机 (SVM)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80"><span class="toc-text">神经网络基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E5%8F%98%E4%BD%93"><span class="toc-text">梯度下降变体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="toc-text">无监督学习</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A6%82%E7%8E%87%E6%A8%A1%E5%9E%8B"><span class="toc-text">概率模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E4%B8%8E%E5%85%83%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="toc-text">优化与元启发式算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E6%A0%B8%E5%BF%83"><span class="toc-text">强化学习核心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AI-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="toc-text">AI 搜索算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87"><span class="toc-text">评估指标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/19/hello-world/" title="Hello World">Hello World</a><time datetime="2026-01-19T16:00:00.000Z" title="Created 2026-01-20 00:00:00">2026-01-20</time></div></div></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              January 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">1</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-25T07:20:55.603Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By MisterRabbit</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

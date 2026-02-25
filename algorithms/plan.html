@@ -1,0 +1,6139 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计划书 | MisterRabbit's Blog</title><meta name="author" content="MisterRabbit"><meta name="copyright" content="MisterRabbit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="计划第 1 章 算法基础1. 什么是算法？   # 算法 备注    1 欧几里得最大公约数算法 已知最古老的求最大公约数的算法   2 埃拉托斯特尼筛法 高效生成素数   3 二分查找 分治搜索   4 快速幂算法 快速幂计算   5 长除法 经典的分步算术运算   6 模加法算法 循环算术   7 进制转换算法 在不同数制间转换   8 阶乘计算 递归与迭代方法   9 斐波那契数列 递归与动">
+<meta property="og:type" content="website">
+<meta property="og:title" content="计划书">
+<meta property="og:url" content="http://misterrabbit0w0.github.io/algorithms/plan.html">
+<meta property="og:site_name" content="MisterRabbit&#39;s Blog">
+<meta property="og:description" content="计划第 1 章 算法基础1. 什么是算法？   # 算法 备注    1 欧几里得最大公约数算法 已知最古老的求最大公约数的算法   2 埃拉托斯特尼筛法 高效生成素数   3 二分查找 分治搜索   4 快速幂算法 快速幂计算   5 长除法 经典的分步算术运算   6 模加法算法 循环算术   7 进制转换算法 在不同数制间转换   8 阶乘计算 递归与迭代方法   9 斐波那契数列 递归与动">
+<meta property="og:locale">
+<meta property="og:image" content="http://misterrabbit0w0.github.io/img/avatar/avatar.jpg">
+<meta property="article:published_time" content="2026-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-25T07:20:44.591Z">
+<meta property="article:author" content="MisterRabbit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://misterrabbit0w0.github.io/img/avatar/avatar.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon/favicon.ico"><link rel="canonical" href="http://misterrabbit0w0.github.io/algorithms/plan.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计划书',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'page'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/algorithms/"><i class="fa-fw fas fa-book"></i><span> 算法小书</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(/img/banner/default.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">MisterRabbit's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/algorithms/"><i class="fa-fw fas fa-book"></i><span> 算法小书</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">计划书</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><h1 id="计划"><a href="#计划" class="headerlink" title="计划"></a>计划</h1><h3 id="第-1-章-算法基础"><a href="#第-1-章-算法基础" class="headerlink" title="第 1 章 算法基础"></a>第 1 章 算法基础</h3><h4 id="1-什么是算法？"><a href="#1-什么是算法？" class="headerlink" title="1. 什么是算法？"></a>1. 什么是算法？</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>欧几里得最大公约数算法</td>
+<td>已知最古老的求最大公约数的算法</td>
+</tr>
+<tr>
+<td>2</td>
+<td>埃拉托斯特尼筛法</td>
+<td>高效生成素数</td>
+</tr>
+<tr>
+<td>3</td>
+<td>二分查找</td>
+<td>分治搜索</td>
+</tr>
+<tr>
+<td>4</td>
+<td>快速幂算法</td>
+<td>快速幂计算</td>
+</tr>
+<tr>
+<td>5</td>
+<td>长除法</td>
+<td>经典的分步算术运算</td>
+</tr>
+<tr>
+<td>6</td>
+<td>模加法算法</td>
+<td>循环算术</td>
+</tr>
+<tr>
+<td>7</td>
+<td>进制转换算法</td>
+<td>在不同数制间转换</td>
+</tr>
+<tr>
+<td>8</td>
+<td>阶乘计算</td>
+<td>递归与迭代方法</td>
+</tr>
+<tr>
+<td>9</td>
+<td>斐波那契数列</td>
+<td>递归与动态计算对比</td>
+</tr>
+<tr>
+<td>10</td>
+<td>汉诺塔</td>
+<td>递归问题解决模式</td>
+</tr>
+</tbody></table>
+<h4 id="2-度量时间与空间"><a href="#2-度量时间与空间" class="headerlink" title="2. 度量时间与空间"></a>2. 度量时间与空间</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>11</td>
+<td>操作计数</td>
+<td>手动步数计数以分析复杂度</td>
+</tr>
+<tr>
+<td>12</td>
+<td>循环分析</td>
+<td>评估循环的时间开销</td>
+</tr>
+<tr>
+<td>13</td>
+<td>递归展开</td>
+<td>分析递归开销</td>
+</tr>
+<tr>
+<td>14</td>
+<td>摊还分析</td>
+<td>平均每操作成本</td>
+</tr>
+<tr>
+<td>15</td>
+<td>空间计数</td>
+<td>栈和堆跟踪</td>
+</tr>
+<tr>
+<td>16</td>
+<td>内存占用估算器</td>
+<td>跟踪每个变量的使用情况</td>
+</tr>
+<tr>
+<td>17</td>
+<td>时间复杂度表</td>
+<td>映射 O(1)…O(n²)…O(2ⁿ)</td>
+</tr>
+<tr>
+<td>18</td>
+<td>时空权衡</td>
+<td>缓存与重新计算的权衡</td>
+</tr>
+<tr>
+<td>19</td>
+<td>性能剖析算法</td>
+<td>经验性时间测量</td>
+</tr>
+<tr>
+<td>20</td>
+<td>基准测试框架</td>
+<td>比较算法性能</td>
+</tr>
+</tbody></table>
+<h4 id="3-大-O、大-Θ、大-Ω"><a href="#3-大-O、大-Θ、大-Ω" class="headerlink" title="3. 大 O、大 Θ、大 Ω"></a>3. 大 O、大 Θ、大 Ω</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>21</td>
+<td>增长率比较器</td>
+<td>比较渐近行为</td>
+</tr>
+<tr>
+<td>22</td>
+<td>主导项提取器</td>
+<td>简化运行时表达式</td>
+</tr>
+<tr>
+<td>23</td>
+<td>基于极限的复杂度测试</td>
+<td>使用极限进行渐近分析</td>
+</tr>
+<tr>
+<td>24</td>
+<td>求和简化器</td>
+<td>算术&#x2F;几何序列求和</td>
+</tr>
+<tr>
+<td>25</td>
+<td>递归树方法</td>
+<td>可视化递归开销</td>
+</tr>
+<tr>
+<td>26</td>
+<td>主定理求值器</td>
+<td>求解 T(n) 递归式</td>
+</tr>
+<tr>
+<td>27</td>
+<td>大 Θ 证明构造器</td>
+<td>界定上界和下界</td>
+</tr>
+<tr>
+<td>28</td>
+<td>大 Ω 情形查找器</td>
+<td>最佳情况分析</td>
+</tr>
+<tr>
+<td>29</td>
+<td>经验复杂度估计器</td>
+<td>通过倍增实验测量</td>
+</tr>
+<tr>
+<td>30</td>
+<td>复杂度类别识别器</td>
+<td>将运行时间匹配到已知类别</td>
+</tr>
+</tbody></table>
+<h4 id="4-算法范式（贪心、分治、动态规划）"><a href="#4-算法范式（贪心、分治、动态规划）" class="headerlink" title="4. 算法范式（贪心、分治、动态规划）"></a>4. 算法范式（贪心、分治、动态规划）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>31</td>
+<td>贪心找零问题</td>
+<td>局部最优的逐步选择</td>
+</tr>
+<tr>
+<td>32</td>
+<td>霍夫曼编码</td>
+<td>贪心压缩树</td>
+</tr>
+<tr>
+<td>33</td>
+<td>归并排序</td>
+<td>分治排序</td>
+</tr>
+<tr>
+<td>34</td>
+<td>二分查找</td>
+<td>分治搜索</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Karatsuba 乘法算法</td>
+<td>递归分治乘法</td>
+</tr>
+<tr>
+<td>36</td>
+<td>矩阵链乘法</td>
+<td>具有最优子结构的动态规划</td>
+</tr>
+<tr>
+<td>37</td>
+<td>最长公共子序列</td>
+<td>经典动态规划问题</td>
+</tr>
+<tr>
+<td>38</td>
+<td>钢条切割问题</td>
+<td>动态规划优化</td>
+</tr>
+<tr>
+<td>39</td>
+<td>活动选择问题</td>
+<td>贪心调度</td>
+</tr>
+<tr>
+<td>40</td>
+<td>最优合并模式</td>
+<td>贪心文件合并</td>
+</tr>
+</tbody></table>
+<h4 id="5-递归关系"><a href="#5-递归关系" class="headerlink" title="5. 递归关系"></a>5. 递归关系</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>41</td>
+<td>线性递归求解器</td>
+<td>线性递归的闭式解</td>
+</tr>
+<tr>
+<td>42</td>
+<td>主定理</td>
+<td>分治算法复杂度分析</td>
+</tr>
+<tr>
+<td>43</td>
+<td>代入法</td>
+<td>归纳证明方法</td>
+</tr>
+<tr>
+<td>44</td>
+<td>迭代法</td>
+<td>逐步展开递归式</td>
+</tr>
+<tr>
+<td>45</td>
+<td>生成函数</td>
+<td>转换递归关系</td>
+</tr>
+<tr>
+<td>46</td>
+<td>矩阵快速幂</td>
+<td>快速求解线性递归</td>
+</tr>
+<tr>
+<td>47</td>
+<td>递归到动态规划表</td>
+<td>制表法</td>
+</tr>
+<tr>
+<td>48</td>
+<td>分治合并模板</td>
+<td>将递归式转化为算法</td>
+</tr>
+<tr>
+<td>49</td>
+<td>记忆化递归求解器</td>
+<td>存储重叠子问题的结果</td>
+</tr>
+<tr>
+<td>50</td>
+<td>特征多项式</td>
+<td>求解齐次递归式</td>
+</tr>
+</tbody></table>
+<h4 id="6-搜索基础"><a href="#6-搜索基础" class="headerlink" title="6. 搜索基础"></a>6. 搜索基础</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>51</td>
+<td>线性搜索</td>
+<td>顺序扫描元素</td>
+</tr>
+<tr>
+<td>52</td>
+<td>二分查找</td>
+<td>中点折半</td>
+</tr>
+<tr>
+<td>53</td>
+<td>跳跃搜索</td>
+<td>分块跳跃线性搜索</td>
+</tr>
+<tr>
+<td>54</td>
+<td>指数搜索</td>
+<td>倍增步长</td>
+</tr>
+<tr>
+<td>55</td>
+<td>插值搜索</td>
+<td>根据值估计位置</td>
+</tr>
+<tr>
+<td>56</td>
+<td>三分查找</td>
+<td>分成三份</td>
+</tr>
+<tr>
+<td>57</td>
+<td>斐波那契搜索</td>
+<td>黄金比例搜索</td>
+</tr>
+<tr>
+<td>58</td>
+<td>哨兵搜索</td>
+<td>提前终止优化</td>
+</tr>
+<tr>
+<td>59</td>
+<td>双向搜索</td>
+<td>从两端向中间搜索</td>
+</tr>
+<tr>
+<td>60</td>
+<td>旋转数组搜索</td>
+<td>适应性二分查找</td>
+</tr>
+</tbody></table>
+<h4 id="7-排序基础"><a href="#7-排序基础" class="headerlink" title="7. 排序基础"></a>7. 排序基础</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>61</td>
+<td>冒泡排序</td>
+<td>相邻交换排序</td>
+</tr>
+<tr>
+<td>62</td>
+<td>选择排序</td>
+<td>每轮查找最小值</td>
+</tr>
+<tr>
+<td>63</td>
+<td>插入排序</td>
+<td>增量构建排序</td>
+</tr>
+<tr>
+<td>64</td>
+<td>希尔排序</td>
+<td>基于间隔的插入排序</td>
+</tr>
+<tr>
+<td>65</td>
+<td>归并排序</td>
+<td>分治排序</td>
+</tr>
+<tr>
+<td>66</td>
+<td>快速排序</td>
+<td>基于分区</td>
+</tr>
+<tr>
+<td>67</td>
+<td>堆排序</td>
+<td>二叉堆排序</td>
+</tr>
+<tr>
+<td>68</td>
+<td>计数排序</td>
+<td>整数键分布排序</td>
+</tr>
+<tr>
+<td>69</td>
+<td>基数排序</td>
+<td>按位排序</td>
+</tr>
+<tr>
+<td>70</td>
+<td>桶排序</td>
+<td>分组到区间排序</td>
+</tr>
+</tbody></table>
+<h4 id="8-数据结构概述"><a href="#8-数据结构概述" class="headerlink" title="8. 数据结构概述"></a>8. 数据结构概述</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>71</td>
+<td>栈的压入&#x2F;弹出</td>
+<td>后进先出操作</td>
+</tr>
+<tr>
+<td>72</td>
+<td>队列的入队&#x2F;出队</td>
+<td>先进先出操作</td>
+</tr>
+<tr>
+<td>73</td>
+<td>单向链表</td>
+<td>线性节点链</td>
+</tr>
+<tr>
+<td>74</td>
+<td>双向链表</td>
+<td>双向遍历</td>
+</tr>
+<tr>
+<td>75</td>
+<td>哈希表插入</td>
+<td>键值索引</td>
+</tr>
+<tr>
+<td>76</td>
+<td>二叉搜索树插入</td>
+<td>有序节点放置</td>
+</tr>
+<tr>
+<td>77</td>
+<td>堆化</td>
+<td>原地建堆</td>
+</tr>
+<tr>
+<td>78</td>
+<td>并查集操作</td>
+<td>不相交集合管理</td>
+</tr>
+<tr>
+<td>79</td>
+<td>图邻接表构建</td>
+<td>稀疏表示</td>
+</tr>
+<tr>
+<td>80</td>
+<td>字典树插入&#x2F;搜索</td>
+<td>字符串前缀树</td>
+</tr>
+</tbody></table>
+<h4 id="9-图与树概述"><a href="#9-图与树概述" class="headerlink" title="9. 图与树概述"></a>9. 图与树概述</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>81</td>
+<td>深度优先搜索遍历</td>
+<td>深度优先探索</td>
+</tr>
+<tr>
+<td>82</td>
+<td>广度优先搜索遍历</td>
+<td>层次顺序探索</td>
+</tr>
+<tr>
+<td>83</td>
+<td>拓扑排序</td>
+<td>有向无环图排序</td>
+</tr>
+<tr>
+<td>84</td>
+<td>最小生成树</td>
+<td>Kruskal&#x2F;Prim 算法概述</td>
+</tr>
+<tr>
+<td>85</td>
+<td>Dijkstra（迪杰斯特拉）最短路径</td>
+<td>加权图最短路径</td>
+</tr>
+<tr>
+<td>86</td>
+<td>Bellman-Ford（贝尔曼-福特）算法</td>
+<td>处理负权边</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Floyd-Warshall（弗洛伊德-沃舍尔）算法</td>
+<td>所有节点对最短路径</td>
+</tr>
+<tr>
+<td>88</td>
+<td>用于最小生成树的并查集</td>
+<td>边分组</td>
+</tr>
+<tr>
+<td>89</td>
+<td>树遍历</td>
+<td>中序、前序、后序遍历</td>
+</tr>
+<tr>
+<td>90</td>
+<td>最近公共祖先</td>
+<td>树中的公共节点</td>
+</tr>
+</tbody></table>
+<h4 id="10-算法设计模式"><a href="#10-算法设计模式" class="headerlink" title="10. 算法设计模式"></a>10. 算法设计模式</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>91</td>
+<td>暴力枚举</td>
+<td>尝试所有可能性</td>
+</tr>
+<tr>
+<td>92</td>
+<td>贪心选择</td>
+<td>每步局部最优</td>
+</tr>
+<tr>
+<td>93</td>
+<td>分治法</td>
+<td>分解与合并</td>
+</tr>
+<tr>
+<td>94</td>
+<td>动态规划</td>
+<td>重用子问题</td>
+</tr>
+<tr>
+<td>95</td>
+<td>回溯法</td>
+<td>带撤销的探索</td>
+</tr>
+<tr>
+<td>96</td>
+<td>分支限界法</td>
+<td>剪枝搜索空间</td>
+</tr>
+<tr>
+<td>97</td>
+<td>随机化算法</td>
+<td>引入随机性</td>
+</tr>
+<tr>
+<td>98</td>
+<td>近似算法</td>
+<td>近似最优解</td>
+</tr>
+<tr>
+<td>99</td>
+<td>在线算法</td>
+<td>逐步决策</td>
+</tr>
+<tr>
+<td>100</td>
+<td>混合策略</td>
+<td>结合多种范式</td>
+</tr>
+</tbody></table>
+<h3 id="第-2-章-排序与搜索"><a href="#第-2-章-排序与搜索" class="headerlink" title="第 2 章 排序与搜索"></a>第 2 章 排序与搜索</h3><h4 id="11-基础排序算法（冒泡、插入、选择）"><a href="#11-基础排序算法（冒泡、插入、选择）" class="headerlink" title="11. 基础排序算法（冒泡、插入、选择）"></a>11. 基础排序算法（冒泡、插入、选择）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>101</td>
+<td>冒泡排序</td>
+<td>交换相邻的无序元素</td>
+</tr>
+<tr>
+<td>102</td>
+<td>改进的冒泡排序</td>
+<td>若已排序则提前停止</td>
+</tr>
+<tr>
+<td>103</td>
+<td>鸡尾酒排序</td>
+<td>双向冒泡遍历</td>
+</tr>
+<tr>
+<td>104</td>
+<td>选择排序</td>
+<td>每趟选择最小元素</td>
+</tr>
+<tr>
+<td>105</td>
+<td>双向选择排序</td>
+<td>每趟同时查找最小值和最大值</td>
+</tr>
+<tr>
+<td>106</td>
+<td>插入排序</td>
+<td>将每个元素插入正确位置</td>
+</tr>
+<tr>
+<td>107</td>
+<td>二分插入排序</td>
+<td>使用二分查找确定位置</td>
+</tr>
+<tr>
+<td>108</td>
+<td>侏儒排序</td>
+<td>类似插入排序的简单交换算法</td>
+</tr>
+<tr>
+<td>109</td>
+<td>奇偶排序</td>
+<td>适合并行化的比较排序</td>
+</tr>
+<tr>
+<td>110</td>
+<td>臭皮匠排序</td>
+<td>递归式的、古怪的教学用排序算法</td>
+</tr>
+</tbody></table>
+<h4 id="12-分治排序算法（归并、快速、堆）"><a href="#12-分治排序算法（归并、快速、堆）" class="headerlink" title="12. 分治排序算法（归并、快速、堆）"></a>12. 分治排序算法（归并、快速、堆）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>111</td>
+<td>归并排序</td>
+<td>递归地分解与合并</td>
+</tr>
+<tr>
+<td>112</td>
+<td>迭代归并排序</td>
+<td>自底向上的非递归版本</td>
+</tr>
+<tr>
+<td>113</td>
+<td>快速排序</td>
+<td>基于划分的递归排序</td>
+</tr>
+<tr>
+<td>114</td>
+<td>Hoare 划分方案</td>
+<td>经典的快速排序划分方法</td>
+</tr>
+<tr>
+<td>115</td>
+<td>Lomuto 划分方案</td>
+<td>更简单但效率较低</td>
+</tr>
+<tr>
+<td>116</td>
+<td>随机化快速排序</td>
+<td>避免最坏情况的枢轴选择</td>
+</tr>
+<tr>
+<td>117</td>
+<td>堆排序</td>
+<td>建堆 + 重复提取最大值</td>
+</tr>
+<tr>
+<td>118</td>
+<td>三路快速排序</td>
+<td>高效处理重复元素</td>
+</tr>
+<tr>
+<td>119</td>
+<td>外部归并排序</td>
+<td>用于海量数据的基于磁盘的归并排序</td>
+</tr>
+<tr>
+<td>120</td>
+<td>并行归并排序</td>
+<td>在线程间分配工作</td>
+</tr>
+</tbody></table>
+<h4 id="13-计数与分布排序（计数、基数、桶）"><a href="#13-计数与分布排序（计数、基数、桶）" class="headerlink" title="13. 计数与分布排序（计数、基数、桶）"></a>13. 计数与分布排序（计数、基数、桶）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>121</td>
+<td>计数排序</td>
+<td>统计键值出现次数</td>
+</tr>
+<tr>
+<td>122</td>
+<td>稳定的计数排序</td>
+<td>保持相等元素的原始顺序</td>
+</tr>
+<tr>
+<td>123</td>
+<td>基数排序（LSD）</td>
+<td>最低有效位优先</td>
+</tr>
+<tr>
+<td>124</td>
+<td>基数排序（MSD）</td>
+<td>最高有效位优先</td>
+</tr>
+<tr>
+<td>125</td>
+<td>桶排序</td>
+<td>将元素分配到桶中</td>
+</tr>
+<tr>
+<td>126</td>
+<td>鸽巢排序</td>
+<td>简单的桶排序变体</td>
+</tr>
+<tr>
+<td>127</td>
+<td>闪电排序</td>
+<td>带有原地修正的分布排序</td>
+</tr>
+<tr>
+<td>128</td>
+<td>邮递员排序</td>
+<td>稳定的多键排序</td>
+</tr>
+<tr>
+<td>129</td>
+<td>地址计算排序</td>
+<td>类似哈希的分布排序</td>
+</tr>
+<tr>
+<td>130</td>
+<td>扩散排序</td>
+<td>基数&#x2F;快速排序混合策略</td>
+</tr>
+</tbody></table>
+<h4 id="14-混合排序算法（IntroSort、Timsort）"><a href="#14-混合排序算法（IntroSort、Timsort）" class="headerlink" title="14. 混合排序算法（IntroSort、Timsort）"></a>14. 混合排序算法（IntroSort、Timsort）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>131</td>
+<td>IntroSort</td>
+<td>快速排序 + 堆排序后备</td>
+</tr>
+<tr>
+<td>132</td>
+<td>TimSort</td>
+<td>归并 + 插入 + 利用自然有序段</td>
+</tr>
+<tr>
+<td>133</td>
+<td>双枢轴快速排序</td>
+<td>现代快速排序优化</td>
+</tr>
+<tr>
+<td>134</td>
+<td>SmoothSort</td>
+<td>类似堆排序的自适应排序</td>
+</tr>
+<tr>
+<td>135</td>
+<td>块归并排序</td>
+<td>缓存高效的归并排序变体</td>
+</tr>
+<tr>
+<td>136</td>
+<td>自适应归并排序</td>
+<td>根据数据部分有序程度进行调整</td>
+</tr>
+<tr>
+<td>137</td>
+<td>PDQSort</td>
+<td>模式击败快速排序</td>
+</tr>
+<tr>
+<td>138</td>
+<td>WikiSort</td>
+<td>稳定的原地归并排序</td>
+</tr>
+<tr>
+<td>139</td>
+<td>GrailSort</td>
+<td>原地稳定的归并排序</td>
+</tr>
+<tr>
+<td>140</td>
+<td>自适应混合排序</td>
+<td>动态选择排序策略</td>
+</tr>
+</tbody></table>
+<h4 id="15-特殊排序算法（循环、侏儒、梳子、煎饼）"><a href="#15-特殊排序算法（循环、侏儒、梳子、煎饼）" class="headerlink" title="15. 特殊排序算法（循环、侏儒、梳子、煎饼）"></a>15. 特殊排序算法（循环、侏儒、梳子、煎饼）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>141</td>
+<td>循环排序</td>
+<td>写入次数最少</td>
+</tr>
+<tr>
+<td>142</td>
+<td>梳子排序</td>
+<td>间隙逐渐缩小的冒泡排序</td>
+</tr>
+<tr>
+<td>143</td>
+<td>侏儒排序</td>
+<td>类似插入排序的交换算法</td>
+</tr>
+<tr>
+<td>144</td>
+<td>鸡尾酒排序</td>
+<td>双向冒泡排序</td>
+</tr>
+<tr>
+<td>145</td>
+<td>煎饼排序</td>
+<td>基于翻转的排序</td>
+</tr>
+<tr>
+<td>146</td>
+<td>双调排序</td>
+<td>并行网络排序</td>
+</tr>
+<tr>
+<td>147</td>
+<td>奇偶归并排序</td>
+<td>排序网络设计</td>
+</tr>
+<tr>
+<td>148</td>
+<td>睡眠排序</td>
+<td>使用时间作为排序键</td>
+</tr>
+<tr>
+<td>149</td>
+<td>珠排序</td>
+<td>模拟重力</td>
+</tr>
+<tr>
+<td>150</td>
+<td>猴子排序</td>
+<td>随机排列直到有序</td>
+</tr>
+</tbody></table>
+<h4 id="16-线性与二分搜索"><a href="#16-线性与二分搜索" class="headerlink" title="16. 线性与二分搜索"></a>16. 线性与二分搜索</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>151</td>
+<td>线性搜索</td>
+<td>顺序扫描</td>
+</tr>
+<tr>
+<td>152</td>
+<td>线性搜索（哨兵）</td>
+<td>在末尾设置哨兵元素</td>
+</tr>
+<tr>
+<td>153</td>
+<td>二分搜索（迭代）</td>
+<td>每次循环将区间减半</td>
+</tr>
+<tr>
+<td>154</td>
+<td>二分搜索（递归）</td>
+<td>通过递归将区间减半</td>
+</tr>
+<tr>
+<td>155</td>
+<td>二分搜索（下界）</td>
+<td>查找第一个 &gt;&#x3D; 目标的位置</td>
+</tr>
+<tr>
+<td>156</td>
+<td>二分搜索（上界）</td>
+<td>查找第一个 &gt; 目标的位置</td>
+</tr>
+<tr>
+<td>157</td>
+<td>指数搜索</td>
+<td>步长倍增</td>
+</tr>
+<tr>
+<td>158</td>
+<td>跳跃搜索</td>
+<td>固定步长跳跃后线性搜索</td>
+</tr>
+<tr>
+<td>159</td>
+<td>斐波那契搜索</td>
+<td>黄金比例风格的跳跃搜索</td>
+</tr>
+<tr>
+<td>160</td>
+<td>均匀二分搜索</td>
+<td>避免重复计算中点</td>
+</tr>
+</tbody></table>
+<h4 id="17-插值与指数搜索"><a href="#17-插值与指数搜索" class="headerlink" title="17. 插值与指数搜索"></a>17. 插值与指数搜索</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>161</td>
+<td>插值搜索</td>
+<td>根据值估算索引位置</td>
+</tr>
+<tr>
+<td>162</td>
+<td>递归插值搜索</td>
+<td>根据估算的中点进行划分</td>
+</tr>
+<tr>
+<td>163</td>
+<td>指数搜索</td>
+<td>倍增然后二分细化</td>
+</tr>
+<tr>
+<td>164</td>
+<td>倍增搜索</td>
+<td>通用的指数搜索模式</td>
+</tr>
+<tr>
+<td>165</td>
+<td>疾驰搜索</td>
+<td>用于 TimSort 合并阶段</td>
+</tr>
+<tr>
+<td>166</td>
+<td>无界二分搜索</td>
+<td>动态确定搜索边界</td>
+</tr>
+<tr>
+<td>167</td>
+<td>求根二分法</td>
+<td>搜索零点</td>
+</tr>
+<tr>
+<td>168</td>
+<td>黄金分割搜索</td>
+<td>优化单峰函数</td>
+</tr>
+<tr>
+<td>169</td>
+<td>斐波那契搜索（最优）</td>
+<td>类似黄金分割搜索</td>
+</tr>
+<tr>
+<td>170</td>
+<td>跳跃 + 二分混合搜索</td>
+<td>组合探测策略</td>
+</tr>
+</tbody></table>
+<h4 id="18-选择算法（快速选择、中位数的中位数）"><a href="#18-选择算法（快速选择、中位数的中位数）" class="headerlink" title="18. 选择算法（快速选择、中位数的中位数）"></a>18. 选择算法（快速选择、中位数的中位数）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>171</td>
+<td>快速选择</td>
+<td>基于划分的选择算法</td>
+</tr>
+<tr>
+<td>172</td>
+<td>中位数的中位数</td>
+<td>确定性枢轴选择</td>
+</tr>
+<tr>
+<td>173</td>
+<td>随机化选择</td>
+<td>随机枢轴版本</td>
+</tr>
+<tr>
+<td>174</td>
+<td>对答案进行二分搜索</td>
+<td>基于范围的选择</td>
+</tr>
+<tr>
+<td>175</td>
+<td>顺序统计树</td>
+<td>支持排名查询的二叉搜索树</td>
+</tr>
+<tr>
+<td>176</td>
+<td>锦标赛树选择</td>
+<td>层次化比较</td>
+</tr>
+<tr>
+<td>177</td>
+<td>堆选择（最小堆）</td>
+<td>维护前 k 个元素</td>
+</tr>
+<tr>
+<td>178</td>
+<td>部分快速排序</td>
+<td>排序部分前缀</td>
+</tr>
+<tr>
+<td>179</td>
+<td>BFPRT 算法</td>
+<td>线性时间选择算法</td>
+</tr>
+<tr>
+<td>180</td>
+<td>第 K 大流元素</td>
+<td>流式数据选择</td>
+</tr>
+</tbody></table>
+<h4 id="19-区间搜索与最近邻"><a href="#19-区间搜索与最近邻" class="headerlink" title="19. 区间搜索与最近邻"></a>19. 区间搜索与最近邻</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>181</td>
+<td>二分搜索区间</td>
+<td>查找下界和上界</td>
+</tr>
+<tr>
+<td>182</td>
+<td>线段树查询</td>
+<td>区间求和&#x2F;最小值&#x2F;最大值</td>
+</tr>
+<tr>
+<td>183</td>
+<td>树状数组查询</td>
+<td>高效前缀和</td>
+</tr>
+<tr>
+<td>184</td>
+<td>区间树搜索</td>
+<td>重叠区间查询</td>
+</tr>
+<tr>
+<td>185</td>
+<td>KD 树搜索</td>
+<td>空间最近邻搜索</td>
+</tr>
+<tr>
+<td>186</td>
+<td>R 树查询</td>
+<td>几何范围搜索</td>
+</tr>
+<tr>
+<td>187</td>
+<td>区间最小值查询</td>
+<td>稀疏表方法</td>
+</tr>
+<tr>
+<td>188</td>
+<td>Mo 算法</td>
+<td>离线查询重排序</td>
+</tr>
+<tr>
+<td>189</td>
+<td>扫描线区间搜索</td>
+<td>排序 + 扫描技术</td>
+</tr>
+<tr>
+<td>190</td>
+<td>球树最近邻搜索</td>
+<td>度量空间搜索</td>
+</tr>
+</tbody></table>
+<h4 id="20-搜索优化与变体"><a href="#20-搜索优化与变体" class="headerlink" title="20. 搜索优化与变体"></a>20. 搜索优化与变体</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>191</td>
+<td>带容差的二分搜索</td>
+<td>用于浮点数值</td>
+</tr>
+<tr>
+<td>192</td>
+<td>三分搜索</td>
+<td>单峰函数优化</td>
+</tr>
+<tr>
+<td>193</td>
+<td>基于哈希的搜索</td>
+<td>期望 O(1) 查找</td>
+</tr>
+<tr>
+<td>194</td>
+<td>布隆过滤器查找</td>
+<td>概率成员查询</td>
+</tr>
+<tr>
+<td>195</td>
+<td>布谷鸟哈希搜索</td>
+<td>双哈希重定位</td>
+</tr>
+<tr>
+<td>196</td>
+<td>罗宾汉哈希搜索</td>
+<td>均衡探测长度</td>
+</tr>
+<tr>
+<td>197</td>
+<td>跳跃一致性哈希搜索</td>
+<td>稳定的哈希分配</td>
+</tr>
+<tr>
+<td>198</td>
+<td>字典树前缀搜索</td>
+<td>自动补全查找</td>
+</tr>
+<tr>
+<td>199</td>
+<td>后缀数组模式搜索</td>
+<td>快速子串查找</td>
+</tr>
+<tr>
+<td>200</td>
+<td>无限数组搜索</td>
+<td>动态边界查找</td>
+</tr>
+</tbody></table>
+<h3 id="第-3-章-数据结构实战"><a href="#第-3-章-数据结构实战" class="headerlink" title="第 3 章 数据结构实战"></a>第 3 章 数据结构实战</h3><h4 id="21-数组、链表、栈、队列"><a href="#21-数组、链表、栈、队列" class="headerlink" title="21. 数组、链表、栈、队列"></a>21. 数组、链表、栈、队列</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>201</td>
+<td>动态数组扩容</td>
+<td>容量翻倍策略</td>
+</tr>
+<tr>
+<td>202</td>
+<td>循环数组实现</td>
+<td>回绕索引</td>
+</tr>
+<tr>
+<td>203</td>
+<td>单向链表插入&#x2F;删除</td>
+<td>基本节点操作</td>
+</tr>
+<tr>
+<td>204</td>
+<td>双向链表插入&#x2F;删除</td>
+<td>双向链接</td>
+</tr>
+<tr>
+<td>205</td>
+<td>栈压入&#x2F;弹出</td>
+<td>后进先出结构</td>
+</tr>
+<tr>
+<td>206</td>
+<td>队列入队&#x2F;出队</td>
+<td>先进先出结构</td>
+</tr>
+<tr>
+<td>207</td>
+<td>双端队列实现</td>
+<td>双端队列</td>
+</tr>
+<tr>
+<td>208</td>
+<td>循环队列</td>
+<td>固定大小、回绕的队列</td>
+</tr>
+<tr>
+<td>209</td>
+<td>用队列实现栈</td>
+<td>使用两个队列实现栈</td>
+</tr>
+<tr>
+<td>210</td>
+<td>用栈实现队列</td>
+<td>使用两个栈实现队列</td>
+</tr>
+</tbody></table>
+<h4 id="22-哈希表及其变体（布谷鸟、罗宾汉、一致性）"><a href="#22-哈希表及其变体（布谷鸟、罗宾汉、一致性）" class="headerlink" title="22. 哈希表及其变体（布谷鸟、罗宾汉、一致性）"></a>22. 哈希表及其变体（布谷鸟、罗宾汉、一致性）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>211</td>
+<td>哈希表插入</td>
+<td>键值对与取模运算</td>
+</tr>
+<tr>
+<td>212</td>
+<td>线性探测</td>
+<td>顺序解决冲突</td>
+</tr>
+<tr>
+<td>213</td>
+<td>二次探测</td>
+<td>非线性探测序列</td>
+</tr>
+<tr>
+<td>214</td>
+<td>双重哈希</td>
+<td>冲突时使用备用哈希函数</td>
+</tr>
+<tr>
+<td>215</td>
+<td>布谷鸟哈希</td>
+<td>双表重定位策略</td>
+</tr>
+<tr>
+<td>216</td>
+<td>罗宾汉哈希</td>
+<td>均衡探测长度的公平性</td>
+</tr>
+<tr>
+<td>217</td>
+<td>链式哈希表</td>
+<td>链表桶</td>
+</tr>
+<tr>
+<td>218</td>
+<td>完美哈希</td>
+<td>无冲突映射</td>
+</tr>
+<tr>
+<td>219</td>
+<td>一致性哈希</td>
+<td>跨节点的稳定分布</td>
+</tr>
+<tr>
+<td>220</td>
+<td>动态重哈希</td>
+<td>在负载因子阈值时调整大小</td>
+</tr>
+</tbody></table>
+<h4 id="23-堆（二叉堆、斐波那契堆、配对堆）"><a href="#23-堆（二叉堆、斐波那契堆、配对堆）" class="headerlink" title="23. 堆（二叉堆、斐波那契堆、配对堆）"></a>23. 堆（二叉堆、斐波那契堆、配对堆）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>221</td>
+<td>二叉堆插入</td>
+<td>上浮维护</td>
+</tr>
+<tr>
+<td>222</td>
+<td>二叉堆删除</td>
+<td>下沉维护</td>
+</tr>
+<tr>
+<td>223</td>
+<td>建堆（堆化）</td>
+<td>自底向上 $O(n)$ 构建</td>
+</tr>
+<tr>
+<td>224</td>
+<td>堆排序</td>
+<td>重复提取最大值</td>
+</tr>
+<tr>
+<td>225</td>
+<td>最小堆实现</td>
+<td>用于访问最小元素</td>
+</tr>
+<tr>
+<td>226</td>
+<td>最大堆实现</td>
+<td>用于访问最大元素</td>
+</tr>
+<tr>
+<td>227</td>
+<td>斐波那契堆插入&#x2F;删除</td>
+<td>摊还高效操作</td>
+</tr>
+<tr>
+<td>228</td>
+<td>配对堆合并</td>
+<td>轻量级可合并堆</td>
+</tr>
+<tr>
+<td>229</td>
+<td>二项堆合并</td>
+<td>合并相同阶的树</td>
+</tr>
+<tr>
+<td>230</td>
+<td>左倾堆合并</td>
+<td>维护秩偏斜堆</td>
+</tr>
+</tbody></table>
+<h4 id="24-平衡树（AVL、红黑树、伸展树、树堆）"><a href="#24-平衡树（AVL、红黑树、伸展树、树堆）" class="headerlink" title="24. 平衡树（AVL、红黑树、伸展树、树堆）"></a>24. 平衡树（AVL、红黑树、伸展树、树堆）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>231</td>
+<td>AVL 树插入</td>
+<td>旋转以维持平衡</td>
+</tr>
+<tr>
+<td>232</td>
+<td>AVL 树删除</td>
+<td>删除后重新平衡</td>
+</tr>
+<tr>
+<td>233</td>
+<td>红黑树插入</td>
+<td>颜色修复与旋转</td>
+</tr>
+<tr>
+<td>234</td>
+<td>红黑树删除</td>
+<td>维持不变式</td>
+</tr>
+<tr>
+<td>235</td>
+<td>伸展树访问</td>
+<td>将访问节点移至根</td>
+</tr>
+<tr>
+<td>236</td>
+<td>树堆插入</td>
+<td>基于优先级的旋转</td>
+</tr>
+<tr>
+<td>237</td>
+<td>树堆删除</td>
+<td>随机化平衡</td>
+</tr>
+<tr>
+<td>238</td>
+<td>加权平衡树</td>
+<td>维护子树权重</td>
+</tr>
+<tr>
+<td>239</td>
+<td>替罪羊树重建</td>
+<td>在大小阈值时重新平衡</td>
+</tr>
+<tr>
+<td>240</td>
+<td>AA 树</td>
+<td>简化的红黑树变体</td>
+</tr>
+</tbody></table>
+<h4 id="25-线段树与树状数组"><a href="#25-线段树与树状数组" class="headerlink" title="25. 线段树与树状数组"></a>25. 线段树与树状数组</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>241</td>
+<td>构建线段树</td>
+<td>递归构造</td>
+</tr>
+<tr>
+<td>242</td>
+<td>区间和查询</td>
+<td>递归或迭代查询</td>
+</tr>
+<tr>
+<td>243</td>
+<td>区间更新</td>
+<td>懒惰传播技术</td>
+</tr>
+<tr>
+<td>244</td>
+<td>单点更新</td>
+<td>修改单个元素</td>
+</tr>
+<tr>
+<td>245</td>
+<td>构建树状数组</td>
+<td>增量二进制索引</td>
+</tr>
+<tr>
+<td>246</td>
+<td>树状数组更新</td>
+<td>更新累积和</td>
+</tr>
+<tr>
+<td>247</td>
+<td>树状数组查询</td>
+<td>前缀和检索</td>
+</tr>
+<tr>
+<td>248</td>
+<td>线段树合并</td>
+<td>合并子节点结果</td>
+</tr>
+<tr>
+<td>249</td>
+<td>可持久化线段树</td>
+<td>维护版本历史</td>
+</tr>
+<tr>
+<td>250</td>
+<td>二维线段树</td>
+<td>用于矩阵区间查询</td>
+</tr>
+</tbody></table>
+<h4 id="26-并查集"><a href="#26-并查集" class="headerlink" title="26. 并查集"></a>26. 并查集</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>251</td>
+<td>Make-Set</td>
+<td>初始化每个元素</td>
+</tr>
+<tr>
+<td>252</td>
+<td>Find</td>
+<td>定位代表元</td>
+</tr>
+<tr>
+<td>253</td>
+<td>Union</td>
+<td>合并两个集合</td>
+</tr>
+<tr>
+<td>254</td>
+<td>按秩合并</td>
+<td>将较小树附加到较大树</td>
+</tr>
+<tr>
+<td>255</td>
+<td>路径压缩</td>
+<td>扁平化树结构</td>
+</tr>
+<tr>
+<td>256</td>
+<td>支持回滚的并查集</td>
+<td>支持撤销操作</td>
+</tr>
+<tr>
+<td>257</td>
+<td>树上的并查集</td>
+<td>跟踪子树连通性</td>
+</tr>
+<tr>
+<td>258</td>
+<td>Kruskal 最小生成树</td>
+<td>使用并查集选择边</td>
+</tr>
+<tr>
+<td>259</td>
+<td>连通分量</td>
+<td>对图节点进行分组</td>
+</tr>
+<tr>
+<td>260</td>
+<td>离线查询并查集</td>
+<td>处理动态合并</td>
+</tr>
+</tbody></table>
+<h4 id="27-概率数据结构（布隆过滤器、Count-Min-草图、HyperLogLog）"><a href="#27-概率数据结构（布隆过滤器、Count-Min-草图、HyperLogLog）" class="headerlink" title="27. 概率数据结构（布隆过滤器、Count-Min 草图、HyperLogLog）"></a>27. 概率数据结构（布隆过滤器、Count-Min 草图、HyperLogLog）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>261</td>
+<td>布隆过滤器插入</td>
+<td>哈希到位数组</td>
+</tr>
+<tr>
+<td>262</td>
+<td>布隆过滤器查询</td>
+<td>概率成员检查</td>
+</tr>
+<tr>
+<td>263</td>
+<td>计数布隆过滤器</td>
+<td>通过计数器支持删除</td>
+</tr>
+<tr>
+<td>264</td>
+<td>布谷鸟过滤器</td>
+<td>空间高效的替代方案</td>
+</tr>
+<tr>
+<td>265</td>
+<td>Count-Min 草图</td>
+<td>近似频率表</td>
+</tr>
+<tr>
+<td>266</td>
+<td>HyperLogLog</td>
+<td>基数估计</td>
+</tr>
+<tr>
+<td>267</td>
+<td>Flajolet-Martin</td>
+<td>早期概率计数</td>
+</tr>
+<tr>
+<td>268</td>
+<td>MinHash</td>
+<td>估计 Jaccard 相似度</td>
+</tr>
+<tr>
+<td>269</td>
+<td>蓄水池抽样</td>
+<td>随机 k 样本流</td>
+</tr>
+<tr>
+<td>270</td>
+<td>跳跃布隆过滤器</td>
+<td>布隆过滤器上的范围查询</td>
+</tr>
+</tbody></table>
+<h4 id="28-跳表与-B-树"><a href="#28-跳表与-B-树" class="headerlink" title="28. 跳表与 B 树"></a>28. 跳表与 B 树</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>271</td>
+<td>跳表插入</td>
+<td>概率分层列表</td>
+</tr>
+<tr>
+<td>272</td>
+<td>跳表删除</td>
+<td>调整指针</td>
+</tr>
+<tr>
+<td>273</td>
+<td>跳表搜索</td>
+<td>通过塔层跳跃</td>
+</tr>
+<tr>
+<td>274</td>
+<td>B 树插入</td>
+<td>溢出时分裂</td>
+</tr>
+<tr>
+<td>275</td>
+<td>B 树删除</td>
+<td>下溢时合并</td>
+</tr>
+<tr>
+<td>276</td>
+<td>B+ 树搜索</td>
+<td>基于叶节点的顺序扫描</td>
+</tr>
+<tr>
+<td>277</td>
+<td>B+ 树范围查询</td>
+<td>高效有序访问</td>
+</tr>
+<tr>
+<td>278</td>
+<td>B* 树</td>
+<td>空间效率更高的变体</td>
+</tr>
+<tr>
+<td>279</td>
+<td>自适应基数树</td>
+<td>字节级分支</td>
+</tr>
+<tr>
+<td>280</td>
+<td>字典树压缩</td>
+<td>路径压缩优化</td>
+</tr>
+</tbody></table>
+<h4 id="29-可持久化与函数式数据结构"><a href="#29-可持久化与函数式数据结构" class="headerlink" title="29. 可持久化与函数式数据结构"></a>29. 可持久化与函数式数据结构</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>281</td>
+<td>可持久化栈</td>
+<td>保留所有版本</td>
+</tr>
+<tr>
+<td>282</td>
+<td>可持久化数组</td>
+<td>写时复制分段</td>
+</tr>
+<tr>
+<td>283</td>
+<td>可持久化线段树</td>
+<td>版本化更新</td>
+</tr>
+<tr>
+<td>284</td>
+<td>可持久化链表</td>
+<td>不可变节点</td>
+</tr>
+<tr>
+<td>285</td>
+<td>函数式队列</td>
+<td>摊还反转列表</td>
+</tr>
+<tr>
+<td>286</td>
+<td>手指树</td>
+<td>快速连接与分割</td>
+</tr>
+<tr>
+<td>287</td>
+<td>拉链结构</td>
+<td>局部化修改</td>
+</tr>
+<tr>
+<td>288</td>
+<td>可持久化红黑树</td>
+<td>不可变平衡树</td>
+</tr>
+<tr>
+<td>289</td>
+<td>版本化字典树</td>
+<td>历史字符串查找</td>
+</tr>
+<tr>
+<td>290</td>
+<td>可持久化并查集</td>
+<td>时间旅行连通性</td>
+</tr>
+</tbody></table>
+<h4 id="30-高级树与区间查询"><a href="#30-高级树与区间查询" class="headerlink" title="30. 高级树与区间查询"></a>30. 高级树与区间查询</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>291</td>
+<td>稀疏表构建</td>
+<td>静态区间最小&#x2F;最大值</td>
+</tr>
+<tr>
+<td>292</td>
+<td>笛卡尔树</td>
+<td>RMQ 到 LCA 的转换</td>
+</tr>
+<tr>
+<td>293</td>
+<td>线段树 Beats</td>
+<td>处理复杂查询</td>
+</tr>
+<tr>
+<td>294</td>
+<td>归并排序树</td>
+<td>区间计数查询</td>
+</tr>
+<tr>
+<td>295</td>
+<td>小波树</td>
+<td>按值排名&#x2F;选择</td>
+</tr>
+<tr>
+<td>296</td>
+<td>KD 树</td>
+<td>多维查询</td>
+</tr>
+<tr>
+<td>297</td>
+<td>区间树</td>
+<td>正交区间查询</td>
+</tr>
+<tr>
+<td>298</td>
+<td>二维树状数组</td>
+<td>矩阵前缀和</td>
+</tr>
+<tr>
+<td>299</td>
+<td>树堆分割&#x2F;合并</td>
+<td>基于区间的树堆操作</td>
+</tr>
+<tr>
+<td>300</td>
+<td>树上的莫队算法</td>
+<td>离线子树查询</td>
+</tr>
+</tbody></table>
+<h3 id="第-4-章-图算法"><a href="#第-4-章-图算法" class="headerlink" title="第 4 章. 图算法"></a>第 4 章. 图算法</h3><h4 id="31-遍历-DFS-BFS-迭代加深"><a href="#31-遍历-DFS-BFS-迭代加深" class="headerlink" title="31. 遍历 (DFS, BFS, 迭代加深)"></a>31. 遍历 (DFS, BFS, 迭代加深)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>301</td>
+<td>深度优先搜索 (递归)</td>
+<td>深入探索，然后回溯</td>
+</tr>
+<tr>
+<td>302</td>
+<td>深度优先搜索 (迭代)</td>
+<td>基于栈的探索</td>
+</tr>
+<tr>
+<td>303</td>
+<td>广度优先搜索 (队列)</td>
+<td>层次顺序遍历</td>
+</tr>
+<tr>
+<td>304</td>
+<td>迭代加深 DFS</td>
+<td>结合深度限制与完备性</td>
+</tr>
+<tr>
+<td>305</td>
+<td>双向 BFS</td>
+<td>从两端搜索</td>
+</tr>
+<tr>
+<td>306</td>
+<td>网格上的 DFS</td>
+<td>迷宫求解 &#x2F; 连通分量</td>
+</tr>
+<tr>
+<td>307</td>
+<td>网格上的 BFS</td>
+<td>无权图中的最短路径</td>
+</tr>
+<tr>
+<td>308</td>
+<td>多源 BFS</td>
+<td>并行层次扩展</td>
+</tr>
+<tr>
+<td>309</td>
+<td>拓扑排序 (基于 DFS)</td>
+<td>有向无环图排序</td>
+</tr>
+<tr>
+<td>310</td>
+<td>拓扑排序 (Kahn 算法)</td>
+<td>入度跟踪</td>
+</tr>
+</tbody></table>
+<h4 id="32-强连通分量-Tarjan-Kosaraju"><a href="#32-强连通分量-Tarjan-Kosaraju" class="headerlink" title="32. 强连通分量 (Tarjan, Kosaraju)"></a>32. 强连通分量 (Tarjan, Kosaraju)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>311</td>
+<td>Kosaraju 算法</td>
+<td>两遍 DFS</td>
+</tr>
+<tr>
+<td>312</td>
+<td>Tarjan 算法</td>
+<td>低链接值发现</td>
+</tr>
+<tr>
+<td>313</td>
+<td>Gabow 算法</td>
+<td>栈对跟踪</td>
+</tr>
+<tr>
+<td>314</td>
+<td>SCC DAG 构建</td>
+<td>缩点后的分量图</td>
+</tr>
+<tr>
+<td>315</td>
+<td>SCC 在线合并</td>
+<td>增量式缩点</td>
+</tr>
+<tr>
+<td>316</td>
+<td>分量标签传播</td>
+<td>迭代式标记</td>
+</tr>
+<tr>
+<td>317</td>
+<td>基于路径的 SCC</td>
+<td>使用路径栈的 DFS</td>
+</tr>
+<tr>
+<td>318</td>
+<td>Kosaraju 并行版本</td>
+<td>通过并行 DFS 求 SCC</td>
+</tr>
+<tr>
+<td>319</td>
+<td>动态 SCC 维护</td>
+<td>添加&#x2F;删除边</td>
+</tr>
+<tr>
+<td>320</td>
+<td>加权图的 SCC</td>
+<td>结合边权重</td>
+</tr>
+</tbody></table>
+<h4 id="33-最短路径-Dijkstra-Bellman-Ford-A-Johnson"><a href="#33-最短路径-Dijkstra-Bellman-Ford-A-Johnson" class="headerlink" title="33. 最短路径 (Dijkstra, Bellman-Ford, A*, Johnson)"></a>33. 最短路径 (Dijkstra, Bellman-Ford, A*, Johnson)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>321</td>
+<td>Dijkstra (二叉堆)</td>
+<td>贪心边松弛</td>
+</tr>
+<tr>
+<td>322</td>
+<td>Dijkstra (斐波那契堆)</td>
+<td>改进的优先队列</td>
+</tr>
+<tr>
+<td>323</td>
+<td>Bellman-Ford</td>
+<td>支持负权重</td>
+</tr>
+<tr>
+<td>324</td>
+<td>SPFA (队列优化)</td>
+<td>更快的平均情况 Bellman-Ford</td>
+</tr>
+<tr>
+<td>325</td>
+<td>A* 搜索</td>
+<td>启发式引导的路径</td>
+</tr>
+<tr>
+<td>326</td>
+<td>Floyd–Warshall</td>
+<td>所有节点对最短路径</td>
+</tr>
+<tr>
+<td>327</td>
+<td>Johnson 算法</td>
+<td>使用重赋权的所有节点对最短路径</td>
+</tr>
+<tr>
+<td>328</td>
+<td>0-1 BFS</td>
+<td>基于双端队列的最短路径</td>
+</tr>
+<tr>
+<td>329</td>
+<td>Dial 算法</td>
+<td>整数权重桶</td>
+</tr>
+<tr>
+<td>330</td>
+<td>多源 Dijkstra</td>
+<td>多个起点</td>
+</tr>
+</tbody></table>
+<h4 id="34-最短路径变体-0–1-BFS-双向-启发式-A"><a href="#34-最短路径变体-0–1-BFS-双向-启发式-A" class="headerlink" title="34. 最短路径变体 (0–1 BFS, 双向, 启发式 A*)"></a>34. 最短路径变体 (0–1 BFS, 双向, 启发式 A*)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>331</td>
+<td>0–1 BFS</td>
+<td>适用于权重为 0 或 1 的边</td>
+</tr>
+<tr>
+<td>332</td>
+<td>双向 Dijkstra</td>
+<td>中间相遇</td>
+</tr>
+<tr>
+<td>333</td>
+<td>带欧几里得启发式的 A*</td>
+<td>空间最短路径</td>
+</tr>
+<tr>
+<td>334</td>
+<td>ALT 算法</td>
+<td>A* 地标 + 三角不等式</td>
+</tr>
+<tr>
+<td>335</td>
+<td>收缩层次结构</td>
+<td>道路网络的预处理</td>
+</tr>
+<tr>
+<td>336</td>
+<td>CH 查询算法</td>
+<td>基于捷径的路由</td>
+</tr>
+<tr>
+<td>337</td>
+<td>Bellman-Ford 队列变体</td>
+<td>提前终止</td>
+</tr>
+<tr>
+<td>338</td>
+<td>带提前停止的 Dijkstra</td>
+<td>到达目标时停止</td>
+</tr>
+<tr>
+<td>339</td>
+<td>目标导向搜索</td>
+<td>限制扩展方向</td>
+</tr>
+<tr>
+<td>340</td>
+<td>Yen 的 K 最短路径</td>
+<td>枚举多个最佳路径</td>
+</tr>
+</tbody></table>
+<h4 id="35-最小生成树-Kruskal-Prim-Boruvka"><a href="#35-最小生成树-Kruskal-Prim-Boruvka" class="headerlink" title="35. 最小生成树 (Kruskal, Prim, Borůvka)"></a>35. 最小生成树 (Kruskal, Prim, Borůvka)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>341</td>
+<td>Kruskal 算法</td>
+<td>排序边 + 并查集</td>
+</tr>
+<tr>
+<td>342</td>
+<td>Prim 算法 (堆)</td>
+<td>从种子节点生长 MST</td>
+</tr>
+<tr>
+<td>343</td>
+<td>Prim 算法 (邻接矩阵)</td>
+<td>稠密图变体</td>
+</tr>
+<tr>
+<td>344</td>
+<td>Borůvka 算法</td>
+<td>分量合并</td>
+</tr>
+<tr>
+<td>345</td>
+<td>反向删除 MST</td>
+<td>移除重边</td>
+</tr>
+<tr>
+<td>346</td>
+<td>通过 Dijkstra 技巧的 MST</td>
+<td>适用于正权重</td>
+</tr>
+<tr>
+<td>347</td>
+<td>动态 MST 维护</td>
+<td>处理边更新</td>
+</tr>
+<tr>
+<td>348</td>
+<td>最小瓶颈生成树</td>
+<td>最小化最大边权重</td>
+</tr>
+<tr>
+<td>349</td>
+<td>曼哈顿 MST</td>
+<td>网格图优化</td>
+</tr>
+<tr>
+<td>350</td>
+<td>欧几里得 MST (Kruskal + 几何)</td>
+<td>使用 Delaunay 图</td>
+</tr>
+</tbody></table>
+<h4 id="36-流-Ford–Fulkerson-Edmonds–Karp-Dinic"><a href="#36-流-Ford–Fulkerson-Edmonds–Karp-Dinic" class="headerlink" title="36. 流 (Ford–Fulkerson, Edmonds–Karp, Dinic)"></a>36. 流 (Ford–Fulkerson, Edmonds–Karp, Dinic)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>351</td>
+<td>Ford–Fulkerson</td>
+<td>增广路方法</td>
+</tr>
+<tr>
+<td>352</td>
+<td>Edmonds–Karp</td>
+<td>基于 BFS 的 Ford–Fulkerson</td>
+</tr>
+<tr>
+<td>353</td>
+<td>Dinic 算法</td>
+<td>层次图 + 阻塞流</td>
+</tr>
+<tr>
+<td>354</td>
+<td>推送-重标记</td>
+<td>局部预流推送</td>
+</tr>
+<tr>
+<td>355</td>
+<td>容量缩放</td>
+<td>利用容量层级加速</td>
+</tr>
+<tr>
+<td>356</td>
+<td>代价缩放</td>
+<td>最小代价优化</td>
+</tr>
+<tr>
+<td>357</td>
+<td>最小代价最大流 (Bellman-Ford)</td>
+<td>带代价的增广路径</td>
+</tr>
+<tr>
+<td>358</td>
+<td>最小代价最大流 (SPFA)</td>
+<td>更快的平均情况</td>
+</tr>
+<tr>
+<td>359</td>
+<td>带需求的环流</td>
+<td>广义流公式化</td>
+</tr>
+<tr>
+<td>360</td>
+<td>连续最短路径</td>
+<td>增量式最小代价更新</td>
+</tr>
+</tbody></table>
+<h4 id="37-割-Stoer–Wagner-Karger-Gomory–Hu"><a href="#37-割-Stoer–Wagner-Karger-Gomory–Hu" class="headerlink" title="37. 割 (Stoer–Wagner, Karger, Gomory–Hu)"></a>37. 割 (Stoer–Wagner, Karger, Gomory–Hu)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>361</td>
+<td>Stoer–Wagner 最小割</td>
+<td>全局最小割</td>
+</tr>
+<tr>
+<td>362</td>
+<td>Karger 随机割</td>
+<td>随机收缩边</td>
+</tr>
+<tr>
+<td>363</td>
+<td>Karger–Stein</td>
+<td>递归随机割</td>
+</tr>
+<tr>
+<td>364</td>
+<td>Gomory–Hu 树</td>
+<td>所有节点对最小割</td>
+</tr>
+<tr>
+<td>365</td>
+<td>最大流最小割</td>
+<td>对偶定理应用</td>
+</tr>
+<tr>
+<td>366</td>
+<td>Stoer–Wagner 重复阶段</td>
+<td>多轮遍历</td>
+</tr>
+<tr>
+<td>367</td>
+<td>动态最小割</td>
+<td>边更新时维护</td>
+</tr>
+<tr>
+<td>368</td>
+<td>最小 s–t 割 (Edmonds–Karp)</td>
+<td>基于流</td>
+</tr>
+<tr>
+<td>369</td>
+<td>近似最小割</td>
+<td>随机采样</td>
+</tr>
+<tr>
+<td>370</td>
+<td>最小 k 割</td>
+<td>将图划分为 k 部分</td>
+</tr>
+</tbody></table>
+<h4 id="38-匹配-Hopcroft–Karp-Hungarian-Blossom"><a href="#38-匹配-Hopcroft–Karp-Hungarian-Blossom" class="headerlink" title="38. 匹配 (Hopcroft–Karp, Hungarian, Blossom)"></a>38. 匹配 (Hopcroft–Karp, Hungarian, Blossom)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>371</td>
+<td>二分图匹配 (DFS)</td>
+<td>简单增广路径</td>
+</tr>
+<tr>
+<td>372</td>
+<td>Hopcroft–Karp</td>
+<td>O(E√V) 二分图匹配</td>
+</tr>
+<tr>
+<td>373</td>
+<td>Hungarian 算法</td>
+<td>加权分配</td>
+</tr>
+<tr>
+<td>374</td>
+<td>Kuhn–Munkres</td>
+<td>最大权重匹配</td>
+</tr>
+<tr>
+<td>375</td>
+<td>Blossom 算法</td>
+<td>一般图匹配</td>
+</tr>
+<tr>
+<td>376</td>
+<td>Edmonds 花收缩</td>
+<td>奇环收缩</td>
+</tr>
+<tr>
+<td>377</td>
+<td>贪心匹配</td>
+<td>快速近似</td>
+</tr>
+<tr>
+<td>378</td>
+<td>稳定婚姻 (Gale–Shapley)</td>
+<td>稳定配对</td>
+</tr>
+<tr>
+<td>379</td>
+<td>加权 b-匹配</td>
+<td>容量约束</td>
+</tr>
+<tr>
+<td>380</td>
+<td>极大匹配</td>
+<td>局部贪心极大集</td>
+</tr>
+</tbody></table>
+<h4 id="39-树算法-LCA-HLD-重心分解"><a href="#39-树算法-LCA-HLD-重心分解" class="headerlink" title="39. 树算法 (LCA, HLD, 重心分解)"></a>39. 树算法 (LCA, HLD, 重心分解)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>381</td>
+<td>欧拉序 LCA</td>
+<td>将树展平为数组</td>
+</tr>
+<tr>
+<td>382</td>
+<td>倍增 LCA</td>
+<td>跳转 2 的幂次</td>
+</tr>
+<tr>
+<td>383</td>
+<td>Tarjan LCA (离线 DSU)</td>
+<td>通过并查集处理查询</td>
+</tr>
+<tr>
+<td>384</td>
+<td>轻重链剖分</td>
+<td>分解路径</td>
+</tr>
+<tr>
+<td>385</td>
+<td>重心分解</td>
+<td>在重心上递归分割</td>
+</tr>
+<tr>
+<td>386</td>
+<td>树直径 (两次 DFS)</td>
+<td>最远点对</td>
+</tr>
+<tr>
+<td>387</td>
+<td>树形 DP</td>
+<td>基于子树的优化</td>
+</tr>
+<tr>
+<td>388</td>
+<td>换根 DP</td>
+<td>计算所有根节点的答案</td>
+</tr>
+<tr>
+<td>389</td>
+<td>树上二分搜索</td>
+<td>边权重约束</td>
+</tr>
+<tr>
+<td>390</td>
+<td>虚树</td>
+<td>在查询子集上构建</td>
+</tr>
+</tbody></table>
+<h4 id="40-高级图算法与技巧"><a href="#40-高级图算法与技巧" class="headerlink" title="40. 高级图算法与技巧"></a>40. 高级图算法与技巧</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>391</td>
+<td>拓扑 DP</td>
+<td>在有向无环图顺序上进行 DP</td>
+</tr>
+<tr>
+<td>392</td>
+<td>SCC 缩点图 DP</td>
+<td>元图处理</td>
+</tr>
+<tr>
+<td>393</td>
+<td>欧拉路径</td>
+<td>覆盖所有边的迹</td>
+</tr>
+<tr>
+<td>394</td>
+<td>哈密顿路径</td>
+<td>NP 完全问题探索</td>
+</tr>
+<tr>
+<td>395</td>
+<td>中国邮递员问题</td>
+<td>可重复边的欧拉回路</td>
+</tr>
+<tr>
+<td>396</td>
+<td>Hierholzer 算法</td>
+<td>构造欧拉回路</td>
+</tr>
+<tr>
+<td>397</td>
+<td>Johnson 环查找</td>
+<td>枚举所有环</td>
+</tr>
+<tr>
+<td>398</td>
+<td>传递闭包 (Floyd–Warshall)</td>
+<td>可达性矩阵</td>
+</tr>
+<tr>
+<td>399</td>
+<td>图着色 (回溯)</td>
+<td>约束满足</td>
+</tr>
+<tr>
+<td>400</td>
+<td>割点与桥</td>
+<td>关键结构检测</td>
+</tr>
+</tbody></table>
+<h3 id="第5章-动态规划"><a href="#第5章-动态规划" class="headerlink" title="第5章 动态规划"></a>第5章 动态规划</h3><h4 id="41-DP基础与状态转移"><a href="#41-DP基础与状态转移" class="headerlink" title="41. DP基础与状态转移"></a>41. DP基础与状态转移</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>401</td>
+<td>斐波那契DP</td>
+<td>经典的自顶向下 vs 自底向上</td>
+</tr>
+<tr>
+<td>402</td>
+<td>爬楼梯</td>
+<td>计算小步数路径</td>
+</tr>
+<tr>
+<td>403</td>
+<td>网格路径</td>
+<td>二维网格上的DP</td>
+</tr>
+<tr>
+<td>404</td>
+<td>最小成本路径</td>
+<td>累加最小和</td>
+</tr>
+<tr>
+<td>405</td>
+<td>零钱兑换（计算方式）</td>
+<td>组合求和</td>
+</tr>
+<tr>
+<td>406</td>
+<td>零钱兑换（最小硬币数）</td>
+<td>最小化步数</td>
+</tr>
+<tr>
+<td>407</td>
+<td>0&#x2F;1背包问题</td>
+<td>在重量限制下选择物品</td>
+</tr>
+<tr>
+<td>408</td>
+<td>完全背包问题</td>
+<td>物品可重复</td>
+</tr>
+<tr>
+<td>409</td>
+<td>最长递增子序列（DP）</td>
+<td>子序列优化</td>
+</tr>
+<tr>
+<td>410</td>
+<td>编辑距离（Levenshtein）</td>
+<td>逐步度量相似性</td>
+</tr>
+</tbody></table>
+<h4 id="42-经典问题（背包、子集和、零钱兑换）"><a href="#42-经典问题（背包、子集和、零钱兑换）" class="headerlink" title="42. 经典问题（背包、子集和、零钱兑换）"></a>42. 经典问题（背包、子集和、零钱兑换）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>411</td>
+<td>0&#x2F;1背包问题</td>
+<td>容量限制下的价值最大化</td>
+</tr>
+<tr>
+<td>412</td>
+<td>子集和问题</td>
+<td>布尔可行性DP</td>
+</tr>
+<tr>
+<td>413</td>
+<td>等和子集划分</td>
+<td>将集合划分为相等的两半</td>
+</tr>
+<tr>
+<td>414</td>
+<td>和为特定值的子集计数</td>
+<td>计数变体</td>
+</tr>
+<tr>
+<td>415</td>
+<td>目标和</td>
+<td>带+&#x2F;-转移的DP</td>
+</tr>
+<tr>
+<td>416</td>
+<td>完全背包问题</td>
+<td>物品可重复使用</td>
+</tr>
+<tr>
+<td>417</td>
+<td>分数背包问题</td>
+<td>贪心+DP比较</td>
+</tr>
+<tr>
+<td>418</td>
+<td>零钱兑换（最小硬币数）</td>
+<td>DP最短路径</td>
+</tr>
+<tr>
+<td>419</td>
+<td>零钱兑换（计算方式）</td>
+<td>组合计数</td>
+</tr>
+<tr>
+<td>420</td>
+<td>多维背包问题</td>
+<td>多维容量限制</td>
+</tr>
+</tbody></table>
+<h4 id="43-序列问题（LIS、LCS、编辑距离）"><a href="#43-序列问题（LIS、LCS、编辑距离）" class="headerlink" title="43. 序列问题（LIS、LCS、编辑距离）"></a>43. 序列问题（LIS、LCS、编辑距离）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>421</td>
+<td>最长递增子序列</td>
+<td>O(n²) DP</td>
+</tr>
+<tr>
+<td>422</td>
+<td>LIS（耐心排序）</td>
+<td>O(n log n) 优化</td>
+</tr>
+<tr>
+<td>423</td>
+<td>最长公共子序列</td>
+<td>双序列DP</td>
+</tr>
+<tr>
+<td>424</td>
+<td>编辑距离（Levenshtein）</td>
+<td>转换操作</td>
+</tr>
+<tr>
+<td>425</td>
+<td>最长回文子序列</td>
+<td>对称DP</td>
+</tr>
+<tr>
+<td>426</td>
+<td>最短公共超序列</td>
+<td>合并序列</td>
+</tr>
+<tr>
+<td>427</td>
+<td>最长重复子序列</td>
+<td>带重叠的DP</td>
+</tr>
+<tr>
+<td>428</td>
+<td>字符串交错</td>
+<td>保持顺序的合并</td>
+</tr>
+<tr>
+<td>429</td>
+<td>序列比对（生物信息学）</td>
+<td>空位罚分</td>
+</tr>
+<tr>
+<td>430</td>
+<td>Diff算法（Myers&#x2F;DP）</td>
+<td>最小编辑路径</td>
+</tr>
+</tbody></table>
+<h4 id="44-矩阵与链式问题"><a href="#44-矩阵与链式问题" class="headerlink" title="44. 矩阵与链式问题"></a>44. 矩阵与链式问题</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>431</td>
+<td>矩阵链乘法</td>
+<td>括号化成本</td>
+</tr>
+<tr>
+<td>432</td>
+<td>布尔括号化</td>
+<td>计算结果为真的方式数</td>
+</tr>
+<tr>
+<td>433</td>
+<td>戳气球</td>
+<td>区间DP</td>
+</tr>
+<tr>
+<td>434</td>
+<td>最优二叉搜索树</td>
+<td>加权搜索成本</td>
+</tr>
+<tr>
+<td>435</td>
+<td>多边形三角剖分</td>
+<td>基于划分的DP</td>
+</tr>
+<tr>
+<td>436</td>
+<td>矩阵路径和</td>
+<td>二维网格上的DP</td>
+</tr>
+<tr>
+<td>437</td>
+<td>最大正方形子矩阵</td>
+<td>动态增长检查</td>
+</tr>
+<tr>
+<td>438</td>
+<td>二进制矩阵中的最大矩形</td>
+<td>直方图 + DP</td>
+</tr>
+<tr>
+<td>439</td>
+<td>子矩阵和查询</td>
+<td>前缀和DP</td>
+</tr>
+<tr>
+<td>440</td>
+<td>回文分割</td>
+<td>带分割的DP</td>
+</tr>
+</tbody></table>
+<h4 id="45-状态压缩DP与旅行商问题"><a href="#45-状态压缩DP与旅行商问题" class="headerlink" title="45. 状态压缩DP与旅行商问题"></a>45. 状态压缩DP与旅行商问题</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>441</td>
+<td>旅行商问题（TSP）</td>
+<td>访问所有城市</td>
+</tr>
+<tr>
+<td>442</td>
+<td>子集DP</td>
+<td>遍历状态子集</td>
+</tr>
+<tr>
+<td>443</td>
+<td>哈密顿路径DP</td>
+<td>状态压缩</td>
+</tr>
+<tr>
+<td>444</td>
+<td>分配问题DP</td>
+<td>任务掩码</td>
+</tr>
+<tr>
+<td>445</td>
+<td>划分成两个集合</td>
+<td>平衡负载</td>
+</tr>
+<tr>
+<td>446</td>
+<td>哈密顿回路计数</td>
+<td>位掩码枚举</td>
+</tr>
+<tr>
+<td>447</td>
+<td>斯坦纳树DP</td>
+<td>连接终端节点的最小连接</td>
+</tr>
+<tr>
+<td>448</td>
+<td>SOS DP（子集和DP）</td>
+<td>预计算和</td>
+</tr>
+<tr>
+<td>449</td>
+<td>位掩码背包</td>
+<td>状态压缩</td>
+</tr>
+<tr>
+<td>450</td>
+<td>位掩码独立集</td>
+<td>图子集优化</td>
+</tr>
+</tbody></table>
+<h4 id="46-数位DP与SOS-DP"><a href="#46-数位DP与SOS-DP" class="headerlink" title="46. 数位DP与SOS DP"></a>46. 数位DP与SOS DP</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>451</td>
+<td>统计具有特定属性的数字</td>
+<td>数位状态转移</td>
+</tr>
+<tr>
+<td>452</td>
+<td>统计无相邻重复数字的数</td>
+<td>相邻约束</td>
+</tr>
+<tr>
+<td>453</td>
+<td>区间内数字各位之和</td>
+<td>依赖进位的状态</td>
+</tr>
+<tr>
+<td>454</td>
+<td>统计满足模条件的数</td>
+<td>基于数位和模M的DP</td>
+</tr>
+<tr>
+<td>455</td>
+<td>统计递增数字</td>
+<td>有序约束</td>
+</tr>
+<tr>
+<td>456</td>
+<td>统计不含禁用数字的数</td>
+<td>排除转移</td>
+</tr>
+<tr>
+<td>457</td>
+<td>SOS DP子集和</td>
+<td>位掩码子集的和</td>
+</tr>
+<tr>
+<td>458</td>
+<td>SOS DP超集和</td>
+<td>位掩码超集的和</td>
+</tr>
+<tr>
+<td>459</td>
+<td>异或基DP</td>
+<td>结合数位和位DP</td>
+</tr>
+<tr>
+<td>460</td>
+<td>回文数位DP</td>
+<td>对称数位状态</td>
+</tr>
+</tbody></table>
+<h4 id="47-DP优化（分治、凸包技巧、Knuth优化）"><a href="#47-DP优化（分治、凸包技巧、Knuth优化）" class="headerlink" title="47. DP优化（分治、凸包技巧、Knuth优化）"></a>47. DP优化（分治、凸包技巧、Knuth优化）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>461</td>
+<td>分治DP</td>
+<td>单调决策性质</td>
+</tr>
+<tr>
+<td>462</td>
+<td>Knuth优化</td>
+<td>满足四边形不等式的DP</td>
+</tr>
+<tr>
+<td>463</td>
+<td>凸包技巧</td>
+<td>线性递推最小值查询</td>
+</tr>
+<tr>
+<td>464</td>
+<td>李超线段树</td>
+<td>基于线段维护的凸包</td>
+</tr>
+<tr>
+<td>465</td>
+<td>斜率技巧</td>
+<td>分段线性优化</td>
+</tr>
+<tr>
+<td>466</td>
+<td>单调队列优化</td>
+<td>滑动DP状态</td>
+</tr>
+<tr>
+<td>467</td>
+<td>位集DP</td>
+<td>利用位并行加速</td>
+</tr>
+<tr>
+<td>468</td>
+<td>离线DP查询</td>
+<td>预处理状态</td>
+</tr>
+<tr>
+<td>469</td>
+<td>DP + 线段树</td>
+<td>基于区间的优化</td>
+</tr>
+<tr>
+<td>470</td>
+<td>分治背包</td>
+<td>分割空间的DP</td>
+</tr>
+</tbody></table>
+<h4 id="48-树形DP与换根DP"><a href="#48-树形DP与换根DP" class="headerlink" title="48. 树形DP与换根DP"></a>48. 树形DP与换根DP</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>471</td>
+<td>子树和DP</td>
+<td>聚合值</td>
+</tr>
+<tr>
+<td>472</td>
+<td>直径DP</td>
+<td>通过子状态计算最大路径</td>
+</tr>
+<tr>
+<td>473</td>
+<td>独立集DP</td>
+<td>选择或跳过节点</td>
+</tr>
+<tr>
+<td>474</td>
+<td>顶点覆盖DP</td>
+<td>树约束问题</td>
+</tr>
+<tr>
+<td>475</td>
+<td>路径计数DP</td>
+<td>计算根到叶的路径数</td>
+</tr>
+<tr>
+<td>476</td>
+<td>有根树上的DP</td>
+<td>自底向上聚合</td>
+</tr>
+<tr>
+<td>477</td>
+<td>换根技巧</td>
+<td>为所有根计算</td>
+</tr>
+<tr>
+<td>478</td>
+<td>距离和换根</td>
+<td>高效重新计算</td>
+</tr>
+<tr>
+<td>479</td>
+<td>树染色DP</td>
+<td>组合计数</td>
+</tr>
+<tr>
+<td>480</td>
+<td>树形DP上的二分搜索</td>
+<td>单调转移</td>
+</tr>
+</tbody></table>
+<h4 id="49-DP重构与回溯"><a href="#49-DP重构与回溯" class="headerlink" title="49. DP重构与回溯"></a>49. DP重构与回溯</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>481</td>
+<td>重构LCS</td>
+<td>回溯表格</td>
+</tr>
+<tr>
+<td>482</td>
+<td>重构LIS</td>
+<td>追踪前驱</td>
+</tr>
+<tr>
+<td>483</td>
+<td>重构背包</td>
+<td>恢复选择的物品</td>
+</tr>
+<tr>
+<td>484</td>
+<td>编辑距离对齐</td>
+<td>追踪插入&#x2F;删除&#x2F;替换操作</td>
+</tr>
+<tr>
+<td>485</td>
+<td>矩阵链括号化重构</td>
+<td>重建括号化方案</td>
+</tr>
+<tr>
+<td>486</td>
+<td>零钱兑换重构</td>
+<td>回溯最后使用的硬币</td>
+</tr>
+<tr>
+<td>487</td>
+<td>路径重构DP</td>
+<td>追踪最小路径</td>
+</tr>
+<tr>
+<td>488</td>
+<td>序列重构</td>
+<td>从状态重建</td>
+</tr>
+<tr>
+<td>489</td>
+<td>多选择重构</td>
+<td>组合最佳子路径</td>
+</tr>
+<tr>
+<td>490</td>
+<td>回溯可视化</td>
+<td>可视化DP回溯工具</td>
+</tr>
+</tbody></table>
+<h4 id="50-元DP与优化模板"><a href="#50-元DP与优化模板" class="headerlink" title="50. 元DP与优化模板"></a>50. 元DP与优化模板</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>491</td>
+<td>状态压缩模板</td>
+<td>紧凑表示子集</td>
+</tr>
+<tr>
+<td>492</td>
+<td>转移优化模板</td>
+<td>预计算转移</td>
+</tr>
+<tr>
+<td>493</td>
+<td>空间优化模板</td>
+<td>滚动数组</td>
+</tr>
+<tr>
+<td>494</td>
+<td>多维DP模板</td>
+<td>嵌套循环版本</td>
+</tr>
+<tr>
+<td>495</td>
+<td>决策单调性</td>
+<td>优化提示</td>
+</tr>
+<tr>
+<td>496</td>
+<td>Monge数组优化</td>
+<td>利用矩阵性质</td>
+</tr>
+<tr>
+<td>497</td>
+<td>分治模板</td>
+<td>对半递归</td>
+</tr>
+<tr>
+<td>498</td>
+<td>换根模板</td>
+<td>通用树形DP</td>
+</tr>
+<tr>
+<td>499</td>
+<td>迭代DP模式</td>
+<td>自底向上展开</td>
+</tr>
+<tr>
+<td>500</td>
+<td>记忆化模板</td>
+<td>递归缓存框架</td>
+</tr>
+</tbody></table>
+<h3 id="第六章-算法中的数学"><a href="#第六章-算法中的数学" class="headerlink" title="第六章 算法中的数学"></a>第六章 算法中的数学</h3><h4 id="51-数论（最大公约数，模运算，中国剩余定理）"><a href="#51-数论（最大公约数，模运算，中国剩余定理）" class="headerlink" title="51. 数论（最大公约数，模运算，中国剩余定理）"></a>51. 数论（最大公约数，模运算，中国剩余定理）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>501</td>
+<td>欧几里得算法</td>
+<td>计算 gcd(a, b)</td>
+</tr>
+<tr>
+<td>502</td>
+<td>扩展欧几里得算法</td>
+<td>求解 ax + by &#x3D; gcd(a, b)</td>
+</tr>
+<tr>
+<td>503</td>
+<td>模加法</td>
+<td>在模 M 下进行加法</td>
+</tr>
+<tr>
+<td>504</td>
+<td>模乘法</td>
+<td>在模 M 下进行乘法</td>
+</tr>
+<tr>
+<td>505</td>
+<td>模幂运算</td>
+<td>快速幂取模 M</td>
+</tr>
+<tr>
+<td>506</td>
+<td>模逆元</td>
+<td>计算 a⁻¹ mod M</td>
+</tr>
+<tr>
+<td>507</td>
+<td>中国剩余定理</td>
+<td>合并模方程组</td>
+</tr>
+<tr>
+<td>508</td>
+<td>二进制 GCD（Stein 算法）</td>
+<td>基于位运算的 gcd</td>
+</tr>
+<tr>
+<td>509</td>
+<td>模约化</td>
+<td>标准化余数</td>
+</tr>
+<tr>
+<td>510</td>
+<td>模线性方程求解器</td>
+<td>求解 ax ≡ b (mod m)</td>
+</tr>
+</tbody></table>
+<h4 id="52-素性与因式分解（Miller–Rabin，Pollard-Rho）"><a href="#52-素性与因式分解（Miller–Rabin，Pollard-Rho）" class="headerlink" title="52. 素性与因式分解（Miller–Rabin，Pollard Rho）"></a>52. 素性与因式分解（Miller–Rabin，Pollard Rho）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>511</td>
+<td>试除法</td>
+<td>简单的素数测试</td>
+</tr>
+<tr>
+<td>512</td>
+<td>埃拉托斯特尼筛法</td>
+<td>生成直到 n 的素数</td>
+</tr>
+<tr>
+<td>513</td>
+<td>Atkin 筛法</td>
+<td>更快的筛法变体</td>
+</tr>
+<tr>
+<td>514</td>
+<td>Miller–Rabin 素性测试</td>
+<td>概率性素性测试</td>
+</tr>
+<tr>
+<td>515</td>
+<td>费马素性测试</td>
+<td>模幂检查</td>
+</tr>
+<tr>
+<td>516</td>
+<td>Pollard’s Rho 算法</td>
+<td>随机化因式分解</td>
+</tr>
+<tr>
+<td>517</td>
+<td>Pollard’s p−1 方法</td>
+<td>利用光滑性进行因式分解</td>
+</tr>
+<tr>
+<td>518</td>
+<td>轮式因式分解</td>
+<td>跳过已知的合数</td>
+</tr>
+<tr>
+<td>519</td>
+<td>AKS 素性测试</td>
+<td>确定性的多项式时间测试</td>
+</tr>
+<tr>
+<td>520</td>
+<td>分段筛法</td>
+<td>为大范围 n 生成素数</td>
+</tr>
+</tbody></table>
+<h4 id="53-组合数学（排列，组合，子集）"><a href="#53-组合数学（排列，组合，子集）" class="headerlink" title="53. 组合数学（排列，组合，子集）"></a>53. 组合数学（排列，组合，子集）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>521</td>
+<td>阶乘预计算</td>
+<td>构建 n! 表</td>
+</tr>
+<tr>
+<td>522</td>
+<td>nCr 计算</td>
+<td>使用帕斯卡三角形或阶乘</td>
+</tr>
+<tr>
+<td>523</td>
+<td>帕斯卡三角形</td>
+<td>二项式系数</td>
+</tr>
+<tr>
+<td>524</td>
+<td>多重集组合</td>
+<td>允许重复</td>
+</tr>
+<tr>
+<td>525</td>
+<td>排列生成</td>
+<td>字典序</td>
+</tr>
+<tr>
+<td>526</td>
+<td>下一个排列</td>
+<td>STL 风格的递增</td>
+</tr>
+<tr>
+<td>527</td>
+<td>子集生成</td>
+<td>位掩码或递归</td>
+</tr>
+<tr>
+<td>528</td>
+<td>格雷码生成</td>
+<td>单比特翻转</td>
+</tr>
+<tr>
+<td>529</td>
+<td>卡特兰数动态规划</td>
+<td>计算有效的括号序列数</td>
+</tr>
+<tr>
+<td>530</td>
+<td>斯特林数</td>
+<td>划分计数</td>
+</tr>
+</tbody></table>
+<h4 id="54-概率与随机化算法"><a href="#54-概率与随机化算法" class="headerlink" title="54. 概率与随机化算法"></a>54. 概率与随机化算法</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>531</td>
+<td>蒙特卡洛模拟</td>
+<td>通过随机性近似求解</td>
+</tr>
+<tr>
+<td>532</td>
+<td>拉斯维加斯算法</td>
+<td>总是正确，时间可变</td>
+</tr>
+<tr>
+<td>533</td>
+<td>蓄水池抽样</td>
+<td>从流中均匀采样</td>
+</tr>
+<tr>
+<td>534</td>
+<td>随机化快速排序</td>
+<td>期望 O(n log n)</td>
+</tr>
+<tr>
+<td>535</td>
+<td>随机化快速选择</td>
+<td>随机枢轴</td>
+</tr>
+<tr>
+<td>536</td>
+<td>生日悖论模拟</td>
+<td>碰撞概率</td>
+</tr>
+<tr>
+<td>537</td>
+<td>随机哈希</td>
+<td>减少碰撞机会</td>
+</tr>
+<tr>
+<td>538</td>
+<td>随机游走模拟</td>
+<td>状态转移</td>
+</tr>
+<tr>
+<td>539</td>
+<td>优惠券收集问题估计</td>
+<td>期望试验次数</td>
+</tr>
+<tr>
+<td>540</td>
+<td>马尔可夫链模拟</td>
+<td>转移矩阵采样</td>
+</tr>
+</tbody></table>
+<h4 id="55-筛法与模运算"><a href="#55-筛法与模运算" class="headerlink" title="55. 筛法与模运算"></a>55. 筛法与模运算</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>541</td>
+<td>埃拉托斯特尼筛法</td>
+<td>基础素数筛</td>
+</tr>
+<tr>
+<td>542</td>
+<td>线性筛法</td>
+<td>O(n) 筛法变体</td>
+</tr>
+<tr>
+<td>543</td>
+<td>分段筛法</td>
+<td>区间素数生成</td>
+</tr>
+<tr>
+<td>544</td>
+<td>最小质因数表</td>
+<td>通过筛法进行因式分解</td>
+</tr>
+<tr>
+<td>545</td>
+<td>莫比乌斯函数筛法</td>
+<td>计算积性函数</td>
+</tr>
+<tr>
+<td>546</td>
+<td>欧拉函数筛法</td>
+<td>计算所有 n 的 φ(n)</td>
+</tr>
+<tr>
+<td>547</td>
+<td>约数个数筛法</td>
+<td>高效计算约数个数</td>
+</tr>
+<tr>
+<td>548</td>
+<td>模运算预计算</td>
+<td>存储逆元、阶乘等</td>
+</tr>
+<tr>
+<td>549</td>
+<td>费马小定理</td>
+<td>a^(p−1) ≡ 1 mod p</td>
+</tr>
+<tr>
+<td>550</td>
+<td>威尔逊定理</td>
+<td>通过阶乘模 p 进行素数测试</td>
+</tr>
+</tbody></table>
+<h4 id="56-线性代数（高斯消元，LU，SVD）"><a href="#56-线性代数（高斯消元，LU，SVD）" class="headerlink" title="56. 线性代数（高斯消元，LU，SVD）"></a>56. 线性代数（高斯消元，LU，SVD）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>551</td>
+<td>高斯消元法</td>
+<td>求解 Ax &#x3D; b</td>
+</tr>
+<tr>
+<td>552</td>
+<td>高斯-若尔当消元法</td>
+<td>化为行最简阶梯形</td>
+</tr>
+<tr>
+<td>553</td>
+<td>LU 分解</td>
+<td>将 A 分解为 L·U</td>
+</tr>
+<tr>
+<td>554</td>
+<td>Cholesky 分解</td>
+<td>对称正定矩阵的 A &#x3D; L·Lᵀ 分解</td>
+</tr>
+<tr>
+<td>555</td>
+<td>QR 分解</td>
+<td>正交分解</td>
+</tr>
+<tr>
+<td>556</td>
+<td>矩阵求逆（高斯-若尔当）</td>
+<td>求 A⁻¹</td>
+</tr>
+<tr>
+<td>557</td>
+<td>消元法求行列式</td>
+<td>主元的乘积</td>
+</tr>
+<tr>
+<td>558</td>
+<td>矩阵的秩</td>
+<td>非零行计数</td>
+</tr>
+<tr>
+<td>559</td>
+<td>幂法求特征值</td>
+<td>近似主特征值</td>
+</tr>
+<tr>
+<td>560</td>
+<td>奇异值分解</td>
+<td>A &#x3D; UΣVᵀ</td>
+</tr>
+</tbody></table>
+<h4 id="57-FFT-与-NTT（快速变换）"><a href="#57-FFT-与-NTT（快速变换）" class="headerlink" title="57. FFT 与 NTT（快速变换）"></a>57. FFT 与 NTT（快速变换）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>561</td>
+<td>离散傅里叶变换</td>
+<td>O(n²) 基础算法</td>
+</tr>
+<tr>
+<td>562</td>
+<td>快速傅里叶变换</td>
+<td>O(n log n) 卷积</td>
+</tr>
+<tr>
+<td>563</td>
+<td>Cooley–Tukey FFT 算法</td>
+<td>递归分治</td>
+</tr>
+<tr>
+<td>564</td>
+<td>迭代 FFT</td>
+<td>原地位反转</td>
+</tr>
+<tr>
+<td>565</td>
+<td>逆 FFT</td>
+<td>恢复时域信号</td>
+</tr>
+<tr>
+<td>566</td>
+<td>基于 FFT 的卷积</td>
+<td>多项式乘法</td>
+</tr>
+<tr>
+<td>567</td>
+<td>数论变换</td>
+<td>模素数的 FFT</td>
+</tr>
+<tr>
+<td>568</td>
+<td>逆 NTT</td>
+<td>模逆变换</td>
+</tr>
+<tr>
+<td>569</td>
+<td>Bluestein 算法</td>
+<td>任意大小的 FFT</td>
+</tr>
+<tr>
+<td>570</td>
+<td>基于 FFT 的大整数乘法</td>
+<td>大整数乘积</td>
+</tr>
+</tbody></table>
+<h4 id="58-数值方法（牛顿，辛普森，龙格-库塔）"><a href="#58-数值方法（牛顿，辛普森，龙格-库塔）" class="headerlink" title="58. 数值方法（牛顿，辛普森，龙格-库塔）"></a>58. 数值方法（牛顿，辛普森，龙格-库塔）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>571</td>
+<td>牛顿-拉夫森法</td>
+<td>利用切线求根</td>
+</tr>
+<tr>
+<td>572</td>
+<td>二分法</td>
+<td>区间折半</td>
+</tr>
+<tr>
+<td>573</td>
+<td>割线法</td>
+<td>近似导数</td>
+</tr>
+<tr>
+<td>574</td>
+<td>不动点迭代法</td>
+<td>x &#x3D; f(x) 收敛</td>
+</tr>
+<tr>
+<td>575</td>
+<td>高斯求积法</td>
+<td>加权积分</td>
+</tr>
+<tr>
+<td>576</td>
+<td>辛普森法则</td>
+<td>分段二次函数积分</td>
+</tr>
+<tr>
+<td>577</td>
+<td>梯形法则</td>
+<td>线性插值积分</td>
+</tr>
+<tr>
+<td>578</td>
+<td>龙格-库塔法</td>
+<td>常微分方程求解器</td>
+</tr>
+<tr>
+<td>579</td>
+<td>欧拉法</td>
+<td>逐步求解常微分方程</td>
+</tr>
+<tr>
+<td>580</td>
+<td>梯度下降法</td>
+<td>数值优化</td>
+</tr>
+</tbody></table>
+<h4 id="59-数学优化（单纯形，梯度，凸优化）"><a href="#59-数学优化（单纯形，梯度，凸优化）" class="headerlink" title="59. 数学优化（单纯形，梯度，凸优化）"></a>59. 数学优化（单纯形，梯度，凸优化）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>581</td>
+<td>单纯形法</td>
+<td>线性规划求解器</td>
+</tr>
+<tr>
+<td>582</td>
+<td>对偶单纯形法</td>
+<td>求解对偶约束</td>
+</tr>
+<tr>
+<td>583</td>
+<td>内点法</td>
+<td>凸优化</td>
+</tr>
+<tr>
+<td>584</td>
+<td>梯度下降法</td>
+<td>无约束优化</td>
+</tr>
+<tr>
+<td>585</td>
+<td>随机梯度下降法</td>
+<td>基于样本的更新</td>
+</tr>
+<tr>
+<td>586</td>
+<td>牛顿法</td>
+<td>二次收敛</td>
+</tr>
+<tr>
+<td>587</td>
+<td>共轭梯度法</td>
+<td>求解对称正定系统</td>
+</tr>
+<tr>
+<td>588</td>
+<td>拉格朗日乘数法</td>
+<td>约束优化</td>
+</tr>
+<tr>
+<td>589</td>
+<td>KKT 条件求解器</td>
+<td>凸约束处理</td>
+</tr>
+<tr>
+<td>590</td>
+<td>坐标下降法</td>
+<td>顺序变量更新</td>
+</tr>
+</tbody></table>
+<h4 id="60-代数技巧与变换技术"><a href="#60-代数技巧与变换技术" class="headerlink" title="60. 代数技巧与变换技术"></a>60. 代数技巧与变换技术</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>591</td>
+<td>多项式乘法</td>
+<td>快速卷积</td>
+</tr>
+<tr>
+<td>592</td>
+<td>多项式求逆</td>
+<td>牛顿迭代</td>
+</tr>
+<tr>
+<td>593</td>
+<td>多项式求导</td>
+<td>逐项乘以指数</td>
+</tr>
+<tr>
+<td>594</td>
+<td>多项式积分</td>
+<td>除以指数+1</td>
+</tr>
+<tr>
+<td>595</td>
+<td>形式幂级数复合</td>
+<td>级数代入</td>
+</tr>
+<tr>
+<td>596</td>
+<td>平方取幂法</td>
+<td>快速幂运算</td>
+</tr>
+<tr>
+<td>597</td>
+<td>模幂运算</td>
+<td>快速幂取模 M</td>
+</tr>
+<tr>
+<td>598</td>
+<td>快速沃尔什-哈达玛变换</td>
+<td>XOR 卷积</td>
+</tr>
+<tr>
+<td>599</td>
+<td>Zeta 变换</td>
+<td>子集求和</td>
+</tr>
+<tr>
+<td>600</td>
+<td>莫比乌斯反演</td>
+<td>从和恢复原函数</td>
+</tr>
+</tbody></table>
+<h3 id="第-7-章-字符串与文本算法"><a href="#第-7-章-字符串与文本算法" class="headerlink" title="第 7 章 字符串与文本算法"></a>第 7 章 字符串与文本算法</h3><h4 id="61-字符串匹配-KMP-Z-Rabin–Karp-Boyer–Moore"><a href="#61-字符串匹配-KMP-Z-Rabin–Karp-Boyer–Moore" class="headerlink" title="61. 字符串匹配 (KMP, Z, Rabin–Karp, Boyer–Moore)"></a>61. 字符串匹配 (KMP, Z, Rabin–Karp, Boyer–Moore)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>601</td>
+<td>朴素字符串匹配</td>
+<td>比较每个位置</td>
+</tr>
+<tr>
+<td>602</td>
+<td>Knuth–Morris–Pratt (KMP)</td>
+<td>利用前缀函数跳过</td>
+</tr>
+<tr>
+<td>603</td>
+<td>Z 算法</td>
+<td>使用 Z 值进行匹配</td>
+</tr>
+<tr>
+<td>604</td>
+<td>Rabin–Karp</td>
+<td>滚动哈希比较</td>
+</tr>
+<tr>
+<td>605</td>
+<td>Boyer–Moore</td>
+<td>基于失配的后向跳跃</td>
+</tr>
+<tr>
+<td>606</td>
+<td>Boyer–Moore–Horspool</td>
+<td>简化的移位表</td>
+</tr>
+<tr>
+<td>607</td>
+<td>Sunday 算法</td>
+<td>末字符移位</td>
+</tr>
+<tr>
+<td>608</td>
+<td>有限自动机匹配</td>
+<td>基于 DFA 的匹配</td>
+</tr>
+<tr>
+<td>609</td>
+<td>Bitap 算法</td>
+<td>位掩码近似匹配</td>
+</tr>
+<tr>
+<td>610</td>
+<td>Two-Way 算法</td>
+<td>最优线性匹配</td>
+</tr>
+</tbody></table>
+<h4 id="62-多模式搜索-Aho–Corasick"><a href="#62-多模式搜索-Aho–Corasick" class="headerlink" title="62. 多模式搜索 (Aho–Corasick)"></a>62. 多模式搜索 (Aho–Corasick)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>611</td>
+<td>Aho–Corasick 自动机</td>
+<td>字典树 + 失败链接</td>
+</tr>
+<tr>
+<td>612</td>
+<td>字典树构建</td>
+<td>前缀树构建</td>
+</tr>
+<tr>
+<td>613</td>
+<td>失败链接计算</td>
+<td>使用 BFS 计算转移</td>
+</tr>
+<tr>
+<td>614</td>
+<td>输出链接管理</td>
+<td>处理重叠模式</td>
+</tr>
+<tr>
+<td>615</td>
+<td>多模式搜索</td>
+<td>查找所有关键词</td>
+</tr>
+<tr>
+<td>616</td>
+<td>字典匹配</td>
+<td>查找多个子串</td>
+</tr>
+<tr>
+<td>617</td>
+<td>动态 Aho–Corasick</td>
+<td>添加&#x2F;删除模式</td>
+</tr>
+<tr>
+<td>618</td>
+<td>并行 AC 搜索</td>
+<td>多线程遍历</td>
+</tr>
+<tr>
+<td>619</td>
+<td>压缩 AC 自动机</td>
+<td>内存优化</td>
+</tr>
+<tr>
+<td>620</td>
+<td>支持通配符的扩展 AC</td>
+<td>灵活匹配</td>
+</tr>
+</tbody></table>
+<h4 id="63-后缀结构-后缀数组，后缀树，LCP"><a href="#63-后缀结构-后缀数组，后缀树，LCP" class="headerlink" title="63. 后缀结构 (后缀数组，后缀树，LCP)"></a>63. 后缀结构 (后缀数组，后缀树，LCP)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>621</td>
+<td>后缀数组 (朴素)</td>
+<td>排序所有后缀</td>
+</tr>
+<tr>
+<td>622</td>
+<td>后缀数组 (倍增法)</td>
+<td>基于排名的 O(n log n) 算法</td>
+</tr>
+<tr>
+<td>623</td>
+<td>Kasai 的 LCP 算法</td>
+<td>最长公共前缀</td>
+</tr>
+<tr>
+<td>624</td>
+<td>后缀树 (Ukkonen)</td>
+<td>线性时间在线构建</td>
+</tr>
+<tr>
+<td>625</td>
+<td>后缀自动机</td>
+<td>子串的最小 DFA</td>
+</tr>
+<tr>
+<td>626</td>
+<td>SA-IS 算法</td>
+<td>O(n) 后缀数组构建</td>
+</tr>
+<tr>
+<td>627</td>
+<td>LCP RMQ 查询</td>
+<td>子串的区间最小值查询</td>
+</tr>
+<tr>
+<td>628</td>
+<td>广义后缀数组</td>
+<td>多字符串</td>
+</tr>
+<tr>
+<td>629</td>
+<td>增强后缀数组</td>
+<td>结合 SA + LCP</td>
+</tr>
+<tr>
+<td>630</td>
+<td>稀疏后缀树</td>
+<td>空间高效变体</td>
+</tr>
+</tbody></table>
+<h4 id="64-回文与周期性-Manacher"><a href="#64-回文与周期性-Manacher" class="headerlink" title="64. 回文与周期性 (Manacher)"></a>64. 回文与周期性 (Manacher)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>631</td>
+<td>朴素回文检查</td>
+<td>中心扩展</td>
+</tr>
+<tr>
+<td>632</td>
+<td>Manacher 算法</td>
+<td>O(n) 最长回文子串</td>
+</tr>
+<tr>
+<td>633</td>
+<td>最长回文子串</td>
+<td>中心扩展</td>
+</tr>
+<tr>
+<td>634</td>
+<td>回文 DP 表</td>
+<td>子串布尔矩阵</td>
+</tr>
+<tr>
+<td>635</td>
+<td>回文树 (Eertree)</td>
+<td>跟踪不同的回文串</td>
+</tr>
+<tr>
+<td>636</td>
+<td>前缀函数周期性</td>
+<td>检测重复模式</td>
+</tr>
+<tr>
+<td>637</td>
+<td>Z 函数周期性</td>
+<td>识别周期性后缀</td>
+</tr>
+<tr>
+<td>638</td>
+<td>KMP 前缀周期检查</td>
+<td>最短重复单元</td>
+</tr>
+<tr>
+<td>639</td>
+<td>Lyndon 分解</td>
+<td>将字符串分解为 Lyndon 词</td>
+</tr>
+<tr>
+<td>640</td>
+<td>最小旋转 (Booth 算法)</td>
+<td>字典序最小移位</td>
+</tr>
+</tbody></table>
+<h4 id="65-编辑距离与序列比对"><a href="#65-编辑距离与序列比对" class="headerlink" title="65. 编辑距离与序列比对"></a>65. 编辑距离与序列比对</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>641</td>
+<td>Levenshtein 距离</td>
+<td>插入&#x2F;删除&#x2F;替换成本</td>
+</tr>
+<tr>
+<td>642</td>
+<td>Damerau–Levenshtein 距离</td>
+<td>包含交换操作</td>
+</tr>
+<tr>
+<td>643</td>
+<td>汉明距离</td>
+<td>计算不同的位数</td>
+</tr>
+<tr>
+<td>644</td>
+<td>Needleman–Wunsch</td>
+<td>全局比对</td>
+</tr>
+<tr>
+<td>645</td>
+<td>Smith–Waterman</td>
+<td>局部比对</td>
+</tr>
+<tr>
+<td>646</td>
+<td>Hirschberg 算法</td>
+<td>内存优化的比对算法</td>
+</tr>
+<tr>
+<td>647</td>
+<td>编辑脚本重建</td>
+<td>回溯操作</td>
+</tr>
+<tr>
+<td>648</td>
+<td>仿射空位罚分 DP</td>
+<td>可变空位成本</td>
+</tr>
+<tr>
+<td>649</td>
+<td>Myers 位向量算法</td>
+<td>快速编辑距离计算</td>
+</tr>
+<tr>
+<td>650</td>
+<td>最长公共子序列</td>
+<td>基于包含关系的比对</td>
+</tr>
+</tbody></table>
+<h4 id="66-压缩-Huffman-Arithmetic-LZ77-BWT"><a href="#66-压缩-Huffman-Arithmetic-LZ77-BWT" class="headerlink" title="66. 压缩 (Huffman, Arithmetic, LZ77, BWT)"></a>66. 压缩 (Huffman, Arithmetic, LZ77, BWT)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>651</td>
+<td>Huffman 编码</td>
+<td>最优前缀树</td>
+</tr>
+<tr>
+<td>652</td>
+<td>规范 Huffman 编码</td>
+<td>确定性排序</td>
+</tr>
+<tr>
+<td>653</td>
+<td>算术编码</td>
+<td>区间概率编码</td>
+</tr>
+<tr>
+<td>654</td>
+<td>Shannon–Fano 编码</td>
+<td>早期前缀方法</td>
+</tr>
+<tr>
+<td>655</td>
+<td>游程编码 (RLE)</td>
+<td>重复压缩</td>
+</tr>
+<tr>
+<td>656</td>
+<td>LZ77</td>
+<td>滑动窗口匹配</td>
+</tr>
+<tr>
+<td>657</td>
+<td>LZ78</td>
+<td>字典构建</td>
+</tr>
+<tr>
+<td>658</td>
+<td>LZW</td>
+<td>GIF 中使用的变体</td>
+</tr>
+<tr>
+<td>659</td>
+<td>Burrows–Wheeler 变换</td>
+<td>块重排序</td>
+</tr>
+<tr>
+<td>660</td>
+<td>移动至前端编码</td>
+<td>提升局部性的变换</td>
+</tr>
+</tbody></table>
+<h4 id="67-密码学哈希与校验和"><a href="#67-密码学哈希与校验和" class="headerlink" title="67. 密码学哈希与校验和"></a>67. 密码学哈希与校验和</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>661</td>
+<td>滚动哈希</td>
+<td>基于多项式取模</td>
+</tr>
+<tr>
+<td>662</td>
+<td>CRC32</td>
+<td>循环冗余校验</td>
+</tr>
+<tr>
+<td>663</td>
+<td>Adler-32</td>
+<td>轻量级校验和</td>
+</tr>
+<tr>
+<td>664</td>
+<td>MD5</td>
+<td>遗留的密码学哈希函数</td>
+</tr>
+<tr>
+<td>665</td>
+<td>SHA-1</td>
+<td>已弃用的哈希函数</td>
+</tr>
+<tr>
+<td>666</td>
+<td>SHA-256</td>
+<td>安全哈希标准</td>
+</tr>
+<tr>
+<td>667</td>
+<td>SHA-3 (Keccak)</td>
+<td>海绵结构</td>
+</tr>
+<tr>
+<td>668</td>
+<td>HMAC</td>
+<td>带密钥的消息认证码</td>
+</tr>
+<tr>
+<td>669</td>
+<td>Merkle 树</td>
+<td>分层哈希</td>
+</tr>
+<tr>
+<td>670</td>
+<td>哈希碰撞检测</td>
+<td>生日边界模拟</td>
+</tr>
+</tbody></table>
+<h4 id="68-近似与流式匹配"><a href="#68-近似与流式匹配" class="headerlink" title="68. 近似与流式匹配"></a>68. 近似与流式匹配</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>671</td>
+<td>K-近似匹配</td>
+<td>允许 k 个失配</td>
+</tr>
+<tr>
+<td>672</td>
+<td>Bitap 算法</td>
+<td>位动态规划</td>
+</tr>
+<tr>
+<td>673</td>
+<td>Landau–Vishkin 算法</td>
+<td>编辑距离 ≤ k</td>
+</tr>
+<tr>
+<td>674</td>
+<td>过滤算法</td>
+<td>快速近似搜索</td>
+</tr>
+<tr>
+<td>675</td>
+<td>Wu–Manber</td>
+<td>多模式近似搜索</td>
+</tr>
+<tr>
+<td>676</td>
+<td>流式 KMP</td>
+<td>在线前缀更新</td>
+</tr>
+<tr>
+<td>677</td>
+<td>滚动哈希草图</td>
+<td>滑动窗口哈希</td>
+</tr>
+<tr>
+<td>678</td>
+<td>基于草图的相似性</td>
+<td>MinHash &#x2F; LSH 变体</td>
+</tr>
+<tr>
+<td>679</td>
+<td>加权编辑距离</td>
+<td>加权操作</td>
+</tr>
+<tr>
+<td>680</td>
+<td>在线 Levenshtein 距离</td>
+<td>动态流更新</td>
+</tr>
+</tbody></table>
+<h4 id="69-生物信息学比对-Needleman–Wunsch-Smith–Waterman"><a href="#69-生物信息学比对-Needleman–Wunsch-Smith–Waterman" class="headerlink" title="69. 生物信息学比对 (Needleman–Wunsch, Smith–Waterman)"></a>69. 生物信息学比对 (Needleman–Wunsch, Smith–Waterman)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>681</td>
+<td>Needleman–Wunsch</td>
+<td>全局序列比对</td>
+</tr>
+<tr>
+<td>682</td>
+<td>Smith–Waterman</td>
+<td>局部比对</td>
+</tr>
+<tr>
+<td>683</td>
+<td>Gotoh 算法</td>
+<td>仿射空位罚分</td>
+</tr>
+<tr>
+<td>684</td>
+<td>Hirschberg 比对</td>
+<td>线性空间比对</td>
+</tr>
+<tr>
+<td>685</td>
+<td>多序列比对 (MSA)</td>
+<td>渐进式方法</td>
+</tr>
+<tr>
+<td>686</td>
+<td>谱比对</td>
+<td>序列与谱的比对</td>
+</tr>
+<tr>
+<td>687</td>
+<td>隐马尔可夫模型比对</td>
+<td>概率比对</td>
+</tr>
+<tr>
+<td>688</td>
+<td>BLAST</td>
+<td>启发式局部搜索</td>
+</tr>
+<tr>
+<td>689</td>
+<td>FASTA</td>
+<td>基于词的比对</td>
+</tr>
+<tr>
+<td>690</td>
+<td>成对 DP 比对</td>
+<td>通用 DP 框架</td>
+</tr>
+</tbody></table>
+<h4 id="70-文本索引与搜索结构"><a href="#70-文本索引与搜索结构" class="headerlink" title="70. 文本索引与搜索结构"></a>70. 文本索引与搜索结构</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>691</td>
+<td>倒排索引构建</td>
+<td>词到文档的映射</td>
+</tr>
+<tr>
+<td>692</td>
+<td>位置索引</td>
+<td>存储词的位置</td>
+</tr>
+<tr>
+<td>693</td>
+<td>TF-IDF 加权</td>
+<td>重要性评分</td>
+</tr>
+<tr>
+<td>694</td>
+<td>BM25 排序</td>
+<td>现代排序公式</td>
+</tr>
+<tr>
+<td>695</td>
+<td>字典树索引</td>
+<td>前缀搜索结构</td>
+</tr>
+<tr>
+<td>696</td>
+<td>后缀数组索引</td>
+<td>子串搜索</td>
+</tr>
+<tr>
+<td>697</td>
+<td>压缩后缀数组</td>
+<td>空间优化</td>
+</tr>
+<tr>
+<td>698</td>
+<td>FM-索引</td>
+<td>基于 BWT 的压缩索引</td>
+</tr>
+<tr>
+<td>699</td>
+<td>DAWG (有向无环词图)</td>
+<td>共享后缀图</td>
+</tr>
+<tr>
+<td>700</td>
+<td>文本的小波树</td>
+<td>序列上的秩&#x2F;选择操作</td>
+</tr>
+</tbody></table>
+<h3 id="第八章-几何、图形与空间算法"><a href="#第八章-几何、图形与空间算法" class="headerlink" title="第八章 几何、图形与空间算法"></a>第八章 几何、图形与空间算法</h3><h4 id="71-凸包（Graham-Andrew-Chan）"><a href="#71-凸包（Graham-Andrew-Chan）" class="headerlink" title="71. 凸包（Graham, Andrew, Chan）"></a>71. 凸包（Graham, Andrew, Chan）</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>701</td>
+<td>礼品包装法（Jarvis March）</td>
+<td>每次包裹一个点来构建凸包</td>
+</tr>
+<tr>
+<td>702</td>
+<td>Graham 扫描法</td>
+<td>按角度排序，维护栈</td>
+</tr>
+<tr>
+<td>703</td>
+<td>Andrew 单调链法</td>
+<td>按 x 坐标排序，构建上、下凸包</td>
+</tr>
+<tr>
+<td>704</td>
+<td>Chan 算法</td>
+<td>输出敏感的 O(n log h) 算法</td>
+</tr>
+<tr>
+<td>705</td>
+<td>QuickHull</td>
+<td>分治凸包算法</td>
+</tr>
+<tr>
+<td>706</td>
+<td>增量凸包算法</td>
+<td>逐个添加点</td>
+</tr>
+<tr>
+<td>707</td>
+<td>分治凸包算法</td>
+<td>合并两个部分凸包</td>
+</tr>
+<tr>
+<td>708</td>
+<td>三维凸包</td>
+<td>扩展到三维几何</td>
+</tr>
+<tr>
+<td>709</td>
+<td>动态凸包</td>
+<td>支持插入操作以维护凸包</td>
+</tr>
+<tr>
+<td>710</td>
+<td>旋转卡壳法</td>
+<td>计算直径、宽度、对踵点对</td>
+</tr>
+</tbody></table>
+<h4 id="72-最近点对与线段相交"><a href="#72-最近点对与线段相交" class="headerlink" title="72. 最近点对与线段相交"></a>72. 最近点对与线段相交</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>711</td>
+<td>最近点对（分治法）</td>
+<td>分割、合并最小距离</td>
+</tr>
+<tr>
+<td>712</td>
+<td>最近点对（扫描线法）</td>
+<td>维护活动窗口</td>
+</tr>
+<tr>
+<td>713</td>
+<td>最近点对（暴力法）</td>
+<td>检查所有 O(n²) 对点</td>
+</tr>
+<tr>
+<td>714</td>
+<td>Bentley–Ottmann 算法</td>
+<td>查找所有线段交点</td>
+</tr>
+<tr>
+<td>715</td>
+<td>线段相交测试</td>
+<td>叉积方向判断</td>
+</tr>
+<tr>
+<td>716</td>
+<td>线段扫描线法</td>
+<td>基于事件的相交检测</td>
+</tr>
+<tr>
+<td>717</td>
+<td>基于方向的相交判断</td>
+<td>逆时针测试</td>
+</tr>
+<tr>
+<td>718</td>
+<td>圆相交</td>
+<td>两圆的几何关系</td>
+</tr>
+<tr>
+<td>719</td>
+<td>多边形相交</td>
+<td>裁剪重叠多边形</td>
+</tr>
+<tr>
+<td>720</td>
+<td>最近邻点对</td>
+<td>结合 KD 树与搜索</td>
+</tr>
+</tbody></table>
+<h4 id="73-扫描线算法与平面扫描算法"><a href="#73-扫描线算法与平面扫描算法" class="headerlink" title="73. 扫描线算法与平面扫描算法"></a>73. 扫描线算法与平面扫描算法</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>721</td>
+<td>事件扫描线法</td>
+<td>处理排序后的事件</td>
+</tr>
+<tr>
+<td>722</td>
+<td>区间调度</td>
+<td>选择不重叠的区间</td>
+</tr>
+<tr>
+<td>723</td>
+<td>矩形并集面积</td>
+<td>扫描边以计算面积</td>
+</tr>
+<tr>
+<td>724</td>
+<td>线段相交（Bentley–Ottmann）</td>
+<td>检测所有交叉点</td>
+</tr>
+<tr>
+<td>725</td>
+<td>天际线问题</td>
+<td>合并高度轮廓</td>
+</tr>
+<tr>
+<td>726</td>
+<td>最近点对扫描法</td>
+<td>维护活动集</td>
+</tr>
+<tr>
+<td>727</td>
+<td>圆排列</td>
+<td>扫描并计数区域</td>
+</tr>
+<tr>
+<td>728</td>
+<td>重叠矩形扫描检测</td>
+<td>检测碰撞</td>
+</tr>
+<tr>
+<td>729</td>
+<td>范围计数</td>
+<td>统计矩形内点数</td>
+</tr>
+<tr>
+<td>730</td>
+<td>三角形平面扫描法</td>
+<td>多边形叠加计算</td>
+</tr>
+</tbody></table>
+<h4 id="74-Delaunay-三角剖分与-Voronoi-图"><a href="#74-Delaunay-三角剖分与-Voronoi-图" class="headerlink" title="74. Delaunay 三角剖分与 Voronoi 图"></a>74. Delaunay 三角剖分与 Voronoi 图</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>731</td>
+<td>Delaunay 三角剖分（增量法）</td>
+<td>添加点，维护 Delaunay 性质</td>
+</tr>
+<tr>
+<td>732</td>
+<td>Delaunay（分治法）</td>
+<td>合并三角剖分</td>
+</tr>
+<tr>
+<td>733</td>
+<td>Delaunay（Fortune 扫描法）</td>
+<td>O(n log n) 构造算法</td>
+</tr>
+<tr>
+<td>734</td>
+<td>Voronoi 图（Fortune 算法）</td>
+<td>扫描线与海滩线</td>
+</tr>
+<tr>
+<td>735</td>
+<td>增量 Voronoi 图</td>
+<td>插入时更新</td>
+</tr>
+<tr>
+<td>736</td>
+<td>Bowyer–Watson 算法</td>
+<td>空圆准则</td>
+</tr>
+<tr>
+<td>737</td>
+<td>对偶变换</td>
+<td>Voronoi 图与 Delaunay 三角剖分转换</td>
+</tr>
+<tr>
+<td>738</td>
+<td>加权 Voronoi 图（Power Diagram）</td>
+<td>带权重的 Voronoi 图</td>
+</tr>
+<tr>
+<td>739</td>
+<td>Lloyd 松弛算法</td>
+<td>平滑 Voronoi 单元</td>
+</tr>
+<tr>
+<td>740</td>
+<td>Voronoi 最近邻查询</td>
+<td>基于区域的查找</td>
+</tr>
+</tbody></table>
+<h4 id="75-点是否在多边形内与多边形三角剖分"><a href="#75-点是否在多边形内与多边形三角剖分" class="headerlink" title="75. 点是否在多边形内与多边形三角剖分"></a>75. 点是否在多边形内与多边形三角剖分</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>741</td>
+<td>射线投射法</td>
+<td>计算边交叉次数</td>
+</tr>
+<tr>
+<td>742</td>
+<td>环绕数法</td>
+<td>角度求和法</td>
+</tr>
+<tr>
+<td>743</td>
+<td>凸多边形点测试</td>
+<td>方向检查</td>
+</tr>
+<tr>
+<td>744</td>
+<td>耳切法三角剖分</td>
+<td>迭代移除”耳朵”</td>
+</tr>
+<tr>
+<td>745</td>
+<td>单调多边形三角剖分</td>
+<td>扫描线三角剖分</td>
+</tr>
+<tr>
+<td>746</td>
+<td>Delaunay 三角剖分</td>
+<td>最优三角形质量</td>
+</tr>
+<tr>
+<td>747</td>
+<td>凸分解</td>
+<td>分割为凸部分</td>
+</tr>
+<tr>
+<td>748</td>
+<td>多边形面积（鞋带公式）</td>
+<td>有符号面积计算</td>
+</tr>
+<tr>
+<td>749</td>
+<td>闵可夫斯基和</td>
+<td>几何形状相加</td>
+</tr>
+<tr>
+<td>750</td>
+<td>多边形相交（Weiler–Atherton）</td>
+<td>裁剪重叠形状</td>
+</tr>
+</tbody></table>
+<h4 id="76-空间数据结构（KD-树，R-树）"><a href="#76-空间数据结构（KD-树，R-树）" class="headerlink" title="76. 空间数据结构（KD 树，R 树）"></a>76. 空间数据结构（KD 树，R 树）</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>751</td>
+<td>KD 树构建</td>
+<td>递归中位数分割</td>
+</tr>
+<tr>
+<td>752</td>
+<td>KD 树搜索</td>
+<td>轴对齐查询</td>
+</tr>
+<tr>
+<td>753</td>
+<td>KD 树范围搜索</td>
+<td>正交查询</td>
+</tr>
+<tr>
+<td>754</td>
+<td>KD 树最近邻搜索</td>
+<td>最近点搜索</td>
+</tr>
+<tr>
+<td>755</td>
+<td>R 树构建</td>
+<td>包围盒层次结构</td>
+</tr>
+<tr>
+<td>756</td>
+<td>R* 树</td>
+<td>优化的分割策略</td>
+</tr>
+<tr>
+<td>757</td>
+<td>四叉树</td>
+<td>空间分解</td>
+</tr>
+<tr>
+<td>758</td>
+<td>八叉树</td>
+<td>三维空间分解</td>
+</tr>
+<tr>
+<td>759</td>
+<td>BSP 树（二叉空间分割）</td>
+<td>平面分割</td>
+</tr>
+<tr>
+<td>760</td>
+<td>Morton 顺序（Z 曲线）</td>
+<td>空间局部性索引</td>
+</tr>
+</tbody></table>
+<h4 id="77-光栅化与扫描线技术"><a href="#77-光栅化与扫描线技术" class="headerlink" title="77. 光栅化与扫描线技术"></a>77. 光栅化与扫描线技术</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>761</td>
+<td>Bresenham 直线算法</td>
+<td>高效的整数绘制</td>
+</tr>
+<tr>
+<td>762</td>
+<td>中点圆算法</td>
+<td>圆的光栅化</td>
+</tr>
+<tr>
+<td>763</td>
+<td>扫描线填充</td>
+<td>多边形内部填充</td>
+</tr>
+<tr>
+<td>764</td>
+<td>边表填充</td>
+<td>按 y 坐标排序边</td>
+</tr>
+<tr>
+<td>765</td>
+<td>Z 缓冲算法</td>
+<td>隐藏面消除</td>
+</tr>
+<tr>
+<td>766</td>
+<td>画家算法</td>
+<td>按深度排序</td>
+</tr>
+<tr>
+<td>767</td>
+<td>Gouraud 着色</td>
+<td>顶点插值着色</td>
+</tr>
+<tr>
+<td>768</td>
+<td>Phong 着色</td>
+<td>法线插值</td>
+</tr>
+<tr>
+<td>769</td>
+<td>抗锯齿（超采样）</td>
+<td>平滑锯齿边缘</td>
+</tr>
+<tr>
+<td>770</td>
+<td>扫描线多边形裁剪</td>
+<td>高效裁剪</td>
+</tr>
+</tbody></table>
+<h4 id="78-计算机视觉（Canny-Hough-SIFT）"><a href="#78-计算机视觉（Canny-Hough-SIFT）" class="headerlink" title="78. 计算机视觉（Canny, Hough, SIFT）"></a>78. 计算机视觉（Canny, Hough, SIFT）</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>771</td>
+<td>Canny 边缘检测器</td>
+<td>梯度 + 滞后阈值</td>
+</tr>
+<tr>
+<td>772</td>
+<td>Sobel 算子</td>
+<td>梯度幅度滤波器</td>
+</tr>
+<tr>
+<td>773</td>
+<td>Hough 变换（直线）</td>
+<td>用于直线检测的累加器</td>
+</tr>
+<tr>
+<td>774</td>
+<td>Hough 变换（圆）</td>
+<td>基于半径的累加器</td>
+</tr>
+<tr>
+<td>775</td>
+<td>Harris 角点检测器</td>
+<td>基于特征值的角点检测</td>
+</tr>
+<tr>
+<td>776</td>
+<td>FAST 角点检测器</td>
+<td>强度圆测试</td>
+</tr>
+<tr>
+<td>777</td>
+<td>SIFT（尺度不变特征变换）</td>
+<td>关键点检测</td>
+</tr>
+<tr>
+<td>778</td>
+<td>SURF（加速鲁棒特征）</td>
+<td>更快的描述子</td>
+</tr>
+<tr>
+<td>779</td>
+<td>ORB（定向 FAST + BRIEF）</td>
+<td>二进制鲁棒特征</td>
+</tr>
+<tr>
+<td>780</td>
+<td>RANSAC</td>
+<td>鲁棒模型拟合</td>
+</tr>
+</tbody></table>
+<h4 id="79-空间路径规划（A-RRT-PRM）"><a href="#79-空间路径规划（A-RRT-PRM）" class="headerlink" title="79. 空间路径规划（A*, RRT, PRM）"></a>79. 空间路径规划（A*, RRT, PRM）</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>781</td>
+<td>A* 搜索</td>
+<td>启发式路径规划</td>
+</tr>
+<tr>
+<td>782</td>
+<td>网格上的 Dijkstra 算法</td>
+<td>加权最短路径</td>
+</tr>
+<tr>
+<td>783</td>
+<td>Theta* 算法</td>
+<td>任意角度路径规划</td>
+</tr>
+<tr>
+<td>784</td>
+<td>跳点搜索</td>
+<td>网格加速算法</td>
+</tr>
+<tr>
+<td>785</td>
+<td>RRT（快速探索随机树）</td>
+<td>随机采样树</td>
+</tr>
+<tr>
+<td>786</td>
+<td>RRT*</td>
+<td>带重连的优化变体</td>
+</tr>
+<tr>
+<td>787</td>
+<td>PRM（概率路线图）</td>
+<td>图采样规划器</td>
+</tr>
+<tr>
+<td>788</td>
+<td>可见性图</td>
+<td>连接可见顶点</td>
+</tr>
+<tr>
+<td>789</td>
+<td>势场路径规划</td>
+<td>基于梯度的导航</td>
+</tr>
+<tr>
+<td>790</td>
+<td>Bug 算法</td>
+<td>简单的避障算法</td>
+</tr>
+</tbody></table>
+<h4 id="80-计算几何变体与应用"><a href="#80-计算几何变体与应用" class="headerlink" title="80. 计算几何变体与应用"></a>80. 计算几何变体与应用</h4><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>791</td>
+<td>凸多边形相交</td>
+<td>裁剪凸集</td>
+</tr>
+<tr>
+<td>792</td>
+<td>闵可夫斯基和</td>
+<td>形状卷积</td>
+</tr>
+<tr>
+<td>793</td>
+<td>旋转卡壳法</td>
+<td>最近&#x2F;最远点对</td>
+</tr>
+<tr>
+<td>794</td>
+<td>半平面交</td>
+<td>可行区域</td>
+</tr>
+<tr>
+<td>795</td>
+<td>直线排列</td>
+<td>计数区域</td>
+</tr>
+<tr>
+<td>796</td>
+<td>点定位（梯形图）</td>
+<td>查询区域查找</td>
+</tr>
+<tr>
+<td>797</td>
+<td>Voronoi 最近设施查询</td>
+<td>区域查询</td>
+</tr>
+<tr>
+<td>798</td>
+<td>Delaunay 网格生成</td>
+<td>三角剖分细化</td>
+</tr>
+<tr>
+<td>799</td>
+<td>最小包围圆</td>
+<td>Welzl 算法</td>
+</tr>
+<tr>
+<td>800</td>
+<td>碰撞检测（SAT）</td>
+<td>分离轴定理</td>
+</tr>
+</tbody></table>
+<h3 id="第9章-系统、数据库与分布式算法"><a href="#第9章-系统、数据库与分布式算法" class="headerlink" title="第9章 系统、数据库与分布式算法"></a>第9章 系统、数据库与分布式算法</h3><h4 id="81-并发控制（2PL、MVCC、OCC）"><a href="#81-并发控制（2PL、MVCC、OCC）" class="headerlink" title="81. 并发控制（2PL、MVCC、OCC）"></a>81. 并发控制（2PL、MVCC、OCC）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>801</td>
+<td>两阶段锁（2PL）</td>
+<td>先获取锁，后释放锁</td>
+</tr>
+<tr>
+<td>802</td>
+<td>严格两阶段锁</td>
+<td>持有锁直到提交</td>
+</tr>
+<tr>
+<td>803</td>
+<td>保守两阶段锁</td>
+<td>通过预锁防止死锁</td>
+</tr>
+<tr>
+<td>804</td>
+<td>时间戳排序</td>
+<td>按时间戳调度</td>
+</tr>
+<tr>
+<td>805</td>
+<td>多版本并发控制（MVCC）</td>
+<td>快照隔离</td>
+</tr>
+<tr>
+<td>806</td>
+<td>乐观并发控制（OCC）</td>
+<td>提交时验证</td>
+</tr>
+<tr>
+<td>807</td>
+<td>可序列化快照隔离</td>
+<td>合并读&#x2F;写集合</td>
+</tr>
+<tr>
+<td>808</td>
+<td>无锁算法</td>
+<td>原子 CAS 更新</td>
+</tr>
+<tr>
+<td>809</td>
+<td>等待-死亡 &#x2F; 伤害-等待</td>
+<td>死锁预防策略</td>
+</tr>
+<tr>
+<td>810</td>
+<td>死锁检测（等待图）</td>
+<td>在等待关系中检测循环</td>
+</tr>
+</tbody></table>
+<h4 id="82-日志、恢复与提交协议"><a href="#82-日志、恢复与提交协议" class="headerlink" title="82. 日志、恢复与提交协议"></a>82. 日志、恢复与提交协议</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>811</td>
+<td>预写日志（WAL）</td>
+<td>提交前写日志</td>
+</tr>
+<tr>
+<td>812</td>
+<td>ARIES 恢复算法</td>
+<td>使用 LSN 进行重做&#x2F;撤销</td>
+</tr>
+<tr>
+<td>813</td>
+<td>影子分页</td>
+<td>写时复制持久化</td>
+</tr>
+<tr>
+<td>814</td>
+<td>两阶段提交（2PC）</td>
+<td>协调者驱动的提交</td>
+</tr>
+<tr>
+<td>815</td>
+<td>三阶段提交（3PC）</td>
+<td>非阻塞变体</td>
+</tr>
+<tr>
+<td>816</td>
+<td>检查点</td>
+<td>保存状态以便恢复</td>
+</tr>
+<tr>
+<td>817</td>
+<td>撤销日志</td>
+<td>回滚未提交的事务</td>
+</tr>
+<tr>
+<td>818</td>
+<td>重做日志</td>
+<td>重新应用已提交的事务</td>
+</tr>
+<tr>
+<td>819</td>
+<td>法定人数提交</td>
+<td>多数同意规则</td>
+</tr>
+<tr>
+<td>820</td>
+<td>共识提交</td>
+<td>结合 2PC 与 Paxos</td>
+</tr>
+</tbody></table>
+<h4 id="83-调度（轮询、最早截止时间优先、单调速率）"><a href="#83-调度（轮询、最早截止时间优先、单调速率）" class="headerlink" title="83. 调度（轮询、最早截止时间优先、单调速率）"></a>83. 调度（轮询、最早截止时间优先、单调速率）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>821</td>
+<td>先来先服务（FCFS）</td>
+<td>按作业到达顺序</td>
+</tr>
+<tr>
+<td>822</td>
+<td>最短作业优先（SJF）</td>
+<td>最优平均等待时间</td>
+</tr>
+<tr>
+<td>823</td>
+<td>轮询调度（RR）</td>
+<td>时间片公平性</td>
+</tr>
+<tr>
+<td>824</td>
+<td>优先级调度</td>
+<td>加权选择</td>
+</tr>
+<tr>
+<td>825</td>
+<td>多级队列</td>
+<td>分层优先级队列</td>
+</tr>
+<tr>
+<td>826</td>
+<td>最早截止时间优先（EDF）</td>
+<td>实时系统最优</td>
+</tr>
+<tr>
+<td>827</td>
+<td>单调速率调度（RMS）</td>
+<td>固定周期优先级</td>
+</tr>
+<tr>
+<td>828</td>
+<td>彩票调度</td>
+<td>概率公平性</td>
+</tr>
+<tr>
+<td>829</td>
+<td>多级反馈队列</td>
+<td>自适应行为</td>
+</tr>
+<tr>
+<td>830</td>
+<td>公平队列（FQ）</td>
+<td>基于流的按比例共享</td>
+</tr>
+</tbody></table>
+<h4 id="84-缓存与替换策略（LRU、LFU、CLOCK）"><a href="#84-缓存与替换策略（LRU、LFU、CLOCK）" class="headerlink" title="84. 缓存与替换策略（LRU、LFU、CLOCK）"></a>84. 缓存与替换策略（LRU、LFU、CLOCK）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>831</td>
+<td>最近最少使用（LRU）</td>
+<td>驱逐最久未使用的</td>
+</tr>
+<tr>
+<td>832</td>
+<td>最不经常使用（LFU）</td>
+<td>驱逐使用频率最低的</td>
+</tr>
+<tr>
+<td>833</td>
+<td>先进先出缓存</td>
+<td>简单的队列驱逐策略</td>
+</tr>
+<tr>
+<td>834</td>
+<td>CLOCK 算法</td>
+<td>近似 LRU</td>
+</tr>
+<tr>
+<td>835</td>
+<td>自适应替换缓存（ARC）</td>
+<td>结合最近性与频率</td>
+</tr>
+<tr>
+<td>836</td>
+<td>双队列（2Q）</td>
+<td>分离最近访问与频繁访问</td>
+</tr>
+<tr>
+<td>837</td>
+<td>低互引用最近性集合（LIRS）</td>
+<td>预测重用距离</td>
+</tr>
+<tr>
+<td>838</td>
+<td>TinyLFU</td>
+<td>基于频率草图准入</td>
+</tr>
+<tr>
+<td>839</td>
+<td>随机替换</td>
+<td>简单的随机策略</td>
+</tr>
+<tr>
+<td>840</td>
+<td>Belady 最优算法</td>
+<td>驱逐未来最远使用的</td>
+</tr>
+</tbody></table>
+<h4 id="85-网络（路由、拥塞控制）"><a href="#85-网络（路由、拥塞控制）" class="headerlink" title="85. 网络（路由、拥塞控制）"></a>85. 网络（路由、拥塞控制）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>841</td>
+<td>Dijkstra 路由算法</td>
+<td>最短路径路由</td>
+</tr>
+<tr>
+<td>842</td>
+<td>Bellman–Ford 路由算法</td>
+<td>距离向量路由</td>
+</tr>
+<tr>
+<td>843</td>
+<td>链路状态路由（OSPF）</td>
+<td>全局视图路由</td>
+</tr>
+<tr>
+<td>844</td>
+<td>距离向量路由（RIP）</td>
+<td>本地邻居更新</td>
+</tr>
+<tr>
+<td>845</td>
+<td>路径向量（BGP）</td>
+<td>路由通告</td>
+</tr>
+<tr>
+<td>846</td>
+<td>泛洪</td>
+<td>广播到所有节点</td>
+</tr>
+<tr>
+<td>847</td>
+<td>生成树协议</td>
+<td>无环拓扑</td>
+</tr>
+<tr>
+<td>848</td>
+<td>拥塞控制（AIMD）</td>
+<td>TCP 窗口控制</td>
+</tr>
+<tr>
+<td>849</td>
+<td>随机早期检测（RED）</td>
+<td>队列抢占式丢包</td>
+</tr>
+<tr>
+<td>850</td>
+<td>显式拥塞通知（ECN）</td>
+<td>早期标记数据包</td>
+</tr>
+</tbody></table>
+<h4 id="86-分布式共识（Paxos、Raft、PBFT）"><a href="#86-分布式共识（Paxos、Raft、PBFT）" class="headerlink" title="86. 分布式共识（Paxos、Raft、PBFT）"></a>86. 分布式共识（Paxos、Raft、PBFT）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>851</td>
+<td>基础 Paxos</td>
+<td>多数共识</td>
+</tr>
+<tr>
+<td>852</td>
+<td>多 Paxos</td>
+<td>一系列协议</td>
+</tr>
+<tr>
+<td>853</td>
+<td>Raft</td>
+<td>日志复制 + 领导者选举</td>
+</tr>
+<tr>
+<td>854</td>
+<td>视图戳记复制</td>
+<td>替代的共识设计</td>
+</tr>
+<tr>
+<td>855</td>
+<td>实用拜占庭容错（PBFT）</td>
+<td>拜占庭安全性</td>
+</tr>
+<tr>
+<td>856</td>
+<td>Zab（Zookeeper 原子广播）</td>
+<td>广播 + 排序</td>
+</tr>
+<tr>
+<td>857</td>
+<td>EPaxos</td>
+<td>无领导者快速路径</td>
+</tr>
+<tr>
+<td>858</td>
+<td>虚拟环复制（VRR）</td>
+<td>日志沿环传递</td>
+</tr>
+<tr>
+<td>859</td>
+<td>基于共识的两阶段提交</td>
+<td>事务提交</td>
+</tr>
+<tr>
+<td>860</td>
+<td>链式复制</td>
+<td>有序状态复制</td>
+</tr>
+</tbody></table>
+<h4 id="87-负载均衡与速率限制"><a href="#87-负载均衡与速率限制" class="headerlink" title="87. 负载均衡与速率限制"></a>87. 负载均衡与速率限制</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>861</td>
+<td>轮询负载均衡</td>
+<td>顺序分配</td>
+</tr>
+<tr>
+<td>862</td>
+<td>加权轮询</td>
+<td>按权重比例分配</td>
+</tr>
+<tr>
+<td>863</td>
+<td>最少连接数</td>
+<td>选择负载最轻的节点</td>
+</tr>
+<tr>
+<td>864</td>
+<td>一致性哈希</td>
+<td>稳定映射请求</td>
+</tr>
+<tr>
+<td>865</td>
+<td>二选一策略</td>
+<td>采样并选择负载较轻的</td>
+</tr>
+<tr>
+<td>866</td>
+<td>随机负载均衡</td>
+<td>简单的均匀随机分配</td>
+</tr>
+<tr>
+<td>867</td>
+<td>令牌桶</td>
+<td>基于速率的限制器</td>
+</tr>
+<tr>
+<td>868</td>
+<td>漏桶</td>
+<td>稳态流量整形</td>
+</tr>
+<tr>
+<td>869</td>
+<td>滑动窗口计数器</td>
+<td>滚动时间窗口</td>
+</tr>
+<tr>
+<td>870</td>
+<td>固定窗口计数器</td>
+<td>可重置的计数器限制器</td>
+</tr>
+</tbody></table>
+<h4 id="88-搜索与索引（倒排索引、BM25、WAND）"><a href="#88-搜索与索引（倒排索引、BM25、WAND）" class="headerlink" title="88. 搜索与索引（倒排索引、BM25、WAND）"></a>88. 搜索与索引（倒排索引、BM25、WAND）</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>871</td>
+<td>倒排索引构建</td>
+<td>词项 → 文档列表</td>
+</tr>
+<tr>
+<td>872</td>
+<td>位置索引构建</td>
+<td>存储词项位置</td>
+</tr>
+<tr>
+<td>873</td>
+<td>TF-IDF 评分</td>
+<td>词频加权</td>
+</tr>
+<tr>
+<td>874</td>
+<td>BM25 排序</td>
+<td>现代评分模型</td>
+</tr>
+<tr>
+<td>875</td>
+<td>布尔检索</td>
+<td>逻辑与&#x2F;或&#x2F;非</td>
+</tr>
+<tr>
+<td>876</td>
+<td>WAND 算法</td>
+<td>高效 top-k 检索</td>
+</tr>
+<tr>
+<td>877</td>
+<td>块最大 WAND（BMW）</td>
+<td>早期跳过优化</td>
+</tr>
+<tr>
+<td>878</td>
+<td>影响排序索引</td>
+<td>按贡献度排序</td>
+</tr>
+<tr>
+<td>879</td>
+<td>分层索引</td>
+<td>优先处理高分文档</td>
+</tr>
+<tr>
+<td>880</td>
+<td>DAAT 与 SAAT 评估</td>
+<td>逐文档 vs 逐评分</td>
+</tr>
+</tbody></table>
+<h4 id="89-系统中的压缩与编码"><a href="#89-系统中的压缩与编码" class="headerlink" title="89. 系统中的压缩与编码"></a>89. 系统中的压缩与编码</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>881</td>
+<td>游程编码（RLE）</td>
+<td>简单重复编码</td>
+</tr>
+<tr>
+<td>882</td>
+<td>霍夫曼编码</td>
+<td>最优变长编码</td>
+</tr>
+<tr>
+<td>883</td>
+<td>算术编码</td>
+<td>分数区间编码</td>
+</tr>
+<tr>
+<td>884</td>
+<td>增量编码</td>
+<td>存储差值</td>
+</tr>
+<tr>
+<td>885</td>
+<td>可变字节编码</td>
+<td>紧凑整数编码</td>
+</tr>
+<tr>
+<td>886</td>
+<td>Elias Gamma 编码</td>
+<td>前缀整数编码</td>
+</tr>
+<tr>
+<td>887</td>
+<td>Rice 编码</td>
+<td>一元码 + 余数方案</td>
+</tr>
+<tr>
+<td>888</td>
+<td>Snappy</td>
+<td>快速块压缩</td>
+</tr>
+<tr>
+<td>889</td>
+<td>Zstandard（Zstd）</td>
+<td>现代自适应编解码器</td>
+</tr>
+<tr>
+<td>890</td>
+<td>LZ4</td>
+<td>高速字典压缩器</td>
+</tr>
+</tbody></table>
+<h4 id="90-容错与复制"><a href="#90-容错与复制" class="headerlink" title="90. 容错与复制"></a>90. 容错与复制</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>891</td>
+<td>主-备份复制</td>
+<td>一个主节点，一个备用节点</td>
+</tr>
+<tr>
+<td>892</td>
+<td>法定人数复制</td>
+<td>多数写&#x2F;读规则</td>
+</tr>
+<tr>
+<td>893</td>
+<td>链式复制</td>
+<td>有序一致性</td>
+</tr>
+<tr>
+<td>894</td>
+<td>流言协议</td>
+<td>流行病式状态交换</td>
+</tr>
+<tr>
+<td>895</td>
+<td>反熵修复</td>
+<td>定期调和</td>
+</tr>
+<tr>
+<td>896</td>
+<td>纠删码</td>
+<td>冗余数据块</td>
+</tr>
+<tr>
+<td>897</td>
+<td>校验和验证</td>
+<td>检测数据损坏</td>
+</tr>
+<tr>
+<td>898</td>
+<td>心跳监控</td>
+<td>活性检测</td>
+</tr>
+<tr>
+<td>899</td>
+<td>领导者选举（Bully）</td>
+<td>最高 ID 胜出</td>
+</tr>
+<tr>
+<td>900</td>
+<td>领导者选举（Ring）</td>
+<td>基于令牌的轮转</td>
+</tr>
+</tbody></table>
+<h3 id="第-10-章-人工智能、机器学习与优化"><a href="#第-10-章-人工智能、机器学习与优化" class="headerlink" title="第 10 章 人工智能、机器学习与优化"></a>第 10 章 人工智能、机器学习与优化</h3><h4 id="91-经典机器学习-k-means-朴素贝叶斯-支持向量机-决策树"><a href="#91-经典机器学习-k-means-朴素贝叶斯-支持向量机-决策树" class="headerlink" title="91. 经典机器学习 (k-means, 朴素贝叶斯, 支持向量机, 决策树)"></a>91. 经典机器学习 (k-means, 朴素贝叶斯, 支持向量机, 决策树)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>901</td>
+<td>k-Means 聚类</td>
+<td>基于质心迭代进行划分</td>
+</tr>
+<tr>
+<td>902</td>
+<td>k-Medoids (PAM)</td>
+<td>基于范例进行聚类</td>
+</tr>
+<tr>
+<td>903</td>
+<td>高斯混合模型 (EM)</td>
+<td>软概率聚类</td>
+</tr>
+<tr>
+<td>904</td>
+<td>朴素贝叶斯分类器</td>
+<td>基于特征独立的概率分类</td>
+</tr>
+<tr>
+<td>905</td>
+<td>逻辑回归</td>
+<td>Sigmoid 线性分类器</td>
+</tr>
+<tr>
+<td>906</td>
+<td>感知机</td>
+<td>在线线性分类器</td>
+</tr>
+<tr>
+<td>907</td>
+<td>决策树 (CART)</td>
+<td>基于不纯度递归划分</td>
+</tr>
+<tr>
+<td>908</td>
+<td>ID3 算法</td>
+<td>基于信息增益进行分裂</td>
+</tr>
+<tr>
+<td>909</td>
+<td>k-最近邻 (kNN)</td>
+<td>基于距离的分类</td>
+</tr>
+<tr>
+<td>910</td>
+<td>线性判别分析 (LDA)</td>
+<td>用于分离的投影方法</td>
+</tr>
+</tbody></table>
+<h4 id="92-集成方法-Bagging-Boosting-随机森林"><a href="#92-集成方法-Bagging-Boosting-随机森林" class="headerlink" title="92. 集成方法 (Bagging, Boosting, 随机森林)"></a>92. 集成方法 (Bagging, Boosting, 随机森林)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>911</td>
+<td>Bagging</td>
+<td>自助聚合</td>
+</tr>
+<tr>
+<td>912</td>
+<td>随机森林</td>
+<td>决策树的集成</td>
+</tr>
+<tr>
+<td>913</td>
+<td>AdaBoost</td>
+<td>加权误差修正</td>
+</tr>
+<tr>
+<td>914</td>
+<td>梯度提升</td>
+<td>序列残差拟合</td>
+</tr>
+<tr>
+<td>915</td>
+<td>XGBoost</td>
+<td>优化的梯度提升</td>
+</tr>
+<tr>
+<td>916</td>
+<td>LightGBM</td>
+<td>基于直方图的叶子生长</td>
+</tr>
+<tr>
+<td>917</td>
+<td>CatBoost</td>
+<td>针对分类变量的有序提升</td>
+</tr>
+<tr>
+<td>918</td>
+<td>Stacking</td>
+<td>元模型集成</td>
+</tr>
+<tr>
+<td>919</td>
+<td>投票分类器</td>
+<td>多数聚合</td>
+</tr>
+<tr>
+<td>920</td>
+<td>Snapshot Ensemble</td>
+<td>平均检查点</td>
+</tr>
+</tbody></table>
+<h4 id="93-梯度方法-SGD-Adam-RMSProp"><a href="#93-梯度方法-SGD-Adam-RMSProp" class="headerlink" title="93. 梯度方法 (SGD, Adam, RMSProp)"></a>93. 梯度方法 (SGD, Adam, RMSProp)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>921</td>
+<td>梯度下降</td>
+<td>批量全梯度步进</td>
+</tr>
+<tr>
+<td>922</td>
+<td>随机梯度下降 (SGD)</td>
+<td>基于样本的更新</td>
+</tr>
+<tr>
+<td>923</td>
+<td>小批量 SGD</td>
+<td>速度与方差的权衡</td>
+</tr>
+<tr>
+<td>924</td>
+<td>动量法</td>
+<td>为下降添加速度</td>
+</tr>
+<tr>
+<td>925</td>
+<td>Nesterov 加速梯度</td>
+<td>前瞻校正</td>
+</tr>
+<tr>
+<td>926</td>
+<td>AdaGrad</td>
+<td>自适应逐参数学习率</td>
+</tr>
+<tr>
+<td>927</td>
+<td>RMSProp</td>
+<td>指数移动平均</td>
+</tr>
+<tr>
+<td>928</td>
+<td>Adam</td>
+<td>动量 + 自适应学习率</td>
+</tr>
+<tr>
+<td>929</td>
+<td>AdamW</td>
+<td>解耦权重衰减</td>
+</tr>
+<tr>
+<td>930</td>
+<td>L-BFGS</td>
+<td>有限内存拟牛顿法</td>
+</tr>
+</tbody></table>
+<h4 id="94-深度学习-反向传播-Dropout-归一化"><a href="#94-深度学习-反向传播-Dropout-归一化" class="headerlink" title="94. 深度学习 (反向传播, Dropout, 归一化)"></a>94. 深度学习 (反向传播, Dropout, 归一化)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>931</td>
+<td>反向传播</td>
+<td>梯度链式法则</td>
+</tr>
+<tr>
+<td>932</td>
+<td>Xavier&#x2F;He 初始化</td>
+<td>缩放方差初始化</td>
+</tr>
+<tr>
+<td>933</td>
+<td>Dropout</td>
+<td>随机神经元失活</td>
+</tr>
+<tr>
+<td>934</td>
+<td>批量归一化</td>
+<td>按批次归一化</td>
+</tr>
+<tr>
+<td>935</td>
+<td>层归一化</td>
+<td>按特征归一化</td>
+</tr>
+<tr>
+<td>936</td>
+<td>梯度裁剪</td>
+<td>防止梯度爆炸</td>
+</tr>
+<tr>
+<td>937</td>
+<td>早停法</td>
+<td>防止过拟合</td>
+</tr>
+<tr>
+<td>938</td>
+<td>权重衰减</td>
+<td>通过惩罚项进行正则化</td>
+</tr>
+<tr>
+<td>939</td>
+<td>学习率调度</td>
+<td>动态学习率调整</td>
+</tr>
+<tr>
+<td>940</td>
+<td>残差连接</td>
+<td>跳跃层改进</td>
+</tr>
+</tbody></table>
+<h4 id="95-序列模型-Viterbi-束搜索-CTC"><a href="#95-序列模型-Viterbi-束搜索-CTC" class="headerlink" title="95. 序列模型 (Viterbi, 束搜索, CTC)"></a>95. 序列模型 (Viterbi, 束搜索, CTC)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>941</td>
+<td>隐马尔可夫模型 (前向-后向算法)</td>
+<td>概率序列模型</td>
+</tr>
+<tr>
+<td>942</td>
+<td>Viterbi 算法</td>
+<td>最可能路径</td>
+</tr>
+<tr>
+<td>943</td>
+<td>Baum–Welch 算法</td>
+<td>HMM 的 EM 训练</td>
+</tr>
+<tr>
+<td>944</td>
+<td>束搜索</td>
+<td>前 k 路径探索</td>
+</tr>
+<tr>
+<td>945</td>
+<td>贪婪解码</td>
+<td>快速近似解码</td>
+</tr>
+<tr>
+<td>946</td>
+<td>连接时序分类 (CTC)</td>
+<td>未对齐序列训练</td>
+</tr>
+<tr>
+<td>947</td>
+<td>注意力机制</td>
+<td>加权上下文聚合</td>
+</tr>
+<tr>
+<td>948</td>
+<td>Transformer 解码器</td>
+<td>自注意力堆栈</td>
+</tr>
+<tr>
+<td>949</td>
+<td>带注意力的 Seq2Seq</td>
+<td>编码器-解码器框架</td>
+</tr>
+<tr>
+<td>950</td>
+<td>指针网络</td>
+<td>输出索引选择</td>
+</tr>
+</tbody></table>
+<h4 id="96-元启发式算法-GA-SA-PSO-ACO"><a href="#96-元启发式算法-GA-SA-PSO-ACO" class="headerlink" title="96. 元启发式算法 (GA, SA, PSO, ACO)"></a>96. 元启发式算法 (GA, SA, PSO, ACO)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>951</td>
+<td>遗传算法 (GA)</td>
+<td>进化优化</td>
+</tr>
+<tr>
+<td>952</td>
+<td>模拟退火 (SA)</td>
+<td>温度控制搜索</td>
+</tr>
+<tr>
+<td>953</td>
+<td>禁忌搜索</td>
+<td>禁止移动的记忆</td>
+</tr>
+<tr>
+<td>954</td>
+<td>粒子群优化 (PSO)</td>
+<td>基于速度的搜索</td>
+</tr>
+<tr>
+<td>955</td>
+<td>蚁群优化 (ACO)</td>
+<td>信息素引导路径</td>
+</tr>
+<tr>
+<td>956</td>
+<td>差分进化 (DE)</td>
+<td>基于向量的变异</td>
+</tr>
+<tr>
+<td>957</td>
+<td>和声搜索</td>
+<td>音乐启发的即兴创作</td>
+</tr>
+<tr>
+<td>958</td>
+<td>萤火虫算法</td>
+<td>亮度吸引移动</td>
+</tr>
+<tr>
+<td>959</td>
+<td>蜂群优化</td>
+<td>通过侦察蜂进行探索-利用</td>
+</tr>
+<tr>
+<td>960</td>
+<td>爬山法</td>
+<td>局部增量改进</td>
+</tr>
+</tbody></table>
+<h4 id="97-强化学习-Q-learning-策略梯度"><a href="#97-强化学习-Q-learning-策略梯度" class="headerlink" title="97. 强化学习 (Q-learning, 策略梯度)"></a>97. 强化学习 (Q-learning, 策略梯度)</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>961</td>
+<td>蒙特卡洛控制</td>
+<td>平均回报</td>
+</tr>
+<tr>
+<td>962</td>
+<td>时序差分 (TD) 学习</td>
+<td>自举更新</td>
+</tr>
+<tr>
+<td>963</td>
+<td>SARSA</td>
+<td>同策略 TD 学习</td>
+</tr>
+<tr>
+<td>964</td>
+<td>Q-Learning</td>
+<td>异策略 TD 学习</td>
+</tr>
+<tr>
+<td>965</td>
+<td>双重 Q-Learning</td>
+<td>减少高估</td>
+</tr>
+<tr>
+<td>966</td>
+<td>深度 Q 网络 (DQN)</td>
+<td>神经 Q 近似器</td>
+</tr>
+<tr>
+<td>967</td>
+<td>REINFORCE</td>
+<td>基于采样的策略梯度</td>
+</tr>
+<tr>
+<td>968</td>
+<td>演员-评论家</td>
+<td>价值引导的策略更新</td>
+</tr>
+<tr>
+<td>969</td>
+<td>PPO (近端策略优化)</td>
+<td>裁剪替代目标</td>
+</tr>
+<tr>
+<td>970</td>
+<td>DDPG &#x2F; SAC</td>
+<td>连续动作强化学习</td>
+</tr>
+</tbody></table>
+<h4 id="98-近似算法与在线算法"><a href="#98-近似算法与在线算法" class="headerlink" title="98. 近似算法与在线算法"></a>98. 近似算法与在线算法</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>971</td>
+<td>贪婪集合覆盖</td>
+<td>ln(n)-近似</td>
+</tr>
+<tr>
+<td>972</td>
+<td>顶点覆盖近似</td>
+<td>双重匹配启发式</td>
+</tr>
+<tr>
+<td>973</td>
+<td>旅行商问题近似</td>
+<td>基于 MST 的 2-近似</td>
+</tr>
+<tr>
+<td>974</td>
+<td>k-中心近似</td>
+<td>最远点启发式</td>
+</tr>
+<tr>
+<td>975</td>
+<td>在线分页 (LRU)</td>
+<td>竞争分析</td>
+</tr>
+<tr>
+<td>976</td>
+<td>在线匹配 (Ranking)</td>
+<td>对抗性输入鲁棒性</td>
+</tr>
+<tr>
+<td>977</td>
+<td>在线背包问题</td>
+<td>基于比率的接受</td>
+</tr>
+<tr>
+<td>978</td>
+<td>竞争比评估</td>
+<td>最坏情况性能界限</td>
+</tr>
+<tr>
+<td>979</td>
+<td>PTAS &#x2F; FPTAS 方案</td>
+<td>多项式时间近似方案</td>
+</tr>
+<tr>
+<td>980</td>
+<td>原始-对偶方法</td>
+<td>近似组合优化</td>
+</tr>
+</tbody></table>
+<h4 id="99-公平性、因果推断与鲁棒优化"><a href="#99-公平性、因果推断与鲁棒优化" class="headerlink" title="99. 公平性、因果推断与鲁棒优化"></a>99. 公平性、因果推断与鲁棒优化</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>981</td>
+<td>公平性重加权</td>
+<td>调整样本权重</td>
+</tr>
+<tr>
+<td>982</td>
+<td>人口统计平等约束</td>
+<td>均衡正例率</td>
+</tr>
+<tr>
+<td>983</td>
+<td>均衡几率</td>
+<td>对齐错误率</td>
+</tr>
+<tr>
+<td>984</td>
+<td>对抗性去偏</td>
+<td>学习公平表示</td>
+</tr>
+<tr>
+<td>985</td>
+<td>因果 DAG 发现</td>
+<td>图因果推断</td>
+</tr>
+<tr>
+<td>986</td>
+<td>倾向得分匹配</td>
+<td>估计处理效应</td>
+</tr>
+<tr>
+<td>987</td>
+<td>工具变量估计</td>
+<td>处理混杂因素</td>
+</tr>
+<tr>
+<td>988</td>
+<td>鲁棒优化</td>
+<td>考虑最坏情况的优化</td>
+</tr>
+<tr>
+<td>989</td>
+<td>分布鲁棒优化</td>
+<td>不确定性集上的极小极大优化</td>
+</tr>
+<tr>
+<td>990</td>
+<td>反事实公平性</td>
+<td>模拟 do-干预</td>
+</tr>
+</tbody></table>
+<h4 id="100-AI-规划、搜索与学习系统"><a href="#100-AI-规划、搜索与学习系统" class="headerlink" title="100. AI 规划、搜索与学习系统"></a>100. AI 规划、搜索与学习系统</h4><table>
+<thead>
+<tr>
+<th>#</th>
+<th>算法</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>991</td>
+<td>广度优先搜索 (BFS)</td>
+<td>无信息搜索</td>
+</tr>
+<tr>
+<td>992</td>
+<td>深度优先搜索 (DFS)</td>
+<td>回溯搜索</td>
+</tr>
+<tr>
+<td>993</td>
+<td>A* 搜索</td>
+<td>启发式引导</td>
+</tr>
+<tr>
+<td>994</td>
+<td>迭代加深 A* (IDA*)</td>
+<td>内存受限的启发式搜索</td>
+</tr>
+<tr>
+<td>995</td>
+<td>统一代价搜索</td>
+<td>按路径代价扩展</td>
+</tr>
+<tr>
+<td>996</td>
+<td>蒙特卡洛树搜索 (MCTS)</td>
+<td>探索与利用</td>
+</tr>
+<tr>
+<td>997</td>
+<td>极小极大算法</td>
+<td>博弈树评估</td>
+</tr>
+<tr>
+<td>998</td>
+<td>Alpha–Beta 剪枝</td>
+<td>剪除不需要的分支</td>
+</tr>
+<tr>
+<td>999</td>
+<td>STRIPS 规划</td>
+<td>基于动作的状态转换</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>分层任务网络 (HTN)</td>
+<td>结构化 AI 规划</td>
+</tr>
+</tbody></table>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">MisterRabbit</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">1</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MisterRabbit0w0"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E5%88%92"><span class="toc-text">计划</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-1-%E7%AB%A0-%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80"><span class="toc-text">第 1 章 算法基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="toc-text">1. 什么是算法？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BA%A6%E9%87%8F%E6%97%B6%E9%97%B4%E4%B8%8E%E7%A9%BA%E9%97%B4"><span class="toc-text">2. 度量时间与空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%A4%A7-O%E3%80%81%E5%A4%A7-%CE%98%E3%80%81%E5%A4%A7-%CE%A9"><span class="toc-text">3. 大 O、大 Θ、大 Ω</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%AE%97%E6%B3%95%E8%8C%83%E5%BC%8F%EF%BC%88%E8%B4%AA%E5%BF%83%E3%80%81%E5%88%86%E6%B2%BB%E3%80%81%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89"><span class="toc-text">4. 算法范式（贪心、分治、动态规划）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">5. 递归关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%90%9C%E7%B4%A2%E5%9F%BA%E7%A1%80"><span class="toc-text">6. 搜索基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E6%8E%92%E5%BA%8F%E5%9F%BA%E7%A1%80"><span class="toc-text">7. 排序基础</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%A6%82%E8%BF%B0"><span class="toc-text">8. 数据结构概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%9B%BE%E4%B8%8E%E6%A0%91%E6%A6%82%E8%BF%B0"><span class="toc-text">9. 图与树概述</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E7%AE%97%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">10. 算法设计模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-2-%E7%AB%A0-%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%90%9C%E7%B4%A2"><span class="toc-text">第 2 章 排序与搜索</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E5%9F%BA%E7%A1%80%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%86%92%E6%B3%A1%E3%80%81%E6%8F%92%E5%85%A5%E3%80%81%E9%80%89%E6%8B%A9%EF%BC%89"><span class="toc-text">11. 基础排序算法（冒泡、插入、选择）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-%E5%88%86%E6%B2%BB%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%BD%92%E5%B9%B6%E3%80%81%E5%BF%AB%E9%80%9F%E3%80%81%E5%A0%86%EF%BC%89"><span class="toc-text">12. 分治排序算法（归并、快速、堆）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-%E8%AE%A1%E6%95%B0%E4%B8%8E%E5%88%86%E5%B8%83%E6%8E%92%E5%BA%8F%EF%BC%88%E8%AE%A1%E6%95%B0%E3%80%81%E5%9F%BA%E6%95%B0%E3%80%81%E6%A1%B6%EF%BC%89"><span class="toc-text">13. 计数与分布排序（计数、基数、桶）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-%E6%B7%B7%E5%90%88%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88IntroSort%E3%80%81Timsort%EF%BC%89"><span class="toc-text">14. 混合排序算法（IntroSort、Timsort）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-%E7%89%B9%E6%AE%8A%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%BE%AA%E7%8E%AF%E3%80%81%E4%BE%8F%E5%84%92%E3%80%81%E6%A2%B3%E5%AD%90%E3%80%81%E7%85%8E%E9%A5%BC%EF%BC%89"><span class="toc-text">15. 特殊排序算法（循环、侏儒、梳子、煎饼）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-%E7%BA%BF%E6%80%A7%E4%B8%8E%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2"><span class="toc-text">16. 线性与二分搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-%E6%8F%92%E5%80%BC%E4%B8%8E%E6%8C%87%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-text">17. 插值与指数搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#18-%E9%80%89%E6%8B%A9%E7%AE%97%E6%B3%95%EF%BC%88%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9%E3%80%81%E4%B8%AD%E4%BD%8D%E6%95%B0%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0%EF%BC%89"><span class="toc-text">18. 选择算法（快速选择、中位数的中位数）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#19-%E5%8C%BA%E9%97%B4%E6%90%9C%E7%B4%A2%E4%B8%8E%E6%9C%80%E8%BF%91%E9%82%BB"><span class="toc-text">19. 区间搜索与最近邻</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#20-%E6%90%9C%E7%B4%A2%E4%BC%98%E5%8C%96%E4%B8%8E%E5%8F%98%E4%BD%93"><span class="toc-text">20. 搜索优化与变体</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-3-%E7%AB%A0-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E6%88%98"><span class="toc-text">第 3 章 数据结构实战</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#21-%E6%95%B0%E7%BB%84%E3%80%81%E9%93%BE%E8%A1%A8%E3%80%81%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97"><span class="toc-text">21. 数组、链表、栈、队列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#22-%E5%93%88%E5%B8%8C%E8%A1%A8%E5%8F%8A%E5%85%B6%E5%8F%98%E4%BD%93%EF%BC%88%E5%B8%83%E8%B0%B7%E9%B8%9F%E3%80%81%E7%BD%97%E5%AE%BE%E6%B1%89%E3%80%81%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%89"><span class="toc-text">22. 哈希表及其变体（布谷鸟、罗宾汉、一致性）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#23-%E5%A0%86%EF%BC%88%E4%BA%8C%E5%8F%89%E5%A0%86%E3%80%81%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E5%A0%86%E3%80%81%E9%85%8D%E5%AF%B9%E5%A0%86%EF%BC%89"><span class="toc-text">23. 堆（二叉堆、斐波那契堆、配对堆）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#24-%E5%B9%B3%E8%A1%A1%E6%A0%91%EF%BC%88AVL%E3%80%81%E7%BA%A2%E9%BB%91%E6%A0%91%E3%80%81%E4%BC%B8%E5%B1%95%E6%A0%91%E3%80%81%E6%A0%91%E5%A0%86%EF%BC%89"><span class="toc-text">24. 平衡树（AVL、红黑树、伸展树、树堆）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#25-%E7%BA%BF%E6%AE%B5%E6%A0%91%E4%B8%8E%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84"><span class="toc-text">25. 线段树与树状数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#26-%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-text">26. 并查集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#27-%E6%A6%82%E7%8E%87%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E3%80%81Count-Min-%E8%8D%89%E5%9B%BE%E3%80%81HyperLogLog%EF%BC%89"><span class="toc-text">27. 概率数据结构（布隆过滤器、Count-Min 草图、HyperLogLog）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#28-%E8%B7%B3%E8%A1%A8%E4%B8%8E-B-%E6%A0%91"><span class="toc-text">28. 跳表与 B 树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#29-%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96%E4%B8%8E%E5%87%BD%E6%95%B0%E5%BC%8F%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">29. 可持久化与函数式数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#30-%E9%AB%98%E7%BA%A7%E6%A0%91%E4%B8%8E%E5%8C%BA%E9%97%B4%E6%9F%A5%E8%AF%A2"><span class="toc-text">30. 高级树与区间查询</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-4-%E7%AB%A0-%E5%9B%BE%E7%AE%97%E6%B3%95"><span class="toc-text">第 4 章. 图算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#31-%E9%81%8D%E5%8E%86-DFS-BFS-%E8%BF%AD%E4%BB%A3%E5%8A%A0%E6%B7%B1"><span class="toc-text">31. 遍历 (DFS, BFS, 迭代加深)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32-%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F-Tarjan-Kosaraju"><span class="toc-text">32. 强连通分量 (Tarjan, Kosaraju)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#33-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84-Dijkstra-Bellman-Ford-A-Johnson"><span class="toc-text">33. 最短路径 (Dijkstra, Bellman-Ford, A*, Johnson)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#34-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E5%8F%98%E4%BD%93-0%E2%80%931-BFS-%E5%8F%8C%E5%90%91-%E5%90%AF%E5%8F%91%E5%BC%8F-A"><span class="toc-text">34. 最短路径变体 (0–1 BFS, 双向, 启发式 A*)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#35-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-Kruskal-Prim-Boruvka"><span class="toc-text">35. 最小生成树 (Kruskal, Prim, Borůvka)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#36-%E6%B5%81-Ford%E2%80%93Fulkerson-Edmonds%E2%80%93Karp-Dinic"><span class="toc-text">36. 流 (Ford–Fulkerson, Edmonds–Karp, Dinic)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#37-%E5%89%B2-Stoer%E2%80%93Wagner-Karger-Gomory%E2%80%93Hu"><span class="toc-text">37. 割 (Stoer–Wagner, Karger, Gomory–Hu)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#38-%E5%8C%B9%E9%85%8D-Hopcroft%E2%80%93Karp-Hungarian-Blossom"><span class="toc-text">38. 匹配 (Hopcroft–Karp, Hungarian, Blossom)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#39-%E6%A0%91%E7%AE%97%E6%B3%95-LCA-HLD-%E9%87%8D%E5%BF%83%E5%88%86%E8%A7%A3"><span class="toc-text">39. 树算法 (LCA, HLD, 重心分解)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#40-%E9%AB%98%E7%BA%A7%E5%9B%BE%E7%AE%97%E6%B3%95%E4%B8%8E%E6%8A%80%E5%B7%A7"><span class="toc-text">40. 高级图算法与技巧</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC5%E7%AB%A0-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="toc-text">第5章 动态规划</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#41-DP%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB"><span class="toc-text">41. DP基础与状态转移</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#42-%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98%EF%BC%88%E8%83%8C%E5%8C%85%E3%80%81%E5%AD%90%E9%9B%86%E5%92%8C%E3%80%81%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2%EF%BC%89"><span class="toc-text">42. 经典问题（背包、子集和、零钱兑换）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#43-%E5%BA%8F%E5%88%97%E9%97%AE%E9%A2%98%EF%BC%88LIS%E3%80%81LCS%E3%80%81%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB%EF%BC%89"><span class="toc-text">43. 序列问题（LIS、LCS、编辑距离）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#44-%E7%9F%A9%E9%98%B5%E4%B8%8E%E9%93%BE%E5%BC%8F%E9%97%AE%E9%A2%98"><span class="toc-text">44. 矩阵与链式问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#45-%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9DP%E4%B8%8E%E6%97%85%E8%A1%8C%E5%95%86%E9%97%AE%E9%A2%98"><span class="toc-text">45. 状态压缩DP与旅行商问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#46-%E6%95%B0%E4%BD%8DDP%E4%B8%8ESOS-DP"><span class="toc-text">46. 数位DP与SOS DP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#47-DP%E4%BC%98%E5%8C%96%EF%BC%88%E5%88%86%E6%B2%BB%E3%80%81%E5%87%B8%E5%8C%85%E6%8A%80%E5%B7%A7%E3%80%81Knuth%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">47. DP优化（分治、凸包技巧、Knuth优化）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#48-%E6%A0%91%E5%BD%A2DP%E4%B8%8E%E6%8D%A2%E6%A0%B9DP"><span class="toc-text">48. 树形DP与换根DP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#49-DP%E9%87%8D%E6%9E%84%E4%B8%8E%E5%9B%9E%E6%BA%AF"><span class="toc-text">49. DP重构与回溯</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#50-%E5%85%83DP%E4%B8%8E%E4%BC%98%E5%8C%96%E6%A8%A1%E6%9D%BF"><span class="toc-text">50. 元DP与优化模板</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6"><span class="toc-text">第六章 算法中的数学</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#51-%E6%95%B0%E8%AE%BA%EF%BC%88%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%EF%BC%8C%E6%A8%A1%E8%BF%90%E7%AE%97%EF%BC%8C%E4%B8%AD%E5%9B%BD%E5%89%A9%E4%BD%99%E5%AE%9A%E7%90%86%EF%BC%89"><span class="toc-text">51. 数论（最大公约数，模运算，中国剩余定理）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#52-%E7%B4%A0%E6%80%A7%E4%B8%8E%E5%9B%A0%E5%BC%8F%E5%88%86%E8%A7%A3%EF%BC%88Miller%E2%80%93Rabin%EF%BC%8CPollard-Rho%EF%BC%89"><span class="toc-text">52. 素性与因式分解（Miller–Rabin，Pollard Rho）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#53-%E7%BB%84%E5%90%88%E6%95%B0%E5%AD%A6%EF%BC%88%E6%8E%92%E5%88%97%EF%BC%8C%E7%BB%84%E5%90%88%EF%BC%8C%E5%AD%90%E9%9B%86%EF%BC%89"><span class="toc-text">53. 组合数学（排列，组合，子集）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#54-%E6%A6%82%E7%8E%87%E4%B8%8E%E9%9A%8F%E6%9C%BA%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">54. 概率与随机化算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#55-%E7%AD%9B%E6%B3%95%E4%B8%8E%E6%A8%A1%E8%BF%90%E7%AE%97"><span class="toc-text">55. 筛法与模运算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#56-%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%EF%BC%88%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%EF%BC%8CLU%EF%BC%8CSVD%EF%BC%89"><span class="toc-text">56. 线性代数（高斯消元，LU，SVD）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#57-FFT-%E4%B8%8E-NTT%EF%BC%88%E5%BF%AB%E9%80%9F%E5%8F%98%E6%8D%A2%EF%BC%89"><span class="toc-text">57. FFT 与 NTT（快速变换）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#58-%E6%95%B0%E5%80%BC%E6%96%B9%E6%B3%95%EF%BC%88%E7%89%9B%E9%A1%BF%EF%BC%8C%E8%BE%9B%E6%99%AE%E6%A3%AE%EF%BC%8C%E9%BE%99%E6%A0%BC-%E5%BA%93%E5%A1%94%EF%BC%89"><span class="toc-text">58. 数值方法（牛顿，辛普森，龙格-库塔）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#59-%E6%95%B0%E5%AD%A6%E4%BC%98%E5%8C%96%EF%BC%88%E5%8D%95%E7%BA%AF%E5%BD%A2%EF%BC%8C%E6%A2%AF%E5%BA%A6%EF%BC%8C%E5%87%B8%E4%BC%98%E5%8C%96%EF%BC%89"><span class="toc-text">59. 数学优化（单纯形，梯度，凸优化）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#60-%E4%BB%A3%E6%95%B0%E6%8A%80%E5%B7%A7%E4%B8%8E%E5%8F%98%E6%8D%A2%E6%8A%80%E6%9C%AF"><span class="toc-text">60. 代数技巧与变换技术</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-7-%E7%AB%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E6%96%87%E6%9C%AC%E7%AE%97%E6%B3%95"><span class="toc-text">第 7 章 字符串与文本算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#61-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D-KMP-Z-Rabin%E2%80%93Karp-Boyer%E2%80%93Moore"><span class="toc-text">61. 字符串匹配 (KMP, Z, Rabin–Karp, Boyer–Moore)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#62-%E5%A4%9A%E6%A8%A1%E5%BC%8F%E6%90%9C%E7%B4%A2-Aho%E2%80%93Corasick"><span class="toc-text">62. 多模式搜索 (Aho–Corasick)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#63-%E5%90%8E%E7%BC%80%E7%BB%93%E6%9E%84-%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84%EF%BC%8C%E5%90%8E%E7%BC%80%E6%A0%91%EF%BC%8CLCP"><span class="toc-text">63. 后缀结构 (后缀数组，后缀树，LCP)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#64-%E5%9B%9E%E6%96%87%E4%B8%8E%E5%91%A8%E6%9C%9F%E6%80%A7-Manacher"><span class="toc-text">64. 回文与周期性 (Manacher)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#65-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB%E4%B8%8E%E5%BA%8F%E5%88%97%E6%AF%94%E5%AF%B9"><span class="toc-text">65. 编辑距离与序列比对</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#66-%E5%8E%8B%E7%BC%A9-Huffman-Arithmetic-LZ77-BWT"><span class="toc-text">66. 压缩 (Huffman, Arithmetic, LZ77, BWT)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#67-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%93%88%E5%B8%8C%E4%B8%8E%E6%A0%A1%E9%AA%8C%E5%92%8C"><span class="toc-text">67. 密码学哈希与校验和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#68-%E8%BF%91%E4%BC%BC%E4%B8%8E%E6%B5%81%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="toc-text">68. 近似与流式匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#69-%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6%E6%AF%94%E5%AF%B9-Needleman%E2%80%93Wunsch-Smith%E2%80%93Waterman"><span class="toc-text">69. 生物信息学比对 (Needleman–Wunsch, Smith–Waterman)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#70-%E6%96%87%E6%9C%AC%E7%B4%A2%E5%BC%95%E4%B8%8E%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%84"><span class="toc-text">70. 文本索引与搜索结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E5%85%AB%E7%AB%A0-%E5%87%A0%E4%BD%95%E3%80%81%E5%9B%BE%E5%BD%A2%E4%B8%8E%E7%A9%BA%E9%97%B4%E7%AE%97%E6%B3%95"><span class="toc-text">第八章 几何、图形与空间算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#71-%E5%87%B8%E5%8C%85%EF%BC%88Graham-Andrew-Chan%EF%BC%89"><span class="toc-text">71. 凸包（Graham, Andrew, Chan）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#72-%E6%9C%80%E8%BF%91%E7%82%B9%E5%AF%B9%E4%B8%8E%E7%BA%BF%E6%AE%B5%E7%9B%B8%E4%BA%A4"><span class="toc-text">72. 最近点对与线段相交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#73-%E6%89%AB%E6%8F%8F%E7%BA%BF%E7%AE%97%E6%B3%95%E4%B8%8E%E5%B9%B3%E9%9D%A2%E6%89%AB%E6%8F%8F%E7%AE%97%E6%B3%95"><span class="toc-text">73. 扫描线算法与平面扫描算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#74-Delaunay-%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86%E4%B8%8E-Voronoi-%E5%9B%BE"><span class="toc-text">74. Delaunay 三角剖分与 Voronoi 图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#75-%E7%82%B9%E6%98%AF%E5%90%A6%E5%9C%A8%E5%A4%9A%E8%BE%B9%E5%BD%A2%E5%86%85%E4%B8%8E%E5%A4%9A%E8%BE%B9%E5%BD%A2%E4%B8%89%E8%A7%92%E5%89%96%E5%88%86"><span class="toc-text">75. 点是否在多边形内与多边形三角剖分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#76-%E7%A9%BA%E9%97%B4%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%88KD-%E6%A0%91%EF%BC%8CR-%E6%A0%91%EF%BC%89"><span class="toc-text">76. 空间数据结构（KD 树，R 树）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#77-%E5%85%89%E6%A0%85%E5%8C%96%E4%B8%8E%E6%89%AB%E6%8F%8F%E7%BA%BF%E6%8A%80%E6%9C%AF"><span class="toc-text">77. 光栅化与扫描线技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#78-%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%EF%BC%88Canny-Hough-SIFT%EF%BC%89"><span class="toc-text">78. 计算机视觉（Canny, Hough, SIFT）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#79-%E7%A9%BA%E9%97%B4%E8%B7%AF%E5%BE%84%E8%A7%84%E5%88%92%EF%BC%88A-RRT-PRM%EF%BC%89"><span class="toc-text">79. 空间路径规划（A*, RRT, PRM）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#80-%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%8F%98%E4%BD%93%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="toc-text">80. 计算几何变体与应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC9%E7%AB%A0-%E7%B3%BB%E7%BB%9F%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E7%AE%97%E6%B3%95"><span class="toc-text">第9章 系统、数据库与分布式算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#81-%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%882PL%E3%80%81MVCC%E3%80%81OCC%EF%BC%89"><span class="toc-text">81. 并发控制（2PL、MVCC、OCC）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#82-%E6%97%A5%E5%BF%97%E3%80%81%E6%81%A2%E5%A4%8D%E4%B8%8E%E6%8F%90%E4%BA%A4%E5%8D%8F%E8%AE%AE"><span class="toc-text">82. 日志、恢复与提交协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#83-%E8%B0%83%E5%BA%A6%EF%BC%88%E8%BD%AE%E8%AF%A2%E3%80%81%E6%9C%80%E6%97%A9%E6%88%AA%E6%AD%A2%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88%E3%80%81%E5%8D%95%E8%B0%83%E9%80%9F%E7%8E%87%EF%BC%89"><span class="toc-text">83. 调度（轮询、最早截止时间优先、单调速率）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#84-%E7%BC%93%E5%AD%98%E4%B8%8E%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5%EF%BC%88LRU%E3%80%81LFU%E3%80%81CLOCK%EF%BC%89"><span class="toc-text">84. 缓存与替换策略（LRU、LFU、CLOCK）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#85-%E7%BD%91%E7%BB%9C%EF%BC%88%E8%B7%AF%E7%94%B1%E3%80%81%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6%EF%BC%89"><span class="toc-text">85. 网络（路由、拥塞控制）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#86-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E8%AF%86%EF%BC%88Paxos%E3%80%81Raft%E3%80%81PBFT%EF%BC%89"><span class="toc-text">86. 分布式共识（Paxos、Raft、PBFT）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#87-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E9%80%9F%E7%8E%87%E9%99%90%E5%88%B6"><span class="toc-text">87. 负载均衡与速率限制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#88-%E6%90%9C%E7%B4%A2%E4%B8%8E%E7%B4%A2%E5%BC%95%EF%BC%88%E5%80%92%E6%8E%92%E7%B4%A2%E5%BC%95%E3%80%81BM25%E3%80%81WAND%EF%BC%89"><span class="toc-text">88. 搜索与索引（倒排索引、BM25、WAND）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#89-%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E5%8E%8B%E7%BC%A9%E4%B8%8E%E7%BC%96%E7%A0%81"><span class="toc-text">89. 系统中的压缩与编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#90-%E5%AE%B9%E9%94%99%E4%B8%8E%E5%A4%8D%E5%88%B6"><span class="toc-text">90. 容错与复制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC-10-%E7%AB%A0-%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E3%80%81%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">第 10 章 人工智能、机器学习与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#91-%E7%BB%8F%E5%85%B8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-k-means-%E6%9C%B4%E7%B4%A0%E8%B4%9D%E5%8F%B6%E6%96%AF-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-text">91. 经典机器学习 (k-means, 朴素贝叶斯, 支持向量机, 决策树)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#92-%E9%9B%86%E6%88%90%E6%96%B9%E6%B3%95-Bagging-Boosting-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97"><span class="toc-text">92. 集成方法 (Bagging, Boosting, 随机森林)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#93-%E6%A2%AF%E5%BA%A6%E6%96%B9%E6%B3%95-SGD-Adam-RMSProp"><span class="toc-text">93. 梯度方法 (SGD, Adam, RMSProp)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#94-%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD-Dropout-%E5%BD%92%E4%B8%80%E5%8C%96"><span class="toc-text">94. 深度学习 (反向传播, Dropout, 归一化)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#95-%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B-Viterbi-%E6%9D%9F%E6%90%9C%E7%B4%A2-CTC"><span class="toc-text">95. 序列模型 (Viterbi, 束搜索, CTC)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#96-%E5%85%83%E5%90%AF%E5%8F%91%E5%BC%8F%E7%AE%97%E6%B3%95-GA-SA-PSO-ACO"><span class="toc-text">96. 元启发式算法 (GA, SA, PSO, ACO)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#97-%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-Q-learning-%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="toc-text">97. 强化学习 (Q-learning, 策略梯度)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#98-%E8%BF%91%E4%BC%BC%E7%AE%97%E6%B3%95%E4%B8%8E%E5%9C%A8%E7%BA%BF%E7%AE%97%E6%B3%95"><span class="toc-text">98. 近似算法与在线算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#99-%E5%85%AC%E5%B9%B3%E6%80%A7%E3%80%81%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E4%B8%8E%E9%B2%81%E6%A3%92%E4%BC%98%E5%8C%96"><span class="toc-text">99. 公平性、因果推断与鲁棒优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#100-AI-%E8%A7%84%E5%88%92%E3%80%81%E6%90%9C%E7%B4%A2%E4%B8%8E%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F"><span class="toc-text">100. AI 规划、搜索与学习系统</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/19/hello-world/" title="Hello World">Hello World</a><time datetime="2026-01-19T16:00:00.000Z" title="Created 2026-01-20 00:00:00">2026-01-20</time></div></div></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              January 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">1</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-25T07:20:55.603Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By MisterRabbit</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
