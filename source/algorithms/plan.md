@@ -2,6 +2,8 @@
 title: 计划书
 date: 2026-02-25
 disableNunjucks: true
+tags:
+  - 算法
 ---
 
 # 计划

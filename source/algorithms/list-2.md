@@ -2,6 +2,8 @@
 title: 第二章
 date: 2026-02-25
 disableNunjucks: true
+tags:
+  - 算法
 ---
 
 # 第 2 章 排序与搜索

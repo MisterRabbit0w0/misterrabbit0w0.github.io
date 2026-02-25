@@ -2,6 +2,8 @@
 title: 关于本书
 date: 2026-02-25
 disableNunjucks: true
+tags:
+  - 算法
 ---
 
 #### 本书

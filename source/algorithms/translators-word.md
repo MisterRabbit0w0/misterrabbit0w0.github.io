@@ -1,9 +1,11 @@
 ---
-title: Translator's Word
+title: 译者的话
 date: 2026-02-25
 disableNunjucks: true
+tags:
+  - 算法
 ---
-本书是 The Little Book of algorithms 的汉化版本，汉化工作使用 `deepseek-v3.2` 完成，有问题可以通过 issue 反馈。
+本书是 The Little Book of algorithms 的中文翻译版本，使用 `deepseek-v3.2` 完成，有问题可以通过 issue 反馈。
 
 ## Citation
 
