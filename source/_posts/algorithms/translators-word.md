@@ -1,6 +1,7 @@
 ---
 title: 译者的话
 date: 2026-02-25
+permalink: algorithms/translators-word/
 disableNunjucks: true
 tags:
   - 算法
