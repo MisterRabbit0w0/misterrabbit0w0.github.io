@@ -143,7 +143,7 @@ $$T(n) = T(n/2) + 1 \Rightarrow O(\log n)$$
 典型结构：
 
 $$
-T(n) = a , T\left(\frac{n}{b}\right) + f(n)
+T(n) = a T\left(\frac{n}{b}\right) + f(n)
 $$
 
 其中：
@@ -1023,7 +1023,7 @@ $$
 
 | 主题 | 描述 | 公式 / 思路 |
 | :--- | :--- | :--- |
-| 最大公约数（欧几里得算法） | 最大公约数 | $gcd(a,b)=gcd(b,a%b)$ |
+| 最大公约数（欧几里得算法） | 最大公约数 | $\gcd(a, b) = \gcd(b, a \bmod b)$ |
 | 扩展欧几里得算法 | 求解 $ax+by=gcd(a,b)$ | 回溯系数 |
 | 最小公倍数 | 最小公倍数 | $lcm(a,b)=\frac{a\cdot b}{gcd(a,b)}$ |
 | 模加法 | 模 M 下的加法 | $(a+b)\bmod M$ |
@@ -1074,15 +1074,15 @@ def nCr(n, r, fact, inv):
 
 #### 概率基础
 
-| 概念 | 公式或思路 | | |
-| :--- | :--- | :--- | :--- |
-| 概率 | $P(A)=\frac{\text{有利情况}}{\text{总情况}}$ | | |
-| 补集 | $P(\bar{A})=1-P(A)$ | | |
-| 并集 | $P(A\cup B)=P(A)+P(B)-P(A\cap B)$ | | |
-| 条件概率 | $P(A \mid B)=\frac{P(A\cap B)}{P(B)}$ | | |
-| 贝叶斯定理 | $P(A \mid B)=\frac{P(B \mid A)P(A)}{P(B)}$ | | |
-| 期望值 | $E[X]=\sum x_iP(x_i)$ | | |
-| 方差 | $Var(X)=E[X^2]-E[X]^2$ | | |
+| 概念 | 公式或思路 |
+| :--- | :--- |
+| 概率 | $P(A)=\frac{\text{有利情况}}{\text{总情况}}$ |
+| 补集 | $P(\bar{A})=1-P(A)$ |
+| 并集 | $P(A\cup B)=P(A)+P(B)-P(A\cap B)$ |
+| 条件概率 | $P(A \mid B)=\frac{P(A\cap B)}{P(B)}$ |
+| 贝叶斯定理 | $P(A \mid B)=\frac{P(B \mid A)P(A)}{P(B)}$ |
+| 期望值 | $E[X]=\sum x_iP(x_i)$ |
+| 方差 | $Var(X)=E[X^2]-E[X]^2$ |
 
 #### 线性代数核心
 
@@ -1090,7 +1090,7 @@ def nCr(n, r, fact, inv):
 | :--- | :--- | :--- |
 | 高斯消元法 | 求解 $Ax=b$ | $O(n^3)$ |
 | 行列式 | 主元的乘积 | $O(n^3)$ |
-| 矩阵乘法 | $(AB)_{ij}=\sum_kA_{ik}B_{kj}$ | $O(n^3)$ |
+| 矩阵乘法 | $(AB)_{ij}=\sum\_k A\_{ik}B\_{kj}$ | $O(n^3)$ |
 | 转置 | $A^T_{ij}=A_{ji}$ | $O(n^2)$ |
 | LU 分解 | $A=LU$（下三角，上三角） | $O(n^3)$ |
 | Cholesky 分解 | $A=LL^T$（对称正定） | $O(n^3)$ |
@@ -1153,12 +1153,12 @@ for _ in range(1000):
 
 #### 代数技巧
 
-| 主题 | 公式 / 用途 | | |
-| :--- | :--- | :--- | :--- |
-| 幂运算 | 通过平方乘算法计算 $a^n$ | | |
-| 多项式求导 | $(ax^n)' = n\cdot a x^{n-1}$ | | |
-| 积分 | $\int x^n dx = \frac{x^{n+1}}{n+1}+C$ | | |
-| 莫比乌斯反演 | $f(n)=\sum_{d \mid n}g(d)\implies g(n)=\sum_{d \mid n}\mu(d)\cdot f(n/d)$ | | |
+| 主题 | 公式 / 用途 |
+| :--- | :--- |
+| 幂运算 | 通过平方乘算法计算 $a^n$ |
+| 多项式求导 | $(ax^n)' = n\cdot a x^{n-1}$ |
+| 积分 | $\int x^n dx = \frac{x^{n+1}}{n+1}+C$ |
+| 莫比乌斯反演 | $f(n)=\sum_{d \mid n}g(d)\implies g(n)=\sum_{d \mid n}\mu(d)\cdot f(n/d)$ |
 
 #### 快速参考表
 
@@ -1818,7 +1818,7 @@ def kmeans(points, k, iters=100):
         groups = [[] for _ in range(k)]
         for p in points:
             # 找到距离最近的质心索引
-            idx = min(range(k), key=lambda i: (p[0]-centroids[i][0])2 + (p[1]-centroids[i][1])2)
+            idx = min(range(k), key=lambda i: (p[0]-centroids[i][0])**2 + (p[1]-centroids[i][1])**2)
             groups[idx].append(p)
         new_centroids = []
         for g in groups:
