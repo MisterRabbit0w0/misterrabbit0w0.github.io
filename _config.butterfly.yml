@@ -19,7 +19,7 @@ nav:
 
 menu:
   首页: / || fas fa-home
-  算法小书: /algorithms/ || fas fa-book
+  算法小书: _posts/algorithms/ || fas fa-book
 
 # --------------------------------------
 # Code Blocks Settings

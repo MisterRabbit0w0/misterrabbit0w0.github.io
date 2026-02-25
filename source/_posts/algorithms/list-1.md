@@ -22,7 +22,7 @@ tags:
 $$
 \gcd(a, b) =
 \begin{cases}
-a, & \text{如果 } b = 0, \\
+a, & \text{如果 } b = 0, \\\\
 \gcd(b, a \bmod b), & \text{否则。}
 \end{cases}
 $$
@@ -83,7 +83,7 @@ print(gcd(48, 18))  # 输出: 6
 2.  实现递归版本：
 
 $$
-\gcd(a, b) = \gcd(b,, a \bmod b)
+\gcd(a, b) = \gcd(b, a \bmod b)
 $$
 
 3.  扩展到使用 $\gcd(\gcd(a, b), c)$ 来求 $\gcd(a, b, c)$。

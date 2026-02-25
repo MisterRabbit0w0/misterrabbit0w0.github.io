@@ -5,7 +5,10 @@ disableNunjucks: true
 tags:
   - 算法
 ---
+
 本书是 The Little Book of algorithms 的中文翻译版本，使用 `deepseek-v3.2` 完成，有问题可以通过 issue 反馈。
+
+文章内容过长，加载时可能有卡顿情况。
 
 ## Citation
 
