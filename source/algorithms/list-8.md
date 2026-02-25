@@ -1,6 +1,7 @@
 ---
 title: 第八章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第八章：几何、图形与空间算法

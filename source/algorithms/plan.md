@@ -1,6 +1,7 @@
 ---
 title: 计划书
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 计划

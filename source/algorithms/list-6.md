@@ -1,6 +1,7 @@
 ---
 title: 第六章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第六章 算法中的数学

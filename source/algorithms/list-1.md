@@ -1,6 +1,7 @@
 ---
 title: 第一章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第 1 章 算法基础

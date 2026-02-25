@@ -1,6 +1,7 @@
 ---
 title: 速查表
 date: 2025-02-25
+disableNunjucks: true
 ---
 
 # 速查表

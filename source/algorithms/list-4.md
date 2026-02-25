@@ -1,6 +1,7 @@
 ---
 title: 第四章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第四章 图算法

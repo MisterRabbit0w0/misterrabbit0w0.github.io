@@ -1,6 +1,7 @@
 ---
 title: 第七章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第 7 章 字符串与文本算法

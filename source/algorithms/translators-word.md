@@ -1,6 +1,7 @@
 ---
 title: Translator's Word
 date: 2026-02-25
+disableNunjucks: true
 ---
 本书是 The Little Book of algorithms 的汉化版本，汉化工作使用 `deepseek-v3.2` 完成，有问题可以通过 issue 反馈。
 

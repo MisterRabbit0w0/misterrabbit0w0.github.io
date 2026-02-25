@@ -1,6 +1,7 @@
 ---
 title: 第三章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第 3 章 数据结构实战

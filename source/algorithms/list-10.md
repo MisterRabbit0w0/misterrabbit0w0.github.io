@@ -1,6 +1,7 @@
 ---
 title: 第十章
 date: 2026-02-25
+disableNunjucks: true
 ---
 
 # 第 10 章 人工智能、机器学习与优化
