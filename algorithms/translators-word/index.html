@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>译者的话 | MisterRabbit's Blog</title><meta name="author" content="MisterRabbit"><meta name="copyright" content="MisterRabbit"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本书是 The Little Book of algorithms 的中文翻译版本，使用 deepseek-v3.2 完成，有问题可以通过 issue 反馈。 文章内容过长，加载时可能有卡顿情况。 CitationNguyen, Duc-Tam (2025). The Little Book of algorithms 123456@book&#123;Nguyen2025TLBoAlg,  au">
+<meta property="og:type" content="article">
+<meta property="og:title" content="译者的话">
+<meta property="og:url" content="http://misterrabbit0w0.github.io/algorithms/translators-word/index.html">
+<meta property="og:site_name" content="MisterRabbit&#39;s Blog">
+<meta property="og:description" content="本书是 The Little Book of algorithms 的中文翻译版本，使用 deepseek-v3.2 完成，有问题可以通过 issue 反馈。 文章内容过长，加载时可能有卡顿情况。 CitationNguyen, Duc-Tam (2025). The Little Book of algorithms 123456@book&#123;Nguyen2025TLBoAlg,  au">
+<meta property="og:locale">
+<meta property="og:image" content="http://misterrabbit0w0.github.io/img/avatar/avatar.jpg">
+<meta property="article:published_time" content="2026-02-24T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-25T08:09:22.557Z">
+<meta property="article:author" content="MisterRabbit">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://misterrabbit0w0.github.io/img/avatar/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "译者的话",
+  "url": "http://misterrabbit0w0.github.io/algorithms/translators-word/",
+  "image": "http://misterrabbit0w0.github.io/img/avatar/avatar.jpg",
+  "datePublished": "2026-02-24T16:00:00.000Z",
+  "dateModified": "2026-02-25T08:09:22.557Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "MisterRabbit",
+      "url": "http://misterrabbit0w0.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon/favicon.ico"><link rel="canonical" href="http://misterrabbit0w0.github.io/algorithms/translators-word/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '译者的话',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/algorithms/translators-word/"><i class="fa-fw fas fa-book"></i><span> 算法小书</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/banner/default.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">MisterRabbit's Blog</span></a><a class="nav-page-title" href="/"><span class="site-name">译者的话</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/algorithms/translators-word/"><i class="fa-fw fas fa-book"></i><span> 算法小书</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">译者的话</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-02-24T16:00:00.000Z" title="Created 2026-02-25 00:00:00">2026-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-25T08:09:22.557Z" title="Updated 2026-02-25 16:09:22">2026-02-25</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>本书是 The Little Book of algorithms 的中文翻译版本，使用 <code>deepseek-v3.2</code> 完成，有问题可以通过 issue 反馈。</p>
+<p>文章内容过长，加载时可能有卡顿情况。</p>
+<h2 id="Citation"><a href="#Citation" class="headerlink" title="Citation"></a>Citation</h2><p>Nguyen, Duc-Tam (2025). <em>The Little Book of algorithms</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@book&#123;Nguyen2025TLBoAlg,</span><br><span class="line">  author = &#123;Duc-Tam Nguyen&#125;,</span><br><span class="line">  title  = &#123;The Little Book of algorithms&#125;,</span><br><span class="line">  year   = &#123;2025&#125;,</span><br><span class="line">  url    = &#123;https://github.com/little-book-of/algorithms&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://misterrabbit0w0.github.io">MisterRabbit</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://misterrabbit0w0.github.io/algorithms/translators-word/">http://misterrabbit0w0.github.io/algorithms/translators-word/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AE%97%E6%B3%95/">算法</a></div><div class="post-share"><div class="social-share" data-image="/img/avatar/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/02/24/algorithms/plan/" title="计划书"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">计划书</div></div><div class="info-2"><div class="info-item-1">计划第 1 章 算法基础1. 什么是算法？   # 算法 备注    1 欧几里得最大公约数算法 已知最古老的求最大公约数的算法   2 埃拉托斯特尼筛法 高效生成素数   3 二分查找 分治搜索   4 快速幂算法 快速幂计算   5 长除法 经典的分步算术运算   6 模加法算法 循环算术   7 进制转换算法 在不同数制间转换   8 阶乘计算 递归与迭代方法   9 斐波那契数列 递归与动态计算对比   10 汉诺塔 递归问题解决模式   2. 度量时间与空间   # 算法 备注    11 操作计数 手动步数计数以分析复杂度   12 循环分析 评估循环的时间开销   13 递归展开 分析递归开销   14 摊还分析 平均每操作成本   15 空间计数 栈和堆跟踪   16 内存占用估算器 跟踪每个变量的使用情况   17 时间复杂度表 映射 O(1)…O(n²)…O(2ⁿ)   18 时空权衡 缓存与重新计算的权衡   19 性能剖析算法 经验性时间测量   20 基准测试框架 比较算法性能   3. 大 O、大 Θ、大 Ω   # 算法 备注    21 增长率比较...</div></div></div></a><a class="pagination-related" href="/2026/02/24/algorithms/list-8/" title="第八章"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">第八章</div></div><div class="info-2"><div class="info-item-1">第八章：几何、图形与空间算法第七十一节：凸包701 礼品包装算法（Jarvis March）礼品包装算法，或称 Jarvis March，是用于寻找点集凸包（即包围所有点的最小凸多边形）的最简单、最直观的算法之一。可以想象成用一根橡皮筋缠绕在板子上的钉子上。 它通过反复选择最逆时针的点，一次一个点地“包裹”凸包，直到回到起点。 我们要解决什么问题？给定平面上的 n 个点，我们希望计算它们的凸包，即按顺序连接最外层点所形成的多边形。凸包在几何学、图形学和机器人学中都是基础概念。 形式上，集合 S 的凸包 H(S) 是包含 S 的最小凸集。 我们希望算法能够：  找到凸包上的所有点。 按周长顺序排列它们。 即使在存在共线点的情况下也能可靠工作。  Jarvis March 概念简单，适用于小型或接近凸集的点集。 它是如何工作的（通俗解释）？想象你站在最左边的点，然后沿着外围行走，总是尽可能地向左转（逆时针方向）。这确保了我们沿着凸包的边界行进。 算法步骤：    步骤 描述    1 从最左边（或最低）的点开始。   2 选择下一个点 p，使得所有其他点都位于直线（当前点, p）的右...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/02/24/algorithms/list-9/" title="第九章"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-25</div><div class="info-item-2">第九章</div></div><div class="info-2"><div class="info-item-1">第 9 章 系统、数据库与分布式算法第 81 节 并发控制801 两阶段锁（2PL）两阶段锁（Two-Phase Locking，2PL）是数据库并发控制的基石。它确保多个事务可以安全地同时运行，而不会破坏一致性。其核心思想很简单：一个事务首先获取它需要的所有锁，然后仅在完成后才释放它们。一旦开始解锁，就不能再锁定任何新资源，这使其具有两个截然不同的“阶段”。 我们要解决什么问题？在数据库中，事务通常并行运行。如果没有协调，它们可能会相互干扰：  一个事务读取了过时的数据 另一个事务覆盖了未提交的更改 或者两个事务试图获取对方的锁而导致死锁  我们需要一种方法来序列化并发事务，确保结果与它们一个接一个地运行相同。 这就是 2PL 的用武之地。它保证了冲突可串行化的调度，意味着没有竞态条件或交错混乱。 它是如何工作的（通俗解释）？把事务想象成一个细心的购物者：  增长阶段 —— 拿取所有你需要的物品（锁）。 缩减阶段 —— 一旦你开始把物品放回去（释放锁），就不能再拿取任何新物品。  这个两阶段规则确保了顺序，没有事务可以在锁变更之间“插队”来破坏可串行性。 让我们看一个例子：  ...</div></div></div></a><a class="pagination-related" href="/2026/02/24/algorithms/plan/" title="计划书"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-25</div><div class="info-item-2">计划书</div></div><div class="info-2"><div class="info-item-1">计划第 1 章 算法基础1. 什么是算法？   # 算法 备注    1 欧几里得最大公约数算法 已知最古老的求最大公约数的算法   2 埃拉托斯特尼筛法 高效生成素数   3 二分查找 分治搜索   4 快速幂算法 快速幂计算   5 长除法 经典的分步算术运算   6 模加法算法 循环算术   7 进制转换算法 在不同数制间转换   8 阶乘计算 递归与迭代方法   9 斐波那契数列 递归与动态计算对比   10 汉诺塔 递归问题解决模式   2. 度量时间与空间   # 算法 备注    11 操作计数 手动步数计数以分析复杂度   12 循环分析 评估循环的时间开销   13 递归展开 分析递归开销   14 摊还分析 平均每操作成本   15 空间计数 栈和堆跟踪   16 内存占用估算器 跟踪每个变量的使用情况   17 时间复杂度表 映射 O(1)…O(n²)…O(2ⁿ)   18 时空权衡 缓存与重新计算的权衡   19 性能剖析算法 经验性时间测量   20 基准测试框架 比较算法性能   3. 大 O、大 Θ、大 Ω   # 算法 备注    21 增长率比较...</div></div></div></a><a class="pagination-related" href="/2026/02/24/algorithms/list-4/" title="第四章"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-25</div><div class="info-item-2">第四章</div></div><div class="info-2"><div class="info-item-1">第四章 图算法第31节 遍历301 深度优先搜索（递归）深度优先搜索（DFS）是一种经典的图遍历算法，它在回溯之前会尽可能深入地探索图。你选择一个起始节点，沿着一条路径尽可能远地走，只有当走到死胡同时才返回。它是图算法中的“先深入探索，再考虑其他路径”。 我们要解决什么问题？DFS 帮助我们系统地访问连通分量中的每个顶点和边。它是探索图、检测环、对边进行分类以及构建更复杂算法（如拓扑排序、强连通分量和关节点检测）的基础。 我们想要的算法能够：  从起始节点探索所有可达顶点 避免重复访问节点 记录遍历顺序  示例：你有一个迷宫。DFS 就像一个探索者，选择一条路径，尽可能深入地走，只有在卡住时才返回。 它是如何工作的（通俗解释）？将 DFS 想象成一个好奇的旅行者：每当看到一条新路径，就深入探索。当无法继续前进时，就后退一步，继续探索其他路径。 我们使用递归来自然地模拟这种行为，每次递归调用代表进入一个新节点，而返回则意味着回溯。    步骤 当前节点 动作 栈（调用路径）    1 A 访问 A [A]   2 B 访问 B (A→B) [A, B]   3 D 访问 D (B→...</div></div></div></a><a class="pagination-related" href="/2026/02/24/algorithms/list-3/" title="第三章"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-25</div><div class="info-item-2">第三章</div></div><div class="info-2"><div class="info-item-1">第 3 章 数据结构实战第 21 节 数组、链表、栈、队列201 动态数组扩容动态数组扩容是我们在需要时扩展存储空间，同时保持 push 操作快速的方法。其思想很简单：当数组已满时，分配一个更大的数组，复制元素，然后继续操作。如果每次扩容时将容量加倍，那么每次 push 的平均成本将保持恒定。 我们要解决什么问题？固定数组有固定的大小。实际程序并不总是能提前知道 n 的大小。我们想要一个数组，它支持在末尾进行接近常数时间的 push 操作，能够自动增长，并且保持元素在连续内存中以利于缓存。 目标：在一个可调整大小的数组上提供 push、pop、get、set 操作，并使 push 操作的摊还时间复杂度为 O(1)。 它是如何工作的？（通俗解释）维护两个数字：size（当前元素数量）和 capacity（当前容量）。  从一个较小的容量开始（例如，1 或 8）。 执行 push 时，如果 size &lt; capacity，则写入元素并增加 size。 如果 size == capacity，则分配一个容量加倍的新存储空间，复制旧元素，释放旧内存块，然后执行 push。 （可选）...</div></div></div></a><a class="pagination-related" href="/2026/02/24/algorithms/list-10/" title="第十章"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-25</div><div class="info-item-2">第十章</div></div><div class="info-2"><div class="info-item-1">第 10 章 人工智能、机器学习与优化第 91 节 经典机器学习901. k-Means 聚类k-Means 聚类是最简单、最流行的无监督学习算法之一。它将数据划分为 k 个簇，使得每个点都属于离其最近的质心所在的簇。你可以把它想象成寻找将相似点聚集在一起的“引力中心”。 我们要解决什么问题？我们经常拥有没有标签的原始数据，并希望发现自然的分组。k-Means 回答了这个问题：“哪些点属于同一组？” 给定：  一个点的数据集 $X &#x3D; {x_1, x_2, \dots, x_n}$ 目标簇的数量 $k$  我们希望找到 $k$ 个质心 $\mu_1, \mu_2, \dots, \mu_k$，以最小化总平方距离： $$\text{目标函数：} \min_{\mu} \sum_{i&#x3D;1}^{n} \lVert x_i - \mu_{c(i)} \rVert^2$$ 其中 $c(i)$ 是点 $x_i$ 被分配的簇。 它是如何工作的（通俗解释）？想象在你的数据中撒下 k 颗种子。每个点选择离它最近的种子。然后种子移动到其所属点的中心。重复此过程直到种子不再移动。这...</div></div></div></a><a class="pagination-related" href="/2026/02/24/algorithms/list-6/" title="第六章"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-02-25</div><div class="info-item-2">第六章</div></div><div class="info-2"><div class="info-item-1">第六章 算法中的数学第五十一节 数论501 欧几里得算法欧几里得算法是数学中最古老、最优雅的算法之一。它用于寻找两个整数的最大公约数（gcd），即能同时整除这两个数且不留余数的最大数字。 它快速、简单，并且构成了现代数论和密码学的基础。 我们要解决什么问题？我们想要计算： $$\text{gcd}(a, b)$$ 也就是说，最大的整数$d$，使得$d \mid a$ 且$d \mid b$。 与其检查每一个可能的除数，欧几里得发现了一个巧妙的捷径： $$\gcd(a, b) &#x3D; \gcd(b, a \bmod b)$$ 不断地用余数替换较大的数，直到其中一个变为零。最后一个非零数就是最大公约数。 示例： $$\gcd(48, 18) &#x3D; \gcd(18, 48 \bmod 18) &#x3D; \gcd(18, 12) &#x3D; \gcd(12, 6) &#x3D; \gcd(6, 0) &#x3D; 6$$ 所以 $gcd(48, 18) &#x3D; 6$。 它是如何工作的（通俗解释）？可以把求最大公约数想象成剥离余数的层层外衣。每一步都移除一部分，直...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">MisterRabbit</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/MisterRabbit0w0"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Citation"><span class="toc-text">Citation</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/24/algorithms/index/" title="算法小书">算法小书</a><time datetime="2026-02-24T16:00:00.000Z" title="Created 2026-02-25 00:00:00">2026-02-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/24/algorithms/list-1/" title="第一章">第一章</a><time datetime="2026-02-24T16:00:00.000Z" title="Created 2026-02-25 00:00:00">2026-02-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/24/algorithms/list-4/" title="第四章">第四章</a><time datetime="2026-02-24T16:00:00.000Z" title="Created 2026-02-25 00:00:00">2026-02-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/24/algorithms/list-5/" title="第五章">第五章</a><time datetime="2026-02-24T16:00:00.000Z" title="Created 2026-02-25 00:00:00">2026-02-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/24/algorithms/list-7/" title="第七章">第七章</a><time datetime="2026-02-24T16:00:00.000Z" title="Created 2026-02-25 00:00:00">2026-02-25</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2026 By MisterRabbit</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"><script>(() => {
+  const loadMathjax = () => {
+    if (!window.MathJax) {
+      window.MathJax = {
+        loader: {
+          load: [
+            // Four font extension packages (optional)
+            //- '[tex]/bbm',
+            //- '[tex]/bboldx',
+            //- '[tex]/dsfont',
+            '[tex]/mhchem'
+          ],
+          paths: {
+            'mathjax-newcm': '[mathjax]/../@mathjax/mathjax-newcm-font',
+
+            //- // Four font extension packages (optional)
+            //- 'mathjax-bbm-extension': '[mathjax]/../@mathjax/mathjax-bbm-font-extension',
+            //- 'mathjax-bboldx-extension': '[mathjax]/../@mathjax/mathjax-bboldx-font-extension',
+            //- 'mathjax-dsfont-extension': '[mathjax]/../@mathjax/mathjax-dsfont-font-extension',
+            'mathjax-mhchem-extension': '[mathjax]/../@mathjax/mathjax-mhchem-font-extension'
+          }
+        },
+        output: {
+          font: 'mathjax-newcm',
+        },
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          tags: 'none',
+          packages: {
+            '[+]': [
+              'mhchem'
+            ]
+          }
+        },
+        chtml: {
+          scale: 1.1
+        },
+        options: {
+          enableMenu: true,
+          menuOptions: {
+            settings: {
+              enrich: false  // Turn off Braille and voice narration text automatic generation
+            }
+          },
+          renderActions: {
+            findScript: [10, doc => {
+              for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+                const display = !!node.type.match(/; *mode=display/)
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+                const text = document.createTextNode('')
+                node.parentNode.replaceChild(text, node)
+                math.start = {node: text, delim: '', n: 0}
+                math.end = {node: text, delim: '', n: 0}
+                doc.math.push(math)
+              }
+            }, '']
+          }
+        }
+      }
+
+      const script = document.createElement('script')
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@4.1.0/tex-mml-chtml.min.js'
+      script.id = 'MathJax-script'
+      script.async = true
+      document.head.appendChild(script)
+    } else {
+      MathJax.startup.document.state(0)
+      MathJax.texReset()
+      MathJax.typesetPromise()
+    }
+  }
+
+  btf.addGlobalFn('encrypt', loadMathjax, 'mathjax')
+  window.pjax ? loadMathjax() : window.addEventListener('load', loadMathjax)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
