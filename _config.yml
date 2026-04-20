@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: MisterRabbit's Blog
-subtitle: ''
-description: ''
-keywords:
-author: MisterRabbit
-language: zh
+title: 织星 · Astraea
+subtitle: '织星的折腾笔记'
+description: '算法、工具、前端、日常'
+keywords: 算法,前端,工具,开源
+author: 织星
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
@@ -96,7 +96,25 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: butterfly
+theme: hoshino
+
+# Feed (hexo-generator-feed)
+feed:
+  enable: true
+  type: atom
+  path: atom.xml
+  limit: 20
+  content: true
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+
+# Sitemap (hexo-generator-sitemap)
+sitemap:
+  path: sitemap.xml
+  rel: false
+  tags: true
+  categories: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

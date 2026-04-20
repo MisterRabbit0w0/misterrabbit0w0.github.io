@@ -1,0 +1,22 @@
+<button id="tweaks-toggle" type="button" aria-label="主题设置" title="主题设置">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+</button>
+<div id="tweaks-panel">
+  <div class="tweaks-title">✦ Tweaks</div>
+  <div class="tweak-row">
+    <div class="tweak-label">主题色</div>
+    <div class="tweak-swatch-row">
+      <div class="swatch" data-theme="pink" style="background:linear-gradient(135deg,#f9a8d4,#c4b5fd)" title="樱花粉"></div>
+      <div class="swatch" data-theme="blue" style="background:linear-gradient(135deg,#93c5fd,#6ee7b7)" title="天空蓝"></div>
+      <div class="swatch" data-theme="gold" style="background:linear-gradient(135deg,#fde68a,#f9a8d4)" title="暖阳橙"></div>
+      <div class="swatch" data-theme="dark" style="background:linear-gradient(135deg,#1e1b4b,#312e81)" title="深夜紫"></div>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <div class="tweak-label">花瓣数量</div>
+    <input type="range" id="petal-count" min="0" max="30" value="<%= theme.effects && theme.effects.petals || 12 %>" style="width:100%;accent-color:var(--pink)">
+  </div>
+</div>

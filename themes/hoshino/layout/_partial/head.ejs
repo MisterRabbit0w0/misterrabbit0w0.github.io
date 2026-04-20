@@ -1,0 +1,18 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%
+  if (page.title && !is_home()) { %><%= page.title %> — <%= config.title %><% }
+  else { %><%= config.title %><% if (config.subtitle) { %> — <%= config.subtitle %><% } %><% }
+%></title>
+<% if (page.description || config.description) { %>
+<meta name="description" content="<%= page.description || config.description %>">
+<% } %>
+<% if (config.keywords) { %>
+<meta name="keywords" content="<%= config.keywords %>">
+<% } %>
+<meta name="theme-color" content="#f9a8d4">
+<link rel="alternate" type="application/atom+xml" href="<%- url_for('/atom.xml') %>" title="<%= config.title %>">
+<link rel="icon" href="<%- url_for('/favicon.ico') %>">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%- url_for('/css/shared.css') %>">
+<link rel="stylesheet" href="<%- url_for('/css/page.css') %>">

@@ -1,0 +1,175 @@
+<%
+  // 从 theme.hero 与 site.posts / categories / tags 取数据
+  var hero = theme.hero || {};
+  var posts = site.posts.sort('-date').toArray();
+  var recent = posts.slice(0, 5);
+  var featured = recent[0];
+  var others = recent.slice(1, 3);
+
+  function catTagClass(name) {
+    var map = { '前端': 'tag-pink', 'TypeScript': 'tag-lav', '随笔': 'tag-mint', '算法': 'tag-pink',
+                '开源': 'tag-mint', '工具': 'tag-lav', '译本': 'tag-gold', '日记': 'tag-mint' };
+    return map[name] || 'tag-pink';
+  }
+  function fmt(date, compact) {
+    var d = new Date(date);
+    var mm = String(d.getMonth()+1).padStart(2,'0');
+    var dd = String(d.getDate()).padStart(2,'0');
+    if (compact) return mm + ' · ' + dd;
+    return d.getFullYear() + ' · ' + mm + ' · ' + dd;
+  }
+  function excerptOf(post) {
+    if (post.excerpt) return post.excerpt.replace(/<[^>]+>/g, '').trim().substring(0, 80);
+    return (post.content || '').replace(/<[^>]+>/g, '').trim().substring(0, 80);
+  }
+
+  var stars = (theme.stats && theme.stats.github_stars) || '—';
+  var streak = (theme.stats && theme.stats.streak) || '—';
+%>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <% if (hero.handle) { %><div class="handle"><%= hero.handle %></div><% } %>
+    <h1>
+      <%= hero.title_prefix || '你好，我是' %> <%= hero.title_name || config.author %>
+    </h1>
+    <% if (hero.bio) { %><p class="bio"><%- hero.bio %></p><% } %>
+    <div class="hero-tags">
+      <% (hero.tags || []).forEach(function(t) { %>
+        <span class="tag <%= t.class || 'tag-pink' %>"><%= t.text %></span>
+      <% }); %>
+    </div>
+    <div class="social-row">
+      <% (theme.social || []).forEach(function(s) { %>
+        <a href="<%= s.url %>" class="social-btn" target="_blank" rel="noopener">
+          <% if (s.icon === 'github') { %>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <% } else if (s.icon === 'mail') { %>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <% } else if (s.icon === 'twitter') { %>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16H20L8.267 4z"/><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+          <% } else if (s.icon === 'rss') { %>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+          <% } %>
+          <%= s.name %>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <% if (theme.brand && theme.brand.avatar) { %>
+          <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= config.author %>">
+        <% } else { %>
+          <span><%= (config.author || 'A').charAt(0) %></span>
+        <% } %>
+      </div>
+    </div>
+    <div class="avatar-badge">✦</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-num"><%= site.posts.length %></div>
+    <div class="stat-label">篇文章</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num"><%= site.categories.length %></div>
+    <div class="stat-label">个分类</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num"><%= site.tags.length %></div>
+    <div class="stat-label">个标签</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num"><%= streak %></div>
+    <div class="stat-label">天连续提交</div>
+  </div>
+</div>
+
+<% if (recent.length > 0) { %>
+<div class="divider"></div>
+
+<!-- POSTS -->
+<div class="sec-header">
+  <div class="sec-title">最近文章</div>
+  <a href="<%- url_for('/archives/') %>" class="sec-more">全部文章 →</a>
+</div>
+<div class="posts-grid">
+  <% if (featured) {
+    var cat = featured.categories && featured.categories.length ? featured.categories.first().name : '文章';
+  %>
+  <a href="<%- url_for(featured.path) %>" class="post-card post-card-featured">
+    <div>
+      <div class="post-meta">
+        <span class="post-cat tag <%= catTagClass(cat) %>"><%= cat %></span>
+        <span class="post-date"><%= fmt(featured.date) %></span>
+      </div>
+      <div class="post-title"><%= featured.title %></div>
+      <div class="post-excerpt"><%= excerptOf(featured) %>…</div>
+    </div>
+    <div class="post-img-placeholder"<% if (theme.brand && theme.brand.banner) { %> style="background-image:url('<%- url_for(theme.brand.banner) %>')"<% } %>></div>
+  </a>
+  <% } %>
+  <% others.forEach(function(p) {
+    var cat = p.categories && p.categories.length ? p.categories.first().name : '文章';
+  %>
+  <a href="<%- url_for(p.path) %>" class="post-card">
+    <div class="post-meta">
+      <span class="post-cat tag <%= catTagClass(cat) %>"><%= cat %></span>
+      <span class="post-date"><%= fmt(p.date, true) %></span>
+    </div>
+    <div class="post-title"><%= p.title %></div>
+    <div class="post-excerpt"><%= excerptOf(p) %>…</div>
+  </a>
+  <% }); %>
+</div>
+<% } %>
+
+<% if ((theme.repos || []).length > 0) { %>
+<div class="divider"></div>
+
+<!-- REPOS -->
+<div class="sec-header">
+  <div class="sec-title">精选项目</div>
+  <a href="<%- url_for('/projects/') %>" class="sec-more">全部项目 →</a>
+</div>
+<div class="repos-grid">
+  <% theme.repos.forEach(function(r) { %>
+    <a href="<%- url_for(r.url) %>" class="repo-card">
+      <div class="repo-name">✦ <%= r.name %></div>
+      <div class="repo-desc"><%= r.desc %></div>
+      <div class="repo-stats">
+        <% if (r.lang) { %>
+        <span class="repo-stat"><span class="lang-dot" style="background:<%= r.lang_color || '#f9a8d4' %>"></span><%= r.lang %></span>
+        <% } %>
+        <% if (r.stars) { %>
+        <span class="repo-stat">★ <%= r.stars %></span>
+        <% } %>
+      </div>
+    </a>
+  <% }); %>
+</div>
+<% } %>
+
+<% if (recent.length > 0) { %>
+<div class="divider"></div>
+
+<!-- ACTIVITY -->
+<div class="sec-header">
+  <div class="sec-title">近期动态</div>
+</div>
+<div class="activity-row">
+  <% recent.slice(0, 4).forEach(function(p) { %>
+    <div class="activity-item">
+      <span class="activity-icon">✦</span>
+      <span class="activity-text">发布了 <strong><%= p.title %></strong></span>
+      <span class="activity-time"><%= fmt(p.date) %></span>
+    </div>
+  <% }); %>
+</div>
+<% } %>

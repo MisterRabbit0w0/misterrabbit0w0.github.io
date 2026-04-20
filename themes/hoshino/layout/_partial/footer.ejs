@@ -1,0 +1,8 @@
+<footer>
+  <span><%- (theme.footer && theme.footer.copyright) || ('© ' + new Date().getFullYear() + ' ' + config.author) %></span>
+  <span>
+    <% ((theme.footer && theme.footer.links) || []).forEach(function(link, i) {
+      if (i > 0) { %> · <% }
+    %><a href="<%- url_for(link.url) %>"><%= link.text %></a><% }); %>
+  </span>
+</footer>

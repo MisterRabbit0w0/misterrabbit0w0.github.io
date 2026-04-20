@@ -1,0 +1,148 @@
+<%
+  var posts = site.posts.sort('-date').toArray();
+  var idx = posts.findIndex(function(p) { return p.path === page.path; });
+  var prev = idx > 0 ? posts[idx - 1] : null;     // 较新
+  var next = idx >= 0 && idx < posts.length - 1 ? posts[idx + 1] : null;  // 较旧
+
+  var firstCat = page.categories && page.categories.length ? page.categories.first().name : null;
+  var tagArr = page.tags ? page.tags.toArray().map(function(t){ return t.name; }) : [];
+
+  function catTagClass(name) {
+    var map = { '前端': 'tag-pink', 'TypeScript': 'tag-lav', '随笔': 'tag-mint', '算法': 'tag-pink',
+                '开源': 'tag-mint', '工具': 'tag-lav', '译本': 'tag-gold', '日记': 'tag-mint' };
+    return map[name] || 'tag-pink';
+  }
+  function fmt(date) {
+    var d = new Date(date);
+    return d.getFullYear() + ' · ' + String(d.getMonth()+1).padStart(2,'0') + ' · ' + String(d.getDate()).padStart(2,'0');
+  }
+  function readTime(post) {
+    var text = (post.content || '').replace(/<[^>]+>/g, '');
+    var words = text.length / 3;
+    return Math.max(1, Math.round(words / 200)) + ' min';
+  }
+  // 提取 h2/h3/h4 作为 TOC（注意：hexo 渲染后 heading 已是 HTML）
+  var tocHtml = '';
+  try {
+    var content = page.content || '';
+    var re = /<h([234])[^>]*id="([^"]+)"[^>]*>([\s\S]*?)<\/h\1>/g;
+    var m, tocs = [];
+    while ((m = re.exec(content)) !== null) {
+      tocs.push({ level: Number(m[1]), id: m[2], text: m[3].replace(/<[^>]+>/g, '').trim() });
+    }
+    if (tocs.length > 0) {
+      tocHtml = tocs.map(function(t) {
+        return '<a href="#' + t.id + '" class="toc-item toc-h' + t.level + (t.level === 2 ? '' : '') + '">' + t.text + '</a>';
+      }).join('');
+    }
+  } catch (e) {}
+%>
+
+<div class="post-layout">
+  <article>
+    <div class="post-header">
+      <div class="post-breadcrumb">
+        <a href="<%- url_for('/archives/') %>">文章</a>
+        <% if (firstCat) { %> / <a href="<%- url_for('/categories/' + firstCat + '/') %>"><%= firstCat %></a><% } %>
+      </div>
+      <h1><%= page.title %></h1>
+      <div class="post-info">
+        <span class="post-info-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <%= fmt(page.date) %>
+        </span>
+        <span class="post-info-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <%= readTime(page) %> 阅读
+        </span>
+        <% if (page.updated && String(page.updated) !== String(page.date)) { %>
+        <span class="post-info-item">更新于 <%= fmt(page.updated) %></span>
+        <% } %>
+      </div>
+      <div class="post-tags">
+        <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
+        <% tagArr.forEach(function(t) { %><span class="tag <%= catTagClass(t) %>"><%= t %></span><% }); %>
+      </div>
+    </div>
+
+    <% var coverImg = page.cover || (theme.brand && theme.brand.banner); %>
+    <% if (coverImg) { %>
+    <div class="post-cover" style="background-image:url('<%- url_for(coverImg) %>')"></div>
+    <% } %>
+
+    <div class="post-body">
+      <%- page.content %>
+    </div>
+
+    <div class="post-footer-nav">
+      <% if (next) { %>
+      <a href="<%- url_for(next.path) %>" class="nav-card prev">
+        <div class="nav-card-label">← 上一篇</div>
+        <div class="nav-card-title"><%= next.title %></div>
+      </a>
+      <% } else { %>
+      <div class="nav-card prev placeholder"><div class="nav-card-label">← 上一篇</div><div class="nav-card-title">没有更早的文章了</div></div>
+      <% } %>
+      <% if (prev) { %>
+      <a href="<%- url_for(prev.path) %>" class="nav-card next">
+        <div class="nav-card-label">下一篇 →</div>
+        <div class="nav-card-title"><%= prev.title %></div>
+      </a>
+      <% } else { %>
+      <div class="nav-card next placeholder"><div class="nav-card-label">下一篇 →</div><div class="nav-card-title">最新的文章就是这一篇</div></div>
+      <% } %>
+    </div>
+  </article>
+
+  <aside class="post-sidebar">
+    <% if (tocHtml) { %>
+    <div class="sidebar-card">
+      <div class="sidebar-title">目录</div>
+      <%- tocHtml %>
+    </div>
+    <% } %>
+    <div class="sidebar-card">
+      <div class="sidebar-title">作者</div>
+      <div class="author-card">
+        <div class="author-avatar">
+          <% if (theme.brand && theme.brand.avatar) { %>
+            <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= config.author %>">
+          <% } else { %>
+            <span><%= (config.author || 'A').charAt(0) %></span>
+          <% } %>
+        </div>
+        <div>
+          <div class="author-name"><%= config.author %></div>
+          <div class="author-handle"><%= (theme.hero && theme.hero.handle) || '' %></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// Reading progress
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const progress = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+  const bar = document.getElementById('read-progress');
+  if (bar) bar.style.width = progress + '%';
+});
+// TOC active on scroll
+(function() {
+  const items = document.querySelectorAll('.toc-item');
+  if (!items.length) return;
+  const sections = Array.from(items).map(i => {
+    const id = i.getAttribute('href').slice(1);
+    return { el: i, target: document.getElementById(id) };
+  }).filter(s => s.target);
+  window.addEventListener('scroll', () => {
+    let active = sections[0];
+    for (const s of sections) {
+      if (s.target.getBoundingClientRect().top < 100) active = s;
+    }
+    items.forEach(i => i.classList.remove('active'));
+    if (active) active.el.classList.add('active');
+  });
+})();
+</script>

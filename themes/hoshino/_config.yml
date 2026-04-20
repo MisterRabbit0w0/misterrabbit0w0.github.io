@@ -1,0 +1,100 @@
+# ─────────────────────────────────────────────
+# Hoshino Theme Config
+# ─────────────────────────────────────────────
+
+# 站点品牌
+brand:
+  logo: "✦ Astraea"                # 左上角 logo 文本
+  avatar: /img/avatar/avatar.jpg   # 全站共用的头像图（本地）
+  banner: https://t.alcy.cc/pc     # 文章列表/封面缺省图（随机二次元横图，致谢见 README）
+
+# 导航栏
+nav:
+  - { name: "首页",   path: "/" }
+  - { name: "文章",   path: "/archives/" }
+  - { name: "项目",   path: "/projects/" }
+  - { name: "关于",   path: "/about/" }
+
+# 首页 Hero
+hero:
+  handle: "@Astraea · GitHub"
+  title_prefix: "你好，我是"
+  title_name: "织星"
+  bio: ""
+  tags:
+    - { text: "算法",      class: "tag-pink" }
+    - { text: "TypeScript", class: "tag-lav" }
+    - { text: "开源",      class: "tag-mint" }
+    - { text: "工具折腾",   class: "tag-pink" }
+    - { text: "学习笔记",   class: "tag-lav" }
+
+# 首页统计卡片（不填显示文章/分类/标签真实数）
+stats:
+  github_stars: "—"
+  streak: "—"
+
+# 社交链接
+social:
+  - { name: "GitHub",  url: "https://github.com/misterrabbit0w0",  icon: github }
+  - { name: "邮件",    url: "mailto:misterrabbit0w0@gmail.com",     icon: mail }
+
+# 首页展示的精选仓库
+repos:
+  - name: "little-book-of-algorithms-zh"
+    desc: "《The Little Book of Algorithms》的中文译本，独立部署的 VitePress 站点"
+    url: "https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/"
+    lang: "Markdown"
+    lang_color: "#f9a8d4"
+    stars: ""
+  - name: "misterrabbit0w0.github.io"
+    desc: "本站，Hexo + 自制 Hoshino 主题"
+    url: "https://github.com/misterrabbit0w0/misterrabbit0w0.github.io"
+    lang: "EJS"
+    lang_color: "#c4b5fd"
+    stars: ""
+
+# 项目列表（/projects 页面数据源）
+projects:
+  featured:
+    name: "小小算法书 · 中文版"
+    desc: "《The Little Book of Algorithms》的中文翻译，独立仓库 + VitePress 站点。"
+    tags: ["译本", "算法", "KaTeX"]
+    cover: https://t.alcy.cc/pc
+    links:
+      - { text: "在线阅读",    url: "https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/", primary: true }
+      - { text: "GitHub 源码", url: "https://github.com/misterrabbit0w0/little-book-of-algorithms-zh" }
+  cards: []
+  archive: []
+
+# 关于页
+about:
+  name: "织星"
+  handle: "@Astraea"
+  bio: ""
+  tags:
+    - { text: "开发者",      class: "tag-pink" }
+    - { text: "TypeScript", class: "tag-lav" }
+    - { text: "开源",       class: "tag-mint" }
+    - { text: "算法",       class: "tag-gold" }
+  sections:
+    intro:
+      title: "关于我"
+      paragraphs:
+        - "我是织星（Astraea），做些自己喜欢的东西。"
+  skills:
+    - { category: "语言",   items: ["Python", "C++"] }
+    - { category: "前端",   items: ["Hexo"] }
+    - { category: "工具",   items: ["Git", "Docker"] }
+  timeline: []
+
+# 页脚
+footer:
+  copyright: "© 2026 织星 / Astraea · build with love and code"
+  links:
+    - { text: "RSS",     url: "/atom.xml" }
+    - { text: "Sitemap", url: "/sitemap.xml" }
+
+# 花瓣数量 & 默认主题
+effects:
+  petals: 12
+  theme: "pink"        # pink | blue | gold | dark

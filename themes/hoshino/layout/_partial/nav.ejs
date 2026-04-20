@@ -1,0 +1,15 @@
+<%
+  // 判断当前路径高亮哪个 nav
+  var currentPath = (page.canonical_path || page.path || '').replace(/^\/|\/$/g, '');
+%>
+<nav>
+  <a href="<%- url_for('/') %>" class="nav-logo"><%= theme.brand && theme.brand.logo || '✦ Blog' %></a>
+  <div class="nav-links">
+    <% (theme.nav || []).forEach(function(item) {
+      var itemPath = (item.path || '/').replace(/^\/|\/$/g, '');
+      var isActive = (itemPath === '' && currentPath === '') || (itemPath !== '' && currentPath.indexOf(itemPath) === 0);
+    %>
+      <a href="<%- url_for(item.path) %>"<% if (isActive) { %> class="active"<% } %>><%= item.name %></a>
+    <% }); %>
+  </div>
+</nav>

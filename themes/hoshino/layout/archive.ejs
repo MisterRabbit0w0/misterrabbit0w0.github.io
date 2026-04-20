@@ -1,0 +1,136 @@
+<%
+  // 从 page.posts 获取分页后的文章列表；如果是 archives 页面，用所有文章
+  var posts;
+  if (page.posts) {
+    posts = page.posts.toArray();
+  } else {
+    posts = site.posts.sort('-date').toArray();
+  }
+
+  function catTagClass(name) {
+    var map = { '前端': 'tag-pink', 'TypeScript': 'tag-lav', '随笔': 'tag-mint', '算法': 'tag-pink',
+                '开源': 'tag-mint', '工具': 'tag-lav', '译本': 'tag-gold', '日记': 'tag-mint' };
+    return map[name] || 'tag-pink';
+  }
+  function fmtMD(date) {
+    var d = new Date(date);
+    return String(d.getMonth()+1).padStart(2,'0') + ' · ' + String(d.getDate()).padStart(2,'0');
+  }
+  function excerptOf(post) {
+    if (post.excerpt) return post.excerpt.replace(/<[^>]+>/g, '').trim().substring(0, 100);
+    return (post.content || '').replace(/<[^>]+>/g, '').trim().substring(0, 100);
+  }
+  function readTime(post) {
+    var text = (post.content || '').replace(/<[^>]+>/g, '');
+    var words = text.length / 3; // 中文字约 3 个 token
+    return Math.max(1, Math.round(words / 200)) + ' min';
+  }
+
+  // 按年分组
+  var yearMap = {};
+  posts.forEach(function(p) {
+    var y = new Date(p.date).getFullYear();
+    (yearMap[y] = yearMap[y] || []).push(p);
+  });
+  var years = Object.keys(yearMap).sort(function(a,b){ return Number(b) - Number(a); });
+
+  // 所有分类（用作 filter）
+  var allCats = {};
+  site.posts.toArray().forEach(function(p) {
+    if (p.categories) p.categories.each(function(c) { allCats[c.name] = true; });
+    if (p.tags)       p.tags.each(function(t)      { allCats[t.name] = true; });
+  });
+  var catList = Object.keys(allCats).sort();
+%>
+
+<div class="page-hero">
+  <div class="page-hero-left">
+    <h1><%= page.title || '全部文章' %></h1>
+    <p>记录技术、工具、算法与日常思考</p>
+  </div>
+  <div class="article-count"><%= site.posts.length %> <span>篇</span></div>
+</div>
+
+<div class="search-wrap">
+  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  <input type="text" placeholder="搜索文章标题、标签…" id="search-input">
+</div>
+
+<% if (catList.length > 0) { %>
+<div class="filter-bar">
+  <button class="filter-btn active" data-cat="all">全部</button>
+  <% catList.forEach(function(c) { %>
+    <button class="filter-btn" data-cat="<%= c %>"><%= c %></button>
+  <% }); %>
+</div>
+<% } %>
+
+<div id="article-list">
+  <% years.forEach(function(y) { %>
+    <div class="year-group" data-year="<%= y %>">
+      <div class="year-label"><%= y %></div>
+      <% yearMap[y].forEach(function(p) {
+        var firstCat = p.categories && p.categories.length ? p.categories.first().name : null;
+        var tagArr = p.tags ? p.tags.toArray().map(function(t){ return t.name; }) : [];
+      %>
+      <a href="<%- url_for(p.path) %>" class="article-row">
+        <div class="article-row-date"><%= fmtMD(p.date) %></div>
+        <div class="article-row-body">
+          <div class="article-row-title"><%= p.title %></div>
+          <div class="article-row-excerpt"><%= excerptOf(p) %>…</div>
+          <div class="article-row-meta">
+            <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
+            <% tagArr.slice(0,3).forEach(function(t) { %>
+              <span class="tag <%= catTagClass(t) %>"><%= t %></span>
+            <% }); %>
+            <% if (p.sticky || p.pinned) { %><span class="pinned-badge">置顶</span><% } %>
+          </div>
+        </div>
+        <div class="article-row-right">
+          <span class="read-time"><%= readTime(p) %></span>
+        </div>
+      </a>
+      <% }); %>
+    </div>
+  <% }); %>
+</div>
+
+<% if (page.prev || page.next) { %>
+<div class="pagination">
+  <a class="page-btn<% if (!page.prev) { %> disabled<% } %>" href="<%- page.prev ? url_for(page.prev_link) : '#' %>">‹</a>
+  <% var totalPages = page.total || 1;
+     for (var i = 1; i <= totalPages; i++) { %>
+    <% if (i === page.current) { %>
+      <span class="page-btn active"><%= i %></span>
+    <% } else if (i === 1) { %>
+      <a class="page-btn" href="<%- url_for(page.base) %>"><%= i %></a>
+    <% } else { %>
+      <a class="page-btn" href="<%- url_for(page.base + 'page/' + i + '/') %>"><%= i %></a>
+    <% } %>
+  <% } %>
+  <a class="page-btn<% if (!page.next) { %> disabled<% } %>" href="<%- page.next ? url_for(page.next_link) : '#' %>">›</a>
+</div>
+<% } %>
+
+<script>
+// Filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.article-row').forEach(row => {
+      if (cat === 'all') { row.style.display = ''; return; }
+      const tags = Array.from(row.querySelectorAll('.tag')).map(t => t.textContent.trim());
+      row.style.display = tags.includes(cat) ? '' : 'none';
+    });
+  });
+});
+// Search
+document.getElementById('search-input').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.article-row').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+</script>

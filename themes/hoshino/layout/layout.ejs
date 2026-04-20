@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="<%= config.language || 'zh-CN' %>">
+<head>
+  <%- partial('_partial/head') %>
+</head>
+<body>
+
+<% if (is_post()) { %><div id="read-progress"></div><% } %>
+<div class="petals" id="petals"></div>
+
+<div class="page">
+  <%- partial('_partial/nav') %>
+
+  <%- body %>
+
+  <%- partial('_partial/footer') %>
+</div>
+
+<%- partial('_partial/tweaks') %>
+
+<script src="<%- url_for('/js/shared.js') %>"></script>
+<script>
+  initShared({
+    petalCount: <%= theme.effects && theme.effects.petals || 12 %>,
+    theme: '<%= (theme.effects && theme.effects.theme) || "pink" %>'
+  });
+</script>
+</body>
+</html>

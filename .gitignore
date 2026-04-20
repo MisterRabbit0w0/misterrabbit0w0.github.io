@@ -10,3 +10,5 @@ favicon.zip
 .claude
 tools/
 .vscode/
+.alma-snapshots
+/ref/
