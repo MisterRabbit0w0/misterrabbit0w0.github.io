@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《小小算法书》中文版上线 — 织星 · Astraea</title>
+
+<meta name="description" content="算法、工具、前端、日常">
+
+
+<meta name="keywords" content="算法,前端,工具,开源">
+
+<meta name="theme-color" content="#f9a8d4">
+<link rel="alternate" type="application/atom+xml" href="/atom.xml" title="织星 · Astraea">
+<link rel="icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/shared.css">
+<link rel="stylesheet" href="/css/page.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+
+<div id="read-progress"></div>
+<div class="petals" id="petals"></div>
+
+<div class="page">
+  
+<nav>
+  <a href="/" class="nav-logo">✦ Astraea</a>
+  <div class="nav-links">
+    
+      <a href="/">首页</a>
+    
+      <a href="/archives/">文章</a>
+    
+      <a href="/projects/">项目</a>
+    
+      <a href="/about/">关于</a>
+    
+  </div>
+</nav>
+
+
+  
+
+<div class="post-layout">
+  <article>
+    <div class="post-header">
+      <div class="post-breadcrumb">
+        <a href="/archives/">文章</a>
+         / <a href="/categories/%E8%AF%91%E6%9C%AC/">译本</a>
+      </div>
+      <h1>《小小算法书》中文版上线</h1>
+      <div class="post-info">
+        <span class="post-info-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          2026 · 04 · 20
+        </span>
+        <span class="post-info-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          1 min 阅读
+        </span>
+        
+        <span class="post-info-item">更新于 2026 · 04 · 20</span>
+        
+      </div>
+      <div class="post-tags">
+        <span class="tag tag-gold">译本</span>
+        <span class="tag tag-pink">算法</span><span class="tag tag-pink">KaTeX</span><span class="tag tag-pink">VitePress</span>
+      </div>
+    </div>
+
+    
+    
+    <div class="post-cover" style="background-image:url('https://t.alcy.cc/pc')"></div>
+    
+
+    <div class="post-body">
+      <p>花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 <a href="https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/">misterrabbit0w0.github.io&#x2F;little-book-of-algorithms-zh</a></p>
+<h2 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h2><ul>
+<li><strong>11 章</strong>，覆盖算法基础 → 字符串 → 图论 → 动态规划 → 机器学习 &#x2F; 深度学习</li>
+<li>中文用词尽量自然，保留原作的精炼节奏</li>
+</ul>
+<h2 id="几个小坑"><a href="#几个小坑" class="headerlink" title="几个小坑"></a>几个小坑</h2><p>翻译过程中踩到不少 markdown&#x2F;LaTeX 边界 bug：</p>
+<ul>
+<li>表格单元里的 <code>$|g|_2$</code> 会被 markdown-it 按 <code>|</code> 切列</li>
+<li><code>$$...$$</code> 块里碰到 <code>_{subscript}</code> 会被解析成 <code>&lt;em&gt;</code></li>
+<li>行首的 <code>+</code> 会被吃成列表项，把 <code>$$...$$</code> 劈成两半</li>
+<li>setext heading：公式块里单独一行 <code>=</code> 会把上一行变 <code>&lt;h1&gt;</code></li>
+</ul>
+<p>全部在 <a target="_blank" rel="noopener" href="https://github.com/misterrabbit0w0/little-book-of-algorithms-zh/blob/main/.vitepress/theme/index.ts">.vitepress&#x2F;theme&#x2F;index.ts</a> 里加了一层客户端 pass-0 解包 + regex 放宽解决了。</p>
+<h2 id="去哪读"><a href="#去哪读" class="headerlink" title="去哪读"></a>去哪读</h2><p>👉 <a href="https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/">在线版</a> — KaTeX 即时渲染，响应式布局<br>👉 <a target="_blank" rel="noopener" href="https://github.com/misterrabbit0w0/little-book-of-algorithms-zh">GitHub 源码</a></p>
+<p>issues and prs are welcomed.</p>
+
+    </div>
+
+    <div class="post-footer-nav">
+      
+      <div class="nav-card prev placeholder"><div class="nav-card-label">← 上一篇</div><div class="nav-card-title">没有更早的文章了</div></div>
+      
+      
+      <a href="/2026/04/20/2026-04-20-hoshino-theme/" class="nav-card next">
+        <div class="nav-card-label">下一篇 →</div>
+        <div class="nav-card-title">博客换装：Hoshino 主题上线</div>
+      </a>
+      
+    </div>
+  </article>
+
+  <aside class="post-sidebar">
+    
+    <div class="sidebar-card">
+      <div class="sidebar-title">目录</div>
+      <a href="#基本情况" class="toc-item toc-h2">基本情况</a><a href="#几个小坑" class="toc-item toc-h2">几个小坑</a><a href="#去哪读" class="toc-item toc-h2">去哪读</a>
+    </div>
+    
+    <div class="sidebar-card">
+      <div class="sidebar-title">作者</div>
+      <div class="author-card">
+        <div class="author-avatar">
+          
+            <img src="/img/avatar/avatar.jpg" alt="织星">
+          
+        </div>
+        <div>
+          <div class="author-name">织星</div>
+          <div class="author-handle">@Astraea · GitHub</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// Reading progress
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const progress = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+  const bar = document.getElementById('read-progress');
+  if (bar) bar.style.width = progress + '%';
+});
+// TOC active on scroll
+(function() {
+  const items = document.querySelectorAll('.toc-item');
+  if (!items.length) return;
+  const sections = Array.from(items).map(i => {
+    const id = i.getAttribute('href').slice(1);
+    return { el: i, target: document.getElementById(id) };
+  }).filter(s => s.target);
+  window.addEventListener('scroll', () => {
+    let active = sections[0];
+    for (const s of sections) {
+      if (s.target.getBoundingClientRect().top < 100) active = s;
+    }
+    items.forEach(i => i.classList.remove('active'));
+    if (active) active.el.classList.add('active');
+  });
+})();
+</script>
+
+
+  <footer>
+  <span>© 2026 织星 / Astraea · build with love and code</span>
+  <span>
+    <a href="/atom.xml">RSS</a> · <a href="/sitemap.xml">Sitemap</a>
+  </span>
+</footer>
+
+</div>
+
+<button id="tweaks-toggle" type="button" aria-label="主题设置" title="主题设置">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+</button>
+<div id="tweaks-panel">
+  <div class="tweaks-title">✦ Tweaks</div>
+  <div class="tweak-row">
+    <div class="tweak-label">主题色</div>
+    <div class="tweak-swatch-row">
+      <div class="swatch" data-theme="pink" style="background:linear-gradient(135deg,#f9a8d4,#c4b5fd)" title="樱花粉"></div>
+      <div class="swatch" data-theme="blue" style="background:linear-gradient(135deg,#93c5fd,#6ee7b7)" title="天空蓝"></div>
+      <div class="swatch" data-theme="gold" style="background:linear-gradient(135deg,#fde68a,#f9a8d4)" title="暖阳橙"></div>
+      <div class="swatch" data-theme="dark" style="background:linear-gradient(135deg,#1e1b4b,#312e81)" title="深夜紫"></div>
+    </div>
+  </div>
+  <div class="tweak-row">
+    <div class="tweak-label">花瓣数量</div>
+    <input type="range" id="petal-count" min="0" max="30" value="12" style="width:100%;accent-color:var(--pink)">
+  </div>
+</div>
+
+
+<script src="/js/shared.js"></script>
+<script>
+  initShared({
+    petalCount: 12,
+    theme: 'pink'
+  });
+</script>
+</body>
+</html>

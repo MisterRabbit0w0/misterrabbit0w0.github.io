@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <author>
+    <name>织星</name>
+  </author>
+  <generator uri="https://hexo.io/">Hexo</generator>
+  <id>http://misterrabbit0w0.github.io/</id>
+  <link href="http://misterrabbit0w0.github.io/" rel="alternate"/>
+  <link href="http://misterrabbit0w0.github.io/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, 织星</rights>
+  <subtitle>织星的折腾笔记</subtitle>
+  <title>织星 · Astraea</title>
+  <updated>2026-04-20T04:07:11.859Z</updated>
+  <entry>
+    <author>
+      <name>织星</name>
+    </author>
+    <category term="工具" scheme="http://misterrabbit0w0.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    <category term="Hexo" scheme="http://misterrabbit0w0.github.io/tags/Hexo/"/>
+    <category term="CSS" scheme="http://misterrabbit0w0.github.io/tags/CSS/"/>
+    <category term="oklch" scheme="http://misterrabbit0w0.github.io/tags/oklch/"/>
+    <content>
+      <![CDATA[<p>之前一直在用 Butterfly，功能是很全，但有点”什么都有一点”的感觉——想改什么都要在十几层配置里打转。</p><p>索性写了个自己的主题 <strong>Hoshino</strong>，从 UI 参考稿直接开搞。</p><h2 id="设计取向"><a href="#设计取向" class="headerlink" title="设计取向"></a>设计取向</h2><ul><li><strong>樱花粉 + 薰衣草紫 + 薄荷绿</strong> 的三色系，基于 <code>oklch</code> 色彩空间</li><li>M PLUS Rounded 1c 字体，圆润但不幼稚</li></ul><h2 id="页面清单"><a href="#页面清单" class="headerlink" title="页面清单"></a>页面清单</h2><table><thead><tr><th>页面</th><th>布局特点</th></tr></thead><tbody><tr><td>首页</td><td>Hero + stats + 最近文章 + 精选项目 + 活动时间线</td></tr><tr><td>文章</td><td>按年分组 + 即时搜索 + tag filter + 分页</td></tr><tr><td>单篇</td><td>目录侧栏 + 阅读进度条 + 上一篇&#x2F;下一篇</td></tr><tr><td>项目</td><td>Featured + 卡片网格 + 子项目归档</td></tr><tr><td>关于</td><td>Hero + 技能卡 + 时间线 + 联系卡</td></tr></tbody></table><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul><li>Hexo + EJS 模板（原生 <code>&lt;%- %&gt;</code>，不用 Pug&#x2F;Nunjucks）</li><li><code>shared.js</code> 负责花瓣、主题切换、Tweaks 面板，利用 <code>page.css</code> 统一页面</li></ul>]]>
+    </content>
+    <id>http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-hoshino-theme/</id>
+    <link href="http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-hoshino-theme/"/>
+    <published>2026-04-20T03:30:00.000Z</published>
+    <summary>
+      <![CDATA[<p>之前一直在用 Butterfly，功能是很全，但有点”什么都有一点”的感觉——想改什么都要在十几层配置里打转。</p>
+<p>索性写了个自己的主题 <strong>Hoshino</strong>，从 UI 参考稿直接开搞。</p>
+<h2 id="设计取向"><a]]>
+    </summary>
+    <title>博客换装：Hoshino 主题上线</title>
+    <updated>2026-04-20T04:07:11.859Z</updated>
+  </entry>
+  <entry>
+    <author>
+      <name>织星</name>
+    </author>
+    <category term="译本" scheme="http://misterrabbit0w0.github.io/categories/%E8%AF%91%E6%9C%AC/"/>
+    <category term="算法" scheme="http://misterrabbit0w0.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="KaTeX" scheme="http://misterrabbit0w0.github.io/tags/KaTeX/"/>
+    <category term="VitePress" scheme="http://misterrabbit0w0.github.io/tags/VitePress/"/>
+    <content>
+      <![CDATA[<p>花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 <a href="https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/">misterrabbit0w0.github.io&#x2F;little-book-of-algorithms-zh</a></p><h2 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h2><ul><li><strong>11 章</strong>，覆盖算法基础 → 字符串 → 图论 → 动态规划 → 机器学习 &#x2F; 深度学习</li><li>中文用词尽量自然，保留原作的精炼节奏</li></ul><h2 id="几个小坑"><a href="#几个小坑" class="headerlink" title="几个小坑"></a>几个小坑</h2><p>翻译过程中踩到不少 markdown&#x2F;LaTeX 边界 bug：</p><ul><li>表格单元里的 <code>$|g|_2$</code> 会被 markdown-it 按 <code>|</code> 切列</li><li><code>$$...$$</code> 块里碰到 <code>_{subscript}</code> 会被解析成 <code>&lt;em&gt;</code></li><li>行首的 <code>+</code> 会被吃成列表项，把 <code>$$...$$</code> 劈成两半</li><li>setext heading：公式块里单独一行 <code>=</code> 会把上一行变 <code>&lt;h1&gt;</code></li></ul><p>全部在 <a href="https://github.com/misterrabbit0w0/little-book-of-algorithms-zh/blob/main/.vitepress/theme/index.ts">.vitepress&#x2F;theme&#x2F;index.ts</a> 里加了一层客户端 pass-0 解包 + regex 放宽解决了。</p><h2 id="去哪读"><a href="#去哪读" class="headerlink" title="去哪读"></a>去哪读</h2><p>👉 <a href="https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/">在线版</a> — KaTeX 即时渲染，响应式布局<br>👉 <a href="https://github.com/misterrabbit0w0/little-book-of-algorithms-zh">GitHub 源码</a></p><p>issues and prs are welcomed.</p>]]>
+    </content>
+    <id>http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-little-book-of-algorithms-zh/</id>
+    <link href="http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-little-book-of-algorithms-zh/"/>
+    <published>2026-04-20T02:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 <a]]>
+    </summary>
+    <title>《小小算法书》中文版上线</title>
+    <updated>2026-04-20T04:07:11.859Z</updated>
+  </entry>
+</feed>
