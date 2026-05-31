@@ -1,0 +1,48 @@
+<% if (theme.hero && theme.hero.status_card && theme.hero.status_card.enable) { %>
+<div class="widget-card status-card" id="status-card" hidden>
+  <div class="status-header">
+    <span class="status-dot"></span>
+    <span class="status-title">在线 / Active</span>
+  </div>
+  <div class="status-body">
+    <div class="status-item">
+      <span class="status-icon"><%- partial('_partial/icon', { name: 'pin', size: 14, className: 'status-svg' }) %></span>
+      <span class="status-val" id="status-loc"><%= theme.hero.status_card.location %></span>
+    </div>
+    <div class="status-item">
+      <span class="status-icon"><%- partial('_partial/icon', { name: 'activity', size: 14, className: 'status-svg' }) %></span>
+      <span class="status-val" id="status-act"><%= theme.hero.status_card.default_act %></span>
+    </div>
+    <div class="status-item">
+      <span class="status-icon"><%- partial('_partial/icon', { name: 'star', size: 14, className: 'status-svg' }) %></span>
+      <span class="status-val" id="status-detail"><%= theme.hero.status_card.default_detail %></span>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<div class="widget-card contrib-widget" id="contrib-card">
+  <div class="widget-title">Contribution</div>
+  <div class="contrib-head">
+    <div class="contrib-stat">
+      <span class="contrib-stat-num" id="contrib-count-7d">—</span>
+      <span class="contrib-stat-label">近 7 日活动</span>
+    </div>
+    <div class="contrib-stat">
+      <span class="contrib-stat-num" id="contrib-count-30d">—</span>
+      <span class="contrib-stat-label">近 30 日活动</span>
+    </div>
+  </div>
+  <svg class="stat-sparkline contrib-sparkline" viewBox="0 0 80 25" aria-hidden="true">
+    <defs>
+      <linearGradient id="contrib-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="var(--mint)" />
+        <stop offset="100%" stop-color="var(--pink)" />
+      </linearGradient>
+    </defs>
+    <path id="contrib-sparkline-path" fill="none" stroke="url(#contrib-grad)" stroke-width="2" stroke-linecap="round" />
+  </svg>
+  <ul class="contrib-list" id="contrib-recent" aria-label="近期 GitHub 活动">
+    <li class="contrib-item contrib-placeholder">正在加载 GitHub 活动…</li>
+  </ul>
+</div>

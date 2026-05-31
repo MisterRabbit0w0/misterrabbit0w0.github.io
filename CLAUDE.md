@@ -4,9 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hexo 静态博客，使用自制 **Hoshino** 主题（EJS 模板，樱花粉 + 花瓣 + 主题切换），部署在 GitHub Pages (misterrabbit0w0.github.io)。站点语言为中文，时区 Asia/Shanghai。作者署名：织星 / Astraea。
-
-`themes/butterfly/` 是旧主题，保留在仓库里但未启用，可留作参考或后续清理。
+Hexo 静态博客，使用自制 **Hoshino** 主题（EJS 模板，樱花粉 + 花瓣 + Light/Dark/System），部署在 GitHub Pages (misterrabbit0w0.github.io)。站点语言为中文，时区 Asia/Shanghai。作者署名：织星 / Astraea。
 
 ## Common Commands
 
@@ -26,11 +24,11 @@ hexo new draft "标题" # 创建草稿
 - **`source/_posts/`** — 博客文章（Markdown + YAML front matter）
 - **`scaffolds/`** — 新建内容的模板（post、page、draft）
 - **`themes/hoshino/`** — 自制主题（当前启用）
-  - **`_config.yml`** — 主题配置（brand、nav、hero、social、repos、projects、about、footer、effects）
+  - **`_config.yml`** — 主题配置（brand、nav、hero、social、about、footer、effects）
   - **`layout/`** — EJS 模板：`layout.ejs`（骨架）、`index.ejs`（首页）、`archive.ejs`（文章列表，被 category/tag 复用）、`post.ejs`（单篇+TOC+阅读进度）、`page.ejs`（按 `page.layout` 分流 projects/about/default）
   - **`source/css/`** — `shared.css`（全局）+ `page.css`（各页面）
-  - **`source/js/shared.js`** — 花瓣 spawner + 主题切换（pink/blue/gold/dark）
-- **`themes/butterfly/`** — 旧主题（未启用，保留作参考）
+  - **`source/js/shared.js`** — 花瓣、Light/Dark/System 主题、Lanyard 状态、GitHub Contribution
+  - **`scripts/`** — `projects-generator.js`、`stats-generator.js` 等构建辅助
 
 ## Deployment
 
@@ -42,4 +40,4 @@ hexo new draft "标题" # 创建草稿
 - 每页文章数：10
 - 语法高亮：highlight.js
 - 文章版权协议：CC BY-NC-SA 4.0
-- 模板引擎：Pug + Stylus
+- 模板引擎：EJS + Markdown

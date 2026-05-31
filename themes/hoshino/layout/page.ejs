@@ -4,10 +4,9 @@
 %>
 
 <% if (layout === 'projects') { %>
-  <% var p = theme.projects || {};
-     var featured = p.featured || null;
-     var cards = p.cards || [];
-     var archive = p.archive || [];
+  <% var featured = get_featured_project();
+     var cards = get_project_cards();
+     var archive = get_project_archive();
      var allCats = {};
      cards.forEach(function(c) { if (c.cat) allCats[c.cat] = true; });
      var catList = Object.keys(allCats);
@@ -29,9 +28,9 @@
   <% if (featured) { %>
   <div class="project-featured">
     <div>
-      <div class="project-featured-badge">✦ 精选项目</div>
-      <h2><%= featured.name %></h2>
-      <p><%- featured.desc %></p>
+      <div class="project-featured-badge">精选项目</div>
+      <h2><%= featured.title %></h2>
+      <p><%- featured.description %></p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
         <% (featured.tags || []).forEach(function(t, i) {
           var cls = ['tag-lav','tag-pink','tag-mint','tag-gold'][i % 4];
@@ -46,31 +45,33 @@
       </div>
     </div>
     <div class="project-icon-big"<% if (featured.cover) { %> style="background-image:url('<%- url_for(featured.cover) %>')"<% } %>>
-      <% if (!featured.cover) { %><span><%= (featured.name || '').charAt(0) %></span><% } %>
+      <% if (!featured.cover) { %><span><%= (featured.title || '').charAt(0) %></span><% } %>
     </div>
   </div>
   <% } %>
 
   <% if (cards.length > 0) { %>
   <div class="projects-grid" id="projects-grid">
-    <% cards.forEach(function(c) { %>
-      <a href="<%- c.url ? url_for(c.url) : '#' %>" class="project-card" data-cat="<%= c.cat || '' %>"<% if (c.url && /^https?:/.test(c.url)) { %> target="_blank" rel="noopener"<% } %>>
+    <% cards.forEach(function(c) {
+      var cardUrl = c.primaryUrl || '#';
+    %>
+      <a href="<%- /^https?:/.test(cardUrl) ? cardUrl : url_for(cardUrl) %>" class="project-card" data-cat="<%= c.cat || '' %>"<% if (/^https?:/.test(cardUrl)) { %> target="_blank" rel="noopener"<% } %>>
         <div class="project-card-header">
           <div class="project-icon"<% if (c.cover) { %> style="background-image:url('<%- url_for(c.cover) %>')"<% } %>>
-            <% if (!c.cover) { %><span><%= (c.name || '').charAt(0) %></span><% } %>
+            <% if (!c.cover) { %><span><%= (c.title || '').charAt(0) %></span><% } %>
           </div>
           <div>
-            <div class="project-name"><%= c.name %></div>
-            <% if (c.stars) { %><div style="font-size:12px;color:var(--muted)">★ <%= c.stars %></div><% } %>
+            <div class="project-name"><%= c.title %></div>
+            <% if (c.stars) { %><div style="font-size:12px;color:var(--muted)"><%= c.stars %></div><% } %>
           </div>
         </div>
-        <div class="project-desc"><%- c.desc %></div>
+        <div class="project-desc"><%- c.description %></div>
         <div class="project-footer">
           <div class="project-stats">
             <% if (c.lang) { %><span class="project-stat"><span class="lang-dot" style="background:<%= c.lang_color || '#c4b5fd' %>"></span><%= c.lang %></span><% } %>
           </div>
           <div class="project-links">
-            <% (c.links || []).forEach(function(l) { %>
+            <% (c.links || []).slice(0, 2).forEach(function(l) { %>
               <span class="project-link"><%= l.text %></span>
             <% }); %>
           </div>
@@ -84,10 +85,12 @@
     <div class="divider"></div>
     <div class="archive-title">其他小项目</div>
     <div class="archive-grid">
-      <% archive.forEach(function(a) { %>
-        <a href="<%- a.url ? url_for(a.url) : '#' %>" class="archive-card"<% if (a.url && /^https?:/.test(a.url)) { %> target="_blank" rel="noopener"<% } %>>
-          <div class="archive-card-name">✦ <%= a.name %></div>
-          <div class="archive-card-desc"><%- a.desc %></div>
+      <% archive.forEach(function(a) {
+        var archiveUrl = a.primaryUrl || '#';
+      %>
+        <a href="<%- /^https?:/.test(archiveUrl) ? archiveUrl : url_for(archiveUrl) %>" class="archive-card"<% if (/^https?:/.test(archiveUrl)) { %> target="_blank" rel="noopener"<% } %>>
+          <div class="archive-card-name"><%= a.title %></div>
+          <div class="archive-card-desc"><%- a.description %></div>
         </a>
       <% }); %>
     </div>
@@ -166,7 +169,7 @@
   <div class="divider"></div>
   <div class="about-section">
     <h2>技术栈</h2>
-    <div class="skills-grid">
+    <div class="skills-grid skills-grid-compact">
       <% a.skills.forEach(function(sk) { %>
         <div class="skill-card">
           <div class="skill-category"><%= sk.category %></div>
@@ -181,26 +184,9 @@
   </div>
   <% } %>
 
-  <% if ((a.timeline || []).length > 0) { %>
-  <div class="divider"></div>
-  <div class="about-section">
-    <h2>成长轨迹</h2>
-    <div class="timeline">
-      <% a.timeline.forEach(function(t) { %>
-        <div class="timeline-item">
-          <div class="timeline-dot"></div>
-          <div class="timeline-year"><%= t.year %></div>
-          <div class="timeline-title"><%= t.title %></div>
-          <% if (t.desc) { %><div class="timeline-desc"><%- t.desc %></div><% } %>
-        </div>
-      <% }); %>
-    </div>
-  </div>
-  <% } %>
-
   <% if (page.content && page.content.trim()) { %>
     <div class="divider"></div>
-    <div class="post-body"><%- page.content %></div>
+    <div class="post-body about-content"><%- page.content %></div>
   <% } %>
 
 <% } else { %>

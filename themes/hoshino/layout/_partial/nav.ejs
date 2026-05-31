@@ -1,15 +1,41 @@
 <%
-  // 判断当前路径高亮哪个 nav
   var currentPath = (page.canonical_path || page.path || '').replace(/^\/|\/$/g, '');
+  var githubUser = 'misterrabbit0w0';
+  if (theme.social) {
+    theme.social.forEach(function(s) {
+      if (s.icon === 'github' && s.url) {
+        var parts = s.url.replace(/\/$/, '').split('/');
+        githubUser = parts[parts.length - 1] || githubUser;
+      }
+    });
+  }
 %>
-<nav>
-  <a href="<%- url_for('/') %>" class="nav-logo"><%= theme.brand && theme.brand.logo || '✦ Blog' %></a>
-  <div class="nav-links">
+<nav class="site-nav">
+  <a href="<%- url_for('/') %>" class="nav-logo"><%= theme.brand && theme.brand.logo || 'Astraea' %></a>
+
+  <div class="nav-center">
     <% (theme.nav || []).forEach(function(item) {
       var itemPath = (item.path || '/').replace(/^\/|\/$/g, '');
       var isActive = (itemPath === '' && currentPath === '') || (itemPath !== '' && currentPath.indexOf(itemPath) === 0);
     %>
-      <a href="<%- url_for(item.path) %>"<% if (isActive) { %> class="active"<% } %>><%= item.name %></a>
+      <a href="<%- url_for(item.path) %>" class="nav-pill<% if (isActive) { %> active<% } %>">
+        <%- partial('_partial/icon', { name: item.icon || 'home', size: 15, className: 'nav-pill-icon' }) %>
+        <span><%= item.name %></span>
+      </a>
     <% }); %>
+  </div>
+
+  <div class="nav-actions">
+    <div class="theme-switch" role="group" aria-label="主题模式">
+      <button type="button" class="theme-switch-btn" data-theme-mode="light" aria-label="浅色模式" title="浅色">
+        <%- partial('_partial/icon', { name: 'sun', size: 16, className: 'theme-switch-icon' }) %>
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="dark" aria-label="深色模式" title="深色">
+        <%- partial('_partial/icon', { name: 'moon', size: 16, className: 'theme-switch-icon' }) %>
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="system" aria-label="跟随系统" title="跟随系统">
+        <%- partial('_partial/icon', { name: 'system', size: 16, className: 'theme-switch-icon' }) %>
+      </button>
+    </div>
   </div>
 </nav>

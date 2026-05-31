@@ -1,5 +1,4 @@
 <%
-  // 从 page.posts 获取分页后的文章列表；如果是 archives 页面，用所有文章
   var posts;
   if (page.posts) {
     posts = page.posts.toArray();
@@ -22,11 +21,9 @@
   }
   function readTime(post) {
     var text = (post.content || '').replace(/<[^>]+>/g, '');
-    var words = text.length / 3; // 中文字约 3 个 token
-    return Math.max(1, Math.round(words / 200)) + ' min';
+    return Math.max(1, Math.round(text.length / 3 / 200)) + ' min';
   }
 
-  // 按年分组
   var yearMap = {};
   posts.forEach(function(p) {
     var y = new Date(p.date).getFullYear();
@@ -34,103 +31,156 @@
   });
   var years = Object.keys(yearMap).sort(function(a,b){ return Number(b) - Number(a); });
 
-  // 所有分类（用作 filter）
-  var allCats = {};
+  var topicSet = {};
   site.posts.toArray().forEach(function(p) {
-    if (p.categories) p.categories.each(function(c) { allCats[c.name] = true; });
-    if (p.tags)       p.tags.each(function(t)      { allCats[t.name] = true; });
+    if (p.categories) p.categories.each(function(c) { topicSet[c.name] = true; });
+    if (p.tags) p.tags.each(function(t) { topicSet[t.name] = true; });
   });
-  var catList = Object.keys(allCats).sort();
+  var topicList = Object.keys(topicSet).sort();
 %>
 
-<div class="page-hero">
-  <div class="page-hero-left">
-    <h1><%= page.title || '全部文章' %></h1>
-    <p>记录技术、工具、算法与日常思考</p>
-  </div>
-  <div class="article-count"><%= site.posts.length %> <span>篇</span></div>
-</div>
+<div class="writing-layout">
+  <aside class="filter-panel">
+    <div class="filter-card">
+      <div class="filter-card-title">搜索</div>
+      <div class="search-wrap search-wrap-compact">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" placeholder="搜索标题、标签…" id="search-input" autocomplete="off">
+      </div>
+    </div>
 
-<div class="search-wrap">
-  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-  <input type="text" placeholder="搜索文章标题、标签…" id="search-input">
-</div>
+    <div class="filter-card">
+      <div class="filter-card-title">排序</div>
+      <select id="sort-select" class="filter-select">
+        <option value="newest">最新优先</option>
+        <option value="oldest">最早优先</option>
+      </select>
+    </div>
 
-<% if (catList.length > 0) { %>
-<div class="filter-bar">
-  <button class="filter-btn active" data-cat="all">全部</button>
-  <% catList.forEach(function(c) { %>
-    <button class="filter-btn" data-cat="<%= c %>"><%= c %></button>
-  <% }); %>
-</div>
-<% } %>
+    <% if (topicList.length > 0) { %>
+    <div class="filter-card">
+      <div class="filter-card-title">Topics</div>
+      <div class="topic-list" id="topic-list">
+        <% topicList.forEach(function(topic) { %>
+          <label class="topic-item">
+            <input type="checkbox" value="<%= topic %>" class="topic-check">
+            <span><%= topic %></span>
+          </label>
+        <% }); %>
+      </div>
+    </div>
+    <% } %>
+  </aside>
 
-<div id="article-list">
-  <% years.forEach(function(y) { %>
-    <div class="year-group" data-year="<%= y %>">
-      <div class="year-label"><%= y %></div>
-      <% yearMap[y].forEach(function(p) {
-        var firstCat = p.categories && p.categories.length ? p.categories.first().name : null;
-        var tagArr = p.tags ? p.tags.toArray().map(function(t){ return t.name; }) : [];
-      %>
-      <a href="<%- url_for(p.path) %>" class="article-row">
-        <div class="article-row-date"><%= fmtMD(p.date) %></div>
-        <div class="article-row-body">
-          <div class="article-row-title"><%= p.title %></div>
-          <div class="article-row-excerpt"><%= excerptOf(p) %>…</div>
-          <div class="article-row-meta">
-            <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
-            <% tagArr.slice(0,3).forEach(function(t) { %>
-              <span class="tag <%= catTagClass(t) %>"><%= t %></span>
-            <% }); %>
-            <% if (p.sticky || p.pinned) { %><span class="pinned-badge">置顶</span><% } %>
-          </div>
+  <div class="writing-main">
+    <div class="page-hero page-hero-compact">
+      <div class="page-hero-left">
+        <h1><%= page.title || 'Writing' %></h1>
+        <p>记录技术、工具、算法与日常思考</p>
+      </div>
+      <div class="article-count"><%= site.posts.length %> <span>篇</span></div>
+    </div>
+
+    <div id="article-list" class="article-list" data-sort="newest">
+      <% years.forEach(function(y) { %>
+        <div class="year-group" data-year="<%= y %>">
+          <div class="year-label"><%= y %></div>
+          <% yearMap[y].forEach(function(p) {
+            var firstCat = p.categories && p.categories.length ? p.categories.first().name : null;
+            var tagArr = p.tags ? p.tags.toArray().map(function(t){ return t.name; }) : [];
+            var allTopics = [];
+            if (firstCat) allTopics.push(firstCat);
+            tagArr.forEach(function(t) { if (allTopics.indexOf(t) === -1) allTopics.push(t); });
+          %>
+          <a href="<%- url_for(p.path) %>" class="article-row" data-date="<%= new Date(p.date).getTime() %>" data-topics="<%= allTopics.join('|') %>">
+            <div class="article-row-icon" aria-hidden="true">
+              <%- partial('_partial/icon', { name: 'article', size: 18, className: 'article-icon' }) %>
+            </div>
+            <div class="article-row-body">
+              <div class="article-row-title"><%= p.title %></div>
+              <div class="article-row-excerpt"><%= excerptOf(p) %>…</div>
+              <div class="article-row-meta">
+                <span class="article-row-date"><%= fmtMD(p.date) %></span>
+                <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
+                <% tagArr.slice(0, 3).forEach(function(t) { %>
+                  <span class="tag <%= catTagClass(t) %>"><%= t %></span>
+                <% }); %>
+                <% if (p.sticky || p.pinned) { %><span class="pinned-badge">置顶</span><% } %>
+              </div>
+            </div>
+            <div class="article-row-right">
+              <span class="read-time"><%= readTime(p) %></span>
+            </div>
+          </a>
+          <% }); %>
         </div>
-        <div class="article-row-right">
-          <span class="read-time"><%= readTime(p) %></span>
-        </div>
-      </a>
       <% }); %>
     </div>
-  <% }); %>
-</div>
 
-<% if (page.prev || page.next) { %>
-<div class="pagination">
-  <a class="page-btn<% if (!page.prev) { %> disabled<% } %>" href="<%- page.prev ? url_for(page.prev_link) : '#' %>">‹</a>
-  <% var totalPages = page.total || 1;
-     for (var i = 1; i <= totalPages; i++) { %>
-    <% if (i === page.current) { %>
-      <span class="page-btn active"><%= i %></span>
-    <% } else if (i === 1) { %>
-      <a class="page-btn" href="<%- url_for(page.base) %>"><%= i %></a>
-    <% } else { %>
-      <a class="page-btn" href="<%- url_for(page.base + 'page/' + i + '/') %>"><%= i %></a>
+    <% if (page.prev || page.next) { %>
+    <div class="pagination">
+      <a class="page-btn<% if (!page.prev) { %> disabled<% } %>" href="<%- page.prev ? url_for(page.prev_link) : '#' %>">‹</a>
+      <% var totalPages = page.total || 1;
+         for (var i = 1; i <= totalPages; i++) { %>
+        <% if (i === page.current) { %>
+          <span class="page-btn active"><%= i %></span>
+        <% } else if (i === 1) { %>
+          <a class="page-btn" href="<%- url_for(page.base) %>"><%= i %></a>
+        <% } else { %>
+          <a class="page-btn" href="<%- url_for(page.base + 'page/' + i + '/') %>"><%= i %></a>
+        <% } %>
+      <% } %>
+      <a class="page-btn<% if (!page.next) { %> disabled<% } %>" href="<%- page.next ? url_for(page.next_link) : '#' %>">›</a>
+    </div>
     <% } %>
-  <% } %>
-  <a class="page-btn<% if (!page.next) { %> disabled<% } %>" href="<%- page.next ? url_for(page.next_link) : '#' %>">›</a>
+  </div>
 </div>
-<% } %>
 
 <script>
-// Filter
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.cat;
+(function() {
+  const searchInput = document.getElementById('search-input');
+  const sortSelect = document.getElementById('sort-select');
+  const topicChecks = document.querySelectorAll('.topic-check');
+  const list = document.getElementById('article-list');
+
+  function selectedTopics() {
+    return Array.from(topicChecks).filter(c => c.checked).map(c => c.value);
+  }
+
+  function applyFilters() {
+    const q = (searchInput?.value || '').toLowerCase();
+    const topics = selectedTopics();
+
     document.querySelectorAll('.article-row').forEach(row => {
-      if (cat === 'all') { row.style.display = ''; return; }
-      const tags = Array.from(row.querySelectorAll('.tag')).map(t => t.textContent.trim());
-      row.style.display = tags.includes(cat) ? '' : 'none';
+      const text = row.textContent.toLowerCase();
+      const rowTopics = (row.dataset.topics || '').split('|').filter(Boolean);
+      const matchSearch = !q || text.includes(q);
+      const matchTopic = topics.length === 0 || topics.some(t => rowTopics.includes(t));
+      row.style.display = matchSearch && matchTopic ? '' : 'none';
     });
-  });
-});
-// Search
-document.getElementById('search-input').addEventListener('input', e => {
-  const q = e.target.value.toLowerCase();
-  document.querySelectorAll('.article-row').forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
-});
+
+    document.querySelectorAll('.year-group').forEach(group => {
+      const visible = Array.from(group.querySelectorAll('.article-row')).some(r => r.style.display !== 'none');
+      group.style.display = visible ? '' : 'none';
+    });
+  }
+
+  function applySort() {
+    const mode = sortSelect?.value || 'newest';
+    list.dataset.sort = mode;
+    document.querySelectorAll('.year-group').forEach(group => {
+      const rows = Array.from(group.querySelectorAll('.article-row'));
+      rows.sort((a, b) => {
+        const da = Number(a.dataset.date);
+        const db = Number(b.dataset.date);
+        return mode === 'oldest' ? da - db : db - da;
+      });
+      rows.forEach(r => group.appendChild(r));
+    });
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+  topicChecks.forEach(c => c.addEventListener('change', applyFilters));
+  sortSelect?.addEventListener('change', () => { applySort(); applyFilters(); });
+})();
 </script>
