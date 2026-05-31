@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, 织星</rights>
   <subtitle>织星的折腾笔记</subtitle>
   <title>织星 · Astraea</title>
-  <updated>2026-04-20T04:15:07.248Z</updated>
+  <updated>2026-05-31T15:34:15.528Z</updated>
   <entry>
     <author>
       <name>织星</name>
@@ -20,18 +20,18 @@
     <category term="CSS" scheme="http://misterrabbit0w0.github.io/tags/CSS/"/>
     <category term="oklch" scheme="http://misterrabbit0w0.github.io/tags/oklch/"/>
     <content>
-      <![CDATA[<p>之前一直在用 Butterfly，功能是很全，但有点”什么都有一点”的感觉——想改什么都要在十几层配置里打转。</p><p>索性写了个自己的主题 <strong>Hoshino</strong>，从 UI 参考稿直接开搞。</p><h2 id="设计取向"><a href="#设计取向" class="headerlink" title="设计取向"></a>设计取向</h2><ul><li><strong>樱花粉 + 薰衣草紫 + 薄荷绿</strong> 的三色系，基于 <code>oklch</code> 色彩空间</li><li>M PLUS Rounded 1c 字体，圆润但不幼稚</li></ul><h2 id="页面清单"><a href="#页面清单" class="headerlink" title="页面清单"></a>页面清单</h2><table><thead><tr><th>页面</th><th>布局特点</th></tr></thead><tbody><tr><td>首页</td><td>Hero + stats + 最近文章 + 精选项目 + 活动时间线</td></tr><tr><td>文章</td><td>按年分组 + 即时搜索 + tag filter + 分页</td></tr><tr><td>单篇</td><td>目录侧栏 + 阅读进度条 + 上一篇&#x2F;下一篇</td></tr><tr><td>项目</td><td>Featured + 卡片网格 + 子项目归档</td></tr><tr><td>关于</td><td>Hero + 技能卡 + 时间线 + 联系卡</td></tr></tbody></table><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><ul><li>Hexo + EJS 模板（原生 <code>&lt;%- %&gt;</code>，不用 Pug&#x2F;Nunjucks）</li><li><code>shared.js</code> 负责花瓣、主题切换、Tweaks 面板，利用 <code>page.css</code> 统一页面</li></ul>]]>
+      <![CDATA[<p>之前一直在用 Butterfly，功能是很全，但有点”什么都有一点”的感觉——想改什么都要在十几层配置里打转。</p><p>索性写了个自己的主题 <strong>Hoshino</strong>，从 UI 参考稿直接开搞。</p><h2 id="设计取向"><a href="#设计取向" class="headerlink" title="设计取向"></a>设计取向</h2><ul><li>选择了米黄色和樱花粉</li><li>M PLUS Rounded 1c 字体，圆润但不幼稚</li></ul>]]>
     </content>
-    <id>http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-hoshino-theme/</id>
-    <link href="http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-hoshino-theme/"/>
-    <published>2026-04-20T03:30:00.000Z</published>
+    <id>http://misterrabbit0w0.github.io/2026/05/31/2026-04-20-hoshino-theme/</id>
+    <link href="http://misterrabbit0w0.github.io/2026/05/31/2026-04-20-hoshino-theme/"/>
+    <published>2026-05-31T15:30:00.000Z</published>
     <summary>
       <![CDATA[<p>之前一直在用 Butterfly，功能是很全，但有点”什么都有一点”的感觉——想改什么都要在十几层配置里打转。</p>
 <p>索性写了个自己的主题 <strong>Hoshino</strong>，从 UI 参考稿直接开搞。</p>
 <h2 id="设计取向"><a]]>
     </summary>
     <title>博客换装：Hoshino 主题上线</title>
-    <updated>2026-04-20T04:15:07.248Z</updated>
+    <updated>2026-05-31T15:34:15.528Z</updated>
   </entry>
   <entry>
     <author>
@@ -51,6 +51,6 @@
       <![CDATA[<p>花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 <a]]>
     </summary>
     <title>《小小算法书》中文版上线</title>
-    <updated>2026-04-20T04:15:07.248Z</updated>
+    <updated>2026-05-31T15:34:15.529Z</updated>
   </entry>
 </feed>

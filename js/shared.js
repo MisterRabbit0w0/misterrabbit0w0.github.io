@@ -1,105 +1,360 @@
-// shared.js — petal spawner + theme tweaks
+// shared.js — petals, Light/Dark/System theme, live status, GitHub contribution
 (function () {
+  const STORAGE_KEY = 'blog_tweaks';
   const petalColors = [
-    'oklch(82% 0.12 355)','oklch(85% 0.09 330)',
-    'oklch(85% 0.08 290)','oklch(88% 0.06 355)','oklch(90% 0.05 290)'
+    'oklch(82% 0.12 355)', 'oklch(85% 0.09 330)',
+    'oklch(85% 0.08 290)', 'oklch(88% 0.06 355)', 'oklch(90% 0.05 290)'
   ];
+  const ACTIVITY_TYPES = new Set([
+    'PushEvent', 'PullRequestEvent', 'CreateEvent', 'DeleteEvent',
+    'IssuesEvent', 'IssueCommentEvent', 'PullRequestReviewEvent',
+    'PullRequestReviewCommentEvent', 'ForkEvent', 'ReleaseEvent'
+  ]);
+
+  let githubEventsCache = null;
+  let githubEventsPromise = null;
+
   function spawnPetals(count) {
     const container = document.getElementById('petals');
     if (!container) return;
     container.innerHTML = '';
-    for (let i = 0; i < count; i++) {
+    const n = Math.max(0, Number(count) || 0);
+    for (let i = 0; i < n; i++) {
       const el = document.createElement('div');
       el.className = 'petal';
-      el.style.cssText = `left:${Math.random()*100}%;background:${petalColors[i%petalColors.length]};animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*10}s;width:${8+Math.random()*6}px;height:${10+Math.random()*8}px;transform:rotate(${Math.random()*360}deg);border-radius:${Math.random()>.5?'50% 0 50% 0':'50%'};`;
+      el.style.cssText =
+        `left:${Math.random() * 100}%;background:${petalColors[i % petalColors.length]};` +
+        `animation-duration:${6 + Math.random() * 8}s;animation-delay:${Math.random() * 10}s;` +
+        `width:${8 + Math.random() * 6}px;height:${10 + Math.random() * 8}px;` +
+        `transform:rotate(${Math.random() * 360}deg);border-radius:${Math.random() > .5 ? '50% 0 50% 0' : '50%'};`;
       container.appendChild(el);
     }
   }
 
-  const themes = {
-    pink: { '--pink':'oklch(72% 0.18 355)','--lavender':'oklch(72% 0.18 290)','--mint':'oklch(72% 0.18 175)','--bg':'oklch(98% 0.012 330)','--bg2':'oklch(95.5% 0.018 330)','--card':'oklch(99% 0.008 330)','--fg':'oklch(22% 0.02 285)','--muted':'oklch(58% 0.02 285)','--border':'oklch(89% 0.025 330)','--pink-light':'oklch(90% 0.08 355)','--lav-light':'oklch(91% 0.07 290)' },
-    blue: { '--pink':'oklch(70% 0.18 220)','--lavender':'oklch(72% 0.18 175)','--mint':'oklch(72% 0.18 145)','--bg':'oklch(98% 0.010 220)','--bg2':'oklch(95% 0.016 220)','--card':'oklch(99% 0.006 220)','--fg':'oklch(20% 0.02 240)','--muted':'oklch(56% 0.02 240)','--border':'oklch(88% 0.02 220)','--pink-light':'oklch(90% 0.07 220)','--lav-light':'oklch(91% 0.06 175)' },
-    gold: { '--pink':'oklch(74% 0.16 50)','--lavender':'oklch(72% 0.18 355)','--mint':'oklch(72% 0.14 90)','--bg':'oklch(98.5% 0.012 70)','--bg2':'oklch(96% 0.018 70)','--card':'oklch(99.5% 0.006 70)','--fg':'oklch(22% 0.025 40)','--muted':'oklch(58% 0.02 50)','--border':'oklch(90% 0.025 70)','--pink-light':'oklch(92% 0.07 50)','--lav-light':'oklch(90% 0.07 355)' },
-    dark: { '--pink':'oklch(72% 0.20 355)','--lavender':'oklch(72% 0.20 290)','--mint':'oklch(72% 0.18 175)','--bg':'oklch(16% 0.025 290)','--bg2':'oklch(20% 0.025 290)','--card':'oklch(20% 0.025 290)','--fg':'oklch(92% 0.01 290)','--muted':'oklch(62% 0.02 290)','--border':'oklch(30% 0.03 290)','--pink-light':'oklch(30% 0.06 355)','--lav-light':'oklch(28% 0.06 290)' },
-  };
-
-  function applyTheme(name) {
-    const t = themes[name]; if (!t) return;
-    Object.entries(t).forEach(([k,v]) => document.documentElement.style.setProperty(k,v));
+  function resolveThemeMode(preference) {
+    if (preference === 'system') {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return preference === 'dark' ? 'dark' : 'light';
   }
 
-  function initCustomCursor() {
-    if (!window.matchMedia || !matchMedia('(pointer: fine)').matches) return;
-    if (document.querySelector('.cursor-glow')) return;
-
-    const glow = document.createElement('div');
-    glow.className = 'cursor-glow';
-    document.body.appendChild(glow);
-
-    const interactiveSel = 'a,button,select,summary,label,input[type=range],input[type=checkbox],input[type=radio],input[type=submit],.swatch,.filter-btn,.tag,.social-btn,.link-btn,.post-card,.repo-card,.project-card,.article-row,.nav-card,.archive-card,.skill-card,.stat-card,.page-btn,.toc-item';
-
-    let tx = -100, ty = -100, x = -100, y = -100;
-    let visible = false;
-    window.addEventListener('mousemove', e => {
-      tx = e.clientX; ty = e.clientY;
-      if (!visible) { x = tx; y = ty; visible = true; glow.style.opacity = '1'; }
+  function applyThemeMode(preference) {
+    const resolved = resolveThemeMode(preference);
+    document.documentElement.setAttribute('data-color-mode', resolved);
+    document.documentElement.setAttribute('data-theme-pref', preference);
+    document.querySelectorAll('.theme-switch-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.themeMode === preference);
     });
-    window.addEventListener('mouseleave', () => { glow.style.opacity = '0'; visible = false; });
-    window.addEventListener('mouseenter',  () => { glow.style.opacity = '1'; visible = true;  });
+  }
 
-    document.addEventListener('mouseover', e => {
-      if (e.target.closest && e.target.closest(interactiveSel)) glow.classList.add('is-hover');
-    });
-    document.addEventListener('mouseout', e => {
-      if (e.target.closest && e.target.closest(interactiveSel) && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest(interactiveSel)))
-        glow.classList.remove('is-hover');
-    });
-    window.addEventListener('mousedown', () => glow.classList.add('is-press'));
-    window.addEventListener('mouseup',   () => glow.classList.remove('is-press'));
+  function saveTweaks(patch) {
+    try {
+      const current = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(Object.assign({}, current, patch)));
+    } catch (e) {}
+  }
 
-    const burstColors = [
-      'oklch(82% 0.12 355)','oklch(85% 0.09 330)',
-      'oklch(85% 0.08 290)','oklch(88% 0.06 355)'
-    ];
-    window.addEventListener('click', e => {
-      const n = 6;
-      for (let i = 0; i < n; i++) {
-        const angle = (i / n) * Math.PI * 2 + Math.random() * 0.5;
-        const dist  = 36 + Math.random() * 26;
-        const el = document.createElement('div');
-        el.className = 'click-petal';
-        el.style.cssText =
-          `left:${e.clientX}px;top:${e.clientY}px;` +
-          `background:${burstColors[i % burstColors.length]};` +
-          `--dx:${(Math.cos(angle)*dist).toFixed(1)}px;` +
-          `--dy:${(Math.sin(angle)*dist).toFixed(1)}px;` +
-          `border-radius:${Math.random()>.5?'50% 0 50% 0':'50%'};`;
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 760);
+  function initThemeSwitch(defaultPref) {
+    let preference = defaultPref || 'system';
+    try {
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      if (saved.themeMode) preference = saved.themeMode;
+    } catch (e) {}
+
+    applyThemeMode(preference);
+
+    document.querySelectorAll('.theme-switch-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        preference = btn.dataset.themeMode;
+        applyThemeMode(preference);
+        saveTweaks({ themeMode: preference });
+      });
+    });
+
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        try {
+          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+          if ((saved.themeMode || preference) === 'system') applyThemeMode('system');
+        } catch (e) {}
+      });
+    }
+  }
+
+  async function fetchGitHubEvents(username, maxPages) {
+    if (!username) return [];
+    if (githubEventsCache) return githubEventsCache;
+    if (githubEventsPromise) return githubEventsPromise;
+
+    githubEventsPromise = (async () => {
+      const all = [];
+      const pages = maxPages || 3;
+      for (let page = 1; page <= pages; page++) {
+        const res = await fetch(
+          `https://api.github.com/users/${encodeURIComponent(username)}/events/public?per_page=100&page=${page}`
+        );
+        if (!res.ok) throw new Error(`GitHub events HTTP ${res.status}`);
+        const batch = await res.json();
+        if (!Array.isArray(batch) || batch.length === 0) break;
+        all.push(...batch.filter(e => ACTIVITY_TYPES.has(e.type)));
+        if (batch.length < 100) break;
       }
-    });
+      githubEventsCache = all;
+      return all;
+    })();
 
-    (function tick() {
-      x += (tx - x) * 0.22;
-      y += (ty - y) * 0.22;
-      glow.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-      requestAnimationFrame(tick);
+    try {
+      return await githubEventsPromise;
+    } catch (err) {
+      githubEventsPromise = null;
+      throw err;
+    }
+  }
+
+  function formatRelativeTime(dateStr) {
+    const diffMs = Date.now() - new Date(dateStr).getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+    if (diffDays > 0) return `${diffDays} 天前`;
+    if (diffHours > 0) return `${diffHours} 小时前`;
+    if (diffMins > 0) return `${diffMins} 分钟前`;
+    return '刚刚';
+  }
+
+  function shortRepoName(fullName, username) {
+    if (!fullName) return 'unknown';
+    const prefix = `${username}/`;
+    return fullName.startsWith(prefix) ? fullName.slice(prefix.length) : fullName;
+  }
+
+  function describeEvent(event, username) {
+    const repo = shortRepoName(event.repo?.name, username);
+    const repoUrl = `https://github.com/${event.repo?.name || ''}`;
+    switch (event.type) {
+      case 'PushEvent': {
+        const n = event.payload?.size || event.payload?.commits?.length || 0;
+        const msg = event.payload?.commits?.[0]?.message || '更新了代码';
+        return { text: `推送到 ${repo}（${n || 1} commits）`, detail: msg, repoUrl };
+      }
+      case 'PullRequestEvent': {
+        const action = event.payload?.action || 'updated';
+        const title = event.payload?.pull_request?.title || 'Pull Request';
+        return { text: `PR ${action} · ${repo}`, detail: title, repoUrl };
+      }
+      case 'IssuesEvent': {
+        const action = event.payload?.action || 'updated';
+        const title = event.payload?.issue?.title || 'Issue';
+        return { text: `Issue ${action} · ${repo}`, detail: title, repoUrl };
+      }
+      case 'IssueCommentEvent':
+      case 'PullRequestReviewCommentEvent':
+        return { text: `评论 · ${repo}`, detail: '发表了评论', repoUrl };
+      case 'PullRequestReviewEvent':
+        return { text: `Review · ${repo}`, detail: '审查了 Pull Request', repoUrl };
+      case 'CreateEvent': {
+        const ref = event.payload?.ref || event.payload?.ref_type || '资源';
+        return { text: `创建 ${ref} · ${repo}`, detail: event.payload?.description || '', repoUrl };
+      }
+      case 'DeleteEvent':
+        return { text: `删除分支 · ${repo}`, detail: event.payload?.ref || '', repoUrl };
+      case 'ForkEvent':
+        return { text: `Fork · ${repo}`, detail: '分叉了仓库', repoUrl };
+      case 'ReleaseEvent':
+        return { text: `Release · ${repo}`, detail: event.payload?.release?.name || '发布了版本', repoUrl };
+      default:
+        return { text: `${event.type} · ${repo}`, detail: '', repoUrl };
+    }
+  }
+
+  function buildSparklinePath(values) {
+    const data = values.length ? values : [0, 0, 0, 0, 0, 0];
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const y = data.map(val => {
+      if (min === max) return 12.5;
+      return Number((23 - ((val - min) / (max - min)) * 21).toFixed(2));
+    });
+    return `M 5,${y[0]} C 12,${y[0]} 12,${y[1]} 19,${y[1]} C 26,${y[1]} 26,${y[2]} 33,${y[2]} C 40,${y[2]} 40,${y[3]} 47,${y[3]} C 54,${y[3]} 54,${y[4]} 61,${y[4]} C 68,${y[4]} 68,${y[5]} 75,${y[5]}`;
+  }
+
+  function countEventsSince(events, days) {
+    const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+    return events.filter(e => new Date(e.created_at).getTime() >= cutoff).length;
+  }
+
+  function bucketEvents(events, bucketCount, spanDays) {
+    const now = Date.now();
+    const buckets = Array(bucketCount).fill(0);
+    const bucketMs = (spanDays * 24 * 60 * 60 * 1000) / bucketCount;
+    events.forEach(e => {
+      const age = now - new Date(e.created_at).getTime();
+      if (age < 0 || age > spanDays * 24 * 60 * 60 * 1000) return;
+      const idx = Math.min(bucketCount - 1, Math.floor((spanDays * 24 * 60 * 60 * 1000 - age) / bucketMs));
+      buckets[idx]++;
+    });
+    return buckets;
+  }
+
+  async function initContributionCard(username) {
+    const card = document.getElementById('contrib-card');
+    if (!card || !username) return;
+
+    const count7 = document.getElementById('contrib-count-7d');
+    const count30 = document.getElementById('contrib-count-30d');
+    const sparkPath = document.getElementById('contrib-sparkline-path');
+    const list = document.getElementById('contrib-recent');
+
+    try {
+      const events = await fetchGitHubEvents(username, 3);
+      if (count7) count7.textContent = String(countEventsSince(events, 7));
+      if (count30) count30.textContent = String(countEventsSince(events, 30));
+      if (sparkPath) sparkPath.setAttribute('d', buildSparklinePath(bucketEvents(events, 6, 30)));
+
+      if (list) {
+        list.innerHTML = '';
+        const recent = events.slice(0, 6);
+        if (recent.length === 0) {
+          list.innerHTML = '<li class="contrib-item contrib-placeholder">近期暂无公开 GitHub 活动</li>';
+          return;
+        }
+        recent.forEach(event => {
+          const info = describeEvent(event, username);
+          const li = document.createElement('li');
+          li.className = 'contrib-item';
+          li.innerHTML =
+            `<a href="${info.repoUrl}" target="_blank" rel="noopener">${info.text}</a>` +
+            (info.detail ? `<span>${info.detail}</span>` : '') +
+            `<time datetime="${event.created_at}">${formatRelativeTime(event.created_at)}</time>`;
+          list.appendChild(li);
+        });
+      }
+    } catch (err) {
+      console.warn('Contribution card load failed.', err);
+      if (count7) count7.textContent = '—';
+      if (count30) count30.textContent = '—';
+      if (list) {
+        list.innerHTML = '<li class="contrib-item contrib-error">GitHub 活动加载失败（可能是 API 限流）</li>';
+      }
+    }
+  }
+
+  const IDE_NAMES = new Set([
+    'Visual Studio Code', 'Cursor', 'Vim', 'Neovim',
+    'IntelliJ IDEA', 'WebStorm', 'PyCharm', 'Android Studio'
+  ]);
+
+  function applyLanyardStatus(data, cfg, els) {
+    const status = data.discord_status || 'offline';
+    const { actEl, detailEl, dotEl, titleEl } = els;
+
+    const statusMeta = {
+      online: { color: 'var(--mint)', title: '在线 / Active' },
+      idle: { color: 'oklch(72% 0.16 85)', title: '挂起 / Idle' },
+      dnd: { color: 'var(--pink)', title: '勿扰 / DND' },
+      offline: { color: 'var(--muted)', title: '离线 / Offline' }
+    };
+    const meta = statusMeta[status] || statusMeta.offline;
+    if (dotEl) dotEl.style.setProperty('--status-color', meta.color);
+    if (titleEl) titleEl.textContent = meta.title;
+
+    if (status === 'offline') {
+      if (actEl) actEl.textContent = cfg.defaultAct || '当前离线';
+      if (detailEl) detailEl.textContent = cfg.defaultDetail || 'Discord 离线';
+      return;
+    }
+
+    if (data.listening_to_spotify && data.spotify) {
+      if (actEl) actEl.innerHTML = `正在聆听 <strong>${data.spotify.song}</strong>`;
+      if (detailEl) detailEl.textContent = `歌手: ${data.spotify.artist}`;
+      return;
+    }
+
+    const ide = (data.activities || []).find(a => IDE_NAMES.has(a.name));
+    if (ide) {
+      const workspace = (ide.state || '').replace(/^Workspace: /, '');
+      const details = ide.details || '写代码中';
+      if (actEl) {
+        actEl.innerHTML = workspace
+          ? `正在开发 <strong>${workspace}</strong>`
+          : `正在使用 <strong>${ide.name}</strong>`;
+      }
+      if (detailEl) detailEl.textContent = details;
+      return;
+    }
+
+    const custom = (data.activities || []).find(a => a.type === 4 || a.id === 'custom');
+    if (custom && custom.state) {
+      if (actEl) actEl.textContent = custom.state;
+      if (detailEl) {
+        detailEl.textContent = custom.emoji?.name
+          ? `Discord 状态 · ${custom.emoji.name}`
+          : 'Discord 状态';
+      }
+      return;
+    }
+
+    const playing = (data.activities || []).find(a => a.type === 0 && a.name);
+    if (playing) {
+      if (actEl) actEl.innerHTML = `正在 <strong>${playing.name}</strong>`;
+      if (detailEl) detailEl.textContent = playing.details || playing.state || 'Discord 活动';
+      return;
+    }
+
+    if (actEl) actEl.textContent = cfg.defaultAct || '正在编织星光...';
+    if (detailEl) detailEl.textContent = cfg.defaultDetail || 'Discord 在线中';
+  }
+
+  function initLiveStatus(cfg) {
+    if (!cfg || !cfg.enable) return;
+
+    (async function updateLiveStatus() {
+      const locEl = document.getElementById('status-loc');
+      const actEl = document.getElementById('status-act');
+      const detailEl = document.getElementById('status-detail');
+      const cardEl = document.getElementById('status-card');
+      const dotEl = document.querySelector('.status-dot');
+      const titleEl = document.querySelector('.status-title');
+      if (!cardEl) return;
+
+      cardEl.hidden = false;
+
+      if (locEl && cfg.location) locEl.textContent = cfg.location;
+      if (actEl && cfg.defaultAct) actEl.textContent = cfg.defaultAct;
+      if (detailEl && cfg.defaultDetail) detailEl.textContent = cfg.defaultDetail;
+
+      if (!cfg.discordId) return;
+
+      try {
+        const res = await fetch(`https://api.lanyard.rest/v1/users/${cfg.discordId}`);
+        if (!res.ok) throw new Error('Lanyard fetch failed');
+        const body = await res.json();
+        if (body.success && body.data) {
+          applyLanyardStatus(body.data, cfg, { actEl, detailEl, dotEl, titleEl });
+        }
+      } catch (err) {
+        console.warn('Lanyard status load failed, using defaults.', err);
+      }
     })();
   }
 
   function initShared(defaults) {
-    defaults = defaults || { petalCount:12, theme:'pink' };
-    // load from localStorage
+    defaults = defaults || { petalCount: 12, themeMode: 'system' };
+
     try {
-      const saved = JSON.parse(localStorage.getItem('blog_tweaks') || '{}');
+      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
       defaults = Object.assign({}, defaults, saved);
-    } catch(e){}
+    } catch (e) {}
 
     spawnPetals(defaults.petalCount || 12);
-    applyTheme(defaults.theme || 'pink');
-    initCustomCursor();
+    initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
+    initLiveStatus(defaults.statusCard);
 
-    // Tweaks toggle button
+    const username = defaults.statusCard && defaults.statusCard.username;
+    if (document.getElementById('contrib-card') && username) {
+      initContributionCard(username);
+    }
+
     const panel = document.getElementById('tweaks-panel');
     const toggle = document.getElementById('tweaks-toggle');
     if (toggle && panel) {
@@ -110,44 +365,29 @@
       });
       document.addEventListener('click', e => {
         if (!panel.contains(e.target) && !toggle.contains(e.target)) {
-          panel.classList.remove('open'); toggle.classList.remove('open');
+          panel.classList.remove('open');
+          toggle.classList.remove('open');
         }
       });
       document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') { panel.classList.remove('open'); toggle.classList.remove('open'); }
+        if (e.key === 'Escape') {
+          panel.classList.remove('open');
+          toggle.classList.remove('open');
+        }
       });
     }
 
-    // Edit-mode iframe bridge (kept for compatibility)
-    window.addEventListener('message', e => {
-      if (e.data?.type === '__activate_edit_mode')   panel?.classList.add('open');
-      if (e.data?.type === '__deactivate_edit_mode') panel?.classList.remove('open');
-    });
-    try { window.parent !== window && window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
-
-    document.querySelectorAll('.swatch').forEach(s => {
-      if (s.dataset.theme === defaults.theme) s.classList.add('active');
-      s.addEventListener('click', () => {
-        document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active'));
-        s.classList.add('active');
-        applyTheme(s.dataset.theme);
-        try { const t=JSON.parse(localStorage.getItem('blog_tweaks')||'{}'); t.theme=s.dataset.theme; localStorage.setItem('blog_tweaks',JSON.stringify(t)); } catch(e){}
-        window.parent.postMessage({type:'__edit_mode_set_keys', edits:{theme:s.dataset.theme}}, '*');
-      });
-    });
-
     const pc = document.getElementById('petal-count');
     if (pc) {
-      pc.value = defaults.petalCount;
+      pc.value = defaults.petalCount || 12;
       pc.addEventListener('input', e => {
-        const v=+e.target.value; spawnPetals(v);
-        try { const t=JSON.parse(localStorage.getItem('blog_tweaks')||'{}'); t.petalCount=v; localStorage.setItem('blog_tweaks',JSON.stringify(t)); } catch(e){}
-        window.parent.postMessage({type:'__edit_mode_set_keys', edits:{petalCount:v}}, '*');
+        const v = +e.target.value;
+        spawnPetals(v);
+        saveTweaks({ petalCount: v });
       });
     }
   }
 
   window.initShared = initShared;
   window.spawnPetals = spawnPetals;
-  window.applyBlogTheme = applyTheme;
 })();

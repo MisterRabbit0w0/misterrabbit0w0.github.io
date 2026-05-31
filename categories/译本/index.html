@@ -14,125 +14,251 @@
 <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="织星 · Astraea">
 <link rel="icon" href="/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/400-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/700-italic.css">
 <link rel="stylesheet" href="/css/shared.css">
 <link rel="stylesheet" href="/css/page.css">
 
 <meta name="generator" content="Hexo 8.1.1"></head>
-<body>
+<body class="">
 
 
 <div class="petals" id="petals"></div>
 
 <div class="page">
   
-<nav>
-  <a href="/" class="nav-logo">✦ Astraea</a>
-  <div class="nav-links">
+<nav class="site-nav">
+  <a href="/" class="nav-logo">Astraea</a>
+
+  <div class="nav-center">
     
-      <a href="/">首页</a>
+      <a href="/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+
+
+        <span>Home</span>
+      </a>
     
-      <a href="/archives/">文章</a>
+      <a href="/archives/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+
+
+        <span>Writing</span>
+      </a>
     
-      <a href="/projects/">项目</a>
+      <a href="/projects/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect x="2" y="8" width="20" height="13" rx="2"/></svg>
+
+
+        <span>Projects</span>
+      </a>
     
-      <a href="/about/">关于</a>
-    
+  </div>
+
+  <div class="nav-actions">
+    <div class="theme-switch" role="group" aria-label="主题模式">
+      <button type="button" class="theme-switch-btn" data-theme-mode="light" aria-label="浅色模式" title="浅色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="dark" aria-label="深色模式" title="深色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="system" aria-label="跟随系统" title="跟随系统">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+
+
+      </button>
+    </div>
   </div>
 </nav>
 
 
   
 
-<div class="page-hero">
-  <div class="page-hero-left">
-    <h1>全部文章</h1>
-    <p>记录技术、工具、算法与日常思考</p>
-  </div>
-  <div class="article-count">2 <span>篇</span></div>
-</div>
+<div class="writing-layout">
+  <aside class="filter-panel">
+    <div class="filter-card">
+      <div class="filter-card-title">搜索</div>
+      <div class="search-wrap search-wrap-compact">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" placeholder="搜索标题、标签…" id="search-input" autocomplete="off">
+      </div>
+    </div>
 
-<div class="search-wrap">
-  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-  <input type="text" placeholder="搜索文章标题、标签…" id="search-input">
-</div>
+    <div class="filter-card">
+      <div class="filter-card-title">排序</div>
+      <select id="sort-select" class="filter-select">
+        <option value="newest">最新优先</option>
+        <option value="oldest">最早优先</option>
+      </select>
+    </div>
 
+    
+    <div class="filter-card">
+      <div class="filter-card-title">Topics</div>
+      <div class="topic-list" id="topic-list">
+        
+          <label class="topic-item">
+            <input type="checkbox" value="CSS" class="topic-check">
+            <span>CSS</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="Hexo" class="topic-check">
+            <span>Hexo</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="KaTeX" class="topic-check">
+            <span>KaTeX</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="VitePress" class="topic-check">
+            <span>VitePress</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="oklch" class="topic-check">
+            <span>oklch</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="工具" class="topic-check">
+            <span>工具</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="算法" class="topic-check">
+            <span>算法</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="译本" class="topic-check">
+            <span>译本</span>
+          </label>
+        
+      </div>
+    </div>
+    
+  </aside>
 
-<div class="filter-bar">
-  <button class="filter-btn active" data-cat="all">全部</button>
-  
-    <button class="filter-btn" data-cat="CSS">CSS</button>
-  
-    <button class="filter-btn" data-cat="Hexo">Hexo</button>
-  
-    <button class="filter-btn" data-cat="KaTeX">KaTeX</button>
-  
-    <button class="filter-btn" data-cat="VitePress">VitePress</button>
-  
-    <button class="filter-btn" data-cat="oklch">oklch</button>
-  
-    <button class="filter-btn" data-cat="工具">工具</button>
-  
-    <button class="filter-btn" data-cat="算法">算法</button>
-  
-    <button class="filter-btn" data-cat="译本">译本</button>
-  
-</div>
+  <div class="writing-main">
+    <div class="page-hero page-hero-compact">
+      <div class="page-hero-left">
+        <h1>Writing</h1>
+        <p>记录技术、工具、算法与日常思考</p>
+      </div>
+      <div class="article-count">2 <span>篇</span></div>
+    </div>
 
-
-<div id="article-list">
-  
-    <div class="year-group" data-year="2026">
-      <div class="year-label">2026</div>
+    <div id="article-list" class="article-list" data-sort="newest">
       
-      <a href="/2026/04/20/2026-04-20-little-book-of-algorithms-zh/" class="article-row">
-        <div class="article-row-date">04 · 20</div>
-        <div class="article-row-body">
-          <div class="article-row-title">《小小算法书》中文版上线</div>
-          <div class="article-row-excerpt">花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 misterrabbit0w0.github.io&amp;#x2F;little-book-of-alg…</div>
-          <div class="article-row-meta">
-            <span class="tag tag-gold">译本</span>
-            
-              <span class="tag tag-pink">算法</span>
-            
-              <span class="tag tag-pink">KaTeX</span>
-            
-              <span class="tag tag-pink">VitePress</span>
-            
-            
-          </div>
+        <div class="year-group" data-year="2026">
+          <div class="year-label">2026</div>
+          
+          <a href="/2026/04/20/2026-04-20-little-book-of-algorithms-zh/" class="article-row" data-date="1776650400000" data-topics="译本|算法|KaTeX|VitePress">
+            <div class="article-row-icon" aria-hidden="true">
+              
+
+<svg class="article-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+
+
+            </div>
+            <div class="article-row-body">
+              <div class="article-row-title">《小小算法书》中文版上线</div>
+              <div class="article-row-excerpt">花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 misterrabbit0w0.github.io&amp;#x2F;little-book-of-alg…</div>
+              <div class="article-row-meta">
+                <span class="article-row-date">04 · 20</span>
+                <span class="tag tag-gold">译本</span>
+                
+                  <span class="tag tag-pink">算法</span>
+                
+                  <span class="tag tag-pink">KaTeX</span>
+                
+                  <span class="tag tag-pink">VitePress</span>
+                
+                
+              </div>
+            </div>
+            <div class="article-row-right">
+              <span class="read-time">1 min</span>
+            </div>
+          </a>
+          
         </div>
-        <div class="article-row-right">
-          <span class="read-time">1 min</span>
-        </div>
-      </a>
       
     </div>
-  
+
+    
+  </div>
 </div>
 
-
-
 <script>
-// Filter
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.cat;
+(function() {
+  const searchInput = document.getElementById('search-input');
+  const sortSelect = document.getElementById('sort-select');
+  const topicChecks = document.querySelectorAll('.topic-check');
+  const list = document.getElementById('article-list');
+
+  function selectedTopics() {
+    return Array.from(topicChecks).filter(c => c.checked).map(c => c.value);
+  }
+
+  function applyFilters() {
+    const q = (searchInput?.value || '').toLowerCase();
+    const topics = selectedTopics();
+
     document.querySelectorAll('.article-row').forEach(row => {
-      if (cat === 'all') { row.style.display = ''; return; }
-      const tags = Array.from(row.querySelectorAll('.tag')).map(t => t.textContent.trim());
-      row.style.display = tags.includes(cat) ? '' : 'none';
+      const text = row.textContent.toLowerCase();
+      const rowTopics = (row.dataset.topics || '').split('|').filter(Boolean);
+      const matchSearch = !q || text.includes(q);
+      const matchTopic = topics.length === 0 || topics.some(t => rowTopics.includes(t));
+      row.style.display = matchSearch && matchTopic ? '' : 'none';
     });
-  });
-});
-// Search
-document.getElementById('search-input').addEventListener('input', e => {
-  const q = e.target.value.toLowerCase();
-  document.querySelectorAll('.article-row').forEach(row => {
-    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
-  });
-});
+
+    document.querySelectorAll('.year-group').forEach(group => {
+      const visible = Array.from(group.querySelectorAll('.article-row')).some(r => r.style.display !== 'none');
+      group.style.display = visible ? '' : 'none';
+    });
+  }
+
+  function applySort() {
+    const mode = sortSelect?.value || 'newest';
+    list.dataset.sort = mode;
+    document.querySelectorAll('.year-group').forEach(group => {
+      const rows = Array.from(group.querySelectorAll('.article-row'));
+      rows.sort((a, b) => {
+        const da = Number(a.dataset.date);
+        const db = Number(b.dataset.date);
+        return mode === 'oldest' ? da - db : db - da;
+      });
+      rows.forEach(r => group.appendChild(r));
+    });
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+  topicChecks.forEach(c => c.addEventListener('change', applyFilters));
+  sortSelect?.addEventListener('change', () => { applySort(); applyFilters(); });
+})();
 </script>
 
 
@@ -140,29 +266,20 @@ document.getElementById('search-input').addEventListener('input', e => {
   <footer>
   <span>© 2026 织星 / Astraea · build with love and code</span>
   <span>
-    <a href="/atom.xml">RSS</a> · <a href="/sitemap.xml">Sitemap</a>
+    <a href="/about/">关于</a> · <a href="/atom.xml">RSS</a> · <a href="/sitemap.xml">Sitemap</a>
   </span>
 </footer>
 
 </div>
 
-<button id="tweaks-toggle" type="button" aria-label="主题设置" title="主题设置">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<button id="tweaks-toggle" type="button" aria-label="站点设置" title="站点设置">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="3"/>
     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
   </svg>
 </button>
 <div id="tweaks-panel">
-  <div class="tweaks-title">✦ Tweaks</div>
-  <div class="tweak-row">
-    <div class="tweak-label">主题色</div>
-    <div class="tweak-swatch-row">
-      <div class="swatch" data-theme="pink" style="background:linear-gradient(135deg,#f9a8d4,#c4b5fd)" title="樱花粉"></div>
-      <div class="swatch" data-theme="blue" style="background:linear-gradient(135deg,#93c5fd,#6ee7b7)" title="天空蓝"></div>
-      <div class="swatch" data-theme="gold" style="background:linear-gradient(135deg,#fde68a,#f9a8d4)" title="暖阳橙"></div>
-      <div class="swatch" data-theme="dark" style="background:linear-gradient(135deg,#1e1b4b,#312e81)" title="深夜紫"></div>
-    </div>
-  </div>
+  <div class="tweaks-title">站点设置</div>
   <div class="tweak-row">
     <div class="tweak-label">花瓣数量</div>
     <input type="range" id="petal-count" min="0" max="30" value="12" style="width:100%;accent-color:var(--pink)">
@@ -171,10 +288,19 @@ document.getElementById('search-input').addEventListener('input', e => {
 
 
 <script src="/js/shared.js"></script>
+
 <script>
   initShared({
     petalCount: 12,
-    theme: 'pink'
+    themeMode: 'system',
+    statusCard: {
+      enable: true,
+      discordId: '1061262757078511706',
+      username: 'misterrabbit0w0',
+      location: '织星阁',
+      defaultAct: '编织星光中...',
+      defaultDetail: 'ovo'
+    }
   });
 </script>
 </body>

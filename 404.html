@@ -14,50 +14,97 @@
 <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="织星 · Astraea">
 <link rel="icon" href="/favicon.ico">
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/400-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/700-italic.css">
 <link rel="stylesheet" href="/css/shared.css">
 <link rel="stylesheet" href="/css/page.css">
 
 <meta name="generator" content="Hexo 8.1.1"></head>
-<body>
+<body class="">
 
 
 <div class="petals" id="petals"></div>
 
 <div class="page">
   
-<nav>
-  <a href="/" class="nav-logo">✦ Astraea</a>
-  <div class="nav-links">
+<nav class="site-nav">
+  <a href="/" class="nav-logo">Astraea</a>
+
+  <div class="nav-center">
     
-      <a href="/">首页</a>
+      <a href="/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+
+
+        <span>Home</span>
+      </a>
     
-      <a href="/archives/">文章</a>
+      <a href="/archives/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+
+
+        <span>Writing</span>
+      </a>
     
-      <a href="/projects/">项目</a>
+      <a href="/projects/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect x="2" y="8" width="20" height="13" rx="2"/></svg>
+
+
+        <span>Projects</span>
+      </a>
     
-      <a href="/about/">关于</a>
-    
+  </div>
+
+  <div class="nav-actions">
+    <div class="theme-switch" role="group" aria-label="主题模式">
+      <button type="button" class="theme-switch-btn" data-theme-mode="light" aria-label="浅色模式" title="浅色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="dark" aria-label="深色模式" title="深色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="system" aria-label="跟随系统" title="跟随系统">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+
+
+      </button>
+    </div>
   </div>
 </nav>
 
 
   <div class="notfound">
-  <div class="notfound-badge">✦ 404 · Not Found</div>
-  <div class="notfound-num" aria-hidden="true">
-    <span>4</span><span class="nf-petal">✦</span><span>4</span>
-  </div>
+  <div class="notfound-badge">404 · Not Found</div>
+  <div class="notfound-num" aria-hidden="true">404</div>
   <h1 class="notfound-title">这里什么都没有</h1>
   <p class="notfound-bio">
-    你要找的页面可能已经搬家、改名，或者从来就没存在过。<br>
-    不如回首页看看？
+    你要找的页面可能已经搬家、改名，或者从来就没存在过。
   </p>
   <div class="notfound-actions">
-    <a href="/" class="link-btn">← 回到首页</a>
-    <a href="/archives/" class="link-btn link-btn-ghost">翻翻文章</a>
-    <a href="/projects/" class="link-btn link-btn-ghost">看看项目</a>
+    <a href="/" class="link-btn">回到首页</a>
+    <a href="/archives/" class="link-btn link-btn-ghost">Writing</a>
+    <a href="/projects/" class="link-btn link-btn-ghost">Projects</a>
   </div>
   <div class="notfound-hint">
-    如果你觉得这是个 bug，可以到
+    若你认为这是个 bug，可以到
     <a href="https://github.com/misterrabbit0w0/misterrabbit0w0.github.io/issues" target="_blank" rel="noopener">GitHub issues</a>
     留言。
   </div>
@@ -67,29 +114,20 @@
   <footer>
   <span>© 2026 织星 / Astraea · build with love and code</span>
   <span>
-    <a href="/atom.xml">RSS</a> · <a href="/sitemap.xml">Sitemap</a>
+    <a href="/about/">关于</a> · <a href="/atom.xml">RSS</a> · <a href="/sitemap.xml">Sitemap</a>
   </span>
 </footer>
 
 </div>
 
-<button id="tweaks-toggle" type="button" aria-label="主题设置" title="主题设置">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<button id="tweaks-toggle" type="button" aria-label="站点设置" title="站点设置">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
     <circle cx="12" cy="12" r="3"/>
     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
   </svg>
 </button>
 <div id="tweaks-panel">
-  <div class="tweaks-title">✦ Tweaks</div>
-  <div class="tweak-row">
-    <div class="tweak-label">主题色</div>
-    <div class="tweak-swatch-row">
-      <div class="swatch" data-theme="pink" style="background:linear-gradient(135deg,#f9a8d4,#c4b5fd)" title="樱花粉"></div>
-      <div class="swatch" data-theme="blue" style="background:linear-gradient(135deg,#93c5fd,#6ee7b7)" title="天空蓝"></div>
-      <div class="swatch" data-theme="gold" style="background:linear-gradient(135deg,#fde68a,#f9a8d4)" title="暖阳橙"></div>
-      <div class="swatch" data-theme="dark" style="background:linear-gradient(135deg,#1e1b4b,#312e81)" title="深夜紫"></div>
-    </div>
-  </div>
+  <div class="tweaks-title">站点设置</div>
   <div class="tweak-row">
     <div class="tweak-label">花瓣数量</div>
     <input type="range" id="petal-count" min="0" max="30" value="12" style="width:100%;accent-color:var(--pink)">
@@ -98,10 +136,19 @@
 
 
 <script src="/js/shared.js"></script>
+
 <script>
   initShared({
     petalCount: 12,
-    theme: 'pink'
+    themeMode: 'system',
+    statusCard: {
+      enable: true,
+      discordId: '1061262757078511706',
+      username: 'misterrabbit0w0',
+      location: '织星阁',
+      defaultAct: '编织星光中...',
+      defaultDetail: 'ovo'
+    }
   });
 </script>
 </body>
