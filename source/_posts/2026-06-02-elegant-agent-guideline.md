@@ -1,0 +1,130 @@
+---
+title: 如何优雅地使用 Agent
+date: 2026-06-02 10:00:00
+categories: [AI]
+tags: [Agent, Prompt Engineering]
+---
+
+这篇文章属于半扫盲性质的 agent 使用说明，小白也可放心食用~
+
+---
+
+在聊如何使用之前，我们先来了解一些基础概念。
+
+## Agent 是什么？
+
+先来认识几个名词
+
+> agent n. 代理人；代理商；经纪人\
+> model n. 模型；模特儿；模范\
+> harness v. 利用；驾驭；控制
+
+所以可以简单地认为，agent 就是被系统驾驭的模型，能产出什么内容取决于两个方向，一是模型本身的能力，二是系统提供的能力。就好比电脑不但要有硬件，还要有操作系统和软件，才能发挥作用。
+
+---
+
+大部分人说的 ai 其实并没有区分 *model* 和 *agent*，举个例子，大部分人用的豆包，其实是一个 *agent*（可能能力较弱），它背后的模型是 `doubao-seed-2.0(-pro)`，在豆包这个软件中，模型拥有了更多的能力（比如记忆、工具调用等），所以能产出更多的内容。
+
+---
+
+目前常见的国外模型有：`claude, gemini, gpt`，有的可能还带有版本号，例如 `claude-opus-4.8`, `gpt-5.5-thinking`，`gemini-3.5-flash`。\
+命名一般会暗示模型的强度，例如 flash 版本弱于 pro，版本号越新模型一般更强（但是有的厂商会开倒车），但是两个都不相同，例如 `gemini-3.1-pro` 和 `gemini-3.5-flash`，就不太好比（我个人认为前者更强）。\
+国内的相对来说种类更多，主流的有：`deepseek`, `glm`, `kimi`, `qwen` 和 `doubao`，相关的版本规范也和国外的差不多。
+
+还有一些额外的后缀，类似 `-thinking`, `-it`，`-xxb-axb`, 等等，这里不做讲解，感兴趣的可以自行搜索。
+
+---
+
+再来谈谈有关的工具，也就是 harness，也可以称之为鞍，毕竟好马配好鞍。\
+目前最火的 agent 工具应该是 anthropic 的 `claude code`，简称 `cc`，它本身只原生支持本系列模型，不过现在有工具能方便地接入其他模型了。\
+还有类似 `codex`，`opencode`，`pi` 等一系列工具，这里就不一一举例。\
+harness 为 skills 提供了接口，skills 则拓展了 AI 的能力，例如写 word, ppt 等文档，调用浏览器或其他软件的能力。
+
+## 如何使用 agent？
+
+这一部分我会分为三节：
+
+- 如何安装 agent （安装 harness）
+- 如何接入模型
+- 如何拓展 agent 的能力（即安装 skills）
+
+### 如何安装 agent
+
+这里以 `claude code` 为例。
+
+#### 自动安装方法（推荐）
+
+打开任意一个你能连接国外网络的浏览器，搜索 `claude code`，进入官网，目前官网链接是 [这个](https://claude.com/product/claude-code)。官网的样子应该长成这样：
+![](claude-official.png)
+看到页面中间的命令了吗？把它复制下来，用你电脑上的终端（terminal），粘贴这行命令，回车，就能安装了！如果你是 Windows 用户，建议使用 PowerShell 终端，Mac 用户可以使用自带的 Terminal 终端。
+
+```bash
+irm https://claude.ai/install.ps1 | iex
+```
+
+**注意！** 永远不要运行你不知道来源的命令，尤其是涉及到 `iex` 这样的命令，因为它会执行你输入的命令，所以一定要确认命令的来源和内容。\这行命令是直接从官网复制的，可能会随着时间变化而变化，如果你发现官网上的命令和这里不一样，请以官网上的为准。
+
+等待时间可能有点久，可以给终端设置代理加速，设置代理命令为
+
+powershell
+
+```bash
+$env:HTTP_PROXY="your_proxy_url"; $env:HTTPS_PROXY="your_proxy_url"
+```
+
+cmd
+
+```bash
+set http_proxy=your_proxy_url
+set https_proxy=your_proxy_url
+```
+
+上述命令只在当前终端会话中生效，如果关闭终端后再打开，就需要重新设置一次。
+
+#### 手动安装方法
+
+如果自动安装方法遇到了问题，可以使用以下手动安装方法。
+
+首先，安装 Node.js，官网链接是 [这个](https://nodejs.org/)，下载并安装最新的 LTS 版本。
+
+安装完成后，打开终端，先验证 Node.js 是否安装成功，输入以下命令：
+
+```bash
+node -v
+```
+
+如果显示了版本号，说明 Node.js 安装成功了。接下来，安装 `claude code`，输入以下命令：
+
+```bash
+npm install -g @anthropic-ai/claude-code@latest
+```
+
+这一步需要的时间可能也比较久（问就是 nodejs 太臃肿），安装完成后，输入以下命令验证是否安装成功：
+
+```bash
+claude --version
+```
+
+如果显示了版本号，说明 `claude code` 安装成功了，就可以进行下一步啦。
+
+### 如何接入模型
+
+目前，国内想要用到完整的 claude/gpt/gemini 模型相对困难，这里给出用 deepseek 官方模型的示例，其他模型的接入方法大同小异。
+
+**本教程不会对任何所谓 *中转站* 做出推荐和评价，也不会为任何因使用中转站而导致的问题负责，请自行判断和选择。**
+
+#### 安装 cc-switch （推荐）
+
+cc-switch 相当于一个懒人包，可以方便接入各种模型。可自行前往 [Github Release](https://github.com/farion1231/cc-switch/releases/latest) 页面下载对应版本并安装。
+
+首先，打开 deepseek 的官网，注册并登录你的账号。进入 [API 开放平台](https://platform.deepseek.com/)。
+
+![](deepseek-official.png)
+
+所有 agent 工具的使用都需要用到 API key，这个和网页端使用不一样，不是免费的！你必须先给模型厂商充值，才能使用 API key 调用他们的模型。一般 deepseek 充值 10 块左右就能用很久。
+
+然后在 [API keys](https://platform.deepseek.com/api_keys) 页面，选择创建 API key，输入名字（比如 claude-code），点击创建，就能看到你的 API key 了。
+
+![](api-key.png)
+
+**注意！** deepseek 的 API key 只在创建时可见，所以一定妥善保管，如果不小心丢失了，请立即删除此 API key 并重新创建。API key 是非常敏感的信息，一旦其他人获得了 API key，他们就能使用你的余额访问模型，就好比你的银行卡密码一样，千万不要泄露给任何人，包括我！如果不小心泄露了，请立即删除此 API key 并重新创建。

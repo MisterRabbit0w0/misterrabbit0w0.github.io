@@ -338,6 +338,112 @@
     })();
   }
 
+  function getCodeText(codeEl) {
+    return (codeEl.innerText || codeEl.textContent || '').replace(/\n$/, '');
+  }
+
+  async function copyText(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+  }
+
+  function attachCopyButton(toolbar, codeEl) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'code-copy-btn';
+    btn.setAttribute('aria-label', '复制代码');
+    btn.innerHTML =
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<rect x="9" y="9" width="13" height="13" rx="2"/>' +
+      '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>' +
+      '</svg><span class="code-copy-label">复制</span>';
+
+    btn.addEventListener('click', async () => {
+      const ok = await copyText(getCodeText(codeEl));
+      const label = btn.querySelector('.code-copy-label');
+      if (!label) return;
+      const prev = label.textContent;
+      label.textContent = ok ? '已复制' : '失败';
+      btn.classList.toggle('copied', ok);
+      window.setTimeout(() => {
+        label.textContent = prev;
+        btn.classList.remove('copied');
+      }, 1600);
+    });
+
+    toolbar.appendChild(btn);
+  }
+
+  function buildCodeBlockHeader(lang) {
+    const header = document.createElement('div');
+    header.className = 'code-block-header';
+    header.innerHTML =
+      '<div class="code-block-dots" aria-hidden="true"><span></span><span></span><span></span></div>' +
+      '<div class="code-block-actions"></div>';
+
+    if (lang) {
+      const langEl = document.createElement('span');
+      langEl.className = 'code-block-lang';
+      langEl.textContent = lang;
+      header.querySelector('.code-block-actions').appendChild(langEl);
+    }
+
+    return header;
+  }
+
+  function wrapCodeBlock(block, codeEl, lang) {
+    if (block.parentElement?.classList.contains('code-block-wrap')) return;
+    if (block.closest('.code-block-wrap')) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'code-block-wrap';
+    const header = buildCodeBlockHeader(lang);
+    attachCopyButton(header.querySelector('.code-block-actions'), codeEl);
+
+    block.parentNode.insertBefore(wrap, block);
+    wrap.appendChild(header);
+    wrap.appendChild(block);
+  }
+
+  function initCodeBlocks() {
+    document.querySelectorAll('pre > code[class*="highlight"]').forEach(code => {
+      const pre = code.parentElement;
+      if (!pre || pre.closest('figure.highlight')) return;
+      const lang = Array.from(code.classList).find(c => c !== 'highlight');
+      wrapCodeBlock(pre, code, lang);
+    });
+
+    document.querySelectorAll('figure.highlight').forEach(fig => {
+      if (fig.querySelector('.code-block-wrap')) return;
+      const code = fig.querySelector('code');
+      const pre = fig.querySelector('pre');
+      const codeEl = code || pre;
+      if (!codeEl) return;
+      const lang = Array.from(fig.classList).find(c => c !== 'highlight');
+      wrapCodeBlock(fig, codeEl, lang);
+    });
+
+    document.querySelectorAll('.post-body > pre:not(.code-block-wrap pre)').forEach(pre => {
+      if (pre.closest('.code-block-wrap')) return;
+      const code = pre.querySelector('code') || pre;
+      wrapCodeBlock(pre, code, '');
+    });
+  }
+
   function initShared(defaults) {
     defaults = defaults || { petalCount: 12, themeMode: 'system' };
 
@@ -347,6 +453,7 @@
     } catch (e) {}
 
     spawnPetals(defaults.petalCount || 12);
+    initCodeBlocks();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
     initLiveStatus(defaults.statusCard);
 

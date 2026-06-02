@@ -67,7 +67,7 @@
 
     <% var coverImg = page.cover || (theme.brand && theme.brand.banner); %>
     <% if (coverImg) { %>
-    <div class="post-cover" style="background-image:url('<%- url_for(coverImg) %>')"></div>
+    <img class="post-cover" src="<%- url_for(coverImg) %>" alt="<%= page.title %>" loading="lazy" decoding="async">
     <% } %>
 
     <div class="post-body">

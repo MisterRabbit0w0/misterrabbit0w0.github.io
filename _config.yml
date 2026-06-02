@@ -40,15 +40,20 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
+
+# Resolve ![](pic.jpg) in post asset folders (requires post_asset_folder)
+marked:
+  prependRoot: true
+  postAsset: true
 future: true
 syntax_highlighter: highlight.js
 highlight:
-  line_number: true
+  line_number: false
   auto_detect: false
-  tab_replace: ''
-  wrap: true
+  tab_replace: '  '
+  wrap: false
   hljs: false
 prismjs:
   preprocess: true
