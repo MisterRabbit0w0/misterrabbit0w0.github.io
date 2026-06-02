@@ -63,3 +63,4 @@ footer:
 effects:
   petals: 12
   theme: "system"
+  cursor: true

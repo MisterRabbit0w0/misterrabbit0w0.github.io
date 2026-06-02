@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<%= config.language || 'zh-CN' %>">
+<html lang="<%= config.language || 'zh-CN' %>" class="<% if (theme.effects && theme.effects.cursor !== false) { %>has-theme-cursor<% } %>">
 <head>
   <%- partial('_partial/head') %>
 </head>
@@ -33,6 +33,7 @@
   initShared({
     petalCount: <%= theme.effects && theme.effects.petals || 12 %>,
     themeMode: '<%= (theme.effects && theme.effects.theme) || "system" %>',
+    cursorFx: <%= theme.effects && theme.effects.cursor !== false %>,
     statusCard: {
       enable: <%= !!(theme.hero && theme.hero.status_card && theme.hero.status_card.enable) %>,
       discordId: '<%= (theme.hero && theme.hero.status_card && theme.hero.status_card.discord_id) || "" %>',

@@ -10,4 +10,10 @@
     <div class="tweak-label">花瓣数量</div>
     <input type="range" id="petal-count" min="0" max="30" value="<%= theme.effects && theme.effects.petals || 12 %>" style="width:100%;accent-color:var(--pink)">
   </div>
+  <div class="tweak-row tweak-row-check">
+    <label class="tweak-check">
+      <input type="checkbox" id="cursor-fx"<% if (theme.effects && theme.effects.cursor !== false) { %> checked<% } %>>
+      <span>主题光标（圆润樱花粉样式）</span>
+    </label>
+  </div>
 </div>
