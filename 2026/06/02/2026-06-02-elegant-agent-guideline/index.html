@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>如何优雅地使用 Agent — 织星 · Astraea</title>
+
+<meta name="description" content="算法、工具、前端、日常">
+
+
+<meta name="keywords" content="算法,前端,工具,开源">
+
+<meta name="theme-color" content="#f9a8d4">
+<link rel="alternate" type="application/atom+xml" href="/atom.xml" title="织星 · Astraea">
+<link rel="icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/400-italic.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/maple-mono@5.2.6/700-italic.css">
+<link rel="stylesheet" href="/css/shared.css">
+<link rel="stylesheet" href="/css/page.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+<body class="has-sidebar">
+
+<div id="read-progress"></div>
+<div class="petals" id="petals"></div>
+
+<div class="page page-wide">
+  
+<nav class="site-nav">
+  <a href="/" class="nav-logo">Astraea</a>
+
+  <div class="nav-center">
+    
+      <a href="/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+
+
+        <span>Home</span>
+      </a>
+    
+      <a href="/archives/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+
+
+        <span>Writing</span>
+      </a>
+    
+      <a href="/projects/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect x="2" y="8" width="20" height="13" rx="2"/></svg>
+
+
+        <span>Projects</span>
+      </a>
+    
+  </div>
+
+  <div class="nav-actions">
+    <div class="theme-switch" role="group" aria-label="主题模式">
+      <button type="button" class="theme-switch-btn" data-theme-mode="light" aria-label="浅色模式" title="浅色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="dark" aria-label="深色模式" title="深色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="system" aria-label="跟随系统" title="跟随系统">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+
+
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="post-layout">
+  <article>
+    <div class="post-header">
+      <div class="post-breadcrumb">
+        <a href="/archives/">Writing</a>
+         / <a href="/categories/AI/">AI</a>
+      </div>
+      <h1>如何优雅地使用 Agent</h1>
+      <div class="post-info">
+        <span class="post-info-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          2026 · 06 · 02
+        </span>
+        <span class="post-info-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          5 min 阅读
+        </span>
+        
+        <span class="post-info-item">更新于 2026 · 06 · 02</span>
+        
+      </div>
+      <div class="post-tags">
+        <span class="tag tag-pink">AI</span>
+        <span class="tag tag-pink">Agent</span><span class="tag tag-pink">Prompt Engineering</span>
+      </div>
+    </div>
+
+    
+    
+    <img class="post-cover" src="https://t.alcy.cc/pc" alt="如何优雅地使用 Agent" loading="lazy" decoding="async">
+    
+
+    <div class="post-body">
+      <p>这篇文章属于半扫盲性质的 agent 使用说明，小白也可放心食用~</p>
+<hr>
+<p>在聊如何使用之前，我们先来了解一些基础概念。</p>
+<h2 id="Agent-是什么？"><a href="#Agent-是什么？" class="headerlink" title="Agent 是什么？"></a>Agent 是什么？</h2><p>先来认识几个名词</p>
+<blockquote>
+<p>agent n. 代理人；代理商；经纪人<br>model n. 模型；模特儿；模范<br>harness v. 利用；驾驭；控制</p>
+</blockquote>
+<p>所以可以简单地认为，agent 就是被系统驾驭的模型，能产出什么内容取决于两个方向，一是模型本身的能力，二是系统提供的能力。就好比电脑不但要有硬件，还要有操作系统和软件，才能发挥作用。</p>
+<hr>
+<p>大部分人说的 ai 其实并没有区分 <em>model</em> 和 <em>agent</em>，举个例子，大部分人用的豆包，其实是一个 <em>agent</em>（可能能力较弱），它背后的模型是 <code>doubao-seed-2.0(-pro)</code>，在豆包这个软件中，模型拥有了更多的能力（比如记忆、工具调用等），所以能产出更多的内容。</p>
+<hr>
+<p>目前常见的国外模型有：<code>claude, gemini, gpt</code>，有的可能还带有版本号，例如 <code>claude-opus-4.8</code>, <code>gpt-5.5-thinking</code>，<code>gemini-3.5-flash</code>。<br>命名一般会暗示模型的强度，例如 flash 版本弱于 pro，版本号越新模型一般更强（但是有的厂商会开倒车）。当版本号和档位都不同时就不太好比，例如 <code>gemini-3.1-pro</code> 和 <code>gemini-3.5-flash</code>（我个人认为前者更强）。<br>国内的相对来说种类更多，主流的有：<code>deepseek</code>, <code>glm</code>, <code>kimi</code>, <code>qwen</code> 和 <code>doubao</code>，相关的版本规范也和国外的差不多。</p>
+<p>还有一些额外的后缀，类似 <code>-thinking</code>, <code>-it</code>，<code>-xxb-axb</code>, 等等，这里不做讲解，感兴趣的可以自行搜索。</p>
+<hr>
+<p>再来谈谈有关的工具，也就是 harness，也可以称之为鞍，毕竟好马配好鞍。<br>目前最火的 agent 工具应该是 anthropic 的 <code>claude code</code>，简称 <code>cc</code>，它本身只原生支持本系列模型，不过现在有工具能方便地接入其他模型了。<br>还有类似 <code>codex</code>，<code>opencode</code>，<code>pi</code> 等一系列工具，这里就不一一举例。<br>harness 为 skills 提供了接口，skills 则拓展了 AI 的能力，例如写 word, ppt 等文档，调用浏览器或其他软件的能力。</p>
+<h2 id="如何使用-agent？"><a href="#如何使用-agent？" class="headerlink" title="如何使用 agent？"></a>如何使用 agent？</h2><p>这一部分我会分为三节：</p>
+<ul>
+<li>如何安装 agent （安装 harness）</li>
+<li>如何接入模型</li>
+<li>如何拓展 agent 的能力（即安装 skills）</li>
+</ul>
+<h3 id="如何安装-agent"><a href="#如何安装-agent" class="headerlink" title="如何安装 agent"></a>如何安装 agent</h3><p>这里以 <code>claude code</code> 为例。</p>
+<h4 id="自动安装方法（推荐）"><a href="#自动安装方法（推荐）" class="headerlink" title="自动安装方法（推荐）"></a>自动安装方法（推荐）</h4><p>打开任意一个你能连接国外网络的浏览器，搜索 <code>claude code</code>，进入官网，目前官网链接是 <a target="_blank" rel="noopener" href="https://claude.com/product/claude-code">这个</a>。官网的样子应该长成这样：</p>
+<p><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/claude-official.png" alt="Claude Code 官网首页"></p>
+<p>看到页面中间的命令了吗？把它复制下来，用你电脑上的终端（terminal），粘贴这行命令，回车，就能安装了！如果你是 Windows 用户，建议使用 PowerShell 终端，Mac 用户可以使用自带的 Terminal 终端。</p>
+<p>Windows（PowerShell）：</p>
+<pre><code class="highlight powershell"><span class="built_in">irm</span> https://claude.ai/install.ps1 | <span class="built_in">iex</span></code></pre>
+
+<p>macOS &#x2F; Linux：</p>
+<pre><code class="highlight bash">curl -fsSL https://claude.ai/install.sh | bash</code></pre>
+
+<p><strong>注意！</strong> 永远不要运行你不知道来源的命令，尤其是涉及到 <code>iex</code> 这样的命令，因为它会执行你输入的命令，所以一定要确认命令的来源和内容。这行命令是直接从官网复制的，可能会随着时间变化而变化，如果你发现官网上的命令和这里不一样，请以官网上的为准。</p>
+<p>等待时间可能有点久，可以给终端设置代理加速，设置代理命令为</p>
+<p>PowerShell：</p>
+<pre><code class="highlight powershell"><span class="variable">$env:HTTP_PROXY</span>=<span class="string">&quot;your_proxy_url&quot;</span>; <span class="variable">$env:HTTPS_PROXY</span>=<span class="string">&quot;your_proxy_url&quot;</span></code></pre>
+
+<p>cmd：</p>
+<pre><code class="highlight bat"><span class="built_in">set</span> http_proxy=your_proxy_url
+<span class="built_in">set</span> https_proxy=your_proxy_url</code></pre>
+
+<p>上述命令只在当前终端会话中生效，如果关闭终端后再打开，就需要重新设置一次。</p>
+<h4 id="手动安装方法"><a href="#手动安装方法" class="headerlink" title="手动安装方法"></a>手动安装方法</h4><p>如果自动安装方法遇到了问题，可以使用以下手动安装方法。</p>
+<p>首先，安装 Node.js，官网链接是 <a target="_blank" rel="noopener" href="https://nodejs.org/">这个</a>，下载并安装最新的 LTS 版本。</p>
+<p>安装完成后，打开终端，先验证 Node.js 是否安装成功，输入以下命令：</p>
+<pre><code class="highlight bash">node -v</code></pre>
+
+<p>如果显示了版本号，说明 Node.js 安装成功了。接下来，安装 <code>claude code</code>，输入以下命令：</p>
+<pre><code class="highlight bash">npm install -g @anthropic-ai/claude-code@latest</code></pre>
+
+<p>这一步需要的时间可能也比较久（问就是 nodejs 太臃肿），安装完成后，输入以下命令验证是否安装成功：</p>
+<pre><code class="highlight bash">claude --version</code></pre>
+
+<p>如果显示了版本号，说明 <code>claude code</code> 安装成功了，就可以进行下一步啦。</p>
+<h3 id="如何接入模型"><a href="#如何接入模型" class="headerlink" title="如何接入模型"></a>如何接入模型</h3><p>目前，国内想要用到完整的 claude&#x2F;gpt&#x2F;gemini 模型相对困难，这里给出用 deepseek 官方模型的示例，其他模型的接入方法大同小异。</p>
+<p><strong>本教程不会对任何所谓 <em>中转站</em> 做出推荐和评价，也不会为任何因使用中转站而导致的问题负责，请自行判断和选择。</strong></p>
+<h4 id="安装-cc-switch-（推荐）"><a href="#安装-cc-switch-（推荐）" class="headerlink" title="安装 cc-switch （推荐）"></a>安装 cc-switch （推荐）</h4><p>cc-switch 相当于一个懒人包，可以方便接入各种模型。可自行前往 <a target="_blank" rel="noopener" href="https://github.com/farion1231/cc-switch/releases/latest">Github Release</a> 页面下载对应版本并安装。</p>
+<p>首先，打开 deepseek 的官网，注册并登录你的账号。进入 <a target="_blank" rel="noopener" href="https://platform.deepseek.com/">API 开放平台</a>。</p>
+<p><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/deepseek-official.png" alt="DeepSeek API 开放平台"></p>
+<p>所有 agent 工具的使用都需要用到 API key，这个和网页端使用不一样，不是免费的！（可能有免费渠道，但请自己甄别）你必须先给模型厂商充值，才能使用 API key 调用他们的模型。一般 deepseek 充值 10 块左右就能用很久。</p>
+<p>然后在 <a target="_blank" rel="noopener" href="https://platform.deepseek.com/api_keys">API keys</a> 页面，选择创建 API key，输入名字（比如 claude-code），点击创建，就能看到你的 API key 了。</p>
+<p><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/api-key.png" alt="创建 DeepSeek API key"></p>
+<p><strong>注意！</strong> deepseek 的 API key 只在创建时可见，所以一定妥善保管，如果不小心丢失了，请立即删除此 API key 并重新创建。API key 是非常敏感的信息，一旦其他人获得了 API key，他们就能使用你的余额访问模型，就好比你的银行卡密码一样，千万不要泄露给任何人，包括我！如果不小心泄露了，请立即删除此 API key 并重新创建。</p>
+
+    </div>
+
+    <div class="post-footer-nav">
+      
+      <a href="/2026/05/31/2026-04-20-hoshino-theme/" class="nav-card prev">
+        <div class="nav-card-label">← 上一篇</div>
+        <div class="nav-card-title">博客换装：Hoshino 主题上线</div>
+      </a>
+      
+      
+      <div class="nav-card next placeholder"><div class="nav-card-label">下一篇 →</div><div class="nav-card-title">最新的文章就是这一篇</div></div>
+      
+    </div>
+  </article>
+
+  <aside class="post-sidebar">
+    
+    <div class="sidebar-card">
+      <div class="sidebar-title">目录</div>
+      <a href="#Agent-是什么？" class="toc-item toc-h2">Agent 是什么？</a><a href="#如何使用-agent？" class="toc-item toc-h2">如何使用 agent？</a><a href="#如何安装-agent" class="toc-item toc-h3">如何安装 agent</a><a href="#自动安装方法（推荐）" class="toc-item toc-h4">自动安装方法（推荐）</a><a href="#手动安装方法" class="toc-item toc-h4">手动安装方法</a><a href="#如何接入模型" class="toc-item toc-h3">如何接入模型</a><a href="#安装-cc-switch-（推荐）" class="toc-item toc-h4">安装 cc-switch （推荐）</a>
+    </div>
+    
+    <div class="sidebar-card">
+      <div class="sidebar-title">作者</div>
+      <div class="author-card">
+        <div class="author-avatar">
+          
+            <img src="/img/avatar/avatar.jpg" alt="织星">
+          
+        </div>
+        <div>
+          <div class="author-name">织星</div>
+          <div class="author-handle">@Astraea · GitHub</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+// Reading progress
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const progress = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+  const bar = document.getElementById('read-progress');
+  if (bar) bar.style.width = progress + '%';
+});
+// TOC active on scroll
+(function() {
+  const items = document.querySelectorAll('.toc-item');
+  if (!items.length) return;
+  const sections = Array.from(items).map(i => {
+    const id = i.getAttribute('href').slice(1);
+    return { el: i, target: document.getElementById(id) };
+  }).filter(s => s.target);
+  window.addEventListener('scroll', () => {
+    let active = sections[0];
+    for (const s of sections) {
+      if (s.target.getBoundingClientRect().top < 100) active = s;
+    }
+    items.forEach(i => i.classList.remove('active'));
+    if (active) active.el.classList.add('active');
+  });
+})();
+</script>
+
+
+  <footer>
+  <span>© 2026 织星 / Astraea · build with love and code</span>
+  <span>
+    <a href="/about/">关于</a> · <a href="/atom.xml">RSS</a> · <a href="/sitemap.xml">Sitemap</a>
+  </span>
+</footer>
+
+</div>
+
+<button id="tweaks-toggle" type="button" aria-label="站点设置" title="站点设置">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+</button>
+<div id="tweaks-panel">
+  <div class="tweaks-title">站点设置</div>
+  <div class="tweak-row">
+    <div class="tweak-label">花瓣数量</div>
+    <input type="range" id="petal-count" min="0" max="30" value="12" style="width:100%;accent-color:var(--pink)">
+  </div>
+</div>
+
+
+<script src="/js/shared.js"></script>
+
+<script>
+  initShared({
+    petalCount: 12,
+    themeMode: 'system',
+    statusCard: {
+      enable: true,
+      discordId: '1061262757078511706',
+      username: 'misterrabbit0w0',
+      location: '织星阁',
+      defaultAct: '编织星光中...',
+      defaultDetail: 'ovo'
+    }
+  });
+</script>
+</body>
+</html>

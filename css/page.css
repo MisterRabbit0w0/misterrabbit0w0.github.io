@@ -428,9 +428,10 @@
 .post-info-item { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
 .post-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 .post-cover {
-  width: 100%; aspect-ratio: 16 / 6;
+  display: block;
+  width: 100%;
+  height: auto;
   border-radius: var(--r);
-  background: var(--bg2) center/cover no-repeat;
   margin-bottom: 36px;
   border: 1.5px solid var(--border);
 }
@@ -450,25 +451,222 @@
 .post-body a { color: var(--pink); text-decoration: none; border-bottom: 1px dashed var(--pink-light); }
 .post-body a:hover { border-bottom-style: solid; }
 .post-body img { max-width: 100%; border-radius: 12px; margin: 16px 0; }
-.post-body code {
+/* inline code */
+.post-body :not(pre) > code,
+.post-body p code,
+.post-body li code,
+.post-body td code {
   font-family: var(--font-mono);
-  font-size: 13px; padding: 2px 7px; border-radius: 6px;
-  background: var(--bg2); color: var(--pink);
+  font-size: 0.88em;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--bg2);
+  color: var(--pink);
   border: 1px solid var(--border);
 }
-.post-body pre {
-  background: var(--bg2); border-radius: 14px; padding: 20px 22px;
-  margin: 20px 0; border: 1.5px solid var(--border);
-  overflow-x: auto; position: relative;
+
+/* fenced code blocks */
+.post-body .code-block-wrap {
+  position: relative;
+  margin: 22px 0;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--code-border);
+  background: var(--code-bg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
 }
-.post-body pre code {
-  font-size: 13px; padding: 0; background: none;
-  border: none; color: var(--fg); line-height: 1.7;
+
+.post-body .code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 36px;
+  padding: 0 12px 0 14px;
+  border-bottom: 1px solid var(--code-border);
+  background: var(--bg2);
 }
-.pre-lang {
-  position: absolute; top: 10px; right: 14px;
-  font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase;
-  letter-spacing: .06em;
+
+.post-body .code-block-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-body .code-block-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+
+.post-body .code-block-dots span:nth-child(2) { background: var(--lavender); }
+.post-body .code-block-dots span:nth-child(3) { background: var(--mint); }
+
+.post-body .code-block-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.post-body .code-block-lang {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.post-body .code-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border: 1px solid var(--code-border);
+  border-radius: 8px;
+  background: var(--code-bg);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.post-body .code-copy-btn:hover {
+  color: var(--fg);
+  border-color: var(--pink-light);
+  background: var(--card);
+}
+
+.post-body .code-copy-btn.copied {
+  color: var(--mint);
+  border-color: var(--mint-border);
+}
+
+.post-body .code-block-wrap pre {
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.post-body .code-block-wrap pre code,
+.post-body .code-block-wrap figure.highlight code {
+  display: block;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--code-fg);
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  tab-size: 2;
+  overflow-x: auto;
+  white-space: pre;
+  font-variant-ligatures: none;
+}
+
+.post-body .code-block-wrap figure.highlight {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.post-body .code-block-wrap figure.highlight pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.post-body .code-block-wrap .line {
+  display: block;
+  line-height: inherit;
+}
+
+.post-body .code-block-wrap code br {
+  display: none;
+}
+
+/* plain pre fallback (outside wrap) */
+.post-body > pre:not(.code-block-wrap pre) {
+  margin: 22px 0;
+  padding: 12px 16px;
+  border-radius: var(--r-sm);
+  border: 1.5px solid var(--code-border);
+  background: var(--code-bg);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.post-body > pre:not(.code-block-wrap pre) code {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--code-fg);
+  background: none;
+  border: none;
+  padding: 0;
+  white-space: pre;
+}
+
+/* highlight.js token colors */
+.post-body .code-block-wrap .comment,
+.post-body .code-block-wrap .quote {
+  color: oklch(58% 0.03 290);
+  font-style: italic;
+}
+[data-color-mode="dark"] .post-body .code-block-wrap .comment,
+[data-color-mode="dark"] .post-body .code-block-wrap .quote {
+  color: oklch(68% 0.03 290);
+}
+.post-body .code-block-wrap .keyword,
+.post-body .code-block-wrap .selector-tag,
+.post-body .code-block-wrap .literal {
+  color: var(--lavender);
+  font-weight: 600;
+}
+.post-body .code-block-wrap .string,
+.post-body .code-block-wrap .regexp,
+.post-body .code-block-wrap .addition {
+  color: var(--mint);
+}
+.post-body .code-block-wrap .number,
+.post-body .code-block-wrap .built_in,
+.post-body .code-block-wrap .type {
+  color: var(--gold);
+}
+.post-body .code-block-wrap .title,
+.post-body .code-block-wrap .section,
+.post-body .code-block-wrap .function .title {
+  color: var(--pink);
+}
+.post-body .code-block-wrap .params,
+.post-body .code-block-wrap .variable,
+.post-body .code-block-wrap .attr,
+.post-body .code-block-wrap .attribute {
+  color: var(--code-fg);
+}
+.post-body .code-block-wrap .meta,
+.post-body .code-block-wrap .link {
+  color: oklch(62% 0.12 290);
 }
 .post-body blockquote {
   margin: 28px 0 28px 8px;

@@ -26,6 +26,9 @@
   --petal-opacity: 0.7;
   --accent-gradient: linear-gradient(135deg, var(--pink), var(--lavender));
   --input-bg:   var(--card);
+  --code-bg:    oklch(95% 0.018 290);
+  --code-fg:    oklch(28% 0.03 290);
+  --code-border: oklch(88% 0.025 290);
 }
 
 [data-color-mode="dark"] {
@@ -54,12 +57,15 @@
   --petal-opacity: 0.35;
   --accent-gradient: linear-gradient(135deg, oklch(84% 0.17 355), oklch(84% 0.16 290));
   --input-bg:   oklch(24% 0.03 290);
+  --code-bg:    oklch(22% 0.032 290);
+  --code-fg:    oklch(92% 0.014 290);
+  --code-border: oklch(34% 0.035 290);
 }
 
 :root {
   --r: 20px;
   --r-sm: 14px;
-  --font-mono: 'Maple Mono', 'SF Mono', 'Fira Code', Consolas, monospace;
+  --font-mono: "Maple Mono", "Maple Mono NF", ui-monospace, "SF Mono", "Fira Code", Consolas, monospace;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
