@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://misterrabbit0w0.github.io/projects/index.html</loc>
+    <loc>http://misterrabbit0w0.github.io/tags/index.html</loc>
     
     <lastmod>2026-06-02</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://misterrabbit0w0.github.io/tags/index.html</loc>
+    <loc>http://misterrabbit0w0.github.io/projects/index.html</loc>
     
     <lastmod>2026-06-02</lastmod>
     
@@ -38,15 +38,6 @@
   </url>
   
   <url>
-    <loc>http://misterrabbit0w0.github.io/2026/06/02/2026-06-02-elegant-agent-guideline/</loc>
-    
-    <lastmod>2026-06-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://misterrabbit0w0.github.io/2026/05/31/2026-04-20-hoshino-theme/</loc>
     
     <lastmod>2026-06-02</lastmod>
@@ -57,6 +48,15 @@
   
   <url>
     <loc>http://misterrabbit0w0.github.io/2026/04/20/2026-04-20-little-book-of-algorithms-zh/</loc>
+    
+    <lastmod>2026-06-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://misterrabbit0w0.github.io/2026/06/02/2026-06-02-elegant-agent-guideline/</loc>
     
     <lastmod>2026-06-02</lastmod>
     
@@ -81,20 +81,6 @@
     <priority>1.0</priority>
   </url>
 
-  
-  <url>
-    <loc>http://misterrabbit0w0.github.io/tags/Agent/</loc>
-    <lastmod>2026-06-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://misterrabbit0w0.github.io/tags/Prompt-Engineering/</loc>
-    <lastmod>2026-06-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>http://misterrabbit0w0.github.io/tags/Hexo/</loc>
@@ -138,14 +124,21 @@
     <priority>0.2</priority>
   </url>
   
-
-  
   <url>
-    <loc>http://misterrabbit0w0.github.io/categories/AI/</loc>
+    <loc>http://misterrabbit0w0.github.io/tags/Agent/</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
+  
+  <url>
+    <loc>http://misterrabbit0w0.github.io/tags/Prompt-Engineering/</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+
   
   <url>
     <loc>http://misterrabbit0w0.github.io/categories/%E5%B7%A5%E5%85%B7/</loc>
@@ -156,6 +149,13 @@
   
   <url>
     <loc>http://misterrabbit0w0.github.io/categories/%E8%AF%91%E6%9C%AC/</loc>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://misterrabbit0w0.github.io/categories/AI/</loc>
     <lastmod>2026-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

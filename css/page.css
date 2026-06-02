@@ -451,6 +451,14 @@
 .post-body a { color: var(--pink); text-decoration: none; border-bottom: 1px dashed var(--pink-light); }
 .post-body a:hover { border-bottom-style: solid; }
 .post-body img { max-width: 100%; border-radius: 12px; margin: 16px 0; }
+html:not(.has-theme-cursor) .post-cover.img-zoomable,
+html:not(.has-theme-cursor) .post-body img.img-zoomable {
+  cursor: zoom-in;
+}
+html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
+  cursor: zoom-in;
+  border-bottom: none;
+}
 /* inline code */
 .post-body :not(pre) > code,
 .post-body p code,

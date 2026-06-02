@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="has-theme-cursor">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -210,6 +210,12 @@
     <div class="tweak-label">花瓣数量</div>
     <input type="range" id="petal-count" min="0" max="30" value="12" style="width:100%;accent-color:var(--pink)">
   </div>
+  <div class="tweak-row tweak-row-check">
+    <label class="tweak-check">
+      <input type="checkbox" id="cursor-fx" checked>
+      <span>主题光标（圆润樱花粉样式）</span>
+    </label>
+  </div>
 </div>
 
 
@@ -219,6 +225,7 @@
   initShared({
     petalCount: 12,
     themeMode: 'system',
+    cursorFx: true,
     statusCard: {
       enable: true,
       discordId: '1061262757078511706',

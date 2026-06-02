@@ -1,4 +1,4 @@
-// shared.js — petals, Light/Dark/System theme, live status, GitHub contribution
+// shared.js — petals, theme cursor, Light/Dark/System, live status, GitHub contribution
 (function () {
   const STORAGE_KEY = 'blog_tweaks';
   const petalColors = [
@@ -13,6 +13,35 @@
 
   let githubEventsCache = null;
   let githubEventsPromise = null;
+
+  function canUseThemeCursor() {
+    return true;
+  }
+
+  function applyThemeCursor(enabled) {
+    document.documentElement.classList.toggle('has-theme-cursor', enabled && canUseThemeCursor());
+    saveTweaks({ cursorFx: enabled });
+  }
+
+  function initThemeCursor(defaultEnabled) {
+    // Use theme config as source of truth to avoid stale local cache.
+    const enabled = defaultEnabled !== false;
+
+    const checkbox = document.getElementById('cursor-fx');
+    if (checkbox) {
+      checkbox.checked = enabled;
+      checkbox.addEventListener('change', () => applyThemeCursor(checkbox.checked));
+    }
+
+    applyThemeCursor(enabled);
+
+    if (window.matchMedia) {
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const onMq = () => applyThemeCursor(checkbox ? checkbox.checked : enabled);
+      if (mq.addEventListener) mq.addEventListener('change', onMq);
+      else if (mq.addListener) mq.addListener(onMq);
+    }
+  }
 
   function spawnPetals(count) {
     const container = document.getElementById('petals');
@@ -444,6 +473,76 @@
     });
   }
 
+  function initImageLightbox() {
+    const targets = document.querySelectorAll('.post-body img, .post-cover');
+    if (!targets.length) return;
+
+    let lb = document.getElementById('img-lightbox');
+    if (!lb) {
+      lb = document.createElement('div');
+      lb.id = 'img-lightbox';
+      lb.className = 'img-lightbox';
+      lb.hidden = true;
+      lb.innerHTML =
+        '<button type="button" class="img-lightbox-backdrop" aria-label="关闭预览"></button>' +
+        '<figure class="img-lightbox-panel">' +
+        '<button type="button" class="img-lightbox-close" aria-label="关闭">&times;</button>' +
+        '<img class="img-lightbox-img" alt="">' +
+        '<figcaption class="img-lightbox-caption"></figcaption>' +
+        '</figure>';
+
+      document.body.appendChild(lb);
+
+      const close = () => {
+        lb.hidden = true;
+        document.body.classList.remove('lightbox-open');
+        lb.querySelector('.img-lightbox-img').removeAttribute('src');
+      };
+
+      lb.querySelector('.img-lightbox-backdrop').addEventListener('click', close);
+      lb.querySelector('.img-lightbox-close').addEventListener('click', close);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !lb.hidden) close();
+      });
+    }
+
+    const open = img => {
+      const full = img.currentSrc || img.src;
+      if (!full) return;
+      const lbImg = lb.querySelector('.img-lightbox-img');
+      const cap = lb.querySelector('.img-lightbox-caption');
+      lbImg.src = full;
+      lbImg.alt = img.alt || '';
+      if (img.alt) {
+        cap.textContent = img.alt;
+        cap.hidden = false;
+      } else {
+        cap.textContent = '';
+        cap.hidden = true;
+      }
+      lb.hidden = false;
+      document.body.classList.add('lightbox-open');
+    };
+
+    targets.forEach(img => {
+      if (img.dataset.lightboxBound) return;
+      img.dataset.lightboxBound = '1';
+      img.classList.add('img-zoomable');
+
+      const parentA = img.closest('a');
+      if (parentA) {
+        const href = parentA.getAttribute('href') || '';
+        if (href && href !== img.src && !href.endsWith(img.getAttribute('src') || '')) return;
+        parentA.addEventListener('click', e => {
+          e.preventDefault();
+          open(img);
+        });
+      } else {
+        img.addEventListener('click', () => open(img));
+      }
+    });
+  }
+
   function initShared(defaults) {
     defaults = defaults || { petalCount: 12, themeMode: 'system' };
 
@@ -453,7 +552,9 @@
     } catch (e) {}
 
     spawnPetals(defaults.petalCount || 12);
+    initThemeCursor(defaults.cursorFx);
     initCodeBlocks();
+    initImageLightbox();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
     initLiveStatus(defaults.statusCard);
 
