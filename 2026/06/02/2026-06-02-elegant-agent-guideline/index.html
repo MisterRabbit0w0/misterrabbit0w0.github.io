@@ -108,10 +108,10 @@
         </span>
         <span class="post-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          9 min 阅读
+          10 min 阅读
         </span>
         
-        <span class="post-info-item">更新于 2026 · 06 · 02</span>
+        <span class="post-info-item">更新于 2026 · 06 · 03</span>
         
       </div>
       <div class="post-tags">
@@ -126,7 +126,9 @@
     
 
     <div class="post-body">
-      <p>这篇文章属于半扫盲性质的 agent 使用说明，小白也可放心食用~</p>
+      <p>本文相关信息来源截止至 2026 年 6 月，后续可能会有变化，请以最新信息为准。</p>
+<hr>
+<p>这篇文章属于半扫盲性质的 agent 使用说明，小白也可放心食用~</p>
 <hr>
 <p>在聊如何使用之前，我们先来了解一些基础概念。</p>
 <h2 id="Agent-是什么？"><a href="#Agent-是什么？" class="headerlink" title="Agent 是什么？"></a>Agent 是什么？</h2><p>先来认识几个名词</p>
@@ -157,7 +159,7 @@
 <p>macOS &#x2F; Linux：</p>
 <pre><code class="highlight bash">curl -fsSL https://claude.ai/install.sh | bash</code></pre>
 
-<p><strong>注意！</strong> 永远不要运行你不知道来源的命令，尤其是涉及到 <code>iex</code> 这样的命令，因为它会执行你输入的命令，所以一定要确认命令的来源和内容。这行命令是直接从官网复制的，可能会随着时间变化而变化，如果你发现官网上的命令和这里不一样，请以官网上的为准。</p>
+<p><strong>注意！</strong> 永远不要运行你不知道来源的命令，尤其是涉及到 <code>iex</code> 和 <code>bash</code> 这样的命令，因为它会执行你输入的命令，所以一定要确认命令的来源和内容。这行命令是直接从官网复制的，可能会随着时间变化而变化，如果你发现官网上的命令和这里不一样，请以官网上的为准。</p>
 <p>等待时间可能有点久，可以给终端设置代理加速，设置代理命令为</p>
 <p>PowerShell：</p>
 <pre><code class="highlight powershell"><span class="variable">$env:HTTP_PROXY</span>=<span class="string">&quot;your_proxy_url&quot;</span>; <span class="variable">$env:HTTPS_PROXY</span>=<span class="string">&quot;your_proxy_url&quot;</span></code></pre>
@@ -178,13 +180,17 @@
 <p>这一步需要的时间可能也比较久（问就是 nodejs 太臃肿），安装完成后，输入以下命令验证是否安装成功：</p>
 <pre><code class="highlight bash">claude --version</code></pre>
 
-<p>如果显示了版本号，说明 <code>claude code</code> 安装成功了，就可以进行下一步啦。</p>
+<p>如果显示了版本号，说明 <code>claude code</code> 安装成功了。</p>
+<hr>
+<p>接下来要说明两个概念：<strong>用户级</strong> 和 <strong>项目级</strong>。</p>
+<p>用户级（User-level）是指在本电脑用户范围内会生效的设置，工具或技能，此用户的所有项目都可以访问它们。用户级的配置位于 <code>~/.claude</code>（Windows 为 <code>%USERPROFILE%\.claude</code>） 目录下。</p>
+<p>项目级（Project-level）是指在特定项目范围内会生效的设置，工具或技能，只有这个项目能访问它们。项目级的配置位于项目根目录下的 <code>.claude</code> 目录中。</p>
 <h3 id="如何接入模型"><a href="#如何接入模型" class="headerlink" title="如何接入模型"></a>如何接入模型</h3><p>目前，国内想要用到完整的 claude&#x2F;gpt&#x2F;gemini 模型相对困难，这里给出用 deepseek 官方模型的示例，其他模型的接入方法大同小异。</p>
 <p><strong>本教程不会对任何所谓 <em>中转站</em> 做出推荐和评价，也不会为任何因使用中转站而导致的问题负责，请自行判断和选择。</strong></p>
 <h4 id="安装-cc-switch-（推荐）"><a href="#安装-cc-switch-（推荐）" class="headerlink" title="安装 cc-switch （推荐）"></a>安装 cc-switch （推荐）</h4><p>cc-switch 相当于一个懒人包，可以方便接入各种模型。可自行前往 <a target="_blank" rel="noopener" href="https://github.com/farion1231/cc-switch/releases/latest">Github Release</a> 页面下载对应版本并安装。</p>
 <p>首先，打开 deepseek 的官网，注册并登录你的账号。进入 <a target="_blank" rel="noopener" href="https://platform.deepseek.com/">API 开放平台</a>。</p>
 <p><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/deepseek-official.png" alt="DeepSeek API 开放平台"></p>
-<p>所有 agent 工具的使用都需要用到 API key，这个和网页端使用不一样，不是免费的！（可能有免费渠道，但请自己甄别）你必须先给模型厂商充值，才能使用 API key 调用他们的模型。一般 deepseek 充值 10 块左右就能用很久。</p>
+<p>所有 agent 工具的使用都需要用到 API key，这个和网页端使用不一样，不是免费的！（可能有免费渠道，但请自己甄别）你必须先给模型厂商充值，才能使用 API key 调用他们的模型。一般 deepseek 充值 10 块左右就能用很久（按照用途不同，使用时间也不同）。</p>
 <p>然后在 <a target="_blank" rel="noopener" href="https://platform.deepseek.com/api_keys">API keys</a> 页面，选择创建 API key，输入名字（比如 claude-code），点击创建，就能看到你的 API key 了。</p>
 <p><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/api-key.png" alt="创建 DeepSeek API key"></p>
 <p><strong>注意！</strong> deepseek 的 API key 只在创建时可见，所以一定妥善保管，如果不小心丢失了，请立即删除此 API key 并重新创建。API key 是非常敏感的信息，一旦其他人获得了 API key，他们就能使用你的余额访问模型，就好比你的银行卡密码一样，千万不要泄露给任何人，包括我！如果不小心泄露了，请立即删除此 API key 并重新创建。</p>
@@ -214,37 +220,38 @@
 <span class="variable">$env:CLAUDE_CODE_EFFORT_LEVEL</span>=<span class="string">&quot;max&quot;</span></code></pre>
 
 <p><strong>注意！</strong> 这种方式只在当前终端会话中生效，如果关闭终端后再打开，就需要重新设置一次。</p>
-<h4 id="永久配置"><a href="#永久配置" class="headerlink" title="永久配置"></a>永久配置</h4><p>对 Linux &#x2F; macOS 用户来说，可以把上面提到的环境变量配置添加到 <code>~/.bashrc</code> 或 <code>~/.zshrc</code> 文件中，这样每次打开终端时都会自动加载这些环境变量。</p>
-<p>对于 Windows 用户来说，可以通过系统环境变量设置来永久配置这些环境变量。具体步骤如下：</p>
-<ol>
-<li>打开“系统属性”窗口，可以通过以下方式之一：<ul>
-<li>在开始菜单中搜索“环境变量”，然后选择“编辑系统环境变量”。</li>
-<li>右键点击“此电脑”或“我的电脑”，选择“属性”，然后点击“高级系统设置”，最后点击“环境变量”。</li>
-</ul>
-</li>
-<li>在“环境变量”窗口中，点击“新建”按钮，添加以下环境变量：</li>
-</ol>
-<pre><code class="highlight plaintext">ANTHROPIC_BASE_URL
-ANTHROPIC_AUTH_TOKEN</code></pre>
+<h4 id="永久配置"><a href="#永久配置" class="headerlink" title="永久配置"></a>永久配置</h4><p>更推荐直接写入 Claude Code 的配置文件 <code>~/.claude/settings.json</code>（Windows 为<br>  <code>%USERPROFILE%\.claude\settings.json</code>）。在文件中添加以下内容：</p>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://api.deepseek.com/anthropic&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&lt;你的 DeepSeek API Key&gt;&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;ANTHROPIC_MODEL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-pro[1m]&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;ANTHROPIC_DEFAULT_OPUS_MODEL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-pro[1m]&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;ANTHROPIC_DEFAULT_SONNET_MODEL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-pro[1m]&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;ANTHROPIC_DEFAULT_HAIKU_MODEL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-flash&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;CLAUDE_CODE_SUBAGENT_MODEL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-flash&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;CLAUDE_CODE_EFFORT_LEVEL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;max&quot;</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
 
-<p>把对应的值填入，其他环境变量也可以按照需要添加。</p>
 <h3 id="如何拓展-agent-的能力"><a href="#如何拓展-agent-的能力" class="headerlink" title="如何拓展 agent 的能力"></a>如何拓展 agent 的能力</h3><p>Agent 的能力拓展主要是通过安装 skills 来实现的，skills 就好比是 agent 的插件，可以让 agent 拥有更多的功能，例如写文档、调用浏览器等。</p>
+<p>skills 分全局级和项目级，具体把一个 skill 安装在全局还是项目取决于其功能范围。</p>
+<p>全局 skill 的安装位置是：<code>~/.claude/skills</code>。<br>项目级 skill 的安装位置是：项目根目录下的 <code>.claude/skills</code>。</p>
 <p>目前，claude code 已经内置了很多实用的 skills，这些 skills 可以直接使用，无需额外安装。</p>
-<p>skills 分全局级和项目级，一个 skill 放在全局还是项目取决于其功能范围。</p>
-<p>全局 skill 的安装位置是：<code>~/.claude-code/skills</code></p>
 <p>如果你想要安装第三方的 skills，可以通过以下方式进行安装：</p>
-<h4 id="利用-Skillspkg-安装和管理"><a href="#利用-Skillspkg-安装和管理" class="headerlink" title="利用 Skillspkg 安装和管理"></a>利用 Skillspkg 安装和管理</h4><p>这里推荐一个朋友写的 <a target="_blank" rel="noopener" href="https://github.com/Richardlxr/SKillpkg">skill 管理工具</a>，可以按照手册进行管理和安装。</p>
+<h4 id="利用-SKillpkg-安装和管理"><a href="#利用-SKillpkg-安装和管理" class="headerlink" title="利用 SKillpkg 安装和管理"></a>利用 SKillpkg 安装和管理</h4><p>这里推荐一个朋友写的 <a target="_blank" rel="noopener" href="https://github.com/Richardlxr/SKillpkg">skill 管理工具</a>，可以按照手册进行管理和安装。</p>
 <h4 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h4><p><del>其实可以让你已经安装的 agent 帮你下载和管理 skills</del></p>
-<p>一般的skills，以 <a target="_blank" rel="noopener" href="https://github.com/obra/superpowers">Superpower</a> 为例，会提供完整的安装说明。</p>
-<p>如果没有提供安装说明，一般来说，下载后把 skills 文件夹放到 <code>~/.claude-code/skills</code> 目录下就可以了。</p>
+<p>一般的 skills，以 <a target="_blank" rel="noopener" href="https://github.com/obra/superpowers">superpowers</a> 为例，会提供完整的安装说明。</p>
+<p>如果没有提供安装说明，一般来说，下载后把 skills 文件夹放到 <code>~/.claude/skills</code> 目录下就可以了。</p>
+<p>第一次安装 skills 可能没有这个文件夹，自行创建即可。</p>
 <p>一个 skills 的文件结构一般是这样的：</p>
-<pre><code class="highlight plaintext">a-skill/
+<pre><code class="highlight text">技能名字/
 ├── SKILL.md // 技能入口，一般 agent 会尝试发现此文件来预加载 skills
-├── requirements.txt // 有的技能可能设计运行 python 脚本，这个文件会列出所需的 python 包
+├── requirements.txt // 有的技能可能涉及运行 python 脚本，这个文件会列出所需的 python 包
 ├── references/ // 参考资料，可能包含一些文档、图片等
 └── scripts/ // 可能包含一些脚本文件，例如 python 脚本等</code></pre>
 
-<p>安装完成后，可以在 agent 中调用 <code>/skills</code> 命令获取已经加载的列表，或者用 <code>/a-skill</code> 直接使用它。</p>
+<p>安装完成后，可以在 agent 中调用 <code>/skills</code> 命令查看 skills 的安装状态。一般通过 <code>/技能名字</code> 就可以调用技能。</p>
 <p><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/skill-list.png" alt="skill-list"><br><img src="/2026/06/02/2026-06-02-elegant-agent-guideline/use-a-skill.png" alt="use-a-skill"></p>
 <p><strong>注意！</strong> 在安装第三方 skills 时，一定要确认 skills 的来源和内容，尤其是那些包含脚本文件的 skills，因为它们可能会执行一些你不希望执行的操作，所以一定要谨慎选择和安装 skills。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这是一份简易的关于如何安装和使用 agent 的指南，主要以 <code>claude code</code> 为例进行说明，其他 agent 工具的使用方法大同小异。如果有帮助，可以点一个 star 支持一下。</p>
@@ -268,7 +275,7 @@ ANTHROPIC_AUTH_TOKEN</code></pre>
     
     <div class="sidebar-card">
       <div class="sidebar-title">目录</div>
-      <a href="#Agent-是什么？" class="toc-item toc-h2">Agent 是什么？</a><a href="#如何使用-agent？" class="toc-item toc-h2">如何使用 agent？</a><a href="#如何安装-agent" class="toc-item toc-h3">如何安装 agent</a><a href="#自动安装方法（推荐）" class="toc-item toc-h4">自动安装方法（推荐）</a><a href="#手动安装方法" class="toc-item toc-h4">手动安装方法</a><a href="#如何接入模型" class="toc-item toc-h3">如何接入模型</a><a href="#安装-cc-switch-（推荐）" class="toc-item toc-h4">安装 cc-switch （推荐）</a><a href="#临时配置" class="toc-item toc-h4">临时配置</a><a href="#永久配置" class="toc-item toc-h4">永久配置</a><a href="#如何拓展-agent-的能力" class="toc-item toc-h3">如何拓展 agent 的能力</a><a href="#利用-Skillspkg-安装和管理" class="toc-item toc-h4">利用 Skillspkg 安装和管理</a><a href="#手动安装" class="toc-item toc-h4">手动安装</a><a href="#总结" class="toc-item toc-h3">总结</a>
+      <a href="#Agent-是什么？" class="toc-item toc-h2">Agent 是什么？</a><a href="#如何使用-agent？" class="toc-item toc-h2">如何使用 agent？</a><a href="#如何安装-agent" class="toc-item toc-h3">如何安装 agent</a><a href="#自动安装方法（推荐）" class="toc-item toc-h4">自动安装方法（推荐）</a><a href="#手动安装方法" class="toc-item toc-h4">手动安装方法</a><a href="#如何接入模型" class="toc-item toc-h3">如何接入模型</a><a href="#安装-cc-switch-（推荐）" class="toc-item toc-h4">安装 cc-switch （推荐）</a><a href="#临时配置" class="toc-item toc-h4">临时配置</a><a href="#永久配置" class="toc-item toc-h4">永久配置</a><a href="#如何拓展-agent-的能力" class="toc-item toc-h3">如何拓展 agent 的能力</a><a href="#利用-SKillpkg-安装和管理" class="toc-item toc-h4">利用 SKillpkg 安装和管理</a><a href="#手动安装" class="toc-item toc-h4">手动安装</a><a href="#总结" class="toc-item toc-h3">总结</a>
     </div>
     
     <div class="sidebar-card">

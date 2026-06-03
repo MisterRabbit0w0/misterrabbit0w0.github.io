@@ -196,15 +196,39 @@
     }
   }
 
+  // Renders an arbitrary-length series as a smooth sparkline inside the
+  // viewBox "0 0 80 25". The baseline is anchored at 0 (not at the series
+  // minimum) so days with no activity sit on the bottom edge instead of being
+  // rebased away, and an all-zero series stays flat along the baseline.
   function buildSparklinePath(values) {
-    const data = values.length ? values : [0, 0, 0, 0, 0, 0];
-    const min = Math.min(...data);
-    const max = Math.max(...data);
-    const y = data.map(val => {
-      if (min === max) return 12.5;
-      return Number((23 - ((val - min) / (max - min)) * 21).toFixed(2));
-    });
-    return `M 5,${y[0]} C 12,${y[0]} 12,${y[1]} 19,${y[1]} C 26,${y[1]} 26,${y[2]} 33,${y[2]} C 40,${y[2]} 40,${y[3]} 47,${y[3]} C 54,${y[3]} 54,${y[4]} 61,${y[4]} C 68,${y[4]} 68,${y[5]} 75,${y[5]}`;
+    const data = (values && values.length) ? values.slice() : [0];
+    if (data.length === 1) data.push(data[0]);
+    const n = data.length;
+    const X0 = 1, X1 = 79, TOP = 2, BOTTOM = 23;
+    const max = Math.max(0, ...data);
+    const pts = data.map((val, i) => ({
+      x: X0 + (X1 - X0) * (i / (n - 1)),
+      y: max > 0 ? BOTTOM - (val / max) * (BOTTOM - TOP) : BOTTOM
+    }));
+
+    const f = v => Number(v.toFixed(2));
+    const clampY = v => Math.max(TOP, Math.min(BOTTOM, v));
+    let d = `M ${f(pts[0].x)},${f(pts[0].y)}`;
+    // Catmull-Rom -> cubic Bézier so the curve stays smooth for any point count.
+    // Control-point Y is clamped so the smoothing never overshoots past the
+    // zero baseline or the top of the chart.
+    for (let i = 0; i < n - 1; i++) {
+      const p0 = pts[i - 1] || pts[i];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[i + 2] || p2;
+      const cp1x = p1.x + (p2.x - p0.x) / 6;
+      const cp1y = clampY(p1.y + (p2.y - p0.y) / 6);
+      const cp2x = p2.x - (p3.x - p1.x) / 6;
+      const cp2y = clampY(p2.y - (p3.y - p1.y) / 6);
+      d += ` C ${f(cp1x)},${f(cp1y)} ${f(cp2x)},${f(cp2y)} ${f(p2.x)},${f(p2.y)}`;
+    }
+    return d;
   }
 
   function countEventsSince(events, days) {
@@ -238,7 +262,7 @@
       const events = await fetchGitHubEvents(username, 3);
       if (count7) count7.textContent = String(countEventsSince(events, 7));
       if (count30) count30.textContent = String(countEventsSince(events, 30));
-      if (sparkPath) sparkPath.setAttribute('d', buildSparklinePath(bucketEvents(events, 6, 30)));
+      if (sparkPath) sparkPath.setAttribute('d', buildSparklinePath(bucketEvents(events, 30, 30)));
 
       if (list) {
         list.innerHTML = '';
