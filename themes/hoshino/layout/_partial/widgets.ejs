@@ -33,14 +33,14 @@
       <span class="contrib-stat-label">近 30 日活动</span>
     </div>
   </div>
-  <svg class="stat-sparkline contrib-sparkline" viewBox="0 0 80 25" aria-hidden="true">
+  <svg class="stat-sparkline contrib-sparkline" viewBox="0 0 80 25" preserveAspectRatio="none" aria-hidden="true">
     <defs>
       <linearGradient id="contrib-grad" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="var(--mint)" />
         <stop offset="100%" stop-color="var(--pink)" />
       </linearGradient>
     </defs>
-    <path id="contrib-sparkline-path" fill="none" stroke="url(#contrib-grad)" stroke-width="2" stroke-linecap="round" />
+    <path id="contrib-sparkline-path" fill="none" stroke="url(#contrib-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
   </svg>
   <ul class="contrib-list" id="contrib-recent" aria-label="近期 GitHub 活动">
     <li class="contrib-item contrib-placeholder">正在加载 GitHub 活动…</li>
