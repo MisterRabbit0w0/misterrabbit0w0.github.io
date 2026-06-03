@@ -55,6 +55,11 @@ about:
 
 footer:
   copyright: "© 2026 织星 / Astraea · build with love and code"
+  # 站点源码与反馈（页脚胶囊按钮；issues 可省略，默认 repo + /issues）
+  repo:
+    url: "https://github.com/misterrabbit0w0/misterrabbit0w0.github.io"
+    label: "站点源码"
+    issues_label: "提 Issue"
   links:
     - { text: "关于", url: "/about/" }
     - { text: "RSS", url: "/atom.xml" }

@@ -257,4 +257,4 @@ skills 分全局级和项目级，具体把一个 skill 安装在全局还是项
 
 ### 总结
 
-这是一份简易的关于如何安装和使用 agent 的指南，主要以 `claude code` 为例进行说明，其他 agent 工具的使用方法大同小异。如果有帮助，可以点一个 star 支持一下。
+这是一份简易的关于如何安装和使用 agent 的指南，主要以 `claude code` 为例进行说明，其他 agent 工具的使用方法大同小异。如果有帮助，可以[点一个 star](https://github.com/MisterRabbit0w0/misterrabbit0w0.github.io) 支持一下。

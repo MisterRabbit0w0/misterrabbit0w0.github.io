@@ -1,8 +1,35 @@
-<footer>
-  <span><%- (theme.footer && theme.footer.copyright) || ('© ' + new Date().getFullYear() + ' ' + config.author) %></span>
-  <span>
-    <% ((theme.footer && theme.footer.links) || []).forEach(function(link, i) {
-      if (i > 0) { %> · <% }
-    %><a href="<%- url_for(link.url) %>"><%= link.text %></a><% }); %>
-  </span>
+<%
+  var repoCfg = theme.footer && theme.footer.repo;
+  var repoUrl = repoCfg && repoCfg.url;
+  if (repoUrl && repoUrl.charAt(repoUrl.length - 1) === '/') repoUrl = repoUrl.slice(0, -1);
+  var issuesUrl = (repoCfg && repoCfg.issues) || (repoUrl ? repoUrl + '/issues' : '');
+  var repoLabel = (repoCfg && repoCfg.label) || '站点源码';
+  var issuesLabel = (repoCfg && repoCfg.issues_label) || '提 Issue';
+%>
+<footer class="site-footer">
+  <span class="footer-copy"><%- (theme.footer && theme.footer.copyright) || ('© ' + new Date().getFullYear() + ' ' + config.author) %></span>
+  <div class="footer-end">
+    <% if (repoUrl) { %>
+    <div class="footer-pills" aria-label="开源与反馈">
+      <a href="<%= repoUrl %>" class="footer-pill" target="_blank" rel="noopener noreferrer">
+        <%- partial('_partial/icon', { name: 'github', size: 14, className: 'footer-pill-icon' }) %>
+        <span><%= repoLabel %></span>
+      </a>
+      <% if (issuesUrl) { %>
+      <a href="<%= issuesUrl %>" class="footer-pill footer-pill-issue" target="_blank" rel="noopener noreferrer">
+        <span class="footer-pill-spark" aria-hidden="true">✿</span>
+        <span><%= issuesLabel %></span>
+      </a>
+      <% } %>
+    </div>
+    <% } %>
+    <% var footerLinks = (theme.footer && theme.footer.links) || []; %>
+    <% if (footerLinks.length) { %>
+    <nav class="footer-links" aria-label="页脚导航">
+      <% footerLinks.forEach(function(link, i) {
+        if (i > 0) { %><span class="footer-sep" aria-hidden="true">·</span><% }
+      %><a href="<%- url_for(link.url) %>"><%= link.text %></a><% }); %>
+    </nav>
+    <% } %>
+  </div>
 </footer>

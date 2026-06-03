@@ -10,9 +10,15 @@
     <a href="<%- url_for('/archives/') %>" class="link-btn link-btn-ghost">Writing</a>
     <a href="<%- url_for('/projects/') %>" class="link-btn link-btn-ghost">Projects</a>
   </div>
+  <%
+    var repoCfg404 = theme.footer && theme.footer.repo;
+    var repoUrl404 = repoCfg404 && repoCfg404.url;
+    if (repoUrl404 && repoUrl404.charAt(repoUrl404.length - 1) === '/') repoUrl404 = repoUrl404.slice(0, -1);
+    var issuesUrl404 = (repoCfg404 && repoCfg404.issues) || (repoUrl404 ? repoUrl404 + '/issues' : 'https://github.com/misterrabbit0w0/misterrabbit0w0.github.io/issues');
+  %>
   <div class="notfound-hint">
     若你认为这是个 bug，可以到
-    <a href="https://github.com/misterrabbit0w0/misterrabbit0w0.github.io/issues" target="_blank" rel="noopener">GitHub issues</a>
+    <a href="<%= issuesUrl404 %>" target="_blank" rel="noopener noreferrer">GitHub Issues</a>
     留言。
   </div>
 </div>
