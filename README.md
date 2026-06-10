@@ -16,22 +16,16 @@ npm run clean     # 清缓存
 
 详细开发约定见 [CLAUDE.md](CLAUDE.md)。
 
+## 主题特性
+
+- 樱花粉单主色 + oklch 色板，Light / Dark / 跟随系统三种模式
+- 文章头图为自制「星图」：以标题哈希为种子，构建时生成每篇独一无二的星座 SVG（front-matter 显式设置 `cover:` 时优先）
+- 光标、花瓣、配色均为手绘 / 自制
+
 ## 致谢
 
-本站封面与 banner 的缺省图使用了以下公开图床 API，向维护者致谢：
-
-- [**t.alcy.cc**](https://t.alcy.cc/) — 樱花の二次元图库（当前使用的 `/pc` 随机横图接口）
-- [**dmoe.cc**](https://www.dmoe.cc/) — 樱花随机图 API，备用方案
-- [**anosu.top**](https://api.anosu.top/) — Pixiv 热门图随机接口，备用方案
-- [**lolicon.app**](https://api.lolicon.app/) — Pixiv 精选图 JSON API，备用方案
-
-图片版权归其原作者所有。如果你是图片作者、希望你的作品从本站移除，请通过 GitHub issues 或邮件联系，我会尽快更换。
-
-其他依赖：
-
-- 字体：Google Fonts · *M PLUS Rounded 1c* / *Cormorant Garamond* / *Noto Serif SC*
+- 字体：[**Maple Mono CN**](https://github.com/subframe7536/maple-font)（OFL 协议），中文子集由[中文网字计划](https://chinese-font.netlify.app/)的 cn-font-split 切片，经 jsDelivr CDN 分发
 - 图标：部分来自 [Feather Icons](https://feathericons.com/)（内联 SVG）
-- 光标 / 花瓣 / 主题配色：自制
 
 ## License
 

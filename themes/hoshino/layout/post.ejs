@@ -7,11 +7,6 @@
   var firstCat = page.categories && page.categories.length ? page.categories.first().name : null;
   var tagArr = page.tags ? page.tags.toArray().map(function(t){ return t.name; }) : [];
 
-  function catTagClass(name) {
-    var map = { '前端': 'tag-pink', 'TypeScript': 'tag-lav', '随笔': 'tag-mint', '算法': 'tag-pink',
-                '开源': 'tag-mint', '工具': 'tag-lav', '译本': 'tag-gold', '日记': 'tag-mint' };
-    return map[name] || 'tag-pink';
-  }
   function fmt(date) {
     var d = new Date(date);
     return d.getFullYear() + ' · ' + String(d.getMonth()+1).padStart(2,'0') + ' · ' + String(d.getDate()).padStart(2,'0');
@@ -60,14 +55,15 @@
         <% } %>
       </div>
       <div class="post-tags">
-        <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
-        <% tagArr.forEach(function(t) { %><span class="tag <%= catTagClass(t) %>"><%= t %></span><% }); %>
+        <% if (firstCat) { %><span class="tag <%= cat_tag_class(firstCat) %>"><%= firstCat %></span><% } %>
+        <% tagArr.forEach(function(t) { %><span class="tag-text">#<%= t %></span><% }); %>
       </div>
     </div>
 
-    <% var coverImg = page.cover || (theme.brand && theme.brand.banner); %>
-    <% if (coverImg) { %>
-    <img class="post-cover" src="<%- url_for(coverImg) %>" alt="<%= page.title %>" loading="lazy" decoding="async">
+    <% if (page.cover) { %>
+    <img class="post-cover" src="<%- url_for(page.cover) %>" alt="<%= page.title %>" loading="lazy" decoding="async">
+    <% } else { %>
+    <%- star_cover(page.title || page.path) %>
     <% } %>
 
     <div class="post-body">

@@ -3,11 +3,6 @@
   var posts = site.posts.sort('-date').toArray();
   var recent = posts.slice(0, 8);
 
-  function catTagClass(name) {
-    var map = { '前端': 'tag-pink', 'TypeScript': 'tag-lav', '随笔': 'tag-mint', '算法': 'tag-pink',
-                '开源': 'tag-mint', '工具': 'tag-lav', '译本': 'tag-gold', '日记': 'tag-mint' };
-    return map[name] || 'tag-pink';
-  }
   function fmt(date) {
     var d = new Date(date);
     return d.getFullYear() + ' · ' + String(d.getMonth()+1).padStart(2,'0') + ' · ' + String(d.getDate()).padStart(2,'0');
@@ -73,17 +68,14 @@
           var tagArr = p.tags ? p.tags.toArray().map(function(t){ return t.name; }) : [];
         %>
         <a href="<%- url_for(p.path) %>" class="article-row">
-          <div class="article-row-icon" aria-hidden="true">
-            <%- partial('_partial/icon', { name: 'article', size: 18, className: 'article-icon' }) %>
-          </div>
           <div class="article-row-body">
             <div class="article-row-title"><%= p.title %></div>
             <div class="article-row-excerpt"><%= excerptOf(p) %>…</div>
             <div class="article-row-meta">
               <span class="article-row-date"><%= fmt(p.date) %></span>
-              <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
+              <% if (firstCat) { %><span class="tag <%= cat_tag_class(firstCat) %>"><%= firstCat %></span><% } %>
               <% tagArr.slice(0, 2).forEach(function(t) { %>
-                <span class="tag <%= catTagClass(t) %>"><%= t %></span>
+                <span class="tag-text">#<%= t %></span>
               <% }); %>
             </div>
           </div>

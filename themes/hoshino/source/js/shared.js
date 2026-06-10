@@ -43,6 +43,44 @@
     }
   }
 
+  // 点击星尘：魔法棒的 payoff。
+  // 刻意不挂 prefers-reduced-motion：它是交互触发的瞬时动效，
+  // 设置面板的「主题光标」开关就是它的禁用机制（关系统动画的用户也能看到）。
+  function initClickStardust() {
+    const glyphs = ['✦', '✧', '❀'];
+    const colors = ['var(--pink)', 'var(--lavender)', 'var(--mint)', 'var(--gold)'];
+
+    document.addEventListener('pointerdown', (e) => {
+      if (!document.documentElement.classList.contains('has-theme-cursor')) return;
+      if (!e.isPrimary) return;
+
+      const n = 4 + Math.floor(Math.random() * 2);
+      for (let i = 0; i < n; i++) {
+        const el = document.createElement('span');
+        el.className = 'stardust';
+        el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+        el.style.color = colors[Math.floor(Math.random() * colors.length)];
+        el.style.left = e.clientX + 'px';
+        el.style.top = e.clientY + 'px';
+        el.style.fontSize = (8 + Math.random() * 6) + 'px';
+        document.body.appendChild(el);
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 20 + Math.random() * 24;
+        const dx = Math.cos(angle) * dist;
+        const dy = Math.sin(angle) * dist - 6;
+        const spin = (Math.random() * 120 - 60).toFixed(0);
+        el.animate([
+          { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${dx.toFixed(1)}px), calc(-50% + ${dy.toFixed(1)}px)) scale(.35) rotate(${spin}deg)`, opacity: 0 }
+        ], {
+          duration: 520 + Math.random() * 160,
+          easing: 'cubic-bezier(.22,.61,.36,1)'
+        }).onfinish = () => el.remove();
+      }
+    }, { passive: true });
+  }
+
   function spawnPetals(count) {
     const container = document.getElementById('petals');
     if (!container) return;
@@ -302,10 +340,10 @@
     const { actEl, detailEl, dotEl, titleEl } = els;
 
     const statusMeta = {
-      online: { color: 'var(--mint)', title: '在线 / Active' },
-      idle: { color: 'oklch(72% 0.16 85)', title: '挂起 / Idle' },
-      dnd: { color: 'var(--pink)', title: '勿扰 / DND' },
-      offline: { color: 'var(--muted)', title: '离线 / Offline' }
+      online: { color: 'var(--mint)', title: '在线' },
+      idle: { color: 'oklch(72% 0.16 85)', title: '挂起' },
+      dnd: { color: 'var(--pink)', title: '勿扰' },
+      offline: { color: 'var(--muted)', title: '离线' }
     };
     const meta = statusMeta[status] || statusMeta.offline;
     if (dotEl) dotEl.style.setProperty('--status-color', meta.color);
@@ -444,15 +482,13 @@
   function buildCodeBlockHeader(lang) {
     const header = document.createElement('div');
     header.className = 'code-block-header';
-    header.innerHTML =
-      '<div class="code-block-dots" aria-hidden="true"><span></span><span></span><span></span></div>' +
-      '<div class="code-block-actions"></div>';
+    header.innerHTML = '<div class="code-block-actions"></div>';
 
     if (lang) {
       const langEl = document.createElement('span');
       langEl.className = 'code-block-lang';
       langEl.textContent = lang;
-      header.querySelector('.code-block-actions').appendChild(langEl);
+      header.insertBefore(langEl, header.firstChild);
     }
 
     return header;
@@ -498,7 +534,7 @@
   }
 
   function initImageLightbox() {
-    const targets = document.querySelectorAll('.post-body img, .post-cover');
+    const targets = document.querySelectorAll('.post-body img, img.post-cover');
     if (!targets.length) return;
 
     let lb = document.getElementById('img-lightbox');
@@ -577,6 +613,7 @@
 
     spawnPetals(defaults.petalCount || 12);
     initThemeCursor(defaults.cursorFx);
+    initClickStardust();
     initCodeBlocks();
     initImageLightbox();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');

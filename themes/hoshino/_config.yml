@@ -5,7 +5,6 @@
 brand:
   logo: "Astraea"
   avatar: /img/avatar/avatar.jpg
-  banner: https://t.alcy.cc/pc
 
 nav:
   - { name: "Home", path: "/", icon: home }
@@ -54,7 +53,7 @@ about:
     - { category: "工具", items: ["Git", "Docker"] }
 
 footer:
-  copyright: "© 2026 织星 / Astraea · build with love and code"
+  copyright: "© 2026 织星 / Astraea · 把星光织进字里行间"
   # 站点源码与反馈（页脚胶囊按钮；issues 可省略，默认 repo + /issues）
   repo:
     url: "https://github.com/misterrabbit0w0/misterrabbit0w0.github.io"

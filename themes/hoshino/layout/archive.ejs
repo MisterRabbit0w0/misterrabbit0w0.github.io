@@ -6,11 +6,6 @@
     posts = site.posts.sort('-date').toArray();
   }
 
-  function catTagClass(name) {
-    var map = { '前端': 'tag-pink', 'TypeScript': 'tag-lav', '随笔': 'tag-mint', '算法': 'tag-pink',
-                '开源': 'tag-mint', '工具': 'tag-lav', '译本': 'tag-gold', '日记': 'tag-mint' };
-    return map[name] || 'tag-pink';
-  }
   function fmtMD(date) {
     var d = new Date(date);
     return String(d.getMonth()+1).padStart(2,'0') + ' · ' + String(d.getDate()).padStart(2,'0');
@@ -93,17 +88,14 @@
             tagArr.forEach(function(t) { if (allTopics.indexOf(t) === -1) allTopics.push(t); });
           %>
           <a href="<%- url_for(p.path) %>" class="article-row" data-date="<%= new Date(p.date).getTime() %>" data-topics="<%= allTopics.join('|') %>">
-            <div class="article-row-icon" aria-hidden="true">
-              <%- partial('_partial/icon', { name: 'article', size: 18, className: 'article-icon' }) %>
-            </div>
             <div class="article-row-body">
               <div class="article-row-title"><%= p.title %></div>
               <div class="article-row-excerpt"><%= excerptOf(p) %>…</div>
               <div class="article-row-meta">
                 <span class="article-row-date"><%= fmtMD(p.date) %></span>
-                <% if (firstCat) { %><span class="tag <%= catTagClass(firstCat) %>"><%= firstCat %></span><% } %>
+                <% if (firstCat) { %><span class="tag <%= cat_tag_class(firstCat) %>"><%= firstCat %></span><% } %>
                 <% tagArr.slice(0, 3).forEach(function(t) { %>
-                  <span class="tag <%= catTagClass(t) %>"><%= t %></span>
+                  <span class="tag-text">#<%= t %></span>
                 <% }); %>
                 <% if (p.sticky || p.pinned) { %><span class="pinned-badge">置顶</span><% } %>
               </div>
