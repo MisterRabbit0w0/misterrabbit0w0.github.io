@@ -1,3 +1,4 @@
+/*! Hoshino theme · © 2026 织星 / Astraea · https://github.com/misterrabbit0w0/misterrabbit0w0.github.io · MIT */
 /* ── shared.css — Hoshino kawaii + Light/Dark/System ── */
 :root,
 [data-color-mode="light"] {
@@ -105,6 +106,86 @@ body::before {
   90%  { opacity: calc(var(--petal-opacity) * 0.55); }
   100% { transform: translateY(110vh) rotate(540deg) scale(.6); opacity: 0; }
 }
+
+/* 入夜：花瓣不再下坠，反向化作星屑升起、褪为淡色 */
+[data-color-mode="dark"] .petal {
+  top: auto;
+  bottom: -60px;
+  animation-name: rise;
+  border-radius: 50% !important;
+  filter: brightness(1.6) saturate(0.3);
+}
+@keyframes rise {
+  0%   { transform: translateY(0) rotate(0deg) scale(.9); opacity: 0; }
+  6%   { opacity: var(--petal-opacity); }
+  88%  { opacity: calc(var(--petal-opacity) * 0.5); }
+  100% { transform: translateY(-115vh) rotate(160deg) scale(.4); opacity: 0; }
+}
+
+/* 织星成座：入夜浮现的星空 + 室女座 */
+.nightsky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .9s ease;
+}
+.nightsky svg { display: block; width: 100%; height: 100%; }
+[data-color-mode="dark"] .nightsky { opacity: 1; }
+.ns-stars circle { fill: oklch(92% 0.02 290); }
+.ns-virgo polyline { fill: none; stroke: oklch(82% 0.06 300); stroke-width: 1; opacity: .5; stroke-linejoin: round; stroke-linecap: round; }
+.ns-virgo circle { fill: oklch(94% 0.02 300); }
+.ns-spica { fill: var(--pink); }
+.ns-spica-halo { fill: var(--pink); opacity: .16; }
+.ns-tw { animation: ns-twinkle 4.5s ease-in-out infinite alternate; }
+@keyframes ns-twinkle { from { opacity: .2; } to { opacity: .85; } }
+/* 角宿一：暗色下缓缓呼吸，邀请点亮；靠近时变亮放大 */
+.ns-spica-halo { animation: ns-beacon 3.4s ease-in-out infinite; }
+@keyframes ns-beacon { 0%, 100% { opacity: .1; } 50% { opacity: .26; } }
+.ns-spica { transition: r .25s ease; }
+.ns-spica-hot { r: 5.6px; }
+
+/* 星屑：鼠标尾迹 + 点亮绽放 */
+.skydust {
+  position: fixed;
+  z-index: 1150;
+  pointer-events: none;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+.skydust-burst {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  color: var(--pink);
+  line-height: 1;
+}
+
+/* 许愿话语 */
+.ns-wish {
+  position: fixed;
+  z-index: 1160;
+  transform: translate(-50%, 0);
+  max-width: 260px;
+  padding: 9px 15px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--pink);
+  background: var(--card);
+  border: 1.5px solid var(--pink-light);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s ease, transform .5s ease;
+}
+.ns-wish.show { opacity: 1; transform: translate(-50%, 5px); }
 
 .page {
   position: relative;

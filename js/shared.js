@@ -1,3 +1,4 @@
+/*! Hoshino theme · © 2026 织星 / Astraea · https://github.com/misterrabbit0w0/misterrabbit0w0.github.io · MIT */
 // shared.js — petals, theme cursor, Light/Dark/System, live status, GitHub contribution
 (function () {
   const STORAGE_KEY = 'blog_tweaks';
@@ -81,6 +82,103 @@
     }, { passive: true });
   }
 
+  function isDarkMode() {
+    return document.documentElement.getAttribute('data-color-mode') === 'dark';
+  }
+  function motionReduced() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  // 夜空星屑尾迹：暗色模式下鼠标划过留下淡淡星屑
+  function initSkyTrail() {
+    let last = 0;
+    document.addEventListener('pointermove', (e) => {
+      if (!isDarkMode() || motionReduced() || e.pointerType === 'touch') return;
+      const t = e.timeStamp || 0;
+      if (t - last < 55) return;
+      last = t;
+      const el = document.createElement('span');
+      el.className = 'skydust';
+      el.style.left = e.clientX + 'px';
+      el.style.top = e.clientY + 'px';
+      document.body.appendChild(el);
+      el.animate([
+        { transform: 'translate(-50%,-50%) scale(1)', opacity: 0.7 },
+        { transform: `translate(-50%, calc(-50% - ${8 + Math.random() * 12}px)) scale(.3)`, opacity: 0 }
+      ], { duration: 800 + Math.random() * 300, easing: 'ease-out' }).onfinish = () => el.remove();
+    }, { passive: true });
+  }
+
+  function burstStardust(x, y) {
+    if (motionReduced()) return;
+    const glyphs = ['✦', '✧', '·'];
+    for (let i = 0; i < 8; i++) {
+      const el = document.createElement('span');
+      el.className = 'skydust skydust-burst';
+      el.textContent = glyphs[i % glyphs.length];
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.fontSize = (8 + Math.random() * 7) + 'px';
+      document.body.appendChild(el);
+      const a = (i / 8) * Math.PI * 2, d = 24 + Math.random() * 26;
+      el.animate([
+        { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
+        { transform: `translate(calc(-50% + ${(Math.cos(a) * d).toFixed(1)}px), calc(-50% + ${(Math.sin(a) * d).toFixed(1)}px)) scale(.3)`, opacity: 0 }
+      ], { duration: 650 + Math.random() * 250, easing: 'cubic-bezier(.22,.61,.36,1)' }).onfinish = () => el.remove();
+    }
+  }
+
+  // 许愿星：暗色下点亮角宿一(Spica)，浮现一句悄悄话
+  function initWishStar() {
+    const spica = document.querySelector('.ns-spica');
+    const wishEl = document.getElementById('ns-wish');
+    if (!spica || !wishEl || !(wishEl.textContent || '').trim()) return;
+
+    let cx = 0, cy = 0;
+    function recalc() {
+      const r = spica.getBoundingClientRect();
+      cx = r.left + r.width / 2;
+      cy = r.top + r.height / 2;
+    }
+    recalc();
+    window.addEventListener('resize', recalc);
+
+    const HOT = 30;
+    document.addEventListener('pointermove', (e) => {
+      if (!isDarkMode()) { spica.classList.remove('ns-spica-hot'); return; }
+      spica.classList.toggle('ns-spica-hot', Math.hypot(e.clientX - cx, e.clientY - cy) < HOT);
+    }, { passive: true });
+
+    function hideWish() {
+      clearTimeout(wishEl._hideT);
+      wishEl.classList.remove('show');
+      clearTimeout(wishEl._rmT);
+      wishEl._rmT = setTimeout(() => { wishEl.hidden = true; }, 600);
+    }
+    function showWish() {
+      recalc();
+      burstStardust(cx, cy);
+      clearTimeout(wishEl._rmT);
+      wishEl.style.left = cx + 'px';
+      wishEl.style.top = (cy + 24) + 'px';
+      wishEl.hidden = false;
+      requestAnimationFrame(() => wishEl.classList.add('show'));
+      clearTimeout(wishEl._hideT);
+      wishEl._hideT = setTimeout(hideWish, 6000); // 自动隐藏兜底
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!isDarkMode()) return;
+      if (e.target.closest && e.target.closest('a, button, input, select, textarea, label, summary')) return;
+      recalc();
+      const showing = !wishEl.hidden;
+      const nearSpica = Math.hypot(e.clientX - cx, e.clientY - cy) < HOT;
+      // 点 Spica：切换显示/隐藏；已显示时点别处也立即关闭（气泡 pointer-events:none，点它会穿透到此处）
+      if (nearSpica) { showing ? hideWish() : showWish(); }
+      else if (showing) { hideWish(); }
+    });
+  }
+
   function spawnPetals(count) {
     const container = document.getElementById('petals');
     if (!container) return;
@@ -98,9 +196,14 @@
     }
   }
 
+  // 自动模式：按访客本地时间在日落后切到夜晚。真正的日落随经纬度/日期变化、
+  // 需要地理定位权限，对博客过于侵入，故用固定时段近似（可改下方两个常量）。
+  var NIGHT_START_HOUR = 18; // 入夜：18:00 起为夜晚
+  var DAY_START_HOUR = 6;    // 破晓：06:00 起为白天
   function resolveThemeMode(preference) {
     if (preference === 'system') {
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      var h = new Date().getHours();
+      return (h >= NIGHT_START_HOUR || h < DAY_START_HOUR) ? 'dark' : 'light';
     }
     return preference === 'dark' ? 'dark' : 'light';
   }
@@ -138,14 +241,13 @@
       });
     });
 
-    if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
-        try {
-          const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-          if ((saved.themeMode || preference) === 'system') applyThemeMode('system');
-        } catch (e) {}
-      });
-    }
+    // 自动模式下每分钟复查一次，跨过日落/破晓时刻时无需刷新即自动切换
+    window.setInterval(() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        if ((saved.themeMode || preference) === 'system') applyThemeMode('system');
+      } catch (e) {}
+    }, 60000);
   }
 
   async function fetchGitHubEvents(username, maxPages) {
@@ -614,6 +716,8 @@
     spawnPetals(defaults.petalCount || 12);
     initThemeCursor(defaults.cursorFx);
     initClickStardust();
+    initSkyTrail();
+    initWishStar();
     initCodeBlocks();
     initImageLightbox();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');

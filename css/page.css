@@ -1,3 +1,4 @@
+/*! Hoshino theme · © 2026 织星 / Astraea · https://github.com/misterrabbit0w0/misterrabbit0w0.github.io · MIT */
 /* ── page.css — 各页面专属样式合集（home/archive/post/projects/about）── */
 
 /* ===== HOME (index) ===== */
@@ -7,7 +8,7 @@
   column-gap: 48px;
   row-gap: 24px;
   align-items: center;
-  padding: 72px 0 48px;
+  padding: 108px 0 64px;
   position: relative;
 }
 .hero-home::before {
@@ -30,32 +31,7 @@
 .hero-text .handle { font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin-bottom: 14px; font-weight: 500; }
 .hero-text .bio { font-size: 15px; line-height: 1.85; color: var(--muted); max-width: 440px; }
 .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-.hero-aside { justify-self: end; }
 .social-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
-
-.avatar-wrap { position: relative; flex-shrink: 0; }
-.avatar-ring {
-  width: 140px; height: 140px; border-radius: 50%;
-  background: conic-gradient(var(--pink), var(--pink-light), var(--pink));
-  padding: 3px;
-}
-.avatar-inner {
-  width: 100%; height: 100%; border-radius: 50%;
-  background: var(--card); overflow: hidden;
-}
-.avatar-inner img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 50%; }
-.avatar-inner span {
-  display: flex; align-items: center; justify-content: center;
-  width: 100%; height: 100%; font-size: 46px; color: var(--muted);
-}
-.avatar-badge {
-  position: absolute; bottom: 4px; right: 4px;
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--card); border: 2px solid var(--bg);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--pink); box-shadow: var(--shadow);
-}
-.avatar-badge-icon { display: block; }
 
 .home-writing { margin-top: 8px; }
 
@@ -227,7 +203,7 @@
 .article-row + .article-row {
   border-top: 1px solid var(--border);
 }
-.article-row:hover { background: var(--bg2); }
+.article-row:hover { background: color-mix(in oklab, var(--pink) 7%, transparent); }
 .article-row:hover .article-row-title { color: var(--pink); }
 .article-row-body { min-width: 0; }
 .article-row-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.45; transition: color .2s ease; }
@@ -412,8 +388,7 @@
   .post-layout { grid-template-columns: 1fr; }
 }
 @media (max-width: 700px) {
-  .hero { grid-template-columns: 1fr; }
-  .hero-aside { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 64px 0 40px; }
   .hero-home::before { display: none; }
 }
 .post-header { margin-bottom: 36px; }
@@ -770,11 +745,6 @@ html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
   position: relative; overflow: hidden;
   transition: all .3s;
 }
-.project-featured::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(135deg, var(--pink-light) 0%, transparent 60%);
-  opacity: .5; pointer-events: none;
-}
 .project-featured:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .project-featured-badge {
   font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px;
@@ -1026,12 +996,30 @@ html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
   padding-bottom: 8px;
   border-bottom: 1px dashed var(--border);
 }
+.status-avatar {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+.status-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  border: 1.5px solid var(--border);
+}
 .status-dot {
   width: 8px;
   height: 8px;
   background-color: var(--status-color, var(--mint));
   border-radius: 50%;
-  position: relative;
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  border: 2px solid var(--card);
+  box-sizing: content-box;
   flex-shrink: 0;
 }
 .status-dot::after {
