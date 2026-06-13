@@ -148,21 +148,33 @@
       spica.classList.toggle('ns-spica-hot', Math.hypot(e.clientX - cx, e.clientY - cy) < HOT);
     }, { passive: true });
 
-    document.addEventListener('click', (e) => {
-      if (!isDarkMode()) return;
-      if (e.target.closest && e.target.closest('a, button, input, select, textarea, label, summary')) return;
+    function hideWish() {
+      clearTimeout(wishEl._hideT);
+      wishEl.classList.remove('show');
+      clearTimeout(wishEl._rmT);
+      wishEl._rmT = setTimeout(() => { wishEl.hidden = true; }, 600);
+    }
+    function showWish() {
       recalc();
-      if (Math.hypot(e.clientX - cx, e.clientY - cy) >= HOT) return;
       burstStardust(cx, cy);
+      clearTimeout(wishEl._rmT);
       wishEl.style.left = cx + 'px';
       wishEl.style.top = (cy + 24) + 'px';
       wishEl.hidden = false;
       requestAnimationFrame(() => wishEl.classList.add('show'));
       clearTimeout(wishEl._hideT);
-      wishEl._hideT = setTimeout(() => {
-        wishEl.classList.remove('show');
-        setTimeout(() => { wishEl.hidden = true; }, 600);
-      }, 5200);
+      wishEl._hideT = setTimeout(hideWish, 6000); // 自动隐藏兜底
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!isDarkMode()) return;
+      if (e.target.closest && e.target.closest('a, button, input, select, textarea, label, summary')) return;
+      recalc();
+      const showing = !wishEl.hidden;
+      const nearSpica = Math.hypot(e.clientX - cx, e.clientY - cy) < HOT;
+      // 点 Spica：切换显示/隐藏；已显示时点别处也立即关闭（气泡 pointer-events:none，点它会穿透到此处）
+      if (nearSpica) { showing ? hideWish() : showWish(); }
+      else if (showing) { hideWish(); }
     });
   }
 
