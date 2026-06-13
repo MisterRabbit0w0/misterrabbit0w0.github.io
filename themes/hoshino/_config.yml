@@ -68,3 +68,5 @@ effects:
   petals: 12
   theme: "system"
   cursor: true
+  # 暗色夜空里点亮角宿一(Spica)后浮现的悄悄话；留空则关闭此彩蛋
+  wish: "你找到了这颗星 ✦ 谢谢你读到这里"

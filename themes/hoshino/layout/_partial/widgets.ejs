@@ -1,7 +1,12 @@
 <% if (theme.hero && theme.hero.status_card && theme.hero.status_card.enable) { %>
 <div class="widget-card status-card" id="status-card" hidden>
   <div class="status-header">
-    <span class="status-dot"></span>
+    <div class="status-avatar">
+      <% if (theme.brand && theme.brand.avatar) { %>
+      <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= config.author %>">
+      <% } %>
+      <span class="status-dot"></span>
+    </div>
     <span class="status-title">在线</span>
   </div>
   <div class="status-body">

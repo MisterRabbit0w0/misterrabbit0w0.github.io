@@ -6,6 +6,7 @@
 <body class="<%= is_home() || is_post() || is_archive() ? 'has-sidebar' : '' %>">
 
 <% if (is_post()) { %><div id="read-progress"></div><% } %>
+<%- partial('_partial/nightsky') %>
 <div class="petals" id="petals"></div>
 
 <div class="page<%= (is_home() || is_post() || is_archive()) ? ' page-wide' : '' %>">

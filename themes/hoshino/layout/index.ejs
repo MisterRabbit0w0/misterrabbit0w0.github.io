@@ -38,22 +38,6 @@
           <% }); %>
         </div>
       </div>
-      <div class="hero-aside">
-        <div class="avatar-wrap">
-          <div class="avatar-ring">
-            <div class="avatar-inner">
-              <% if (theme.brand && theme.brand.avatar) { %>
-                <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= config.author %>">
-              <% } else { %>
-                <span><%= (config.author || 'A').charAt(0) %></span>
-              <% } %>
-            </div>
-          </div>
-          <div class="avatar-badge" aria-hidden="true">
-            <%- partial('_partial/icon', { name: 'star', size: 12, className: 'avatar-badge-icon' }) %>
-          </div>
-        </div>
-      </div>
     </section>
 
     <% if (recent.length > 0) { %>
