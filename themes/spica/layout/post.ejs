@@ -117,28 +117,35 @@
 </div>
 
 <script>
-// Reading progress
-window.addEventListener('scroll', () => {
-  const doc = document.documentElement;
-  const progress = doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100;
+// 阅读进度 + 目录高亮：合并为单个 rAF 节流的滚动处理，滚动更顺、不掉帧
+(function () {
   const bar = document.getElementById('read-progress');
-  if (bar) bar.style.width = progress + '%';
-});
-// TOC active on scroll
-(function() {
-  const items = document.querySelectorAll('.toc-item');
-  if (!items.length) return;
-  const sections = Array.from(items).map(i => {
-    const id = i.getAttribute('href').slice(1);
-    return { el: i, target: document.getElementById(id) };
-  }).filter(s => s.target);
-  window.addEventListener('scroll', () => {
-    let active = sections[0];
-    for (const s of sections) {
-      if (s.target.getBoundingClientRect().top < 100) active = s;
+  const items = Array.from(document.querySelectorAll('.toc-item'));
+  const sections = items
+    .map(i => ({ el: i, target: document.getElementById(i.getAttribute('href').slice(1)) }))
+    .filter(s => s.target);
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const doc = document.documentElement;
+    if (bar) {
+      const max = doc.scrollHeight - doc.clientHeight;
+      bar.style.width = (max > 0 ? (doc.scrollTop / max) * 100 : 0) + '%';
     }
-    items.forEach(i => i.classList.remove('active'));
-    if (active) active.el.classList.add('active');
-  });
+    if (sections.length) {
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.target.getBoundingClientRect().top < 120) active = s;
+      }
+      items.forEach(i => i.classList.toggle('active', i === active.el));
+    }
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  update();
 })();
 </script>

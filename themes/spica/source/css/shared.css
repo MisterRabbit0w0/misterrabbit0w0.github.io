@@ -1,4 +1,4 @@
-/* ── shared.css — Hoshino kawaii + Light/Dark/System ── */
+/* ── shared.css — Spica kawaii + Light/Dark/System ── */
 :root,
 [data-color-mode="light"] {
   color-scheme: light;
@@ -21,6 +21,7 @@
   --gold-border: oklch(90% 0.08 50);
   --border:     oklch(90% 0.02 85);
   --shadow:     0 4px 24px oklch(60% 0.08 330 / 0.07);
+  --shadow-lift: 0 16px 38px oklch(60% 0.1 330 / 0.16);
   --nav-pill:   oklch(94% 0.03 355);
   --dot:        oklch(75% 0.12 330 / 0.16);
   --petal-opacity: 0.7;
@@ -51,6 +52,7 @@
   --gold-border: oklch(38% 0.07 70);
   --border:     oklch(38% 0.035 290);
   --shadow:     0 4px 24px oklch(4% 0.03 290 / 0.55);
+  --shadow-lift: 0 18px 42px oklch(4% 0.04 290 / 0.72);
   --nav-pill:   oklch(32% 0.04 290);
   --dot:        oklch(72% 0.1 330 / 0.14);
   --petal-opacity: 0.35;
@@ -93,32 +95,68 @@ body::before {
 }
 
 .petals { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+/* 双层花瓣：外层负责下坠（匀速直线），内层负责横向飘摆 + 旋转（缓入缓出），
+   两层叠加出叶片般自然飘落的轨迹，而非机械的垂直坠落。 */
 .petal {
   position: absolute;
-  top: -60px;
+  top: -8%;
   opacity: 0;
-  animation: fall linear infinite;
+  will-change: transform, opacity;
+  animation: petal-fall linear infinite;
 }
-@keyframes fall {
-  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
-  5%   { opacity: var(--petal-opacity); }
-  90%  { opacity: calc(var(--petal-opacity) * 0.55); }
-  100% { transform: translateY(110vh) rotate(540deg) scale(.6); opacity: 0; }
+.petal-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+  animation: petal-sway var(--sway-dur, 3.4s) ease-in-out infinite alternate;
+  animation-delay: var(--sway-delay, 0s);
+}
+@keyframes petal-fall {
+  0%   { transform: translateY(0); opacity: 0; }
+  6%   { opacity: var(--petal-opacity); }
+  88%  { opacity: calc(var(--petal-opacity) * 0.55); }
+  100% { transform: translateY(112vh); opacity: 0; }
+}
+@keyframes petal-sway {
+  from { transform: translateX(calc(var(--sway, 14px) * -1)) rotate(var(--rot-a, -18deg)); }
+  to   { transform: translateX(var(--sway, 14px)) rotate(var(--rot-b, 34deg)); }
 }
 
 /* 入夜：花瓣不再下坠，反向化作星屑升起、褪为淡色 */
 [data-color-mode="dark"] .petal {
   top: auto;
-  bottom: -60px;
-  animation-name: rise;
+  bottom: -8%;
+  animation-name: petal-rise;
+}
+[data-color-mode="dark"] .petal-inner {
   border-radius: 50% !important;
   filter: brightness(1.6) saturate(0.3);
 }
-@keyframes rise {
-  0%   { transform: translateY(0) rotate(0deg) scale(.9); opacity: 0; }
-  6%   { opacity: var(--petal-opacity); }
-  88%  { opacity: calc(var(--petal-opacity) * 0.5); }
-  100% { transform: translateY(-115vh) rotate(160deg) scale(.4); opacity: 0; }
+@keyframes petal-rise {
+  0%   { transform: translateY(0); opacity: 0; }
+  7%   { opacity: var(--petal-opacity); }
+  86%  { opacity: calc(var(--petal-opacity) * 0.5); }
+  100% { transform: translateY(-118vh); opacity: 0; }
+}
+
+/* ── 入场渐现 ──
+   仅在 JS 就位且未开启「减少动态效果」时挂上 html.js-reveal，
+   因此无 JS / reduced-motion 时内容始终可见，纯增强。 */
+html.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  will-change: opacity, transform;
+}
+html.js-reveal .reveal.reveal-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity .66s cubic-bezier(.22,.61,.36,1),
+    transform .66s cubic-bezier(.22,.61,.36,1);
+}
+html.js-reveal .reveal.reveal-done {
+  will-change: auto;
 }
 
 /* 织星成座：入夜浮现的星空 + 室女座 */
@@ -144,6 +182,54 @@ body::before {
 @keyframes ns-beacon { 0%, 100% { opacity: .1; } 50% { opacity: .26; } }
 .ns-spica { transition: r .25s ease; }
 .ns-spica-hot { r: 5.6px; }
+
+/* 入夜仪式：星座被缓缓勾勒出来 —— 连线如笔锋般描出，星点错峰绽放 */
+.ns-virgo polyline { stroke-dasharray: 820; }
+[data-color-mode="dark"] .ns-virgo polyline {
+  animation: ns-draw 1.7s cubic-bezier(.22,.61,.36,1) .4s both;
+}
+@keyframes ns-draw {
+  from { stroke-dashoffset: 820; }
+  to   { stroke-dashoffset: 0; }
+}
+[data-color-mode="dark"] .ns-virgo circle {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ns-pop .7s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes ns-pop { from { transform: scale(0); } to { transform: scale(1); } }
+[data-color-mode="dark"] .ns-virgo circle:nth-of-type(1) { animation-delay: .55s; }
+[data-color-mode="dark"] .ns-virgo circle:nth-of-type(2) { animation-delay: .8s; }
+[data-color-mode="dark"] .ns-virgo circle:nth-of-type(3) { animation-delay: 1.05s; }
+[data-color-mode="dark"] .ns-virgo circle:nth-of-type(4) { animation-delay: 1.3s; }
+[data-color-mode="dark"] .ns-virgo circle:nth-of-type(5) { animation-delay: 1.55s; }
+[data-color-mode="dark"] .ns-virgo circle:nth-of-type(6) { animation-delay: 1.8s; }
+
+/* 流星：暗色下偶尔划过的一道细光（由 JS 触发，位置随机） */
+.shooting-star {
+  position: fixed;
+  z-index: 1;
+  width: 120px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, oklch(96% 0.03 290 / 0.95));
+  box-shadow: 0 0 6px oklch(92% 0.04 290 / 0.7);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* 许愿涟漪：点亮角宿一时荡开的一圈柔光 */
+.ns-ripple {
+  position: fixed;
+  z-index: 1149;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pink);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+}
 
 /* 星屑：鼠标尾迹 + 点亮绽放 */
 .skydust {
@@ -485,7 +571,7 @@ body::before {
   flex-shrink: 0;
 }
 
-/* ── Hoshino theme cursor (stable CSS cursor-url mode) ── */
+/* ── Spica theme cursor (stable CSS cursor-url mode) ── */
 @media (pointer: fine) {
   html.has-theme-cursor,
   html.has-theme-cursor body {
@@ -581,7 +667,16 @@ body.lightbox-open { overflow: hidden; }
   background: oklch(12% 0.02 290 / 0.72);
   backdrop-filter: blur(6px);
   cursor: zoom-out;
+  animation: lightbox-fade .22s ease;
 }
+@keyframes lightbox-fade { from { opacity: 0; } to { opacity: 1; } }
+.img-lightbox-closing .img-lightbox-panel { animation: lightbox-out .18s ease forwards; }
+.img-lightbox-closing .img-lightbox-backdrop { animation: lightbox-fade-out .18s ease forwards; }
+@keyframes lightbox-out {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(.95); }
+}
+@keyframes lightbox-fade-out { from { opacity: 1; } to { opacity: 0; } }
 
 .img-lightbox-panel {
   position: relative;
@@ -668,4 +763,18 @@ body.lightbox-open { overflow: hidden; }
   .footer-pills { justify-content: center; }
   #tweaks-toggle { bottom: 16px; right: 16px; }
   #tweaks-panel { bottom: 70px; right: 16px; width: calc(100vw - 32px); max-width: 260px; }
+}
+
+/* ── 昼夜转场 ──
+   切换明/暗时，新主题以点击的开关为圆心、像涟漪一样揭开覆盖旧主题。
+   仅在支持 View Transitions 且未开启 reduced-motion 的浏览器生效（JS 中已守卫），
+   不支持的浏览器回退为原本的背景淡入。 */
+::view-transition-old(root) { animation: none; z-index: 0; }
+::view-transition-new(root) {
+  animation: vt-reveal .55s cubic-bezier(.22,.61,.36,1);
+  z-index: 1;
+}
+@keyframes vt-reveal {
+  from { clip-path: circle(0% at var(--vt-x, 50%) var(--vt-y, 0%)); }
+  to   { clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 50%) var(--vt-y, 0%)); }
 }

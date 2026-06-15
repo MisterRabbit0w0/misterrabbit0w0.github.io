@@ -4,7 +4,7 @@
 
 # Site
 title: 织星 · Astraea
-subtitle: '织星的折腾笔记'
+subtitle: '造梦想如星光'
 description: '算法、工具、前端、日常'
 keywords: 算法,前端,工具,开源
 author: 织星
@@ -101,7 +101,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hoshino
+theme: spica
 
 # Feed (hexo-generator-feed)
 feed:

@@ -9,7 +9,7 @@ This repository is a personal Hexo static blog deployed to GitHub Pages at:
 <https://misterrabbit0w0.github.io>
 
 The site is Chinese-language, configured for `Asia/Shanghai`, and authored as
-`织星 / Astraea`. The active theme is the custom `hoshino` theme.
+`织星 / Astraea`. The active theme is the custom `spica` theme.
 
 ## Tech Stack
 
@@ -55,18 +55,18 @@ npx hexo new draft "标题"
 - `source/about/`, `source/projects/`, `source/categories/`, `source/tags/` - site pages.
 - `source/img/` - images and favicon assets.
 - `scaffolds/` - Hexo templates for new posts/pages/drafts.
-- `themes/hoshino/` - active custom theme.
-- `themes/hoshino/_config.yml` - active theme configuration.
-- `themes/hoshino/layout/` - EJS layouts and partials.
-- `themes/hoshino/source/css/` - theme styles.
-- `themes/hoshino/source/js/` - theme scripts.
-- `themes/hoshino/scripts/` - Hexo generators and helpers.
+- `themes/spica/` - active custom theme.
+- `themes/spica/_config.yml` - active theme configuration.
+- `themes/spica/layout/` - EJS layouts and partials.
+- `themes/spica/source/css/` - theme styles.
+- `themes/spica/source/js/` - theme scripts.
+- `themes/spica/scripts/` - Hexo generators and helpers.
 - `.github/workflows/build.yml` - GitHub Pages build and deployment workflow.
 - `public/` - generated site output; do not edit manually.
 
 ## Configuration Notes
 
-- Active theme: `hoshino`.
+- Active theme: `spica`.
 - Site language: `zh-CN`.
 - Timezone: `Asia/Shanghai`.
 - Permalink format: `:year/:month/:day/:title/`.
@@ -80,9 +80,9 @@ npx hexo new draft "标题"
 - Keep edits scoped to the requested change.
 - Prefer existing Hexo and theme conventions over adding new tooling.
 - Keep generated files out of manual edits, especially `public/` and Hexo caches.
-- Put reusable theme behavior in `themes/hoshino/source/js/shared.js`.
-- Put global styling in `themes/hoshino/source/css/shared.css`.
-- Put page-specific styling in `themes/hoshino/source/css/page.css`.
+- Put reusable theme behavior in `themes/spica/source/js/shared.js`.
+- Put global styling in `themes/spica/source/css/shared.css`.
+- Put page-specific styling in `themes/spica/source/css/page.css`.
 - Keep EJS templates readable and avoid moving presentation logic into content files.
 - Preserve the Chinese site voice and existing author identity.
 - Use ASCII for code unless the surrounding file or user-facing Chinese content calls for non-ASCII text.

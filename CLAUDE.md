@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hexo 静态博客，使用自制 **Hoshino** 主题（EJS 模板，樱花粉 + 花瓣 + Light/Dark/System），部署在 GitHub Pages (misterrabbit0w0.github.io)。站点语言为中文，时区 Asia/Shanghai。作者署名：织星 / Astraea。
+Hexo 静态博客，使用自制 **Spica** 主题（EJS 模板，樱花粉 + 花瓣 + 入夜星空/室女座 + Light/Dark/System），部署在 GitHub Pages (misterrabbit0w0.github.io)。站点语言为中文，时区 Asia/Shanghai。作者署名：织星 / Astraea。
 
 ## Common Commands
 
@@ -23,7 +23,7 @@ hexo new draft "标题" # 创建草稿
 - **`_config.yml`** — Hexo 主配置（站点信息、永久链接格式、分页等）
 - **`source/_posts/`** — 博客文章（Markdown + YAML front matter）
 - **`scaffolds/`** — 新建内容的模板（post、page、draft）
-- **`themes/hoshino/`** — 自制主题（当前启用）
+- **`themes/spica/`** — 自制主题（当前启用）
   - **`_config.yml`** — 主题配置（brand、nav、hero、social、about、footer、effects）
   - **`layout/`** — EJS 模板：`layout.ejs`（骨架）、`index.ejs`（首页）、`archive.ejs`（文章列表，被 category/tag 复用）、`post.ejs`（单篇+TOC+阅读进度）、`page.ejs`（按 `page.layout` 分流 projects/about/default）
   - **`source/css/`** — `shared.css`（全局）+ `page.css`（各页面）

@@ -1,5 +1,5 @@
 # ─────────────────────────────────────────────
-# Hoshino Theme Config
+# Spica Theme Config
 # ─────────────────────────────────────────────
 
 brand:
@@ -15,12 +15,12 @@ hero:
   handle: "@Astraea · GitHub"
   title_prefix: "你好，我是"
   title_name: "织星"
-  bio: ""
+  bio: "记录代码，设计和一些温柔的胡思乱想。"
   tags:
     - { text: "算法", class: "tag-pink" }
     - { text: "TypeScript", class: "tag-lav" }
     - { text: "开源", class: "tag-mint" }
-    - { text: "工具折腾", class: "tag-pink" }
+    - { text: "工具", class: "tag-pink" }
     - { text: "学习笔记", class: "tag-lav" }
   status_card:
     enable: true
@@ -69,4 +69,4 @@ effects:
   theme: "system"
   cursor: true
   # 暗色夜空里点亮角宿一(Spica)后浮现的悄悄话；留空则关闭此彩蛋
-  wish: "你找到了这颗星 ✦ 谢谢你读到这里"
+  wish: "愿你抬头 恰逢星光"

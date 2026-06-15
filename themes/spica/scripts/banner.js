@@ -6,11 +6,11 @@
 // after_render:css / after_render:js 在 hexo server 与 hexo generate 下都会触发。
 
 var BANNER =
-  '/*! Hoshino theme · © 2026 织星 / Astraea · ' +
+  '/*! Spica theme · © 2026 织星 / Astraea · ' +
   'https://github.com/misterrabbit0w0/misterrabbit0w0.github.io · MIT */\n';
 
 function prepend(str) {
-  if (typeof str !== 'string' || str.indexOf('Hoshino theme ·') !== -1) return str;
+  if (typeof str !== 'string' || str.indexOf('Spica theme ·') !== -1) return str;
   return BANNER + str;
 }
 

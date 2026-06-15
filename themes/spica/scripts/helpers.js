@@ -38,7 +38,7 @@ hexo.extend.helper.register('star_cover', function (seedText) {
     return 'var(--gold)';
   }
 
-  var seed = hash(String(seedText || 'hoshino'));
+  var seed = hash(String(seedText || 'spica'));
   var rnd = mulberry32(seed);
   var W = 1200, H = 300;
   var uid = 'sg' + (seed % 100000);

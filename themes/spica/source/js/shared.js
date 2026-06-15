@@ -127,6 +127,58 @@
     }
   }
 
+  // 许愿涟漪：点亮角宿一时，从星点荡开一圈柔光
+  function spawnRipple(x, y) {
+    if (motionReduced()) return;
+    const ring = document.createElement('span');
+    ring.className = 'ns-ripple';
+    ring.style.left = x + 'px';
+    ring.style.top = y + 'px';
+    document.body.appendChild(ring);
+    ring.animate([
+      { opacity: 0.85, transform: 'translate(-50%,-50%) scale(.4)' },
+      { opacity: 0, transform: 'translate(-50%,-50%) scale(6)' }
+    ], { duration: 950, easing: 'cubic-bezier(.22,.61,.36,1)' }).onfinish = () => ring.remove();
+  }
+
+  // 流星：暗色模式下偶发划过夜空的一道细光。
+  // 仅在标签页可见、未开启 reduced-motion 时出现，频率克制（约 16–42s 一次）。
+  function initShootingStars() {
+    if (motionReduced()) return;
+
+    function scheduleNext() {
+      setTimeout(fire, 16000 + Math.random() * 26000);
+    }
+    function fire() {
+      if (isDarkMode() && document.visibilityState === 'visible') shoot();
+      scheduleNext();
+    }
+    function shoot() {
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const startX = vw * (0.08 + Math.random() * 0.5);
+      const startY = vh * (0.04 + Math.random() * 0.26);
+      const angle = (18 + Math.random() * 16) * Math.PI / 180;
+      const dist = 240 + Math.random() * 280;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist;
+      const deg = (angle * 180 / Math.PI).toFixed(1);
+      star.style.left = startX + 'px';
+      star.style.top = startY + 'px';
+      document.body.appendChild(star);
+      star.animate([
+        { opacity: 0, transform: `translate(0,0) rotate(${deg}deg) scaleX(.4)` },
+        { opacity: 1, offset: 0.2 },
+        { opacity: 0.9, offset: 0.72 },
+        { opacity: 0, transform: `translate(${dx.toFixed(0)}px, ${dy.toFixed(0)}px) rotate(${deg}deg) scaleX(1)` }
+      ], { duration: 950 + Math.random() * 450, easing: 'cubic-bezier(.4,0,.2,1)' })
+        .onfinish = () => star.remove();
+    }
+
+    scheduleNext();
+  }
+
   // 许愿星：暗色下点亮角宿一(Spica)，浮现一句悄悄话
   function initWishStar() {
     const spica = document.querySelector('.ns-spica');
@@ -157,6 +209,7 @@
     function showWish() {
       recalc();
       burstStardust(cx, cy);
+      spawnRipple(cx, cy);
       clearTimeout(wishEl._rmT);
       wishEl.style.left = cx + 'px';
       wishEl.style.top = (cy + 24) + 'px';
@@ -182,16 +235,34 @@
     const container = document.getElementById('petals');
     if (!container) return;
     container.innerHTML = '';
-    const n = Math.max(0, Number(count) || 0);
+    let n = Math.max(0, Number(count) || 0);
+    // 窄屏/移动端自动减量，照顾低端设备的合成性能
+    if (window.matchMedia && window.matchMedia('(max-width: 640px)').matches) {
+      n = Math.round(n * 0.55);
+    }
     for (let i = 0; i < n; i++) {
-      const el = document.createElement('div');
-      el.className = 'petal';
-      el.style.cssText =
-        `left:${Math.random() * 100}%;background:${petalColors[i % petalColors.length]};` +
-        `animation-duration:${6 + Math.random() * 8}s;animation-delay:${Math.random() * 10}s;` +
-        `width:${8 + Math.random() * 6}px;height:${10 + Math.random() * 8}px;` +
-        `transform:rotate(${Math.random() * 360}deg);border-radius:${Math.random() > .5 ? '50% 0 50% 0' : '50%'};`;
-      container.appendChild(el);
+      const w = 8 + Math.random() * 6;
+      const h = w + 2 + Math.random() * 6;
+      const outer = document.createElement('div');
+      outer.className = 'petal';
+      // 负的 animation-delay：花瓣在载入瞬间就已分散在下落周期的各个相位，
+      // 不再出现「等几秒才开始飘」的空窗。
+      outer.style.cssText =
+        `left:${Math.random() * 100}%;width:${w}px;height:${h}px;` +
+        `animation-duration:${7 + Math.random() * 9}s;animation-delay:${(-Math.random() * 14).toFixed(2)}s;`;
+      const inner = document.createElement('div');
+      inner.className = 'petal-inner';
+      const rotBase = Math.random() * 360;
+      inner.style.cssText =
+        `background:${petalColors[i % petalColors.length]};` +
+        `border-radius:${Math.random() > .5 ? '50% 0 50% 0' : '50%'};` +
+        `--sway:${(10 + Math.random() * 18).toFixed(1)}px;` +
+        `--sway-dur:${(2.6 + Math.random() * 2.4).toFixed(2)}s;` +
+        `--sway-delay:${(-Math.random() * 4).toFixed(2)}s;` +
+        `--rot-a:${(rotBase - 20 - Math.random() * 20).toFixed(0)}deg;` +
+        `--rot-b:${(rotBase + 20 + Math.random() * 30).toFixed(0)}deg;`;
+      outer.appendChild(inner);
+      container.appendChild(outer);
     }
   }
 
@@ -235,8 +306,22 @@
     document.querySelectorAll('.theme-switch-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         preference = btn.dataset.themeMode;
-        applyThemeMode(preference);
-        saveTweaks({ themeMode: preference });
+        const apply = () => { applyThemeMode(preference); saveTweaks({ themeMode: preference }); };
+
+        // 仅当真正会发生明暗翻转、且浏览器支持、未开启 reduced-motion 时，
+        // 才以点击点为圆心做涟漪式揭开；否则直接切换。
+        const willChange = resolveThemeMode(preference) !== document.documentElement.getAttribute('data-color-mode');
+        if (!willChange || motionReduced() || !document.startViewTransition) { apply(); return; }
+
+        const root = document.documentElement;
+        const r = btn.getBoundingClientRect();
+        const x = r.left + r.width / 2;
+        const y = r.top + r.height / 2;
+        const endR = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
+        root.style.setProperty('--vt-x', x + 'px');
+        root.style.setProperty('--vt-y', y + 'px');
+        root.style.setProperty('--vt-r', endR + 'px');
+        document.startViewTransition(apply);
       });
     });
 
@@ -654,10 +739,19 @@
 
       document.body.appendChild(lb);
 
-      const close = () => {
+      const finishClose = () => {
+        lb.classList.remove('img-lightbox-closing');
         lb.hidden = true;
         document.body.classList.remove('lightbox-open');
         lb.querySelector('.img-lightbox-img').removeAttribute('src');
+      };
+      const close = () => {
+        if (lb.hidden || lb.classList.contains('img-lightbox-closing')) return;
+        if (motionReduced()) { finishClose(); return; }
+        const panel = lb.querySelector('.img-lightbox-panel');
+        lb.classList.add('img-lightbox-closing');
+        const onEnd = () => { panel.removeEventListener('animationend', onEnd); finishClose(); };
+        panel.addEventListener('animationend', onEnd);
       };
 
       lb.querySelector('.img-lightbox-backdrop').addEventListener('click', close);
@@ -704,6 +798,80 @@
     });
   }
 
+  // 入场渐现：页面载入时首屏元素逐一浮现，滚动时分批错峰显现。
+  // 刻意不让正文段落参与，阅读时保持安定；只让标题、卡片、列表行等结构块渐入。
+  // 健壮性：首屏元素在载入时即显现（不依赖滚动/IO），滚动兜底保证即便
+  // IntersectionObserver 在某些环境不回调，内容也绝不会永久隐藏。
+  function initReveal() {
+    const root = document.documentElement;
+    if (motionReduced()) return;
+    root.classList.add('js-reveal');
+
+    const selector = [
+      '.hero-text > *',
+      '.sec-header',
+      '.article-row',
+      '.post-card', '.post-card-featured',
+      '.repo-card', '.project-card', '.project-featured',
+      '.archive-card', '.skill-card', '.timeline-item',
+      '.widget-card', '.nav-card', '.about-section',
+      '.page-hero-left', '.article-count',
+      '.post-header > *', '.post-cover', '.post-cover-star',
+      '.notfound-badge', '.notfound-num', '.notfound-title', '.notfound-bio', '.notfound-actions'
+    ].join(',');
+
+    const els = Array.from(document.querySelectorAll(selector));
+    if (!els.length) return;
+    els.forEach(el => el.classList.add('reveal'));
+
+    function reveal(el, delayMs) {
+      if (el.classList.contains('reveal-in')) return;
+      if (delayMs) el.style.transitionDelay = delayMs + 'ms';
+      el.classList.add('reveal-in');
+      el.addEventListener('transitionend', function te(ev) {
+        if (ev.propertyName !== 'opacity') return;
+        el.style.transitionDelay = '';
+        el.classList.add('reveal-done');
+        el.removeEventListener('transitionend', te);
+      });
+    }
+    function inViewport(el) {
+      const r = el.getBoundingClientRect();
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      return r.top < vh * 0.94 && r.bottom > 0;
+    }
+
+    // 载入即显现首屏元素（错峰）：即使没有滚动，「页面进入」也会播放，
+    // 且任何可见内容都不会停在隐藏态。用一小段 setTimeout 让隐藏态先绘制一帧
+    // （否则同一帧内叠加会跳过淡入），且 setTimeout 即便在被节流的后台标签页也会触发，
+    // 比 rAF 更可靠地保证内容最终一定显现。
+    setTimeout(() => {
+      let firstIndex = 0;
+      els.forEach(el => { if (inViewport(el)) reveal(el, Math.min(firstIndex++ * 55, 300)); });
+    }, 45);
+
+    // 下方元素：优先用 IntersectionObserver 在进入视口时错峰显现
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        const incoming = entries.filter(e => e.isIntersecting);
+        incoming.forEach((entry, i) => {
+          reveal(entry.target, Math.min(i * 55, 300));
+          obs.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+      els.forEach(el => { if (!el.classList.contains('reveal-in')) io.observe(el); });
+    }
+
+    // 兜底：滚动时显现进入视口的元素（即便 IO 在当前环境不回调也始终生效）
+    function onScroll() {
+      els.forEach(el => { if (!el.classList.contains('reveal-in') && inViewport(el)) reveal(el, 0); });
+      if (els.every(el => el.classList.contains('reveal-in'))) {
+        window.removeEventListener('scroll', onScroll);
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
   function initShared(defaults) {
     defaults = defaults || { petalCount: 12, themeMode: 'system' };
 
@@ -717,8 +885,10 @@
     initClickStardust();
     initSkyTrail();
     initWishStar();
+    initShootingStars();
     initCodeBlocks();
     initImageLightbox();
+    initReveal();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
     initLiveStatus(defaults.statusCard);
 

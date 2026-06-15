@@ -1057,3 +1057,39 @@ html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
   .skills-grid { grid-template-columns: 1fr 1fr; }
   .post-footer-nav { grid-template-columns: 1fr; }
 }
+
+/* ── 微交互增强：统一的弹性抬升 + 阴影生长 + 按压回弹 ──
+   悬停用带轻微过冲的弹性曲线，按下时快速回缩，给出实体般的触感。 */
+.post-card, .repo-card, .project-card, .project-featured,
+.nav-card, .archive-card, .skill-card {
+  transition:
+    transform .34s cubic-bezier(.34,1.56,.64,1),
+    box-shadow .3s ease,
+    border-color .2s ease;
+}
+.post-card:hover, .repo-card:hover, .project-card:hover, .project-featured:hover,
+.nav-card:hover, .archive-card:hover, .skill-card:hover {
+  box-shadow: var(--shadow-lift);
+}
+.post-card:active, .repo-card:active, .project-card:active, .project-featured:active,
+.nav-card:active, .archive-card:active, .skill-card:active {
+  transform: translateY(-1px) scale(.99);
+  box-shadow: var(--shadow);
+  transition-duration: .11s;
+}
+
+/* 文章行：悬停整行轻移、标题变色（已有），按下回缩 */
+.article-row { transition: background .2s ease, transform .22s cubic-bezier(.34,1.56,.64,1); }
+.article-row:hover { transform: translateX(3px); }
+.article-row:active { transform: translateX(1px) scale(.997); transition-duration: .1s; }
+
+/* 小药丸 / 按钮：弹性悬停 + 按压回弹 */
+.filter-btn, .page-btn, .link-btn, .nav-pill, .social-btn, .footer-pill, .theme-switch-btn {
+  transition: transform .22s cubic-bezier(.34,1.56,.64,1), color .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.filter-btn:active, .page-btn:active, .link-btn:active,
+.nav-pill:active, .social-btn:active, .footer-pill:active, .theme-switch-btn:active {
+  transform: scale(.94);
+  transition-duration: .1s;
+}
+.contact-btn:active, .link-btn:active { transform: scale(.96); }

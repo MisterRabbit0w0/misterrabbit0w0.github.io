@@ -1,9 +1,9 @@
 # misterrabbit0w0.github.io
 
-织星 / Astraea 的个人博客，基于 [Hexo](https://hexo.io/) + 自制 **Hoshino** 主题构建，部署在 GitHub Pages。
+织星 / Astraea 的个人博客，基于 [Hexo](https://hexo.io/) + 自制 **Spica** 主题构建，部署在 GitHub Pages。
 
 - 在线访问：<https://misterrabbit0w0.github.io>
-- 主题目录：[`themes/hoshino/`](themes/hoshino/)
+- 主题目录：[`themes/spica/`](themes/spica/)
 
 ## 本地开发
 
