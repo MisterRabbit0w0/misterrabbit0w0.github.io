@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, 织星</rights>
   <subtitle>造梦想如星光</subtitle>
   <title>织星 · Astraea</title>
-  <updated>2026-06-30T09:56:37.005Z</updated>
+  <updated>2026-06-30T11:02:02.475Z</updated>
   <entry>
     <author>
       <name>织星</name>
@@ -30,7 +30,7 @@
 <p>虽然有了 ai 之后，大部分的分支管理和仓库维护都交给了 ai，但是 git 的使用仍然显得尤为重要，在 ai]]>
     </summary>
     <title>如何优雅地使用 Git</title>
-    <updated>2026-06-30T09:56:37.005Z</updated>
+    <updated>2026-06-30T11:02:02.475Z</updated>
   </entry>
   <entry>
     <author>
@@ -54,7 +54,7 @@
 <h2]]>
     </summary>
     <title>如何优雅地使用 Agent</title>
-    <updated>2026-06-30T09:56:37.000Z</updated>
+    <updated>2026-06-30T11:02:02.469Z</updated>
   </entry>
   <entry>
     <author>
@@ -94,6 +94,6 @@
       <![CDATA[<p>花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 <a]]>
     </summary>
     <title>《小小算法书》中文版上线</title>
-    <updated>2026-06-30T09:56:37.000Z</updated>
+    <updated>2026-06-30T11:02:02.469Z</updated>
   </entry>
 </feed>
