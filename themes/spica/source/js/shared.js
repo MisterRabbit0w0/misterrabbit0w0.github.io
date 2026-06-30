@@ -1048,79 +1048,31 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
-  function hideCounterNode(el) {
-    const wrap = el.closest('[data-goatcounter-post-views], [data-goatcounter-site-views]');
-    if (wrap) wrap.hidden = true;
-  }
-
   function isLocalPreviewHost() {
     const host = window.location.hostname;
     return host === 'localhost' || host === '127.0.0.1' || host === '::1';
   }
 
-  function onGoatCounterReady(fn, onTimeout, tries) {
-    if (window.goatcounter && typeof window.goatcounter.visit_count === 'function') {
-      fn();
-      return;
-    }
-    if ((tries || 0) > 80) {
-      if (onTimeout) onTimeout();
-      return;
-    }
-    window.setTimeout(() => onGoatCounterReady(fn, onTimeout, (tries || 0) + 1), 50);
+  function hideBusuanziCounters() {
+    document.querySelectorAll('#busuanzi_container_page_pv, #busuanzi_container_site_pv').forEach(el => {
+      el.hidden = true;
+    });
   }
 
-  function initGoatCounter(cfg) {
-    if (!cfg || !cfg.enable || cfg.provider !== 'goatcounter' || !cfg.code) return;
-
-    const targets = Array.from(document.querySelectorAll('[data-goatcounter-visit-count]'));
-    if (!targets.length) return;
+  function initBusuanziCounter(cfg) {
+    if (!cfg || !cfg.enable || cfg.provider !== 'busuanzi' || !cfg.script) return;
+    if (!document.querySelector('#busuanzi_container_page_pv, #busuanzi_container_site_pv')) return;
 
     if (isLocalPreviewHost()) {
-      targets.forEach(el => hideCounterNode(el));
+      hideBusuanziCounters();
       return;
     }
 
-    onGoatCounterReady(() => {
-      targets.forEach((el, index) => {
-        const holder = el.closest('[data-goatcounter-path]');
-        const path = holder?.getAttribute('data-goatcounter-path') || window.location.pathname || '/';
-        const id = el.id || `goatcounter-visit-count-${index}`;
-        el.id = id;
-        el.textContent = '';
-        el.classList.add('is-loading');
-
-        window.goatcounter.visit_count({
-          append: `#${id}`,
-          path,
-          type: 'svg',
-          no_branding: true,
-          attr: {
-            width: '68',
-            height: '18',
-            alt: '访问量',
-            class: 'goatcounter-count-img',
-            loading: 'lazy'
-          },
-          style: 'svg{background:transparent}text{fill:#e879b9;font-family:ui-monospace,monospace;font-size:14px;font-weight:700}'
-        });
-
-        window.setTimeout(() => {
-          const img = el.querySelector('img');
-          if (!img) {
-            hideCounterNode(el);
-            return;
-          }
-
-          img.addEventListener('load', () => {
-            el.classList.remove('is-loading');
-            el.classList.add('is-loaded');
-          }, { once: true });
-
-          img.addEventListener('error', () => hideCounterNode(el), { once: true });
-        }, 0);
-      });
-    }, () => targets.forEach(el => hideCounterNode(el)));
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = cfg.script;
+    script.onerror = hideBusuanziCounters;
+    document.head.appendChild(script);
   }
 
   function initShared(defaults) {
@@ -1143,7 +1095,7 @@
     initReveal();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
     initLiveStatus(defaults.statusCard);
-    initGoatCounter(defaults.counter);
+    initBusuanziCounter(defaults.counter);
 
     const username = defaults.statusCard && defaults.statusCard.username;
     if (document.getElementById('contrib-card') && username) {

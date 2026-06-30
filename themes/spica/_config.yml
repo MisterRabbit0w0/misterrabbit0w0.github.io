@@ -42,8 +42,8 @@ author_widget:
 
 counter:
   enable: true
-  provider: goatcounter
-  goatcounter_code: "misterrabbit0w0"
+  provider: busuanzi
+  busuanzi_script: "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
   show_post_views: true
   show_site_views: true
 

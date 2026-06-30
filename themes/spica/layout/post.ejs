@@ -7,7 +7,7 @@
   var firstCat = page.categories && page.categories.length ? page.categories.first().name : null;
   var tagArr = page.tags ? page.tags.toArray().map(function(t){ return t.name; }) : [];
   var counterCfg = theme.counter || {};
-  var counterOn = !!(counterCfg.enable && (counterCfg.provider || 'goatcounter') === 'goatcounter' && counterCfg.goatcounter_code);
+  var counterOn = !!(counterCfg.enable && (counterCfg.provider || 'busuanzi') === 'busuanzi');
   var showPostViews = counterOn && counterCfg.show_post_views !== false;
 
   function fmt(date) {
@@ -54,9 +54,9 @@
           <%= readTime(page) %> 阅读
         </span>
         <% if (showPostViews) { %>
-        <span class="post-info-item post-view-counter" data-goatcounter-post-views data-goatcounter-path="<%- url_for(page.path) %>">
+        <span class="post-info-item post-view-counter" id="busuanzi_container_page_pv">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span class="counter-value" data-goatcounter-visit-count aria-live="polite">—</span> 次阅读
+          <span class="counter-value" id="busuanzi_value_page_pv" aria-live="polite">—</span> 次阅读
         </span>
         <% } %>
         <% if (page.updated && String(page.updated) !== String(page.date)) { %>

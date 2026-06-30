@@ -6,7 +6,7 @@
   var repoLabel = (repoCfg && repoCfg.label) || '站点源码';
   var issuesLabel = (repoCfg && repoCfg.issues_label) || '提 Issue';
   var counterCfg = theme.counter || {};
-  var showSiteViews = !!(counterCfg.enable && (counterCfg.provider || 'goatcounter') === 'goatcounter' && counterCfg.goatcounter_code && counterCfg.show_site_views !== false);
+  var showSiteViews = !!(counterCfg.enable && (counterCfg.provider || 'busuanzi') === 'busuanzi' && counterCfg.show_site_views !== false);
 %>
 <footer class="site-footer">
   <span class="footer-copy"><%- (theme.footer && theme.footer.copyright) || ('© ' + new Date().getFullYear() + ' ' + config.author) %></span>
@@ -26,9 +26,9 @@
     </div>
     <% } %>
     <% if (showSiteViews) { %>
-    <div class="footer-counter" data-goatcounter-site-views data-goatcounter-path="TOTAL" aria-label="站点访问量">
+    <div class="footer-counter" id="busuanzi_container_site_pv" aria-label="站点访问量">
       <span class="footer-counter-label">总访问</span>
-      <span class="counter-value" data-goatcounter-visit-count aria-live="polite">—</span>
+      <span class="counter-value" id="busuanzi_value_site_pv" aria-live="polite">—</span>
     </div>
     <% } %>
     <% var footerLinks = (theme.footer && theme.footer.links) || []; %>

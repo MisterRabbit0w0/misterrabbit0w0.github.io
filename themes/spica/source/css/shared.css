@@ -518,15 +518,6 @@ html.js-reveal .reveal.reveal-done {
   min-width: 1ch;
   font-variant-numeric: tabular-nums;
 }
-.counter-value.is-loading { opacity: .62; }
-.counter-value.is-loading::after { content: '—'; }
-.goatcounter-count-img {
-  display: block;
-  width: auto;
-  height: 1.15em;
-  max-width: 5.8em;
-  vertical-align: text-bottom;
-}
 .footer-counter {
   display: inline-flex;
   align-items: center;
