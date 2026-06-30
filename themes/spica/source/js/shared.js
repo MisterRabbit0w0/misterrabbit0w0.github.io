@@ -704,8 +704,8 @@
       if (actEl) actEl.textContent = custom.state;
       if (detailEl) {
         detailEl.textContent = custom.emoji?.name
-          ? `Discord 状态 · ${custom.emoji.name}`
-          : 'Discord 状态';
+          ? `心情符号 · ${custom.emoji.name}`
+          : (cfg.defaultDetail || 'ovo');
       }
       return;
     }
@@ -718,7 +718,7 @@
     }
 
     if (actEl) actEl.textContent = cfg.defaultAct || '正在编织星光...';
-    if (detailEl) detailEl.textContent = cfg.defaultDetail || 'Discord 在线中';
+    if (detailEl) detailEl.textContent = cfg.defaultDetail || 'ovo';
   }
 
   function initLiveStatus(cfg) {
