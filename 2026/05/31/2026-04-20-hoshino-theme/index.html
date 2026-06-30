@@ -42,55 +42,177 @@
 
 <div id="read-progress"></div>
 
+
 <div class="nightsky" aria-hidden="true">
   <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <g class="ns-stars">
-      <circle cx="120" cy="90" r="1.1" style="opacity:.5"/>
-      <circle class="ns-tw" cx="240" cy="140" r="1.3" style="opacity:.7"/>
-      <circle cx="360" cy="80" r="0.9" style="opacity:.4"/>
-      <circle cx="470" cy="160" r="1" style="opacity:.45"/>
-      <circle cx="180" cy="240" r="0.8" style="opacity:.35"/>
-      <circle class="ns-tw" cx="320" cy="300" r="1.1" style="opacity:.6"/>
-      <circle cx="90" cy="360" r="1" style="opacity:.45"/>
-      <circle cx="430" cy="380" r="0.8" style="opacity:.35"/>
-      <circle cx="540" cy="280" r="0.9" style="opacity:.4"/>
-      <circle cx="660" cy="100" r="1" style="opacity:.5"/>
-      <circle class="ns-tw" cx="760" cy="320" r="1.2" style="opacity:.6"/>
-      <circle cx="880" cy="150" r="0.9" style="opacity:.4"/>
-      <circle cx="1000" cy="220" r="1" style="opacity:.45"/>
-      <circle class="ns-tw" cx="1120" cy="130" r="1.3" style="opacity:.7"/>
-      <circle cx="1240" cy="200" r="0.9" style="opacity:.4"/>
-      <circle cx="1340" cy="110" r="1" style="opacity:.45"/>
-      <circle cx="1180" cy="330" r="0.8" style="opacity:.35"/>
-      <circle cx="1300" cy="380" r="0.9" style="opacity:.4"/>
-      <circle class="ns-tw" cx="980" cy="420" r="1.1" style="opacity:.55"/>
-      <circle cx="620" cy="430" r="0.8" style="opacity:.3"/>
-      <circle cx="140" cy="560" r="0.9" style="opacity:.35"/>
-      <circle cx="300" cy="640" r="1" style="opacity:.4"/>
-      <circle class="ns-tw" cx="1240" cy="600" r="1.1" style="opacity:.5"/>
-      <circle cx="1360" cy="680" r="0.9" style="opacity:.4"/>
-      <circle cx="80" cy="740" r="0.9" style="opacity:.35"/>
-      <circle cx="700" cy="800" r="1" style="opacity:.4"/>
-      <circle cx="1080" cy="780" r="0.9" style="opacity:.35"/>
-      <circle cx="500" cy="720" r="0.8" style="opacity:.3"/>
+    <defs>
+      <radialGradient id="nsGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-stop-core"/>
+        <stop offset="100%" class="ns-stop-edge"/>
+      </radialGradient>
+      <radialGradient id="nsGlowPink" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-stop-pink-core"/>
+        <stop offset="48%"  class="ns-stop-pink-mid"/>
+        <stop offset="100%" class="ns-stop-pink-edge"/>
+      </radialGradient>
+      <radialGradient id="nsNebPink" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-neb-pink0"/>
+        <stop offset="100%" class="ns-neb-pink1"/>
+      </radialGradient>
+      <radialGradient id="nsNebLav" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-neb-lav0"/>
+        <stop offset="100%" class="ns-neb-lav1"/>
+      </radialGradient>
+    </defs>
+
+    
+
+    
+    <g class="ns-field">
+      
+        
+        <circle class="ns-star" cx="453" cy="664" r="0.9" style="opacity:0.23"/>
+      
+        
+        <circle class="ns-star" cx="903" cy="695" r="1.2" style="opacity:0.38"/>
+      
+        
+        <circle class="ns-star" cx="872" cy="282" r="0.6" style="opacity:0.15"/>
+      
+        
+        <circle class="ns-star" cx="563" cy="182" r="0.9" style="opacity:0.23"/>
+      
+        
+        <circle class="ns-star" cx="973" cy="651" r="1" style="opacity:0.31"/>
+      
+        
+        <circle class="ns-star" cx="609" cy="32" r="1.2" style="opacity:0.4"/>
+      
+        
+        <circle class="ns-star" cx="1410" cy="620" r="0.8" style="opacity:0.21"/>
+      
+        
+        <circle class="ns-star" cx="322" cy="325" r="0.9" style="opacity:0.22"/>
+      
+        
+        <circle class="ns-star" cx="199" cy="184" r="0.9" style="opacity:0.23"/>
+      
+        
+        <circle class="ns-star" cx="396" cy="717" r="0.7" style="opacity:0.17"/>
+      
+        
+        <circle class="ns-star" cx="1145" cy="455" r="0.6" style="opacity:0.13"/>
+      
+        <circle class="ns-field-glow" cx="238" cy="872" r="4.8" style="opacity:0.19"/>
+        <circle class="ns-star" cx="238" cy="872" r="1.2" style="opacity:0.42"/>
+      
+        
+        <circle class="ns-star" cx="1257" cy="74" r="0.8" style="opacity:0.18"/>
+      
+        
+        <circle class="ns-star" cx="447" cy="75" r="0.7" style="opacity:0.17"/>
+      
+        
+        <circle class="ns-star" cx="374" cy="275" r="0.6" style="opacity:0.15"/>
+      
+        
+        <circle class="ns-star" cx="886" cy="64" r="1" style="opacity:0.31"/>
+      
+        
+        <circle class="ns-star" cx="1371" cy="682" r="1.1" style="opacity:0.32"/>
+      
+        
+        <circle class="ns-star" cx="434" cy="531" r="0.7" style="opacity:0.17"/>
+      
+        <circle class="ns-field-glow" cx="435" cy="576" r="5.6" style="opacity:0.25"/>
+        <circle class="ns-star" cx="435" cy="576" r="1.4" style="opacity:0.56"/>
+      
+        
+        <circle class="ns-star" cx="1433" cy="517" r="0.6" style="opacity:0.14"/>
+      
+        <circle class="ns-field-glow" cx="188" cy="610" r="5.6" style="opacity:0.24"/>
+        <circle class="ns-star" cx="188" cy="610" r="1.4" style="opacity:0.54"/>
+      
+        
+        <circle class="ns-star" cx="714" cy="289" r="0.9" style="opacity:0.22"/>
+      
+        
+        <circle class="ns-star" cx="139" cy="650" r="1" style="opacity:0.29"/>
+      
+        
+        <circle class="ns-star" cx="883" cy="365" r="0.9" style="opacity:0.25"/>
+      
+        
+        <circle class="ns-star" cx="108" cy="11" r="1.2" style="opacity:0.41"/>
+      
+        <circle class="ns-field-glow" cx="290" cy="842" r="5.2" style="opacity:0.21"/>
+        <circle class="ns-star" cx="290" cy="842" r="1.3" style="opacity:0.47"/>
+      
+        
+        <circle class="ns-star" cx="707" cy="827" r="0.8" style="opacity:0.2"/>
+      
+        
+        <circle class="ns-star" cx="360" cy="526" r="1.2" style="opacity:0.41"/>
+      
+        
+        <circle class="ns-star" cx="4" cy="420" r="0.6" style="opacity:0.14"/>
+      
+        
+        <circle class="ns-star" cx="1183" cy="473" r="0.9" style="opacity:0.21"/>
+      
+        
+        <circle class="ns-star" cx="1201" cy="289" r="1" style="opacity:0.3"/>
+      
+        
+        <circle class="ns-star" cx="909" cy="11" r="1" style="opacity:0.29"/>
+      
+        
+        <circle class="ns-star" cx="1024" cy="57" r="0.5" style="opacity:0.13"/>
+      
+        
+        <circle class="ns-star" cx="424" cy="385" r="0.6" style="opacity:0.13"/>
+      
+        <circle class="ns-field-glow" cx="575" cy="300" r="5.2" style="opacity:0.23"/>
+        <circle class="ns-star" cx="575" cy="300" r="1.3" style="opacity:0.5"/>
+      
+        
+        <circle class="ns-star" cx="888" cy="832" r="1" style="opacity:0.27"/>
+      
+        
+        <circle class="ns-star" cx="301" cy="145" r="0.5" style="opacity:0.13"/>
+      
+        
+        <circle class="ns-star" cx="228" cy="99" r="0.9" style="opacity:0.22"/>
+      
+        
+        <circle class="ns-star" cx="810" cy="482" r="1" style="opacity:0.29"/>
+      
+        
+        <circle class="ns-star" cx="911" cy="343" r="1" style="opacity:0.28"/>
+      
+        
+        <circle class="ns-star" cx="12" cy="239" r="1.1" style="opacity:0.36"/>
+      
+        
+        <circle class="ns-star" cx="540" cy="527" r="1.1" style="opacity:0.31"/>
+      
+        
+        <circle class="ns-star" cx="123" cy="387" r="1.2" style="opacity:0.41"/>
+      
+        <circle class="ns-field-glow" cx="583" cy="124" r="5.6" style="opacity:0.26"/>
+        <circle class="ns-star" cx="583" cy="124" r="1.4" style="opacity:0.57"/>
+      
+        
+        <circle class="ns-star" cx="691" cy="531" r="0.8" style="opacity:0.2"/>
+      
+        
+        <circle class="ns-star" cx="674" cy="728" r="0.8" style="opacity:0.21"/>
+      
     </g>
 
-    <g class="ns-virgo">
-      <polyline points="290,150 410,205 530,180 620,265 720,350 820,330" />
-      <polyline points="620,265 735,440" />
-      <circle cx="290" cy="150" r="2" style="opacity:.85"/>
-      <circle cx="410" cy="205" r="2.4" style="opacity:.9"/>
-      <circle cx="530" cy="180" r="1.8" style="opacity:.8"/>
-      <circle cx="720" cy="350" r="2.1" style="opacity:.85"/>
-      <circle cx="820" cy="330" r="1.7" style="opacity:.75"/>
-      <circle cx="735" cy="440" r="1.7" style="opacity:.7"/>
-    </g>
-    <circle class="ns-spica-halo" cx="620" cy="265" r="16"/>
-    <circle class="ns-spica" cx="620" cy="265" r="3.8"/>
+    
   </svg>
 </div>
-
-<div class="ns-wish" id="ns-wish" hidden>愿你抬头 恰逢星光</div>
 
 
 <div class="petals" id="petals"></div>
@@ -166,7 +288,7 @@
     <div class="post-header">
       <div class="post-breadcrumb">
         <a href="/archives/">Writing</a>
-         / <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+         / <a href="/categories/tools/">tools</a>
       </div>
       <h1>博客换装：Spica 主题上线</h1>
       <div class="post-info">
@@ -183,7 +305,7 @@
         
       </div>
       <div class="post-tags">
-        <span class="tag tag-lav">工具</span>
+        <span class="tag tag-pink">tools</span>
         <span class="tag-text">#Hexo</span><span class="tag-text">#CSS</span><span class="tag-text">#oklch</span>
       </div>
     </div>
@@ -228,23 +350,60 @@
     
     <div class="sidebar-card">
       <div class="sidebar-title">目录</div>
-      <a href="#长什么样" class="toc-item toc-h2">长什么样</a><a href="#一些实现碎片" class="toc-item toc-h2">一些实现碎片</a>
+      <div class="toc"><span class="toc-indicator" aria-hidden="true"></span><a href="#长什么样" class="toc-item toc-h2">长什么样</a><a href="#一些实现碎片" class="toc-item toc-h2">一些实现碎片</a></div>
     </div>
     
-    <div class="sidebar-card">
-      <div class="sidebar-title">作者</div>
-      <div class="author-card">
-        <div class="author-avatar">
-          
-            <img src="/img/avatar/avatar.jpg" alt="织星">
-          
-        </div>
-        <div>
-          <div class="author-name">织星</div>
-          <div class="author-handle">@Astraea · GitHub</div>
-        </div>
+    
+<div class="sidebar-card author-widget">
+  <div class="sidebar-title">作者</div>
+  <div class="author-widget-inner">
+    <div class="author-card">
+      <div class="author-avatar">
+        
+          <img src="/img/avatar/avatar.jpg" alt="织星">
+        
+      </div>
+      <div>
+        <div class="author-name">织星</div>
+        <div class="author-handle">@Astraea · GitHub</div>
       </div>
     </div>
+    <p class="author-widget-bio">记录代码，设计和一些温柔的胡思乱想。</p>
+    
+<div class="author-actions author-actions-inline author-actions-icon-only">
+  
+  <a href="https://github.com/misterrabbit0w0" class="author-action-btn primary" aria-label="GitHub" target="_blank" rel="noopener noreferrer" title="GitHub">
+    
+
+<svg class="author-action-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+
+
+    
+  </a>
+  
+  <a href="https://github.com/misterrabbit0w0/misterrabbit0w0.github.io" class="author-action-btn" aria-label="Star" target="_blank" rel="noopener noreferrer" title="Star">
+    
+
+<svg class="author-action-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+
+
+    
+  </a>
+  
+  <a href="/about/" class="author-action-btn" aria-label="关于" title="关于">
+    
+
+<svg class="author-action-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+
+
+    
+  </a>
+  
+</div>
+
+  </div>
+</div>
+
   </aside>
 </div>
 
@@ -253,6 +412,7 @@
 (function () {
   const bar = document.getElementById('read-progress');
   const items = Array.from(document.querySelectorAll('.toc-item'));
+  const indicator = document.querySelector('.toc-indicator');
   const sections = items
     .map(i => ({ el: i, target: document.getElementById(i.getAttribute('href').slice(1)) }))
     .filter(s => s.target);
@@ -271,6 +431,12 @@
         if (s.target.getBoundingClientRect().top < 120) active = s;
       }
       items.forEach(i => i.classList.toggle('active', i === active.el));
+      // 滑条平滑滑到当前章节所在的轨段（高度随条目变化）
+      if (indicator) {
+        indicator.style.transform = 'translateY(' + active.el.offsetTop + 'px)';
+        indicator.style.height = active.el.offsetHeight + 'px';
+        indicator.classList.add('on');
+      }
     }
   }
   function onScroll() {

@@ -89,23 +89,25 @@
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
-  // 夜空星屑尾迹：暗色模式下鼠标划过留下淡淡星屑
+  // 夜空星屑尾迹：暗色模式下鼠标划过留下淡淡星屑。
+  // 按移动“距离”取样（而非按时间），让星屑均匀疏落，不连成密集硬点串。
   function initSkyTrail() {
-    let last = 0;
+    let lx = null, ly = null;
     document.addEventListener('pointermove', (e) => {
       if (!isDarkMode() || motionReduced() || e.pointerType === 'touch') return;
-      const t = e.timeStamp || 0;
-      if (t - last < 55) return;
-      last = t;
+      if (lx !== null && Math.hypot(e.clientX - lx, e.clientY - ly) < 26) return;
+      lx = e.clientX; ly = e.clientY;
       const el = document.createElement('span');
       el.className = 'skydust';
+      const s = (3 + Math.random() * 3).toFixed(1);
+      el.style.width = el.style.height = s + 'px';
       el.style.left = e.clientX + 'px';
       el.style.top = e.clientY + 'px';
       document.body.appendChild(el);
       el.animate([
-        { transform: 'translate(-50%,-50%) scale(1)', opacity: 0.7 },
-        { transform: `translate(-50%, calc(-50% - ${8 + Math.random() * 12}px)) scale(.3)`, opacity: 0 }
-      ], { duration: 800 + Math.random() * 300, easing: 'ease-out' }).onfinish = () => el.remove();
+        { transform: 'translate(-50%,-50%) scale(1)', opacity: 0.5 },
+        { transform: `translate(-50%, calc(-50% - ${6 + Math.random() * 10}px)) scale(.2)`, opacity: 0 }
+      ], { duration: 720 + Math.random() * 280, easing: 'ease-out' }).onfinish = () => el.remove();
     }, { passive: true });
   }
 
@@ -128,7 +130,7 @@
     }
   }
 
-  // 许愿涟漪：点亮角宿一时，从星点荡开一圈柔光
+  // 许愿光晕：点亮角宿一时，从星点荡开一层柔光扩散（不是硬边圆环）
   function spawnRipple(x, y) {
     if (motionReduced()) return;
     const ring = document.createElement('span');
@@ -137,9 +139,10 @@
     ring.style.top = y + 'px';
     document.body.appendChild(ring);
     ring.animate([
-      { opacity: 0.85, transform: 'translate(-50%,-50%) scale(.4)' },
-      { opacity: 0, transform: 'translate(-50%,-50%) scale(6)' }
-    ], { duration: 950, easing: 'cubic-bezier(.22,.61,.36,1)' }).onfinish = () => ring.remove();
+      { opacity: 0.6, transform: 'translate(-50%,-50%) scale(.3)' },
+      { opacity: 0.35, offset: 0.3 },
+      { opacity: 0, transform: 'translate(-50%,-50%) scale(7)' }
+    ], { duration: 1100, easing: 'cubic-bezier(.22,.61,.36,1)' }).onfinish = () => ring.remove();
   }
 
   // 流星：暗色模式下偶发划过夜空的一道细光。
@@ -421,39 +424,95 @@
     }
   }
 
-  // Renders an arbitrary-length series as a smooth sparkline inside the
-  // viewBox "0 0 80 25". The baseline is anchored at 0 (not at the series
-  // minimum) so days with no activity sit on the bottom edge instead of being
-  // rebased away, and an all-zero series stays flat along the baseline.
-  function buildSparklinePath(values) {
-    const data = (values && values.length) ? values.slice() : [0];
-    if (data.length === 1) data.push(data[0]);
-    const n = data.length;
-    const X0 = 1, X1 = 79, TOP = 2, BOTTOM = 23;
-    const max = Math.max(0, ...data);
-    const pts = data.map((val, i) => ({
-      x: X0 + (X1 - X0) * (i / (n - 1)),
-      y: max > 0 ? BOTTOM - (val / max) * (BOTTOM - TOP) : BOTTOM
-    }));
+  // Deterministic PRNG (mulberry32) so the hand-drawn wobble stays stable for a
+  // given dataset instead of re-rolling on every resize/re-render.
+  function makeRng(seed) {
+    let s = seed >>> 0;
+    return function () {
+      s = (s + 0x6d2b79f5) >>> 0;
+      let t = s;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
 
+  function hashSeries(values) {
+    let h = 2166136261;
+    for (let i = 0; i < values.length; i++) {
+      h = Math.imul(h ^ (Math.round(values[i] * 100) + i), 16777619);
+    }
+    return h >>> 0;
+  }
+
+  // Soften spiky day-to-day data into gentle rolling hills (1-2-3-2-1 kernel) so
+  // the line reads as round doodle strokes instead of sharp angular peaks.
+  function smoothSeries(values) {
+    const w = [1, 2, 3, 2, 1], half = 2;
+    return values.map((_, i) => {
+      let sum = 0, wsum = 0;
+      for (let k = -half; k <= half; k++) {
+        const j = i + k;
+        if (j < 0 || j >= values.length) continue;
+        sum += values[j] * w[k + half];
+        wsum += w[k + half];
+      }
+      return sum / wsum;
+    });
+  }
+
+  // Catmull-Rom -> cubic Bézier through the given nodes; y clamped to the box.
+  function curveThrough(pts, h) {
+    const n = pts.length;
     const f = v => Number(v.toFixed(2));
-    const clampY = v => Math.max(TOP, Math.min(BOTTOM, v));
-    let d = `M ${f(pts[0].x)},${f(pts[0].y)}`;
-    // Catmull-Rom -> cubic Bézier so the curve stays smooth for any point count.
-    // Control-point Y is clamped so the smoothing never overshoots past the
-    // zero baseline or the top of the chart.
+    const clampY = v => Math.max(1, Math.min(h - 1, v));
+    let d = `M ${f(pts[0].x)},${f(clampY(pts[0].y))}`;
     for (let i = 0; i < n - 1; i++) {
       const p0 = pts[i - 1] || pts[i];
       const p1 = pts[i];
       const p2 = pts[i + 1];
       const p3 = pts[i + 2] || p2;
       const cp1x = p1.x + (p2.x - p0.x) / 6;
-      const cp1y = clampY(p1.y + (p2.y - p0.y) / 6);
+      const cp1y = p1.y + (p2.y - p0.y) / 6;
       const cp2x = p2.x - (p3.x - p1.x) / 6;
-      const cp2y = clampY(p2.y - (p3.y - p1.y) / 6);
-      d += ` C ${f(cp1x)},${f(cp1y)} ${f(cp2x)},${f(cp2y)} ${f(p2.x)},${f(p2.y)}`;
+      const cp2y = p2.y - (p3.y - p1.y) / 6;
+      d += ` C ${f(cp1x)},${f(clampY(cp1y))} ${f(cp2x)},${f(clampY(cp2y))} ${f(p2.x)},${f(clampY(p2.y))}`;
     }
     return d;
+  }
+
+  // Give the centerline a slow, bounded pen-wobble (correlated neighbours, not
+  // per-node noise) plus a faint outward overshoot at the ends so it reads as a
+  // single hand-drawn stroke. Endpoints keep their x so the line spans the width.
+  function sketchPass(pts, rng, amp) {
+    const last = pts.length - 1;
+    let walk = 0;
+    return pts.map((p, i) => {
+      walk = walk * 0.55 + (rng() * 2 - 1) * amp;
+      const edge = i === 0 || i === last;
+      const dx = edge ? 0 : (rng() * 2 - 1) * amp * 0.5;
+      const over = i === 0 ? -1.6 : i === last ? 1.6 : 0;
+      return { x: p.x + dx + over, y: p.y + walk };
+    });
+  }
+
+  // Hand-drawn sparkline: softened hills drawn as ONE soft marker stroke inside
+  // a `w`×`h` pixel viewBox — a single confident round-capped line with a gentle
+  // pen-wobble, not a mechanical polyline. The baseline is anchored at 0 so quiet
+  // days rest on the bottom edge and an all-zero series stays low + calm.
+  function buildSparklinePath(values, w, h) {
+    const raw = (values && values.length) ? values.slice() : [0];
+    if (raw.length === 1) raw.push(raw[0]);
+    const data = smoothSeries(raw);
+    const n = data.length;
+    const X0 = 3, X1 = w - 3, TOP = 5, BOTTOM = h - 4;
+    const max = Math.max(0, ...data);
+    const base = data.map((val, i) => ({
+      x: X0 + (X1 - X0) * (i / (n - 1)),
+      y: max > 0 ? BOTTOM - (val / max) * (BOTTOM - TOP) : BOTTOM
+    }));
+    const rng = makeRng(hashSeries(raw));
+    return curveThrough(sketchPass(base, rng, 1.15), h);
   }
 
   function countEventsSince(events, days) {
@@ -481,13 +540,94 @@
     const count7 = document.getElementById('contrib-count-7d');
     const count30 = document.getElementById('contrib-count-30d');
     const sparkPath = document.getElementById('contrib-sparkline-path');
+    const sparkSvg = card.querySelector('.contrib-sparkline');
     const list = document.getElementById('contrib-recent');
+
+    // Size the SVG to its own pixel box so the hand-drawn wobble stays isotropic
+    // (not stretched horizontally), then draw. Re-render on resize.
+    function renderSparkline(buckets) {
+      if (!sparkPath || !sparkSvg) return;
+      const rect = sparkSvg.getBoundingClientRect();
+      const w = Math.max(80, Math.round(rect.width) || 240);
+      const h = Math.max(24, Math.round(rect.height) || 46);
+      sparkSvg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      sparkPath.setAttribute('d', buildSparklinePath(buckets, w, h));
+    }
+
+    // 进入视口且数据就绪后，让 sparkline 像马克笔一样从左到右描出、
+    // 两个数字从 0 滚到真实值。两者各自尊重「减弱动画」偏好，且只播放一次。
+    const reduce = motionReduced();
+    let dataReady = null, visible = false, played = false;
+
+    function animateSparkline() {
+      if (!sparkPath || reduce) return;
+      let len = 0;
+      try { len = sparkPath.getTotalLength(); } catch (e) {}
+      if (!len) return;
+      sparkPath.style.transition = 'none';
+      sparkPath.style.strokeDasharray = len + ' ' + len;
+      sparkPath.style.strokeDashoffset = String(len);
+      void sparkPath.getBoundingClientRect(); // 强制回流，让隐藏态先落一帧
+      sparkPath.style.transition = 'stroke-dashoffset 1.15s cubic-bezier(.22,.61,.36,1)';
+      sparkPath.style.strokeDashoffset = '0';
+      sparkPath.addEventListener('transitionend', function done(ev) {
+        if (ev.propertyName !== 'stroke-dashoffset') return;
+        // 清掉内联 dash，后续 resize 重绘才不会留下残缺笔触
+        sparkPath.style.transition = sparkPath.style.strokeDasharray = sparkPath.style.strokeDashoffset = '';
+        sparkPath.removeEventListener('transitionend', done);
+      });
+    }
+
+    function countUp(el, target) {
+      if (!el) return;
+      if (reduce || target <= 0) { el.textContent = String(target); return; }
+      const dur = 900;
+      let start = null;
+      function step(ts) {
+        if (start === null) start = ts;
+        const t = Math.min(1, (ts - start) / dur);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3)))); // easeOutCubic
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = String(target);
+      }
+      requestAnimationFrame(step);
+    }
+
+    function maybePlay() {
+      if (played || !dataReady || !visible) return;
+      played = true;
+      animateSparkline();
+      countUp(count7, dataReady.c7);
+      countUp(count30, dataReady.c30);
+    }
+
+    // 卡片进入视口（或已在视口 / 减弱动画）即解锁播放
+    (function watchVisible() {
+      const onScreen = () => {
+        const r = card.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        return r.top < vh && r.bottom > 0;
+      };
+      if (reduce || !('IntersectionObserver' in window) || onScreen()) {
+        visible = true; maybePlay(); return;
+      }
+      const io = new IntersectionObserver((entries, obs) => {
+        if (entries.some(e => e.isIntersecting)) { obs.disconnect(); visible = true; maybePlay(); }
+      }, { threshold: 0.2 });
+      io.observe(card);
+    })();
 
     try {
       const events = await fetchGitHubEvents(username, 3);
-      if (count7) count7.textContent = String(countEventsSince(events, 7));
-      if (count30) count30.textContent = String(countEventsSince(events, 30));
-      if (sparkPath) sparkPath.setAttribute('d', buildSparklinePath(bucketEvents(events, 30, 30)));
+      const c7 = countEventsSince(events, 7);
+      const c30 = countEventsSince(events, 30);
+      const buckets = bucketEvents(events, 30, 30);
+      renderSparkline(buckets);
+      if (window.ResizeObserver && sparkSvg) {
+        new ResizeObserver(() => renderSparkline(buckets)).observe(sparkSvg);
+      }
+      dataReady = { c7, c30 };
+      maybePlay();
 
       if (list) {
         list.innerHTML = '';
@@ -646,7 +786,7 @@
     btn.setAttribute('aria-label', '复制代码');
     btn.innerHTML =
       '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
-      '<rect x="9" y="9" width="13" height="13" rx="2"/>' +
+      '<rect x="9" y="9" width="13" height="13" rx="3"/>' +
       '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>' +
       '</svg><span class="code-copy-label">复制</span>';
 
@@ -799,6 +939,44 @@
     });
   }
 
+  // 卡片柔光：鼠标在卡面上移动时，光标附近有一圈极淡高光跟随（非斜扫流光）。
+  // 仅精细指针 + 非减弱动画；触屏保持原有 hover 抬升与阴影即可。
+  function initCardGlow() {
+    if (motionReduced()) return;
+    if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    const CARD_SEL = [
+      '.project-card', '.project-featured', '.nav-card', '.archive-card',
+      '.skill-card', '.widget-card', '.filter-card', '.sidebar-card'
+    ].join(',');
+
+    const cards = document.querySelectorAll(CARD_SEL);
+    if (!cards.length) return;
+    document.documentElement.classList.add('js-card-glow');
+
+    function setGlow(card, e) {
+      const r = card.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      card.style.setProperty('--glow-x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+      card.style.setProperty('--glow-y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('pointerenter', e => {
+        if (e.pointerType === 'touch') return;
+        card.classList.add('card-glow-on');
+        setGlow(card, e);
+      });
+      card.addEventListener('pointermove', e => {
+        if (e.pointerType === 'touch' || !card.classList.contains('card-glow-on')) return;
+        setGlow(card, e);
+      });
+      card.addEventListener('pointerleave', () => {
+        card.classList.remove('card-glow-on');
+      });
+    });
+  }
+
   // 入场渐现：页面载入时首屏元素逐一浮现，滚动时分批错峰显现。
   // 刻意不让正文段落参与，阅读时保持安定；只让标题、卡片、列表行等结构块渐入。
   // 健壮性：首屏元素在载入时即显现（不依赖滚动/IO），滚动兜底保证即便
@@ -889,6 +1067,7 @@
     initShootingStars();
     initCodeBlocks();
     initImageLightbox();
+    initCardGlow();
     initReveal();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
     initLiveStatus(defaults.statusCard);
