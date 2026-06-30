@@ -1,7 +1,7 @@
 ---
 title: 《小小算法书》中文版上线
 date: 2026-04-20 10:00:00
-categories: [译本]
+categories: [translation]
 tags: [算法, KaTeX, VitePress]
 ---
 

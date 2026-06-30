@@ -2,7 +2,7 @@
 title: 博客换装：Spica 主题上线
 date: 2026-05-31 23:30:00
 updated: 2026-06-15 12:00:00
-categories: [工具]
+categories: [tools]
 tags: [Hexo, CSS, oklch]
 ---
 

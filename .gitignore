@@ -12,3 +12,6 @@ tools/
 .vscode/
 .alma-snapshots
 /ref/
+/output/*
+.design-sync/
+ds-bundle/

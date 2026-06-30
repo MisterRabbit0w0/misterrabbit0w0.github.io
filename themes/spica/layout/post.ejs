@@ -94,25 +94,10 @@
     <% if (tocHtml) { %>
     <div class="sidebar-card">
       <div class="sidebar-title">目录</div>
-      <%- tocHtml %>
+      <div class="toc"><span class="toc-indicator" aria-hidden="true"></span><%- tocHtml %></div>
     </div>
     <% } %>
-    <div class="sidebar-card">
-      <div class="sidebar-title">作者</div>
-      <div class="author-card">
-        <div class="author-avatar">
-          <% if (theme.brand && theme.brand.avatar) { %>
-            <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= config.author %>">
-          <% } else { %>
-            <span><%= (config.author || 'A').charAt(0) %></span>
-          <% } %>
-        </div>
-        <div>
-          <div class="author-name"><%= config.author %></div>
-          <div class="author-handle"><%= (theme.hero && theme.hero.handle) || '' %></div>
-        </div>
-      </div>
-    </div>
+    <%- partial('_partial/author-widget') %>
   </aside>
 </div>
 
@@ -121,6 +106,7 @@
 (function () {
   const bar = document.getElementById('read-progress');
   const items = Array.from(document.querySelectorAll('.toc-item'));
+  const indicator = document.querySelector('.toc-indicator');
   const sections = items
     .map(i => ({ el: i, target: document.getElementById(i.getAttribute('href').slice(1)) }))
     .filter(s => s.target);
@@ -139,6 +125,12 @@
         if (s.target.getBoundingClientRect().top < 120) active = s;
       }
       items.forEach(i => i.classList.toggle('active', i === active.el));
+      // 滑条平滑滑到当前章节所在的轨段（高度随条目变化）
+      if (indicator) {
+        indicator.style.transform = 'translateY(' + active.el.offsetTop + 'px)';
+        indicator.style.height = active.el.offsetHeight + 'px';
+        indicator.classList.add('on');
+      }
     }
   }
   function onScroll() {

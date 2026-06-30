@@ -1,0 +1,26 @@
+<%
+  var aw = theme.author_widget || {};
+  if (aw.enable === false) return;
+
+  var isInline = typeof inline !== 'undefined' && inline;
+  var actions = aw.actions || [];
+
+  if (!actions.length) {
+    (theme.social || []).forEach(function(s) {
+      if (s.icon === 'github') {
+        actions.push({ label: s.name || 'GitHub', url: s.url, icon: s.icon, primary: true });
+      }
+    });
+    var repoUrl = theme.footer && theme.footer.repo && theme.footer.repo.url;
+    if (repoUrl) actions.push({ label: 'Star', url: repoUrl, icon: 'star' });
+    actions.push({ label: '关于', url: '/about/', icon: 'home', internal: true });
+  }
+%>
+<div class="author-actions<%= isInline ? ' author-actions-inline author-actions-icon-only' : '' %>">
+  <% actions.forEach(function(a) { %>
+  <a href="<%= a.internal ? url_for(a.url) : a.url %>" class="author-action-btn<%= a.primary ? ' primary' : '' %>" aria-label="<%= a.label %>"<% if (!a.internal) { %> target="_blank" rel="noopener noreferrer"<% } %><% if (a.label) { %> title="<%= a.label %>"<% } %>>
+    <%- partial('_partial/icon', { name: a.icon || 'star', size: 15, className: 'author-action-icon' }) %>
+    <% if (!isInline) { %><span class="author-action-label"><%= a.label %></span><% } %>
+  </a>
+  <% }); %>
+</div>

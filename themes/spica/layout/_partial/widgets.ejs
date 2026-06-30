@@ -1,28 +1,50 @@
-<% if (theme.hero && theme.hero.status_card && theme.hero.status_card.enable) { %>
+<%
+  var hero = theme.hero || {};
+  var statusOn = hero.status_card && hero.status_card.enable;
+  var authorOn = !theme.author_widget || theme.author_widget.enable !== false;
+  var authorName = config.author || '';
+  var handle = hero.handle || '';
+%>
+<% if (statusOn) { %>
 <div class="widget-card status-card" id="status-card" hidden>
   <div class="status-header">
     <div class="status-avatar">
       <% if (theme.brand && theme.brand.avatar) { %>
-      <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= config.author %>">
+      <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= authorName %>">
       <% } %>
       <span class="status-dot"></span>
     </div>
-    <span class="status-title">在线</span>
+    <div class="status-identity">
+      <div class="status-name-row">
+        <span class="status-name"><%= authorName %></span>
+        <span class="status-badge"><span class="status-title">在线</span></span>
+      </div>
+      <% if (handle) { %><div class="status-handle"><%= handle %></div><% } %>
+    </div>
   </div>
   <div class="status-body">
     <div class="status-item">
       <span class="status-icon"><%- partial('_partial/icon', { name: 'pin', size: 14, className: 'status-svg' }) %></span>
-      <span class="status-val" id="status-loc"><%= theme.hero.status_card.location %></span>
+      <span class="status-val" id="status-loc"><%= hero.status_card.location %></span>
     </div>
     <div class="status-item">
       <span class="status-icon"><%- partial('_partial/icon', { name: 'activity', size: 14, className: 'status-svg' }) %></span>
-      <span class="status-val" id="status-act"><%= theme.hero.status_card.default_act %></span>
+      <span class="status-val" id="status-act"><%= hero.status_card.default_act %></span>
     </div>
     <div class="status-item">
       <span class="status-icon"><%- partial('_partial/icon', { name: 'star', size: 14, className: 'status-svg' }) %></span>
-      <span class="status-val" id="status-detail"><%= theme.hero.status_card.default_detail %></span>
+      <span class="status-val" id="status-detail"><%= hero.status_card.default_detail %></span>
     </div>
   </div>
+  <% if (authorOn) { %>
+  <div class="status-links">
+    <%- partial('_partial/author-actions', { inline: true }) %>
+  </div>
+  <% } %>
+</div>
+<% } else if (authorOn) { %>
+<div class="widget-card author-widget author-widget-minimal">
+  <%- partial('_partial/author-actions', { inline: true }) %>
 </div>
 <% } %>
 
@@ -45,7 +67,7 @@
         <stop offset="100%" stop-color="var(--pink)" />
       </linearGradient>
     </defs>
-    <path id="contrib-sparkline-path" fill="none" stroke="url(#contrib-grad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+    <path id="contrib-sparkline-path" fill="none" stroke="url(#contrib-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
   </svg>
   <ul class="contrib-list" id="contrib-recent" aria-label="近期 GitHub 活动">
     <li class="contrib-item contrib-placeholder">正在加载 GitHub 活动…</li>

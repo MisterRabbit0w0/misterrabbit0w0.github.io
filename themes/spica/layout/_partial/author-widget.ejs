@@ -1,0 +1,29 @@
+<%
+  var aw = theme.author_widget || {};
+  if (aw.enable === false) return;
+
+  var hero = theme.hero || {};
+  var bio = aw.bio || hero.bio || '';
+  var handle = hero.handle || '';
+  var authorName = config.author || '';
+%>
+<div class="sidebar-card author-widget">
+  <div class="sidebar-title">作者</div>
+  <div class="author-widget-inner">
+    <div class="author-card">
+      <div class="author-avatar">
+        <% if (theme.brand && theme.brand.avatar) { %>
+          <img src="<%- url_for(theme.brand.avatar) %>" alt="<%= authorName %>">
+        <% } else { %>
+          <span><%= (authorName || 'A').charAt(0) %></span>
+        <% } %>
+      </div>
+      <div>
+        <div class="author-name"><%= authorName %></div>
+        <% if (handle) { %><div class="author-handle"><%= handle %></div><% } %>
+      </div>
+    </div>
+    <% if (bio) { %><p class="author-widget-bio"><%= bio %></p><% } %>
+    <%- partial('_partial/author-actions', { inline: true }) %>
+  </div>
+</div>

@@ -33,6 +33,13 @@ social:
   - { name: "GitHub", url: "https://github.com/misterrabbit0w0", icon: github }
   - { name: "邮件", url: "mailto:misterrabbit0w0@gmail.com", icon: mail }
 
+author_widget:
+  enable: true
+  actions:
+    - { label: "GitHub", url: "https://github.com/misterrabbit0w0", icon: github, primary: true }
+    - { label: "Star", url: "https://github.com/misterrabbit0w0/misterrabbit0w0.github.io", icon: star }
+    - { label: "关于", url: "/about/", icon: home, internal: true }
+
 about:
   name: "织星"
   handle: "@Astraea"
