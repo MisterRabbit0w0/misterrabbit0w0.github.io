@@ -664,17 +664,16 @@
 
   function applyLanyardStatus(data, cfg, els) {
     const status = data.discord_status || 'offline';
-    const { actEl, detailEl, dotEl, titleEl } = els;
+    const { actEl, detailEl, dotEl } = els;
 
     const statusMeta = {
-      online: { color: 'var(--mint)', title: '在线' },
-      idle: { color: 'oklch(72% 0.16 85)', title: '挂起' },
-      dnd: { color: 'var(--pink)', title: '勿扰' },
-      offline: { color: 'var(--muted)', title: '离线' }
+      online: { color: 'var(--mint)' },
+      idle: { color: 'oklch(72% 0.16 85)' },
+      dnd: { color: 'var(--pink)' },
+      offline: { color: 'var(--muted)' }
     };
     const meta = statusMeta[status] || statusMeta.offline;
     if (dotEl) dotEl.style.setProperty('--status-color', meta.color);
-    if (titleEl) titleEl.textContent = meta.title;
 
     if (status === 'offline') {
       if (actEl) actEl.textContent = cfg.defaultAct || '当前离线';
@@ -732,7 +731,6 @@
       const detailEl = document.getElementById('status-detail');
       const cardEl = document.getElementById('status-card');
       const dotEl = document.querySelector('.status-dot');
-      const titleEl = document.querySelector('.status-title');
       if (!cardEl) return;
 
       cardEl.hidden = false;
@@ -748,7 +746,7 @@
         if (!res.ok) throw new Error('Lanyard fetch failed');
         const body = await res.json();
         if (body.success && body.data) {
-          applyLanyardStatus(body.data, cfg, { actEl, detailEl, dotEl, titleEl });
+          applyLanyardStatus(body.data, cfg, { actEl, detailEl, dotEl });
         }
       } catch (err) {
         console.warn('Lanyard status load failed, using defaults.', err);
@@ -1051,6 +1049,81 @@
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  function hideCounterNode(el) {
+    const wrap = el.closest('[data-goatcounter-post-views], [data-goatcounter-site-views]');
+    if (wrap) wrap.hidden = true;
+  }
+
+  function isLocalPreviewHost() {
+    const host = window.location.hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host === '::1';
+  }
+
+  function onGoatCounterReady(fn, onTimeout, tries) {
+    if (window.goatcounter && typeof window.goatcounter.visit_count === 'function') {
+      fn();
+      return;
+    }
+    if ((tries || 0) > 80) {
+      if (onTimeout) onTimeout();
+      return;
+    }
+    window.setTimeout(() => onGoatCounterReady(fn, onTimeout, (tries || 0) + 1), 50);
+  }
+
+  function initGoatCounter(cfg) {
+    if (!cfg || !cfg.enable || cfg.provider !== 'goatcounter' || !cfg.code) return;
+
+    const targets = Array.from(document.querySelectorAll('[data-goatcounter-visit-count]'));
+    if (!targets.length) return;
+
+    if (isLocalPreviewHost()) {
+      targets.forEach(el => hideCounterNode(el));
+      return;
+    }
+
+    onGoatCounterReady(() => {
+      targets.forEach((el, index) => {
+        const holder = el.closest('[data-goatcounter-path]');
+        const path = holder?.getAttribute('data-goatcounter-path') || window.location.pathname || '/';
+        const id = el.id || `goatcounter-visit-count-${index}`;
+        el.id = id;
+        el.textContent = '';
+        el.classList.add('is-loading');
+
+        window.goatcounter.visit_count({
+          append: `#${id}`,
+          path,
+          type: 'svg',
+          no_branding: true,
+          attr: {
+            width: '68',
+            height: '18',
+            alt: '访问量',
+            class: 'goatcounter-count-img',
+            loading: 'lazy'
+          },
+          style: 'svg{background:transparent}text{fill:#e879b9;font-family:ui-monospace,monospace;font-size:14px;font-weight:700}'
+        });
+
+        window.setTimeout(() => {
+          const img = el.querySelector('img');
+          if (!img) {
+            hideCounterNode(el);
+            return;
+          }
+
+          img.addEventListener('load', () => {
+            el.classList.remove('is-loading');
+            el.classList.add('is-loaded');
+          }, { once: true });
+
+          img.addEventListener('error', () => hideCounterNode(el), { once: true });
+        }, 0);
+      });
+    }, () => targets.forEach(el => hideCounterNode(el)));
+  }
+
   function initShared(defaults) {
     defaults = defaults || { petalCount: 12, themeMode: 'system' };
 
@@ -1071,6 +1144,7 @@
     initReveal();
     initThemeSwitch(defaults.themeMode || defaults.theme || 'system');
     initLiveStatus(defaults.statusCard);
+    initGoatCounter(defaults.counter);
 
     const username = defaults.statusCard && defaults.statusCard.username;
     if (document.getElementById('contrib-card') && username) {
