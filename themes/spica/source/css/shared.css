@@ -513,6 +513,38 @@ html.js-reveal .reveal.reveal-done {
   transition: transform .25s cubic-bezier(.34,1.56,.64,1);
 }
 .footer-pill-issue:hover .footer-pill-spark { transform: rotate(-12deg) scale(1.15); }
+.counter-value {
+  display: inline-block;
+  min-width: 1ch;
+  font-variant-numeric: tabular-nums;
+}
+.counter-value.is-loading { opacity: .62; }
+.counter-value.is-loading::after { content: '—'; }
+.goatcounter-count-img {
+  display: block;
+  width: auto;
+  height: 1.15em;
+  max-width: 5.8em;
+  vertical-align: text-bottom;
+}
+.footer-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 99px;
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--muted);
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+.footer-counter .counter-value {
+  color: var(--pink);
+  font-weight: 700;
+}
 .footer-links {
   display: flex;
   align-items: center;

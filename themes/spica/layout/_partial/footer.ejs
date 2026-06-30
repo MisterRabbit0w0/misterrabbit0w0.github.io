@@ -5,6 +5,8 @@
   var issuesUrl = (repoCfg && repoCfg.issues) || (repoUrl ? repoUrl + '/issues' : '');
   var repoLabel = (repoCfg && repoCfg.label) || '站点源码';
   var issuesLabel = (repoCfg && repoCfg.issues_label) || '提 Issue';
+  var counterCfg = theme.counter || {};
+  var showSiteViews = !!(counterCfg.enable && (counterCfg.provider || 'goatcounter') === 'goatcounter' && counterCfg.goatcounter_code && counterCfg.show_site_views !== false);
 %>
 <footer class="site-footer">
   <span class="footer-copy"><%- (theme.footer && theme.footer.copyright) || ('© ' + new Date().getFullYear() + ' ' + config.author) %></span>
@@ -21,6 +23,12 @@
         <span><%= issuesLabel %></span>
       </a>
       <% } %>
+    </div>
+    <% } %>
+    <% if (showSiteViews) { %>
+    <div class="footer-counter" data-goatcounter-site-views data-goatcounter-path="TOTAL" aria-label="站点访问量">
+      <span class="footer-counter-label">总访问</span>
+      <span class="counter-value" data-goatcounter-visit-count aria-live="polite">—</span>
     </div>
     <% } %>
     <% var footerLinks = (theme.footer && theme.footer.links) || []; %>

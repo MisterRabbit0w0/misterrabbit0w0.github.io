@@ -6,6 +6,7 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
+    "test": "node --test test/*.test.mjs",
     "server": "hexo server"
   },
   "hexo": {

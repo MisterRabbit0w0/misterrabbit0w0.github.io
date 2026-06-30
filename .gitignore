@@ -12,6 +12,7 @@ tools/
 .vscode/
 .alma-snapshots
 /ref/
+/test/
 /output/*
 .design-sync/
 ds-bundle/

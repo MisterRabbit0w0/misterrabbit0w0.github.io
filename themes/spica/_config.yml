@@ -40,6 +40,13 @@ author_widget:
     - { label: "Star", url: "https://github.com/misterrabbit0w0/misterrabbit0w0.github.io", icon: star }
     - { label: "关于", url: "/about/", icon: home, internal: true }
 
+counter:
+  enable: true
+  provider: goatcounter
+  goatcounter_code: "misterrabbit0w0"
+  show_post_views: true
+  show_site_views: true
+
 about:
   name: "织星"
   handle: "@Astraea"

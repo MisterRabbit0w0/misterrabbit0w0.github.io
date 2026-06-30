@@ -1,3 +1,9 @@
+<%
+  var counterCfg = theme.counter || {};
+  var counterProvider = counterCfg.provider || 'goatcounter';
+  var counterCode = String(counterCfg.goatcounter_code || '').trim();
+  var counterOn = !!(counterCfg.enable && counterProvider === 'goatcounter' && counterCode);
+%>
 <!DOCTYPE html>
 <html lang="<%= config.language || 'zh-CN' %>" class="<% if (theme.effects && theme.effects.cursor !== false) { %>has-theme-cursor<% } %>">
 <head>
@@ -19,6 +25,9 @@
 
 <%- partial('_partial/tweaks') %>
 
+<% if (counterOn) { %>
+<script data-goatcounter="https://<%= counterCode %>.goatcounter.com/count" data-goatcounter-settings='{"allow_local":false}' async src="https://gc.zgo.at/count.js"></script>
+<% } %>
 <script src="<%- url_for('/js/shared.js') %>"></script>
 <%
   var githubUser = 'misterrabbit0w0';
@@ -42,6 +51,11 @@
       location: '<%= (theme.hero && theme.hero.status_card && theme.hero.status_card.location) || "织星阁" %>',
       defaultAct: '<%= (theme.hero && theme.hero.status_card && theme.hero.status_card.default_act) || "编织星光中..." %>',
       defaultDetail: '<%= (theme.hero && theme.hero.status_card && theme.hero.status_card.default_detail) || "misterrabbit0w0.github.io" %>'
+    },
+    counter: {
+      enable: <%= counterOn %>,
+      provider: <%- JSON.stringify(counterProvider) %>,
+      code: <%- JSON.stringify(counterCode) %>
     }
   });
 </script>

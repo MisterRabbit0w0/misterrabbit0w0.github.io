@@ -6,6 +6,9 @@
 
   var firstCat = page.categories && page.categories.length ? page.categories.first().name : null;
   var tagArr = page.tags ? page.tags.toArray().map(function(t){ return t.name; }) : [];
+  var counterCfg = theme.counter || {};
+  var counterOn = !!(counterCfg.enable && (counterCfg.provider || 'goatcounter') === 'goatcounter' && counterCfg.goatcounter_code);
+  var showPostViews = counterOn && counterCfg.show_post_views !== false;
 
   function fmt(date) {
     var d = new Date(date);
@@ -50,6 +53,12 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <%= readTime(page) %> 阅读
         </span>
+        <% if (showPostViews) { %>
+        <span class="post-info-item post-view-counter" data-goatcounter-post-views data-goatcounter-path="<%- url_for(page.path) %>">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span class="counter-value" data-goatcounter-visit-count aria-live="polite">—</span> 次阅读
+        </span>
+        <% } %>
         <% if (page.updated && String(page.updated) !== String(page.date)) { %>
         <span class="post-info-item">更新于 <%= fmt(page.updated) %></span>
         <% } %>
