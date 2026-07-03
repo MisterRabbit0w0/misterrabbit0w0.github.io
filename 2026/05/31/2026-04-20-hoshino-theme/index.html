@@ -440,6 +440,8 @@
       items.forEach(i => i.classList.toggle('active', i === active.el));
       // 滑条平滑滑到当前章节所在的轨段（高度随条目变化）
       if (indicator) {
+        const railLeft = getComputedStyle(active.el).getPropertyValue('--toc-rail-left').trim() || '0px';
+        indicator.style.left = railLeft;
         indicator.style.transform = 'translateY(' + active.el.offsetTop + 'px)';
         indicator.style.height = active.el.offsetHeight + 'px';
         indicator.classList.add('on');
