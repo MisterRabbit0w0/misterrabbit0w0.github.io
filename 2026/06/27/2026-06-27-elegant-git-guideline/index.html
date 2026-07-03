@@ -6,12 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>如何优雅地使用 Git — 织星 · Astraea</title>
 
-<meta name="description" content="本篇为 Git 新手教程，与其他教程直接扔一大堆命令上来并讲解用法不同，我会从新建一个项目开始，展示在真正的开发和多人协作场景下怎么使用 git。 虽然有了 AI 之后，大部分的分支管理和仓库维护都交给了 AI，但是 git 的使用仍然显得尤为重要，在 AI 无法解决的合并场景或误删库恢复的情况下，必须要人工的介入。 谨以此文致敬仍然在古法编程的开发者们。  安装 Git最简单的一步 官网链接 好">
+<meta name="description" content="本篇为 Git 新手教程，与其他教程直接扔一大堆命令上来并讲解用法不同，我会从新建一个项目开始，展示在真正的开发和多人协作场景下怎么使用 git。 本文使用的示例仓库地址：calculator 虽然有了 AI 之后，大部分的分支管理和仓库维护都交给了 AI，但是 git 的使用仍然显得尤为重要，在 AI 无法解决的合并场景或误删库恢复的情况下，必须要人工的介入。 谨以此文致敬仍然在古法编程的开发者">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何优雅地使用 Git">
 <meta property="og:url" content="https://misterrabbit0w0.github.io/2026/06/27/2026-06-27-elegant-git-guideline/index.html">
 <meta property="og:site_name" content="织星 · Astraea">
-<meta property="og:description" content="本篇为 Git 新手教程，与其他教程直接扔一大堆命令上来并讲解用法不同，我会从新建一个项目开始，展示在真正的开发和多人协作场景下怎么使用 git。 虽然有了 AI 之后，大部分的分支管理和仓库维护都交给了 AI，但是 git 的使用仍然显得尤为重要，在 AI 无法解决的合并场景或误删库恢复的情况下，必须要人工的介入。 谨以此文致敬仍然在古法编程的开发者们。  安装 Git最简单的一步 官网链接 好">
+<meta property="og:description" content="本篇为 Git 新手教程，与其他教程直接扔一大堆命令上来并讲解用法不同，我会从新建一个项目开始，展示在真正的开发和多人协作场景下怎么使用 git。 本文使用的示例仓库地址：calculator 虽然有了 AI 之后，大部分的分支管理和仓库维护都交给了 AI，但是 git 的使用仍然显得尤为重要，在 AI 无法解决的合并场景或误删库恢复的情况下，必须要人工的介入。 谨以此文致敬仍然在古法编程的开发者">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://misterrabbit0w0.github.io/2026/06/27/2026-06-27-elegant-git-guideline/initial-repo.png">
 <meta property="og:image" content="https://misterrabbit0w0.github.io/2026/06/27/2026-06-27-elegant-git-guideline/git-status.png">
@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://misterrabbit0w0.github.io/2026/06/27/2026-06-27-elegant-git-guideline/git-rebase-continue.png">
 <meta property="og:image" content="https://misterrabbit0w0.github.io/2026/06/27/2026-06-27-elegant-git-guideline/git-rebase-success.png">
 <meta property="article:published_time" content="2026-06-27T02:00:00.000Z">
-<meta property="article:modified_time" content="2026-07-03T06:30:14.769Z">
+<meta property="article:modified_time" content="2026-07-03T06:30:32.026Z">
 <meta property="article:author" content="织星">
 <meta property="article:tag" content="best practices">
 <meta property="article:tag" content="git">
@@ -314,7 +314,7 @@
         </span>
         <span class="post-info-item">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          19 min 阅读
+          20 min 阅读
         </span>
         
         <span class="post-info-item post-view-counter" id="busuanzi_container_page_pv">
@@ -338,6 +338,7 @@
 
     <div class="post-body">
       <p>本篇为 Git 新手教程，与其他教程直接扔一大堆命令上来并讲解用法不同，我会从新建一个项目开始，展示在真正的开发和多人协作场景下怎么使用 git。</p>
+<p>本文使用的示例仓库地址：<a target="_blank" rel="noopener" href="https://github.com/MisterRabbit0w0/calculator">calculator</a></p>
 <p>虽然有了 AI 之后，大部分的分支管理和仓库维护都交给了 AI，但是 git 的使用仍然显得尤为重要，在 AI 无法解决的合并场景或误删库恢复的情况下，必须要人工的介入。</p>
 <p>谨以此文致敬仍然在古法编程的开发者们。</p>
 <hr>
@@ -529,7 +530,7 @@ git config --global user.email <span class="string">&quot;Your Email&quot;</span
 <p><code>-m</code> 参数表示重命名分支。</p>
 <p>分支操作是 Git 的核心功能之一，分支表示从某一次提交开始，新建一个独立的开发栈，在此分支上的提交不会影响其他分支。</p>
 <p>一般，多人协作开发时，不同的人领取到不同任务的情况下，会在主分支上新建一个分支，完成任务后再合并回主分支，易于解决代码冲突和版本管理问题。</p>
-<p>例如，我现在想给计算器加入一个乘除运算功能，而另外一个人想给计算器加入一个乘方运算功能，那么我们就可以在主分支上新建两个分支，分别开发这两个功能，最后再合并回主分支。</p>
+<p>例如，我现在想给计算器加入一个乘除运算功能，而另一个人想给计算器加入一个乘方运算功能，那么我们就可以在主分支上新建两个分支，分别开发这两个功能，最后再合并回主分支。</p>
 <p>我们可以使用 <code>git branch &lt;分支名称&gt;</code> 新建一个分支，使用 <code>git checkout &lt;分支名称&gt;</code> 签出到该分支。</p>
 <p>现在 Git 提供了语义更明确的命令 <code>switch</code> 用于切换分支。</p>
 <p>更快捷的方式是一步创建并切换</p>
@@ -570,7 +571,7 @@ git push &lt;远程仓库名称&gt; &lt;远程分支名称&gt;</code></pre>
 <p>或者当你确定本地的提交历史是正确的，可以使用 <code>--force</code> 强制推送。</p>
 <pre><code class="highlight bash">git push --force &lt;远程仓库名称&gt; &lt;远程分支名称&gt;</code></pre>
 
-<p>一般在本地和远程同时新建仓库会遇到一些兼容问题，因为两者的提交历史完全不一样，所以一般 <code>--force</code> 即可。</p>
+<p>一般在本地和远程同时新建仓库会遇到一些兼容问题，因为两者的提交历史完全不一样，所以一般可以用 <code>--force</code>，但对已经在开发&#x2F;公用分支上尽量不要用此危险命令。</p>
 <h3 id="拉取-更新代码"><a href="#拉取-更新代码" class="headerlink" title="拉取&#x2F;更新代码"></a>拉取&#x2F;更新代码</h3><p>这个一般用在多人开发中，有人已经完成了开发-&gt;提交-&gt;推送-&gt;合并分支的全流程后，代码比本地的新。需要在最新的版本上继续开发。</p>
 <p>分三种情况</p>
 <ul>
@@ -650,11 +651,11 @@ git rebase main</code></pre>
 git merge feat/pow</code></pre>
 
 <p>就不会再遇到冲突。</p>
-<p>一般，合并完功能后，旧分支一般不保留，可以选择关闭或者删除</p>
+<p>一般合并完功能后，旧分支一般不保留，可以选择关闭或者删除</p>
 <pre><code class="highlight bash">git branch -d feat/mul-and-div
 git branch -d feat/pow</code></pre>
 
-<p>但图谱上仍然会保留这些分支的提交历史。很多分支的生命周期都停留在本地，时长几个小时或几天，除非是一个多人分工的分支。</p>
+<p>但图谱上仍然会保留这些分支的提交历史。很多分支的生命周期都停留在本地，除非是一个多人分工的分支，持续几个小时或几天。</p>
 <h3 id="撤销-修改操作"><a href="#撤销-修改操作" class="headerlink" title="撤销&#x2F;修改操作"></a>撤销&#x2F;修改操作</h3><p>这是我认为对新手而言最重要的一个部分，Git 的强大历史和分支管理系统让你的每次提交历史都有迹可循，所以如果你错误提交了一些东西，比如你的个人隐私信息到公开仓库中，最正确的选择不是通过新提交去覆盖错误文件，因为其他人仍然能通过提交历史找到你的隐私信息；而是通过修改提交历史的方式彻底删除这些信息。</p>
 <p><strong>注意！</strong> 一旦你泄露了你的隐私密钥 (例如api-key或token)，最正确的方案是先更换密钥，再来处理历史。</p>
 <p>这一块分为多个小节</p>
@@ -690,13 +691,13 @@ image[12].png # 忽略 `image1.png` 和 `image2.png`，`[]` 表示匹配括号�
 <p><code>git revert &lt;commit_hash&gt;</code> 用来生成一个“撤销指定提交”的提交，它不会删除原提交，也不会移动分支指针。</p>
 <p><code>git revert -m 1 &lt;merge_commit_hash&gt;</code> 用来生成一个“撤销指定合并提交”的提交，<code>-m</code> 参数指定了保留哪一个父分支的修改。<code>-m 1</code> 通常表示保留合并时当前分支这一侧的历史，撤销合并进来的分支的修改。</p>
 <p><code>--no-commit</code> (<code>-n</code>) 参数可以让你在生成撤销提交后，先不提交，方便你在撤销的基础上做一些修改。</p>
-<h3 id="分发版本"><a href="#分发版本" class="headerlink" title="分发版本"></a>分发版本</h3><p>或许大部分人用的最多的 Github 功能应该是直接在 Release 中找已编译好的二进制文件，下面会介绍如何使用 Git 进行版本分发。</p>
+<h3 id="分发版本"><a href="#分发版本" class="headerlink" title="分发版本"></a>分发版本</h3><p>或许大部分人用的最多的 GitHub 功能应该是直接在 Release 中找已编译好的二进制文件，下面会介绍如何使用 Git 进行版本分发。</p>
 <p>Git 本身带有一个 <code>tag</code> 功能用来管理版本，使用 <code>git tag &lt;版本名称&gt;</code> 用于在当前 HEAD 指针处创建一个特定名称的版本。</p>
 <p>有关版本命名规范，可见 <a target="_blank" rel="noopener" href="https://semver.org/">semver</a>。</p>
 <p>使用 <code>git push origin &lt;版本名称&gt;</code> 推送本地 tag。</p>
-<p>如何自动化地创建二进制文件，对 Github 来说，需要管理一个 <code>.github/workflow</code> 的文件夹。Github 的工作流接受 yml 样式的任务清单。</p>
+<p>如何自动化地创建二进制文件，对 GitHub 来说，需要管理一个 <code>.GitHub/workflow</code> 的文件夹。GitHub 的工作流接受 yml 样式的任务清单。</p>
 <h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>Git 其实是一个很强大的工具，有的教程为了简化，把很多东西说得太轻；有的教程类似条目说教的我也不太喜欢，因此有了这篇文章。</p>
-<p>Github 同样也是一个很有用的网站，不只是开源工具分享平台，同样也是很方便的代码托管和管理平台。</p>
+<p>GitHub 同样也是一个很有用的网站，不只是开源工具分享平台，同样也是很方便的代码托管和管理平台。</p>
 <p>Git 不是一个需要一次性背完的工具。很多命令平时用不到，但当代码合并失败、提交写错、文件误删、版本需要回退时，知道它们存在，就已经能让人安心很多。在 AI 已经能帮我们写很多代码的现在，Git 反而更重要了。因为代码可以生成，但历史需要管理；功能可以补全，但协作需要边界；错误可以修复，但我们要知道怎么安全地回到正确的位置。版本管理存在的意义，就是允许我们在试错中继续前进。</p>
 <p>本文可能会不定期更新，用来补充我可能实际积累的一些经验。</p>
 <p>希望你在下一次推送时，能更充满底气。</p>
