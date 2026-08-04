@@ -28,7 +28,7 @@ hexo new draft "标题" # 创建草稿
   - **`layout/`** — EJS 模板：`layout.ejs`（骨架）、`index.ejs`（首页）、`archive.ejs`（文章列表，被 category/tag 复用）、`post.ejs`（单篇+TOC+阅读进度）、`page.ejs`（按 `page.layout` 分流 projects/about/default）
   - **`source/css/`** — `shared.css`（全局）+ `page.css`（各页面）
   - **`source/js/shared.js`** — 花瓣、Light/Dark/System 主题、Lanyard 状态、GitHub Contribution
-  - **`scripts/`** — `projects-generator.js`、`stats-generator.js` 等构建辅助
+  - **`scripts/`** — `projects-generator.js`、`stats-generator.js` 等构建辅助；`post-tags.js` 文章组件 tag plugin（`{% spoiler %}`、`{% dialogue %}`、`{% rating %}`、`{% linkcard %}`、`{% gallery %}`，样式在 `page.css`「文章组件」区块）
 
 ## Deployment
 

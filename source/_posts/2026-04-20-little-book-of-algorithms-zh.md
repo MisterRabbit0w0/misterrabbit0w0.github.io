@@ -2,7 +2,7 @@
 title: 《小小算法书》中文版上线
 date: 2026-04-20 10:00:00
 categories: [translation]
-tags: [算法, KaTeX, VitePress]
+tags: [algorithms, KaTeX, VitePress]
 ---
 
 花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 [misterrabbit0w0.github.io/little-book-of-algorithms-zh](https://misterrabbit0w0.github.io/little-book-of-algorithms-zh/)

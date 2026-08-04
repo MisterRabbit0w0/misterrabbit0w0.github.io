@@ -1,10 +1,9 @@
 // shared.js — petals, theme cursor, Light/Dark/System, live status, GitHub contribution
 (function () {
   const STORAGE_KEY = 'blog_tweaks';
-  const petalColors = [
-    'oklch(82% 0.12 355)', 'oklch(85% 0.09 330)',
-    'oklch(85% 0.08 290)', 'oklch(88% 0.06 355)', 'oklch(90% 0.05 290)'
-  ];
+  // 花瓣：V 缺口心形瓣 SVG，染井吉野式近白淡粉三阶；暗色模式不出现（CSS 隐藏）
+  const PETAL_SHAPES = ['%23f8e2e8', '%23f4d3dc', '%23eec6d2'].map(fill =>
+    `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C18.5 16.5 21.5 10 16.5 4.8 15 3.4 13.2 3.6 12 6.2 10.8 3.6 9 3.4 7.5 4.8 2.5 10 5.5 16.5 12 21Z' fill='${fill}'/%3E%3C/svg%3E")`);
   const ACTIVITY_TYPES = new Set([
     'PushEvent', 'PullRequestEvent', 'CreateEvent', 'DeleteEvent',
     'IssuesEvent', 'IssueCommentEvent', 'PullRequestReviewEvent',
@@ -43,71 +42,11 @@
     }
   }
 
-  // 点击星尘：魔法棒的 payoff。
-  // 刻意不挂 prefers-reduced-motion：它是交互触发的瞬时动效，
-  // 设置面板的「主题光标」开关就是它的禁用机制（关系统动画的用户也能看到）。
-  function initClickStardust() {
-    const glyphs = ['✦', '✧', '❀'];
-    const colors = ['var(--pink)', 'var(--lavender)', 'var(--mint)', 'var(--gold)'];
-
-    document.addEventListener('pointerdown', (e) => {
-      if (!document.documentElement.classList.contains('has-theme-cursor')) return;
-      if (!e.isPrimary) return;
-
-      const n = 4 + Math.floor(Math.random() * 2);
-      for (let i = 0; i < n; i++) {
-        const el = document.createElement('span');
-        el.className = 'stardust';
-        el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
-        el.style.color = colors[Math.floor(Math.random() * colors.length)];
-        el.style.left = e.clientX + 'px';
-        el.style.top = e.clientY + 'px';
-        el.style.fontSize = (8 + Math.random() * 6) + 'px';
-        document.body.appendChild(el);
-
-        const angle = Math.random() * Math.PI * 2;
-        const dist = 20 + Math.random() * 24;
-        const dx = Math.cos(angle) * dist;
-        const dy = Math.sin(angle) * dist - 6;
-        const spin = (Math.random() * 120 - 60).toFixed(0);
-        el.animate([
-          { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: 1 },
-          { transform: `translate(calc(-50% + ${dx.toFixed(1)}px), calc(-50% + ${dy.toFixed(1)}px)) scale(.35) rotate(${spin}deg)`, opacity: 0 }
-        ], {
-          duration: 520 + Math.random() * 160,
-          easing: 'cubic-bezier(.22,.61,.36,1)'
-        }).onfinish = () => el.remove();
-      }
-    }, { passive: true });
-  }
-
   function isDarkMode() {
     return document.documentElement.getAttribute('data-color-mode') === 'dark';
   }
   function motionReduced() {
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  }
-
-  // 夜空星屑尾迹：暗色模式下鼠标划过留下淡淡星屑。
-  // 按移动“距离”取样（而非按时间），让星屑均匀疏落，不连成密集硬点串。
-  function initSkyTrail() {
-    let lx = null, ly = null;
-    document.addEventListener('pointermove', (e) => {
-      if (!isDarkMode() || motionReduced() || e.pointerType === 'touch') return;
-      if (lx !== null && Math.hypot(e.clientX - lx, e.clientY - ly) < 26) return;
-      lx = e.clientX; ly = e.clientY;
-      const el = document.createElement('span');
-      el.className = 'skydust';
-      const s = (3 + Math.random() * 3).toFixed(1);
-      el.style.width = el.style.height = s + 'px';
-      el.style.left = e.clientX + 'px';
-      el.style.top = e.clientY + 'px';
-      document.body.appendChild(el);
-      el.animate([
-        { transform: 'translate(-50%,-50%) scale(1)', opacity: 0.5 },
-        { transform: `translate(-50%, calc(-50% - ${6 + Math.random() * 10}px)) scale(.2)`, opacity: 0 }
-      ], { duration: 720 + Math.random() * 280, easing: 'ease-out' }).onfinish = () => el.remove();
-    }, { passive: true });
   }
 
   function burstStardust(x, y) {
@@ -182,6 +121,49 @@
     scheduleNext();
   }
 
+  // 星座视差：夜空与封面随指针反向轻移（分层深度 + lerp 平滑追随），
+  // 让星座在入场动画之后依然「活」在指针下。幅度克制（≤8 单位），松手即缓停。
+  function initConstellationParallax() {
+    if (motionReduced()) return;
+    const scenes = [];
+    const sky = document.querySelector('.nightsky svg');
+    if (sky) {
+      scenes.push({ root: sky, layers: [
+        { sel: '.ns-nebula', depth: 3 },
+        { sel: '.ns-field', depth: 5 },
+        { sel: '.ns-scene', depth: 8 }
+      ]});
+    }
+    const cover = document.querySelector('.post-cover-star');
+    if (cover) {
+      scenes.push({ root: cover, layers: [
+        { sel: '.cover-far', depth: 4 },
+        { sel: '.cover-near', depth: 7 }
+      ]});
+    }
+    if (!scenes.length) return;
+    scenes.forEach(s => {
+      s.els = s.layers.map(l => ({ el: s.root.querySelector(l.sel), depth: l.depth })).filter(l => l.el);
+    });
+
+    let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
+    function frame() {
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      scenes.forEach(s => s.els.forEach(l => {
+        l.el.style.transform = 'translate3d(' + (-cx * l.depth).toFixed(2) + 'px,' + (-cy * l.depth).toFixed(2) + 'px,0)';
+      }));
+      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) raf = requestAnimationFrame(frame);
+      else raf = null;
+    }
+    document.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
+      tx = (e.clientX / window.innerWidth - 0.5) * 2;
+      ty = (e.clientY / window.innerHeight - 0.5) * 2;
+      if (!raf) raf = requestAnimationFrame(frame);
+    }, { passive: true });
+  }
+
   // 许愿星：暗色下点亮角宿一(Spica)，浮现一句悄悄话
   function initWishStar() {
     const spica = document.querySelector('.ns-spica');
@@ -243,30 +225,40 @@
     if (window.matchMedia && window.matchMedia('(max-width: 640px)').matches) {
       n = Math.round(n * 0.55);
     }
-    for (let i = 0; i < n; i++) {
-      const w = 8 + Math.random() * 6;
-      const h = w + 2 + Math.random() * 6;
-      const outer = document.createElement('div');
-      outer.className = 'petal';
-      // 负的 animation-delay：花瓣在载入瞬间就已分散在下落周期的各个相位，
-      // 不再出现「等几秒才开始飘」的空窗。
-      outer.style.cssText =
-        `left:${Math.random() * 100}%;width:${w}px;height:${h}px;` +
-        `animation-duration:${7 + Math.random() * 9}s;animation-delay:${(-Math.random() * 14).toFixed(2)}s;`;
-      const inner = document.createElement('div');
-      inner.className = 'petal-inner';
-      const rotBase = Math.random() * 360;
-      inner.style.cssText =
-        `background:${petalColors[i % petalColors.length]};` +
-        `border-radius:${Math.random() > .5 ? '50% 0 50% 0' : '50%'};` +
-        `--sway:${(10 + Math.random() * 18).toFixed(1)}px;` +
-        `--sway-dur:${(2.6 + Math.random() * 2.4).toFixed(2)}s;` +
-        `--sway-delay:${(-Math.random() * 4).toFixed(2)}s;` +
-        `--rot-a:${(rotBase - 20 - Math.random() * 20).toFixed(0)}deg;` +
-        `--rot-b:${(rotBase + 20 + Math.random() * 30).toFixed(0)}deg;`;
-      outer.appendChild(inner);
-      container.appendChild(outer);
-    }
+    // 三层景深：远层小/慢/淡如烟，近层大/快/略显。数量比约 4:4:2
+    const LAYERS = [
+      { share: 0.4, size: [4, 6.5], op: [0.14, 0.24], fall: [14, 21], sway: [5, 10] },
+      { share: 0.4, size: [7, 10], op: [0.26, 0.4], fall: [10, 15], sway: [9, 16] },
+      { share: 0.2, size: [11, 15], op: [0.4, 0.55], fall: [7, 11], sway: [13, 22] }
+    ];
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    let idx = 0;
+    LAYERS.forEach((L, li) => {
+      let m = li === LAYERS.length - 1 ? n - idx : Math.round(n * L.share);
+      for (; m > 0; m--, idx++) {
+        const size = rnd(L.size[0], L.size[1]);
+        const outer = document.createElement('div');
+        outer.className = 'petal';
+        // 负的 animation-delay：花瓣在载入瞬间就已分散在下落周期的各个相位
+        outer.style.cssText =
+          `left:${(Math.random() * 100).toFixed(2)}%;width:${size.toFixed(1)}px;height:${size.toFixed(1)}px;` +
+          `--petal-opacity:${rnd(L.op[0], L.op[1]).toFixed(2)};` +
+          `animation-duration:${rnd(L.fall[0], L.fall[1]).toFixed(2)}s;animation-delay:${(-Math.random() * 16).toFixed(2)}s;`;
+        const inner = document.createElement('div');
+        inner.className = 'petal-inner';
+        const rotBase = Math.random() * 360;
+        inner.style.cssText =
+          `background-image:${PETAL_SHAPES[idx % PETAL_SHAPES.length]};` +
+          `--sway:${rnd(L.sway[0], L.sway[1]).toFixed(1)}px;` +
+          `--sway-dur:${(2.6 + Math.random() * 2.4).toFixed(2)}s;` +
+          `--sway-delay:${(-Math.random() * 4).toFixed(2)}s;` +
+          `--rot-a:${(rotBase - 20 - Math.random() * 20).toFixed(0)}deg;` +
+          `--rot-b:${(rotBase + 20 + Math.random() * 30).toFixed(0)}deg;` +
+          `--wob:${(0.55 + Math.random() * 0.25).toFixed(2)};`;
+        outer.appendChild(inner);
+        container.appendChild(outer);
+      }
+    });
   }
 
   // 自动模式：按访客本地时间在日落后切到夜晚。真正的日落随经纬度/日期变化、
@@ -283,11 +275,15 @@
 
   function applyThemeMode(preference) {
     const resolved = resolveThemeMode(preference);
-    document.documentElement.setAttribute('data-color-mode', resolved);
-    document.documentElement.setAttribute('data-theme-pref', preference);
+    const root = document.documentElement;
+    // 切换瞬间禁用全站过渡（双 rAF 后解除），避免所有元素一起渐变
+    root.classList.add('theme-switching');
+    root.setAttribute('data-color-mode', resolved);
+    root.setAttribute('data-theme-pref', preference);
     document.querySelectorAll('.theme-switch-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.themeMode === preference);
     });
+    requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
   }
 
   function saveTweaks(patch) {
@@ -621,9 +617,14 @@
       const c7 = countEventsSince(events, 7);
       const c30 = countEventsSince(events, 30);
       const buckets = bucketEvents(events, 30, 30);
-      renderSparkline(buckets);
-      if (window.ResizeObserver && sparkSvg) {
-        new ResizeObserver(() => renderSparkline(buckets)).observe(sparkSvg);
+      // 空态不画曲线：没有数据时，一条平直的渐变线只是在假装有内容
+      if (sparkSvg && c7 === 0 && c30 === 0) {
+        sparkSvg.hidden = true;
+      } else {
+        renderSparkline(buckets);
+        if (window.ResizeObserver && sparkSvg) {
+          new ResizeObserver(() => renderSparkline(buckets)).observe(sparkSvg);
+        }
       }
       dataReady = { c7, c30 };
       maybePlay();
@@ -648,6 +649,7 @@
       }
     } catch (err) {
       console.warn('Contribution card load failed.', err);
+      if (sparkSvg) sparkSvg.hidden = true;
       if (count7) count7.textContent = '—';
       if (count30) count30.textContent = '—';
       if (list) {
@@ -937,14 +939,16 @@
   }
 
   // 卡片柔光：鼠标在卡面上移动时，光标附近有一圈极淡高光跟随（非斜扫流光）。
-  // 仅精细指针 + 非减弱动画；触屏保持原有 hover 抬升与阴影即可。
+  // 这是卡片 hover 的主反馈（不再做抬升/阴影生长）；仅精细指针 + 非减弱动画，
+  // 触屏无 hover，可点击性由边框变色承担。
   function initCardGlow() {
     if (motionReduced()) return;
     if (window.matchMedia && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
     const CARD_SEL = [
       '.project-card', '.project-featured', '.nav-card', '.archive-card',
-      '.skill-card', '.widget-card', '.filter-card', '.sidebar-card'
+      '.skill-card', '.widget-card', '.filter-card', '.sidebar-card',
+      '.post-card', '.repo-card'
     ].join(',');
 
     const cards = document.querySelectorAll(CARD_SEL);
@@ -1085,10 +1089,9 @@
 
     spawnPetals(defaults.petalCount || 12);
     initThemeCursor(defaults.cursorFx);
-    initClickStardust();
-    initSkyTrail();
     initWishStar();
     initShootingStars();
+    initConstellationParallax();
     initCodeBlocks();
     initImageLightbox();
     initCardGlow();

@@ -7,12 +7,15 @@ public/
 .deploy*/
 _multiconfig.yml
 favicon.zip
-.claude
+.claude/
 tools/
 .vscode/
 .alma-snapshots
+.agents/
+skills-lock.json
 /ref/
 /test/
 /output/*
 .design-sync/
 ds-bundle/
+docs/

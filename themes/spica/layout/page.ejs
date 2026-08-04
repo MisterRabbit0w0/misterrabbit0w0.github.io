@@ -32,10 +32,8 @@
       <h2><%= featured.title %></h2>
       <p><%- featured.description %></p>
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
-        <% (featured.tags || []).forEach(function(t, i) {
-          var cls = ['tag-lav','tag-pink','tag-mint','tag-gold'][i % 4];
-        %>
-          <span class="tag <%= cls %>"><%= t %></span>
+        <% (featured.tags || []).forEach(function(t) { %>
+          <span class="tag <%= cat_tag_class(t) %>"><%= t %></span>
         <% }); %>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">

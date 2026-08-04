@@ -17,11 +17,11 @@ hero:
   title_name: "织星"
   bio: "记录代码，设计和一些温柔的胡思乱想。"
   tags:
-    - { text: "算法", class: "tag-pink" }
+    - { text: "算法", class: "tag-lav" }
     - { text: "TypeScript", class: "tag-lav" }
     - { text: "开源", class: "tag-mint" }
-    - { text: "工具", class: "tag-pink" }
-    - { text: "学习笔记", class: "tag-lav" }
+    - { text: "工具", class: "tag-lav" }
+    - { text: "学习笔记", class: "tag-pink" }
   status_card:
     enable: true
     discord_id: "1061262757078511706"
@@ -55,7 +55,7 @@ about:
     - { text: "开发者", class: "tag-pink" }
     - { text: "TypeScript", class: "tag-lav" }
     - { text: "开源", class: "tag-mint" }
-    - { text: "算法", class: "tag-gold" }
+    - { text: "算法", class: "tag-lav" }
   sections:
     intro:
       title: "关于我"
@@ -81,6 +81,7 @@ footer:
 effects:
   petals: 12
   theme: "system"
-  cursor: true
+  # 自定义花瓣光标默认关闭（新奇感税太高），访客仍可在右下角 tweaks 面板手动开启
+  cursor: false
   # 暗色夜空里点亮角宿一(Spica)后浮现的悄悄话；留空则关闭此彩蛋
   wish: "愿你抬头 恰逢星光"

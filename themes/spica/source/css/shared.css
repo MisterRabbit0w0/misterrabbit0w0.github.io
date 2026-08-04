@@ -9,7 +9,7 @@
   --fg-soft:    oklch(38% 0.02 285);
   --body-text:  oklch(32% 0.02 285);
   --muted:      oklch(56% 0.02 285);
-  --pink:       oklch(72% 0.18 355);
+  --pink:       oklch(66% 0.13 350);
   --pink-light: oklch(92% 0.07 355);
   --lavender:   oklch(72% 0.18 290);
   --lav-light:  oklch(93% 0.06 290);
@@ -34,12 +34,10 @@
   --article-muted: oklch(58% 0.018 285);
   --article-heading: oklch(22% 0.022 285);
   --article-emphasis: oklch(24% 0.026 285);
-  --article-link: oklch(62% 0.17 355);
+  --article-link: oklch(60% 0.13 350);
   --article-link-bg: oklch(94% 0.055 355 / 0.68);
   --article-surface: oklch(99.2% 0.006 85 / 0.86);
   --article-surface-border: oklch(88.5% 0.022 85);
-  --article-quote-bg: oklch(97% 0.022 355 / 0.72);
-  --article-quote-border: oklch(74% 0.16 355);
   --article-table-stripe: oklch(97% 0.014 85 / 0.72);
   --article-code-bg: oklch(96.5% 0.016 290);
   --article-code-fg: oklch(28% 0.024 290);
@@ -57,7 +55,7 @@
   --fg-soft:    oklch(88% 0.015 290);
   --body-text:  oklch(90% 0.014 290);
   --muted:      oklch(78% 0.022 290);
-  --pink:       oklch(82% 0.17 355);
+  --pink:       oklch(79% 0.11 350);
   --pink-light: oklch(32% 0.07 355);
   --lavender:   oklch(82% 0.16 290);
   --lav-light:  oklch(30% 0.07 290);
@@ -82,12 +80,10 @@
   --article-muted: oklch(59% 0.018 292);
   --article-heading: oklch(94% 0.012 292);
   --article-emphasis: oklch(87% 0.018 292);
-  --article-link: oklch(82% 0.15 355);
+  --article-link: oklch(80% 0.11 350);
   --article-link-bg: oklch(32% 0.07 355 / 0.24);
   --article-surface: oklch(22% 0.03 290 / 0.68);
   --article-surface-border: oklch(39% 0.036 290 / 0.68);
-  --article-quote-bg: oklch(24% 0.034 290 / 0.68);
-  --article-quote-border: oklch(78% 0.14 355);
   --article-table-stripe: oklch(24% 0.032 290 / 0.7);
   --article-code-bg: oklch(21% 0.032 290);
   --article-code-fg: oklch(80% 0.018 292);
@@ -99,13 +95,14 @@
 :root {
   --r: 20px;
   --r-sm: 14px;
-  --font-mono: "Maple Mono CN", ui-monospace, "SF Mono", "Fira Code", Consolas, "Microsoft YaHei", monospace;
+  --font-mono: "Maple Mono CN", ui-monospace, "SF Mono", "Fira Code", Consolas, "Microsoft YaHei", monospace; /* deslop-ignore 34 */
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
+  /* deslop-ignore-next-line 34 — 全站 Maple Mono CN 为刻意选择：圆润字形配樱花主题，经中文网字计划子集懒加载 */
   font-family: var(--font-mono);
   font-weight: 400;
   background: var(--bg);
@@ -113,7 +110,14 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   text-wrap: pretty;
-  transition: background .25s ease, color .25s ease;
+}
+
+/* 切主题瞬间禁用一切过渡，避免全站元素集体渐变（Paco 式主题切换保护） */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: none !important;
 }
 
 h1, h2, h3, h4 { text-wrap: balance; }
@@ -123,7 +127,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 0;
-  background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px);
+  background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px); /* deslop-ignore 06 */
   background-size: 28px 28px;
   pointer-events: none;
 }
@@ -138,10 +142,15 @@ body::before {
   will-change: transform, opacity;
   animation: petal-fall linear infinite;
 }
+/* 花瓣形状由 JS 注入 SVG（V 缺口心形瓣），CSS 只负责运动；
+   双层结构不变：外层匀速下坠，内层飘摆 + 旋转。 */
 .petal-inner {
   display: block;
   width: 100%;
   height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   will-change: transform;
   animation: petal-sway var(--sway-dur, 3.4s) ease-in-out infinite alternate;
   animation-delay: var(--sway-delay, 0s);
@@ -152,27 +161,14 @@ body::before {
   88%  { opacity: calc(var(--petal-opacity) * 0.55); }
   100% { transform: translateY(112vh); opacity: 0; }
 }
+/* scaleX 随飘摆振荡：模拟花瓣在空中的 3D 翻转（永不完全翻面） */
 @keyframes petal-sway {
-  from { transform: translateX(calc(var(--sway, 14px) * -1)) rotate(var(--rot-a, -18deg)); }
-  to   { transform: translateX(var(--sway, 14px)) rotate(var(--rot-b, 34deg)); }
+  from { transform: translateX(calc(var(--sway, 14px) * -1)) rotate(var(--rot-a, -18deg)) scaleX(var(--wob, .7)); }
+  to   { transform: translateX(var(--sway, 14px)) rotate(var(--rot-b, 34deg)) scaleX(1); }
 }
 
-/* 入夜：花瓣不再下坠，反向化作星屑升起、褪为淡色 */
-[data-color-mode="dark"] .petal {
-  top: auto;
-  bottom: -8%;
-  animation-name: petal-rise;
-}
-[data-color-mode="dark"] .petal-inner {
-  border-radius: 50% !important;
-  filter: brightness(1.6) saturate(0.3);
-}
-@keyframes petal-rise {
-  0%   { transform: translateY(0); opacity: 0; }
-  7%   { opacity: var(--petal-opacity); }
-  86%  { opacity: calc(var(--petal-opacity) * 0.5); }
-  100% { transform: translateY(-118vh); opacity: 0; }
-}
+/* 入夜不下花瓣：夜空已有星场、流星与许愿星，再加一层就是噪音 */
+[data-color-mode="dark"] .petals { display: none; }
 
 /* ── 入场渐现 ──
    仅在 JS 就位且未开启「减少动态效果」时挂上 html.js-reveal，
@@ -226,36 +222,70 @@ html.js-reveal .reveal.reveal-done {
 .ns-glow { fill: url(#nsGlow); }
 .ns-core { fill: oklch(98% 0.01 300); }
 
-/* 室女座连线：光的丝线 —— 细描边 + 柔和外辉，不是铅笔灰线 */
+/* 室女座连线：光的丝线 —— 细描边 + 柔和外辉，不是铅笔灰线；
+   入场时自我描绘（一次性；pathLength=1 在标记里） */
 .ns-links polyline {
   fill: none;
   stroke: oklch(88% 0.035 320);
   stroke-width: .9;
-  opacity: .3;
+  opacity: .24;
   stroke-linejoin: round;
   stroke-linecap: round;
   filter: drop-shadow(0 0 2px oklch(86% 0.06 330 / .45));
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ns-draw 1.6s ease-out .3s forwards;
+}
+.ns-links polyline:nth-child(2) { animation-delay: .6s; }
+.ns-links polyline:nth-child(3) { animation-delay: 1s; }
+@keyframes ns-draw { to { stroke-dashoffset: 0; } }
+
+/* 星点错峰闪烁：--tw-a/--tw-hi 保留每颗星自己的亮度个性，负 delay 载入即在中途 */
+.ns-tw {
+  animation: ns-twinkle var(--tw-dur, 6s) ease-in-out infinite alternate;
+  animation-delay: var(--tw-del, 0s);
+}
+@keyframes ns-twinkle {
+  from { opacity: var(--tw-a, .3); }
+  to   { opacity: var(--tw-hi, 1); }
 }
 
-/* 角宿一 Spica：本命星 —— 分层粉色柔光 + 亮核呼吸，唯一的强调 */
-.ns-spica { fill: var(--pink); opacity: .98; transition: r .25s ease; }
-.ns-spica-hi { fill: oklch(99% 0.008 350); opacity: .92; }
-.ns-spica-aura { opacity: .5; }
-.ns-spica-halo {
-  opacity: .7;
+/* 角宿一 Spica：四角闪星（与封面亮星同一语言）——呼吸缩放微旋转在外层 g，
+   本体保留 transform 给 hot 态（近悬放大），两层 transform 叠加互不覆盖 */
+.ns-spica {
+  fill: var(--pink);
   transform-box: fill-box;
   transform-origin: center;
-  animation: ns-beacon 6s ease-in-out infinite;
+  transition: transform .25s ease;
 }
-@keyframes ns-beacon {
-  0%, 100% { opacity: .5;  transform: scale(.9); }
-  50%      { opacity: .85; transform: scale(1.08); }
+.ns-spica.ns-spica-hot { transform: scale(1.3); }
+.ns-spica-breath {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ns-spica-breath 5.5s ease-in-out infinite;
 }
-.ns-spica-hot { r: 5px; }
+@keyframes ns-spica-breath {
+  0%, 100% { transform: scale(.85) rotate(-4deg); }
+  50%      { transform: scale(1.02) rotate(5deg); }
+}
+.ns-spica-hi { fill: oklch(99% 0.008 350); opacity: .92; }
+/* 贴身微辉：静态、小而淡，只给闪星一点存在感——不再叠光晕盘 */
+.ns-spica-glow { opacity: .35; }
+/* 星河抵达时才亮起：主脊描绘近完成（1.9s）前，角宿一自一点绽开 */
+.ns-spica-wrap {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ns-spica-in .9s cubic-bezier(.22,.61,.36,1) 1.7s both;
+}
+@keyframes ns-spica-in {
+  from { opacity: 0; transform: scale(.35); }
+  to   { opacity: 1; transform: scale(1); }
+}
 
-/* 尊重 reduced-motion：关掉呼吸，回归静态 */
+/* 尊重 reduced-motion：关掉呼吸/描绘/闪烁，归位最终态 */
 @media (prefers-reduced-motion: reduce) {
-  .ns-spica-halo { animation: none; transform: none; }
+  .ns-spica-breath, .ns-tw, .ns-spica-wrap { animation: none; transform: none; }
+  .ns-links polyline { animation: none; stroke-dashoffset: 0; }
 }
 
 /* 流星：暗色下偶尔划过的一道细光（由 JS 触发，位置随机） */
@@ -264,7 +294,7 @@ html.js-reveal .reveal.reveal-done {
   z-index: 1;
   width: 120px;
   height: 1.6px;
-  border-radius: 50%;
+  border-radius: 50%; /* deslop-ignore 19 */
   background: linear-gradient(90deg, transparent, oklch(96% 0.03 290 / 0.95));
   box-shadow: 0 0 6px oklch(92% 0.04 290 / 0.7);
   pointer-events: none;
@@ -277,8 +307,8 @@ html.js-reveal .reveal.reveal-done {
   z-index: 1149;
   width: 14px;
   height: 14px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+  border-radius: 50%; /* deslop-ignore 19 */
+  background: radial-gradient(circle, var(--pink) 0%, transparent 70%); /* deslop-ignore 06 */
   transform: translate(-50%, -50%);
   pointer-events: none;
   opacity: 0;
@@ -291,8 +321,8 @@ html.js-reveal .reveal.reveal-done {
   pointer-events: none;
   width: 5px;
   height: 5px;
-  border-radius: 50%;
-  background: radial-gradient(circle, oklch(95% 0.06 350) 0%, oklch(90% 0.06 350 / .4) 42%, transparent 72%);
+  border-radius: 50%; /* deslop-ignore 19 */
+  background: radial-gradient(circle, oklch(95% 0.06 350) 0%, oklch(90% 0.06 350 / .4) 42%, transparent 72%); /* deslop-ignore 06 */
 }
 .skydust-burst {
   width: auto;
@@ -303,27 +333,25 @@ html.js-reveal .reveal.reveal-done {
   line-height: 1;
 }
 
-/* 许愿话语 */
+/* 许愿话语：不是 toast，是星星的低语——无框无影无底色，粉字带柔光浮现 */
 .ns-wish {
   position: fixed;
   z-index: 1160;
   transform: translate(-50%, 0);
   max-width: 260px;
-  padding: 9px 15px;
-  font-family: var(--font-mono);
+  padding: 4px 10px;
+  font-family: var(--font-mono); /* deslop-ignore 34 */
   font-size: 13px;
-  line-height: 1.6;
+  letter-spacing: .06em;
+  line-height: 1.7;
   text-align: center;
   color: var(--pink);
-  background: var(--card);
-  border: 1.5px solid var(--pink-light);
-  border-radius: var(--r-sm);
-  box-shadow: var(--shadow);
+  text-shadow: 0 0 16px color-mix(in oklch, var(--pink) 50%, transparent);
   pointer-events: none;
   opacity: 0;
-  transition: opacity .5s ease, transform .5s ease;
+  transition: opacity .6s ease, transform .6s ease;
 }
-.ns-wish.show { opacity: 1; transform: translate(-50%, 5px); }
+.ns-wish.show { opacity: 1; transform: translate(-50%, 8px); }
 
 .page {
   position: relative;
@@ -369,14 +397,12 @@ html.js-reveal .reveal.reveal-done {
   color: var(--muted);
   text-decoration: none;
   border: 1.5px solid transparent;
-  transition: all .2s ease;
 }
 .nav-pill:hover { color: var(--fg); background: var(--bg2); }
 .nav-pill.active {
   color: var(--fg);
   background: var(--nav-pill);
   border-color: var(--border);
-  box-shadow: var(--shadow);
 }
 .nav-pill-icon { flex-shrink: 0; }
 .nav-actions { justify-self: end; display: flex; align-items: center; gap: 8px; }
@@ -389,7 +415,6 @@ html.js-reveal .reveal.reveal-done {
   border-radius: 99px;
   border: 1.5px solid var(--border);
   background: var(--card);
-  box-shadow: var(--shadow);
 }
 .theme-switch-btn {
   display: inline-flex;
@@ -402,7 +427,6 @@ html.js-reveal .reveal.reveal-done {
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  transition: all .2s ease;
 }
 .theme-switch-btn:hover { color: var(--fg); background: var(--bg2); }
 .theme-switch-btn.active {
@@ -440,7 +464,6 @@ html.js-reveal .reveal.reveal-done {
   padding: 4px 11px;
   border-radius: 99px;
   border: 1.5px solid;
-  transition: all .2s;
   cursor: default;
   white-space: nowrap;
 }
@@ -449,10 +472,13 @@ html.js-reveal .reveal.reveal-done {
   color: var(--muted);
   white-space: nowrap;
 }
-.tag-pink   { color: var(--pink);     border-color: var(--pink-light); background: var(--pink-light); }
-.tag-lav    { color: var(--lavender); border-color: var(--lav-light);  background: var(--lav-light); }
-.tag-mint   { color: var(--mint);     border-color: var(--mint-border); background: var(--mint-light); }
-.tag-gold   { color: var(--gold);     border-color: var(--gold-border); background: var(--gold-light); }
+/* 标签不再用糖果色区分语义：全部中性，强调色留给真正的 accent。
+   cat_tag_class 的映射保留，作为以后需要时的语义钩子。 */
+.tag-pink, .tag-lav, .tag-mint, .tag-gold {
+  color: var(--muted);
+  border-color: var(--border);
+  background: transparent;
+}
 
 .site-footer {
   margin-top: 64px;
@@ -491,8 +517,6 @@ html.js-reveal .reveal.reveal-done {
   background: var(--card);
   color: var(--muted);
   text-decoration: none;
-  box-shadow: var(--shadow);
-  transition: transform .2s cubic-bezier(.34,1.56,.64,1), color .2s, border-color .2s, background .2s;
 }
 .footer-pill:hover {
   color: var(--pink);
@@ -500,17 +524,12 @@ html.js-reveal .reveal.reveal-done {
   background: var(--pink-light);
   transform: translateY(-2px);
 }
-.footer-pill-issue:hover {
-  color: var(--lavender);
-  border-color: var(--lav-light);
-  background: var(--lav-light);
-}
 .footer-pill-icon { flex-shrink: 0; opacity: .9; }
 .footer-pill-spark {
   font-size: 11px;
   line-height: 1;
   color: var(--pink);
-  transition: transform .25s cubic-bezier(.34,1.56,.64,1);
+  transition: transform .2s ease;
 }
 .footer-pill-issue:hover .footer-pill-spark { transform: rotate(-12deg) scale(1.15); }
 .counter-value {
@@ -529,7 +548,6 @@ html.js-reveal .reveal.reveal-done {
   border: 1.5px solid var(--border);
   background: var(--card);
   color: var(--muted);
-  box-shadow: var(--shadow);
   white-space: nowrap;
 }
 .footer-counter .counter-value {
@@ -555,14 +573,6 @@ html.js-reveal .reveal.reveal-done {
 }
 
 /* 点击星尘 */
-.stardust {
-  position: fixed;
-  z-index: 1200;
-  pointer-events: none;
-  user-select: none;
-  line-height: 1;
-}
-
 /* tweaks */
 #tweaks-toggle {
   position: fixed;
@@ -571,7 +581,7 @@ html.js-reveal .reveal.reveal-done {
   z-index: 1001;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: 50%; /* deslop-ignore 19 */
   background: var(--card);
   border: 1.5px solid var(--border);
   color: var(--muted);
@@ -579,7 +589,7 @@ html.js-reveal .reveal.reveal-done {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow);
-  transition: transform .25s cubic-bezier(.34,1.56,.64,1), color .2s, border-color .2s;
+  transition: transform .2s ease, color .2s, border-color .2s;
   cursor: pointer;
 }
 #tweaks-toggle:hover { color: var(--pink); border-color: var(--pink-light); transform: rotate(45deg); }
@@ -598,7 +608,7 @@ html.js-reveal .reveal.reveal-done {
   box-shadow: var(--shadow);
   font-size: 13px;
 }
-#tweaks-panel.open { display: block; animation: tweaks-in .22s cubic-bezier(.34,1.56,.64,1); }
+#tweaks-panel.open { display: block; animation: tweaks-in .2s ease; }
 @keyframes tweaks-in {
   from { opacity: 0; transform: scale(.9) translateY(6px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
@@ -619,8 +629,6 @@ html.js-reveal .reveal.reveal-done {
   background: var(--card);
   color: var(--muted);
   text-decoration: none;
-  transition: all .2s;
-  box-shadow: var(--shadow);
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -721,7 +729,7 @@ body.lightbox-open { overflow: hidden; }
   border: none;
   padding: 0;
   background: oklch(12% 0.02 290 / 0.72);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px); /* deslop-ignore 19 */
   cursor: zoom-out;
   animation: lightbox-fade .22s ease;
 }
@@ -782,7 +790,7 @@ body.lightbox-open { overflow: hidden; }
   width: 32px;
   height: 32px;
   border: 1.5px solid var(--border);
-  border-radius: 50%;
+  border-radius: 50%; /* deslop-ignore 19 */
   background: var(--card);
   color: var(--fg);
   font-size: 20px;
