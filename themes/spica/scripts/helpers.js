@@ -46,29 +46,25 @@ hexo.extend.helper.register('star_cover', function (seedText) {
   var seed = hash(String(seedText || 'spica'));
   var rnd = mulberry32(seed);
   var W = 1200, H = 300;
-  var uid = 'sg' + (seed % 100000);
   var parts = [];
 
-  // 星云：不再是满铺色块，而是两团柔光云——无框无界，星座直接浮在页面上
-  parts.push(
-    '<defs><radialGradient id="' + uid + '" cx="50%" cy="50%" r="50%">' +
-    '<stop offset="0%" style="stop-color:var(--pink-light)" stop-opacity="0.5"/>' +
-    '<stop offset="100%" style="stop-color:var(--pink-light)" stop-opacity="0"/>' +
-    '</radialGradient></defs>'
-  );
-  // 视差分层：星云 + 远景小星为远层（cover-far），星座为近层（cover-near）
-  parts.push('<g class="cover-far">');
-  parts.push('<circle cx="' + (W * (0.3 + rnd() * 0.4)).toFixed(0) + '" cy="' + (H * (0.3 + rnd() * 0.4)).toFixed(0) +
-    '" r="' + (H * 1.1).toFixed(0) + '" fill="url(#' + uid + ')"/>');
+  // 环境辉光不在 SVG 内：它以独立的 CSS 层（.cover-glow）存在，不被视口裁切、
+  // 不被 mask 横切，向下溢出融入正文——光穿过 mask，切口消失。
+  // 这里只产出光心位置（--gx/--gy）。随机数调用次序与旧版一致，已有星图不变。
+  var gx = 0.3 + rnd() * 0.4, gy = 0.3 + rnd() * 0.4;
 
-  // 远景小星：每 7 颗挑 1 颗做低幅错峰闪烁（复用夜空同款 ns-tw）
-  var dots = 46 + Math.floor(rnd() * 18);
+  // 视差分层：辉光（.cover-glow）与远景小星为远层，星座为近层（cover-near）
+  parts.push('<g class="cover-far">');
+
+  // 远景小星：带彩度的粉玫瑰灰（--star-dot），少而可辨——浅色下不再是灰尘；
+  // 每 7 颗挑 1 颗做低幅错峰闪烁（复用夜空同款 ns-tw）
+  var dots = 36 + Math.floor(rnd() * 14);
   for (var i = 0; i < dots; i++) {
-    var dop = (0.12 + rnd() * 0.35).toFixed(2);
+    var dop = (0.22 + rnd() * 0.38).toFixed(2);
     var dtw = (i % 7 === 0);
-    parts.push('<circle cx="' + (rnd() * W).toFixed(1) + '" cy="' + (rnd() * H).toFixed(1) +
-      '" r="' + (0.6 + rnd() * 1.1).toFixed(2) + '" fill="var(--muted)" opacity="' + dop + '"' +
-      (dtw ? ' class="ns-tw" style="--tw-a:' + (dop * 0.35).toFixed(2) + ';--tw-hi:' + dop +
+    parts.push('<circle class="cover-dot' + (dtw ? ' ns-tw' : '') + '" cx="' + (rnd() * W).toFixed(1) +
+      '" cy="' + (rnd() * H).toFixed(1) + '" r="' + (0.9 + rnd() * 1.2).toFixed(2) + '" opacity="' + dop + '"' +
+      (dtw ? ' style="--tw-a:' + (dop * 0.35).toFixed(2) + ';--tw-hi:' + dop +
         ';--tw-dur:' + (4 + (i % 5) * 0.8).toFixed(1) + 's;--tw-del:-' + (i % 7) + 's"' : '') + '/>');
   }
   parts.push('</g><g class="cover-near">');
@@ -124,6 +120,8 @@ hexo.extend.helper.register('star_cover', function (seedText) {
   });
   parts.push('</g>');
 
-  return '<svg class="post-cover post-cover-star" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
-    '" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' + parts.join('') + '</svg>';
+  return '<div class="post-cover-star-wrap" style="--gx:' + (gx * 100).toFixed(1) + '%;--gy:' + (gy * 100).toFixed(1) + '%">' +
+    '<div class="cover-glow" aria-hidden="true"></div>' +
+    '<svg class="post-cover post-cover-star" viewBox="0 0 ' + W + ' ' + H + '" width="' + W + '" height="' + H +
+    '" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' + parts.join('') + '</svg></div>';
 });

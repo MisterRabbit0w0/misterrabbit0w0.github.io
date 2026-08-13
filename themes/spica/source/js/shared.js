@@ -134,9 +134,10 @@
         { sel: '.ns-scene', depth: 8 }
       ]});
     }
-    const cover = document.querySelector('.post-cover-star');
+    const cover = document.querySelector('.post-cover-star-wrap');
     if (cover) {
       scenes.push({ root: cover, layers: [
+        { sel: '.cover-glow', depth: 3 },
         { sel: '.cover-far', depth: 4 },
         { sel: '.cover-near', depth: 7 }
       ]});
@@ -996,7 +997,7 @@
       '.archive-card', '.skill-card', '.timeline-item',
       '.widget-card', '.nav-card', '.about-section',
       '.page-hero-left', '.article-count',
-      '.post-header > *', '.post-cover', '.post-cover-star',
+      '.post-header > *', '.post-cover', '.post-cover-star', '.post-cover-star-wrap',
       '.notfound-badge', '.notfound-num', '.notfound-title', '.notfound-bio', '.notfound-actions'
     ].join(',');
 

@@ -24,6 +24,7 @@
   --shadow-lift: 0 12px 32px oklch(60% 0.08 330 / 0.10);
   --nav-pill:   oklch(94% 0.03 355);
   --dot:        oklch(75% 0.12 330 / 0.16);
+  --star-dot:   oklch(62% 0.10 350); /* 星图远景小星：带彩度的玫瑰灰，浅色下可辨、不似灰尘 */
   --petal-opacity: 0.7;
   --input-bg:   var(--card);
   --code-bg:    oklch(95% 0.018 290);
@@ -70,6 +71,7 @@
   --shadow-lift: 0 14px 36px oklch(4% 0.04 290 / 0.48);
   --nav-pill:   oklch(32% 0.04 290);
   --dot:        oklch(72% 0.1 330 / 0.06);
+  --star-dot:   oklch(80% 0.08 350);
   --petal-opacity: 0.35;
   --input-bg:   oklch(24% 0.03 290);
   --code-bg:    oklch(22% 0.032 290);

@@ -403,13 +403,27 @@
   border: 1.5px solid var(--border);
 }
 /* 星图封面：无框无界——星座直接浮在页面上，底缘渐隐融入正文 */
+.post-cover-star-wrap { position: relative; }
+/* 环境辉光：独立的 CSS 层，不在 SVG 内——不被视口裁切、不被 mask 横切。
+   向上/两侧/向下溢出封面，靠自身渐变在各方向衰减到 0，光穿过 mask 融入正文。
+   光心由生成器经 --gx/--gy 传入；挂在指针视差层（shared.js）。 */
+.post-cover-star-wrap .cover-glow {
+  position: absolute;
+  inset: -45% -18% -90px;
+  background: radial-gradient(circle closest-side at var(--gx, 50%) var(--gy, 45%),
+    color-mix(in oklch, var(--pink-light) 42%, transparent) 0%, transparent 88%);
+  pointer-events: none;
+}
 .post-cover-star {
+  position: relative; /* 星座压过辉光层 */
   border: none;
   border-radius: 0;
   background: none;
   -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 98%); /* deslop-ignore 06 */
   mask-image: linear-gradient(180deg, #000 68%, transparent 98%); /* deslop-ignore 06 */
 }
+/* 远景小星：颜色走 --star-dot（浅色带彩度、不似灰尘），大小/明度个性在生成器里 */
+.post-cover-star .cover-dot { fill: var(--star-dot); }
 /* 出生动画（一次性仪式，非循环）：线先自我描绘，星点沿路径依次绽出 */
 .post-cover-star .star-link {
   stroke-dasharray: 1;
@@ -448,7 +462,7 @@
   font-weight: 400;
   color: var(--article-text);
   overflow-wrap: break-word;
-  text-rendering: optimizeLegibility;
+  font-kerning: none;
 }
 .post-body > :first-child { margin-top: 0; }
 .post-body > :last-child { margin-bottom: 0; }
@@ -711,31 +725,41 @@ html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
 .post-body .code-block-wrap .link {
   color: oklch(62% 0.12 290);
 }
-/* 引用不是卡片：去壳后靠一枚放大的引号 + 缩进建立层级，
-   唯一的装饰是引号本身——它在指事（这是一段引文）。 */
+/* 两种引用按语义分流（用 :has(footer) 区分，无需改文章）：
+   - markdown `>`（旁注/随想/释义）：引导靠「换声」而非装饰——中文排印传统里
+     引文与随想换楷体排，与全站圆润的 Maple Mono CN 形成一眼可辨的字体对比，
+     再辅以双侧缩进与柔和字色。不加引号、底色或左边条：装饰符号会谎报语义。
+   - {% blockquote %}（带署名的真正引文）：添一枚收敛的引号——
+     小号、常规字重、半透明，装饰即指事。 */
 .post-body blockquote {
-  margin: 34px 0;
-  padding-left: 2.6em;
-  position: relative;
+  margin: 30px 0;
+  padding: 0 1.5em;
+  font-family: "Kaiti SC", "STKaiti", "KaiTi", "BiauKai", "TW-Kai", serif;
   color: var(--article-text-soft);
-  line-height: 2;
-}
-.post-body blockquote::before {
-  content: '\201C';
-  position: absolute;
-  left: 0;
-  top: -0.18em;
-  font-size: 2.8em;
-  line-height: 1;
-  font-weight: 700;
-  color: var(--pink);
-  pointer-events: none;
+  font-size: 1em; /* 楷体字面小、笔画细，不再缩字号 */
+  line-height: 1.9;
 }
 .post-body blockquote p { margin-bottom: 10px; }
 .post-body blockquote p:last-child { margin-bottom: 0; }
-/* {% blockquote %} 的署名行 */
+.post-body blockquote:has(footer) {
+  position: relative;
+  padding-left: 2.3em;
+}
+.post-body blockquote:has(footer)::before {
+  content: '\201C';
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  font-size: 1.8em;
+  line-height: 1;
+  font-weight: 400;
+  color: color-mix(in oklch, var(--pink) 55%, transparent);
+  pointer-events: none;
+}
+/* {% blockquote %} 的署名行：出处是元信息，换回站点的 mono 元信息声音 */
 .post-body blockquote footer {
   margin-top: 12px;
+  font-family: var(--font-mono);
   font-size: 13px;
   line-height: 1.7;
   color: var(--article-muted);
@@ -975,24 +999,47 @@ html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
 }
 .toc-item:hover { color: var(--pink); }
 .toc-item:hover::before { background: var(--pink); }
-/* active 不再自己点亮左边框——改由 .toc-indicator 这根滑条平滑跟随 */
+/* 高亮是一枚液体弹丸：静止时与原来的胶囊指示条完全一致；
+   液体感只在运动里——弹丸整体旅行（不跨越拉伸），流速最快时体积守恒地
+   拉长变细（.flow 动画，时长 = 飞行时长），到达时位置过冲回稳；
+   transition 时长随距离伸缩（恒定流速），打断时天然从中断处续流。 */
 .toc-item.active { color: var(--pink); }
 .toc-item.active::before { opacity: 0; }
 .toc { position: relative; }
-.toc-indicator {
+.toc-slug {
   position: absolute; left: 0; top: 0;
-  width: 2px; height: 0;
-  background: var(--pink); border-radius: 2px;
+  width: 3px; height: 0;
+  margin-left: -0.5px; /* 与 2px 轨道同轴 */
   opacity: 0;
-  transition: left .32s cubic-bezier(.4,0,.2,1), /* deslop-ignore 26 */
-              transform .32s cubic-bezier(.4,0,.2,1),
-              height .32s cubic-bezier(.4,0,.2,1),
+  transition: left .5s cubic-bezier(.3,1.2,.35,1),
+              transform .5s cubic-bezier(.3,1.2,.35,1),
+              height .3s ease,
               opacity .2s ease;
   pointer-events: none;
-  will-change: left, transform, height;
   z-index: 1;
 }
-.toc-indicator.on { opacity: 1; }
+.toc-slug.on { opacity: 1; }
+.toc-slug.instant { transition: none; }
+.toc-slug-body {
+  display: block; width: 100%; height: 100%;
+  border-radius: 99px;
+  background: var(--pink);
+  transform-origin: center;
+}
+/* 流动形变：拉长变细（体积守恒）→ 到达前回弹 → 归位 */
+.toc-slug.flow .toc-slug-body {
+  animation: toc-slug-flow var(--flow-dur, .5s) cubic-bezier(.4,0,.3,1);
+}
+@keyframes toc-slug-flow {
+  0%   { transform: scale(1, 1); }
+  35%  { transform: scale(.72, 1.5); }
+  70%  { transform: scale(1.06, .94); }
+  100% { transform: scale(1, 1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toc-slug { transition: none; }
+  .toc-slug.flow .toc-slug-body { animation: none; }
+}
 .toc-h3 { --toc-rail-left: 12px; font-size: 12px; }
 .toc-h4 { --toc-rail-left: 24px; font-size: 11px; }
 .author-card { display: flex; gap: 12px; align-items: center; }
@@ -1375,6 +1422,9 @@ html:not(.has-theme-cursor) .post-body a:has(> img.img-zoomable) {
   .post-footer-nav { grid-template-columns: 1fr; }
   .post-body .gallery-cols-2 .gallery-grid { grid-template-columns: 1fr; }
   .post-body .gallery-cols-3 .gallery-grid { grid-template-columns: 1fr 1fr; }
+  /* 窄屏上压缩引用缩进，保住行长 */
+  .post-body blockquote { padding: 0 0.8em; }
+  .post-body blockquote:has(footer) { padding-left: 1.9em; }
 }
 
 /* ── 微交互：hover 的动态感交给光标柔光（js-card-glow），可点击性交给边框变色；

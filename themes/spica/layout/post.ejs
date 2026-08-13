@@ -103,7 +103,7 @@
     <% if (tocHtml) { %>
     <div class="sidebar-card">
       <div class="sidebar-title">目录</div>
-      <div class="toc"><span class="toc-indicator" aria-hidden="true"></span><%- tocHtml %></div>
+      <div class="toc"><span class="toc-slug" aria-hidden="true"><i class="toc-slug-body"></i></span><%- tocHtml %></div>
     </div>
     <% } %>
     <%- partial('_partial/author-widget') %>
@@ -115,11 +115,42 @@
 (function () {
   const bar = document.getElementById('read-progress');
   const items = Array.from(document.querySelectorAll('.toc-item'));
-  const indicator = document.querySelector('.toc-indicator');
+  const slug = document.querySelector('.toc-slug');
   const sections = items
     .map(i => ({ el: i, target: document.getElementById(i.getAttribute('href').slice(1)) }))
     .filter(s => s.target);
   let ticking = false;
+  let lastEl = null;
+
+  // 高亮是一枚液体弹丸：静止时就是原来的胶囊，没有任何形态变化；
+  // 液体感只在运动里——整体旅行（不跨越拉伸），流速最快时体积守恒地
+  // 拉长变细（.flow 动画），到达时位置过冲回稳；时长随距离伸缩（恒定流速）。
+  function indicatorMove(item) {
+    const railLeft = getComputedStyle(item).getPropertyValue('--toc-rail-left').trim() || '0px';
+    const y1 = item.offsetTop, h1 = item.offsetHeight;
+    slug.classList.add('on');
+    if (!lastEl) {
+      // 首帧 / resize / 字体换载后的归位：瞬时到位，不放动画
+      slug.classList.add('instant');
+      slug.style.left = railLeft;
+      slug.style.transform = 'translateY(' + y1 + 'px)';
+      slug.style.height = h1 + 'px';
+      requestAnimationFrame(() => requestAnimationFrame(() => slug.classList.remove('instant')));
+      return;
+    }
+    const cs = getComputedStyle(slug);
+    const y0 = (cs.transform === 'none' ? 0 : new DOMMatrixReadOnly(cs.transform).m42) || 0;
+    const dur = Math.min(0.85, Math.max(0.22, Math.abs(y1 - y0) / 320));
+    slug.style.transitionDuration = dur + 's';
+    slug.style.setProperty('--flow-dur', dur + 's');
+    slug.style.left = railLeft;
+    slug.style.transform = 'translateY(' + y1 + 'px)';
+    slug.style.height = h1 + 'px';
+    // 重触流动画（去类 → 强制重排 → 加类）
+    slug.classList.remove('flow');
+    void slug.offsetWidth;
+    slug.classList.add('flow');
+  }
 
   function update() {
     ticking = false;
@@ -134,13 +165,9 @@
         if (s.target.getBoundingClientRect().top < 120) active = s;
       }
       items.forEach(i => i.classList.toggle('active', i === active.el));
-      // 滑条平滑滑到当前章节所在的轨段（高度随条目变化）
-      if (indicator) {
-        const railLeft = getComputedStyle(active.el).getPropertyValue('--toc-rail-left').trim() || '0px';
-        indicator.style.left = railLeft;
-        indicator.style.transform = 'translateY(' + active.el.offsetTop + 'px)';
-        indicator.style.height = active.el.offsetHeight + 'px';
-        indicator.classList.add('on');
+      if (slug && active.el !== lastEl) {
+        indicatorMove(active.el);
+        lastEl = active.el;
       }
     }
   }
@@ -148,7 +175,9 @@
     if (!ticking) { ticking = true; requestAnimationFrame(update); }
   }
   window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
+  // resize / 字体子集换载后条目高度可能变化：作废缓存，下次更新直接归位
+  window.addEventListener('resize', () => { lastEl = null; onScroll(); }, { passive: true });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { lastEl = null; update(); });
   update();
 })();
 </script>
