@@ -1,0 +1,632 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" class="">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>织星 · Astraea — 造梦想如星光</title>
+
+<meta name="description" content="算法、工具、前端、日常">
+<meta property="og:type" content="website">
+<meta property="og:title" content="织星 · Astraea">
+<meta property="og:url" content="https://misterrabbit0w0.github.io/tags/algorithms/index.html">
+<meta property="og:site_name" content="织星 · Astraea">
+<meta property="og:description" content="算法、工具、前端、日常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://misterrabbit0w0.github.io/img/avatar/avatar.jpg">
+<meta property="article:author" content="织星">
+<meta property="article:tag" content="算法,前端,工具,开源">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://misterrabbit0w0.github.io/img/avatar/avatar.jpg">
+
+<meta name="keywords" content="算法,前端,工具,开源">
+
+<meta name="theme-color" content="#f9a8d4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#221f2b" media="(prefers-color-scheme: dark)">
+<link rel="alternate" type="application/atom+xml" href="/atom.xml" title="织星 · Astraea">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chinese-fonts/maple-mono-cn@2.0.0/dist/MapleMono-CN-Regular/result.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chinese-fonts/maple-mono-cn@2.0.0/dist/MapleMono-CN-Italic/result.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@chinese-fonts/maple-mono-cn@2.0.0/dist/MapleMono-CN-Bold/result.css">
+<link rel="stylesheet" href="/css/shared.css">
+<link rel="stylesheet" href="/css/page.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+<body class="">
+
+
+
+
+<div class="nightsky" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="nsGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-stop-core"/>
+        <stop offset="100%" class="ns-stop-edge"/>
+      </radialGradient>
+      <radialGradient id="nsGlowPink" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-stop-pink-core"/>
+        <stop offset="48%"  class="ns-stop-pink-mid"/>
+        <stop offset="100%" class="ns-stop-pink-edge"/>
+      </radialGradient>
+      <radialGradient id="nsNebPink" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-neb-pink0"/>
+        <stop offset="100%" class="ns-neb-pink1"/>
+      </radialGradient>
+      <radialGradient id="nsNebLav" cx="50%" cy="50%" r="50%">
+        <stop offset="0%"   class="ns-neb-lav0"/>
+        <stop offset="100%" class="ns-neb-lav1"/>
+      </radialGradient>
+    </defs>
+
+    
+
+    
+    <g class="ns-field">
+      
+        
+        
+        <circle class="ns-star ns-tw" cx="453" cy="664" r="0.9" style="opacity:0.23;--tw-a:0.08;--tw-hi:0.23;--tw-dur:4.5s;--tw-del:-0s"/>
+      
+        
+        
+        <circle class="ns-star" cx="903" cy="695" r="1.2" style="opacity:0.38"/>
+      
+        
+        
+        <circle class="ns-star" cx="872" cy="282" r="0.6" style="opacity:0.15"/>
+      
+        
+        
+        <circle class="ns-star" cx="563" cy="182" r="0.9" style="opacity:0.23"/>
+      
+        
+        
+        <circle class="ns-star" cx="973" cy="651" r="1" style="opacity:0.31"/>
+      
+        
+        
+        <circle class="ns-star" cx="609" cy="32" r="1.2" style="opacity:0.4"/>
+      
+        
+        
+        <circle class="ns-star" cx="1410" cy="620" r="0.8" style="opacity:0.21"/>
+      
+        
+        
+        <circle class="ns-star" cx="322" cy="325" r="0.9" style="opacity:0.22"/>
+      
+        
+        
+        <circle class="ns-star" cx="199" cy="184" r="0.9" style="opacity:0.23"/>
+      
+        
+        
+        <circle class="ns-star ns-tw" cx="396" cy="717" r="0.7" style="opacity:0.17;--tw-a:0.06;--tw-hi:0.17;--tw-dur:8.1s;--tw-del:-2s"/>
+      
+        
+        
+        <circle class="ns-star" cx="1145" cy="455" r="0.6" style="opacity:0.13"/>
+      
+        <circle class="ns-field-glow" cx="238" cy="872" r="4.8" style="opacity:0.19"/>
+        
+        <circle class="ns-star" cx="238" cy="872" r="1.2" style="opacity:0.42"/>
+      
+        
+        
+        <circle class="ns-star" cx="1257" cy="74" r="0.8" style="opacity:0.18"/>
+      
+        
+        
+        <circle class="ns-star" cx="447" cy="75" r="0.7" style="opacity:0.17"/>
+      
+        
+        
+        <circle class="ns-star" cx="374" cy="275" r="0.6" style="opacity:0.15"/>
+      
+        
+        
+        <circle class="ns-star" cx="886" cy="64" r="1" style="opacity:0.31"/>
+      
+        
+        
+        <circle class="ns-star" cx="1371" cy="682" r="1.1" style="opacity:0.32"/>
+      
+        
+        
+        <circle class="ns-star" cx="434" cy="531" r="0.7" style="opacity:0.17"/>
+      
+        <circle class="ns-field-glow" cx="435" cy="576" r="5.6" style="opacity:0.25"/>
+        
+        <circle class="ns-star ns-tw" cx="435" cy="576" r="1.4" style="opacity:0.56;--tw-a:0.20;--tw-hi:0.56;--tw-dur:7.2s;--tw-del:-4s"/>
+      
+        
+        
+        <circle class="ns-star" cx="1433" cy="517" r="0.6" style="opacity:0.14"/>
+      
+        <circle class="ns-field-glow" cx="188" cy="610" r="5.6" style="opacity:0.24"/>
+        
+        <circle class="ns-star" cx="188" cy="610" r="1.4" style="opacity:0.54"/>
+      
+        
+        
+        <circle class="ns-star" cx="714" cy="289" r="0.9" style="opacity:0.22"/>
+      
+        
+        
+        <circle class="ns-star" cx="139" cy="650" r="1" style="opacity:0.29"/>
+      
+        
+        
+        <circle class="ns-star" cx="883" cy="365" r="0.9" style="opacity:0.25"/>
+      
+        
+        
+        <circle class="ns-star" cx="108" cy="11" r="1.2" style="opacity:0.41"/>
+      
+        <circle class="ns-field-glow" cx="290" cy="842" r="5.2" style="opacity:0.21"/>
+        
+        <circle class="ns-star" cx="290" cy="842" r="1.3" style="opacity:0.47"/>
+      
+        
+        
+        <circle class="ns-star" cx="707" cy="827" r="0.8" style="opacity:0.2"/>
+      
+        
+        
+        <circle class="ns-star ns-tw" cx="360" cy="526" r="1.2" style="opacity:0.41;--tw-a:0.14;--tw-hi:0.41;--tw-dur:6.3s;--tw-del:-6s"/>
+      
+        
+        
+        <circle class="ns-star" cx="4" cy="420" r="0.6" style="opacity:0.14"/>
+      
+        
+        
+        <circle class="ns-star" cx="1183" cy="473" r="0.9" style="opacity:0.21"/>
+      
+        
+        
+        <circle class="ns-star" cx="1201" cy="289" r="1" style="opacity:0.3"/>
+      
+        
+        
+        <circle class="ns-star" cx="909" cy="11" r="1" style="opacity:0.29"/>
+      
+        
+        
+        <circle class="ns-star" cx="1024" cy="57" r="0.5" style="opacity:0.13"/>
+      
+        
+        
+        <circle class="ns-star" cx="424" cy="385" r="0.6" style="opacity:0.13"/>
+      
+        <circle class="ns-field-glow" cx="575" cy="300" r="5.2" style="opacity:0.23"/>
+        
+        <circle class="ns-star" cx="575" cy="300" r="1.3" style="opacity:0.5"/>
+      
+        
+        
+        <circle class="ns-star" cx="888" cy="832" r="1" style="opacity:0.27"/>
+      
+        
+        
+        <circle class="ns-star ns-tw" cx="301" cy="145" r="0.5" style="opacity:0.13;--tw-a:0.05;--tw-hi:0.13;--tw-dur:5.4s;--tw-del:-1s"/>
+      
+        
+        
+        <circle class="ns-star" cx="228" cy="99" r="0.9" style="opacity:0.22"/>
+      
+        
+        
+        <circle class="ns-star" cx="810" cy="482" r="1" style="opacity:0.29"/>
+      
+        
+        
+        <circle class="ns-star" cx="911" cy="343" r="1" style="opacity:0.28"/>
+      
+        
+        
+        <circle class="ns-star" cx="12" cy="239" r="1.1" style="opacity:0.36"/>
+      
+        
+        
+        <circle class="ns-star" cx="540" cy="527" r="1.1" style="opacity:0.31"/>
+      
+        
+        
+        <circle class="ns-star" cx="123" cy="387" r="1.2" style="opacity:0.41"/>
+      
+        <circle class="ns-field-glow" cx="583" cy="124" r="5.6" style="opacity:0.26"/>
+        
+        <circle class="ns-star" cx="583" cy="124" r="1.4" style="opacity:0.57"/>
+      
+        
+        
+        <circle class="ns-star" cx="691" cy="531" r="0.8" style="opacity:0.2"/>
+      
+        
+        
+        <circle class="ns-star ns-tw" cx="674" cy="728" r="0.8" style="opacity:0.21;--tw-a:0.07;--tw-hi:0.21;--tw-dur:4.5s;--tw-del:-3s"/>
+      
+    </g>
+
+    
+  </svg>
+</div>
+
+
+<div class="petals" id="petals"></div>
+
+<div class="page">
+  
+<nav class="site-nav">
+  <a href="/" class="nav-logo">Astraea</a>
+
+  <div class="nav-center">
+    
+      <a href="/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V9.5z"/></svg>
+
+
+        <span>Home</span>
+      </a>
+    
+      <a href="/archives/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+
+
+        <span>Writing</span>
+      </a>
+    
+      <a href="/projects/" class="nav-pill">
+        
+
+<svg class="nav-pill-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect x="2" y="8" width="20" height="13" rx="2"/></svg>
+
+
+        <span>Projects</span>
+      </a>
+    
+  </div>
+
+  <div class="nav-actions">
+    <div class="theme-switch" role="group" aria-label="主题模式">
+      <button type="button" class="theme-switch-btn" data-theme-mode="light" aria-label="浅色模式" title="浅色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="dark" aria-label="深色模式" title="深色">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+
+
+      </button>
+      <button type="button" class="theme-switch-btn" data-theme-mode="system" aria-label="跟随系统" title="跟随系统">
+        
+
+<svg class="theme-switch-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+
+
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+<div class="writing-layout">
+  <aside class="filter-panel">
+    <div class="filter-card">
+      <div class="filter-card-title">搜索</div>
+      <div class="search-wrap search-wrap-compact">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" placeholder="搜索标题、标签…" id="search-input" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="filter-card">
+      <div class="filter-card-title">排序</div>
+      <select id="sort-select" class="filter-select">
+        <option value="newest">最新优先</option>
+        <option value="oldest">最早优先</option>
+      </select>
+    </div>
+
+    
+    <div class="filter-card">
+      <div class="filter-card-title">Topics</div>
+      <div class="topic-list" id="topic-list">
+        
+          <label class="topic-item">
+            <input type="checkbox" value="AI" class="topic-check">
+            <span>AI</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="Agent" class="topic-check">
+            <span>Agent</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="CSS" class="topic-check">
+            <span>CSS</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="Hexo" class="topic-check">
+            <span>Hexo</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="KaTeX" class="topic-check">
+            <span>KaTeX</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="Prompt Engineering" class="topic-check">
+            <span>Prompt Engineering</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="VitePress" class="topic-check">
+            <span>VitePress</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="ai" class="topic-check">
+            <span>ai</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="algorithms" class="topic-check">
+            <span>algorithms</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="articles" class="topic-check">
+            <span>articles</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="best practices" class="topic-check">
+            <span>best practices</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="git" class="topic-check">
+            <span>git</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="love" class="topic-check">
+            <span>love</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="oklch" class="topic-check">
+            <span>oklch</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="philosophy" class="topic-check">
+            <span>philosophy</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="robotics" class="topic-check">
+            <span>robotics</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="tools" class="topic-check">
+            <span>tools</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="translation" class="topic-check">
+            <span>translation</span>
+          </label>
+        
+          <label class="topic-item">
+            <input type="checkbox" value="workflow" class="topic-check">
+            <span>workflow</span>
+          </label>
+        
+      </div>
+    </div>
+    
+  </aside>
+
+  <div class="writing-main">
+    <div class="page-hero page-hero-compact">
+      <div class="page-hero-left">
+        <h1>Writing</h1>
+        <p>记录技术、工具、算法与日常思考</p>
+      </div>
+      <div class="article-count">5 <span>篇</span></div>
+    </div>
+
+    <div id="article-list" class="article-list" data-sort="newest">
+      
+        <div class="year-group" data-year="2026">
+          <div class="year-label">2026</div>
+          
+          <a href="/2026/04/20/2026-04-20-little-book-of-algorithms-zh/" class="article-row" data-date="1776650400000" data-topics="translation|algorithms|KaTeX|VitePress">
+            <div class="article-row-body">
+              <div class="article-row-title">《小小算法书》中文版上线</div>
+              <div class="article-row-excerpt">花了几天时间，把《The Little Book of Algorithms》翻译成了中文版，部署在 misterrabbit0w0.github.io&amp;#x2F;little-book-of-alg…</div>
+              <div class="article-row-meta">
+                <span class="article-row-date">04 · 20</span>
+                <span class="tag tag-gold">translation</span>
+                
+                  <span class="tag-text">#algorithms</span>
+                
+                  <span class="tag-text">#KaTeX</span>
+                
+                  <span class="tag-text">#VitePress</span>
+                
+                
+              </div>
+            </div>
+            <div class="article-row-right">
+              <span class="read-time">1 min</span>
+            </div>
+          </a>
+          
+        </div>
+      
+    </div>
+
+    
+  </div>
+</div>
+
+<script>
+(function() {
+  const searchInput = document.getElementById('search-input');
+  const sortSelect = document.getElementById('sort-select');
+  const topicChecks = document.querySelectorAll('.topic-check');
+  const list = document.getElementById('article-list');
+
+  function selectedTopics() {
+    return Array.from(topicChecks).filter(c => c.checked).map(c => c.value);
+  }
+
+  function applyFilters() {
+    const q = (searchInput?.value || '').toLowerCase();
+    const topics = selectedTopics();
+
+    document.querySelectorAll('.article-row').forEach(row => {
+      const text = row.textContent.toLowerCase();
+      const rowTopics = (row.dataset.topics || '').split('|').filter(Boolean);
+      const matchSearch = !q || text.includes(q);
+      const matchTopic = topics.length === 0 || topics.some(t => rowTopics.includes(t));
+      row.style.display = matchSearch && matchTopic ? '' : 'none';
+    });
+
+    document.querySelectorAll('.year-group').forEach(group => {
+      const visible = Array.from(group.querySelectorAll('.article-row')).some(r => r.style.display !== 'none');
+      group.style.display = visible ? '' : 'none';
+    });
+  }
+
+  function applySort() {
+    const mode = sortSelect?.value || 'newest';
+    list.dataset.sort = mode;
+    document.querySelectorAll('.year-group').forEach(group => {
+      const rows = Array.from(group.querySelectorAll('.article-row'));
+      rows.sort((a, b) => {
+        const da = Number(a.dataset.date);
+        const db = Number(b.dataset.date);
+        return mode === 'oldest' ? da - db : db - da;
+      });
+      rows.forEach(r => group.appendChild(r));
+    });
+  }
+
+  searchInput?.addEventListener('input', applyFilters);
+  topicChecks.forEach(c => c.addEventListener('change', applyFilters));
+  sortSelect?.addEventListener('change', () => { applySort(); applyFilters(); });
+})();
+</script>
+
+
+
+  
+<footer class="site-footer">
+  <span class="footer-copy">© 2026 织星 / Astraea · 把星光织进字里行间</span>
+  <div class="footer-end">
+    
+    <div class="footer-pills" aria-label="开源与反馈">
+      <a href="https://github.com/misterrabbit0w0/misterrabbit0w0.github.io" class="footer-pill" target="_blank" rel="noopener noreferrer">
+        
+
+<svg class="footer-pill-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+
+
+        <span>站点源码</span>
+      </a>
+      
+      <a href="https://github.com/misterrabbit0w0/misterrabbit0w0.github.io/issues" class="footer-pill footer-pill-issue" target="_blank" rel="noopener noreferrer">
+        <span class="footer-pill-spark" aria-hidden="true">✿</span>
+        <span>提 Issue</span>
+      </a>
+      
+    </div>
+    
+    
+    <div class="footer-counter" id="busuanzi_container_site_pv" aria-label="站点访问量">
+      <span class="footer-counter-label">总访问</span>
+      <span class="counter-value" id="busuanzi_value_site_pv" aria-live="polite">—</span>
+    </div>
+    
+    
+    
+    <nav class="footer-links" aria-label="页脚导航">
+      <a href="/about/">关于</a><span class="footer-sep" aria-hidden="true">·</span><a href="/atom.xml">RSS</a><span class="footer-sep" aria-hidden="true">·</span><a href="/sitemap.xml">Sitemap</a>
+    </nav>
+    
+  </div>
+</footer>
+
+</div>
+
+<button id="tweaks-toggle" type="button" aria-label="站点设置" title="站点设置">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+  </svg>
+</button>
+<div id="tweaks-panel">
+  <div class="tweaks-title">站点设置</div>
+  <div class="tweak-row">
+    <div class="tweak-label">花瓣数量</div>
+    <input type="range" id="petal-count" min="0" max="30" value="12" style="width:100%;accent-color:var(--pink)">
+  </div>
+  <div class="tweak-row tweak-row-check">
+    <label class="tweak-check">
+      <input type="checkbox" id="cursor-fx">
+      <span>主题光标（圆润樱花粉样式）</span>
+    </label>
+  </div>
+</div>
+
+
+<script src="/js/shared.js"></script>
+
+<script>
+  initShared({
+    petalCount: 12,
+    themeMode: 'system',
+    cursorFx: false,
+    statusCard: {
+      enable: true,
+      discordId: '1061262757078511706',
+      username: 'misterrabbit0w0',
+      location: '织星阁',
+      defaultAct: '编织星光中...',
+      defaultDetail: 'ovo'
+    },
+    counter: {
+      enable: true,
+      provider: "busuanzi",
+      script: "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"
+    }
+  });
+</script>
+</body>
+</html>
