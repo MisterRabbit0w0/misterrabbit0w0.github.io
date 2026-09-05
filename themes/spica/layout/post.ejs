@@ -122,9 +122,7 @@
   let ticking = false;
   let lastEl = null;
 
-  // 高亮是一枚液体弹丸：静止时就是原来的胶囊，没有任何形态变化；
-  // 液体感只在运动里——整体旅行（不跨越拉伸），流速最快时体积守恒地
-  // 拉长变细（.flow 动画），到达时位置过冲回稳；时长随距离伸缩（恒定流速）。
+  // 固定弹簧响应时间，连续滚动时从当前位置转向新的目录项。
   function indicatorMove(item) {
     const railLeft = getComputedStyle(item).getPropertyValue('--toc-rail-left').trim() || '0px';
     const y1 = item.offsetTop, h1 = item.offsetHeight;
@@ -138,18 +136,9 @@
       requestAnimationFrame(() => requestAnimationFrame(() => slug.classList.remove('instant')));
       return;
     }
-    const cs = getComputedStyle(slug);
-    const y0 = (cs.transform === 'none' ? 0 : new DOMMatrixReadOnly(cs.transform).m42) || 0;
-    const dur = Math.min(0.85, Math.max(0.22, Math.abs(y1 - y0) / 320));
-    slug.style.transitionDuration = dur + 's';
-    slug.style.setProperty('--flow-dur', dur + 's');
     slug.style.left = railLeft;
     slug.style.transform = 'translateY(' + y1 + 'px)';
     slug.style.height = h1 + 'px';
-    // 重触流动画（去类 → 强制重排 → 加类）
-    slug.classList.remove('flow');
-    void slug.offsetWidth;
-    slug.classList.add('flow');
   }
 
   function update() {

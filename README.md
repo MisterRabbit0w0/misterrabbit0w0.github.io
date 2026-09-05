@@ -80,6 +80,15 @@ spica 四角闪星评分，0–5 分、0.5 步进，带无障碍标注：
 - 按键帽：`<kbd>Ctrl</kbd> + <kbd>C</kbd>`
 - 引用：`> 引文` 或 `{% blockquote @作者 https://链接 《作品》 %}`——大引号排版，署名行自动小字右对齐
 
+## 动效维护
+
+Spica 的交互动效采用苹果风格的小幅弹簧回弹，保留原有配色与背景主题，不依赖动画库。
+
+- `themes/spica/source/css/shared.css` 中的 `--motion-spring` 是阻尼比 0.78、角频率 18 的弹簧采样曲线，600ms 归位。不支持 CSS `linear()` 的浏览器使用贝塞尔回退。
+- 按钮按下用 120ms，松开、卡片反馈、目录指示条、折叠箭头和面板位移使用弹簧。入场使用独立 `translate`，不覆盖按钮的 `transform`。
+- 颜色、透明度、主题揭幕和图表描线保持单向缓动。阅读进度直接跟随滚动，数字不超过真实计数。花瓣下落、摇摆、星光呼吸与流星保留连续运动，不做回弹。
+- 星座视差在 `themes/spica/source/js/shared.js` 中按时间积分，指针离开或窗口失焦时归位。系统开启 `prefers-reduced-motion` 后停止视差，隐藏粒子，取消动画延迟并显示全部入场内容。
+
 ## 致谢
 
 - 字体：[**Maple Mono CN**](https://github.com/subframe7536/maple-font)（OFL 协议），中文子集由[中文网字计划](https://chinese-font.netlify.app/)的 cn-font-split 切片，经 jsDelivr CDN 分发
