@@ -439,7 +439,7 @@ git merge feat/mul-and-div
 
 ![](git-merge-no-conflict.png)
 
-这是一次常见的快进提交。
+这是一次常见的快进合并。
 
 在这之后，另外一个人完成了 `feat/pow` 分支的开发，他先获取最新的 `main` 分支代码
 
