@@ -1,37 +1,5 @@
-<%# 织星成座：入夜（暗色模式）浮现的夜空。
-    首页 = 本命星图：天文室女座（Astraea 的化身星座），角宿一(Spica)为焦点、樱花粉点亮。
-    其他页 = 净空：极淡星场，不重复本命场景。
-    纯装饰，固定，置于内容之下（z-index 0，不挡阅读）。
-    光语言：真·径向辉光（中心亮 → 边缘透明渐隐）+ 致密亮核；柔和，不画尖角光芒。 %>
+<%# 暗色模式的背景星场。首页保留散星和淡雾，不绘制 Hero 星图。 %>
 <%
-  // —— 室女座主星（viewBox 1440×900；星座落在视口上部 hero 区，整体偏左/中）——
-  // 关键约束：角宿一(Spica)既是视觉焦点、也是「许愿星」彩蛋的点击锚点，必须稳定落在
-  // 「hero 可见文字右侧、右侧 widgets 栏左侧」的洁净带——双栏布局下 widgets 卡片不透明且
-  // 含链接，会同时遮住 Spica、并拦截彩蛋点击。SVG 是 slice 缩放：宽屏(宽度主导)时
-  // Spica 屏占比 ≈ x/1440，取 x=800 → ≈55.6%，恒在 widgets 左缘(50%+320/视口宽)之左，
-  // 跨 1000→3440px 桌面区间都安全。其余暗星纯装饰、在内容之下，落在文字/卡片后无妨。
-  // —— 室女座（手工摆放，非天文精确）：一条自画外而来的星河，奔赴角宿一 ——
-  // 构图：主脊从左上画外进入、掠过标题上方，收束于右侧的角宿一——
-  // 视线顺连线旅行，终点是全场唯一的粉色闪星（许愿星）。
-  // 角宿一约束不变：hero 文字之右、widgets 栏之左的洁净带。
-  var VIRGO = [
-    { x: -40, y: 95,  mag: 2.85, name: 'Vindemiatrix' },   // 画外启程
-    { x: 180, y: 130, mag: 3.4,  name: 'Auva' },
-    { x: 420, y: 105, mag: 2.74, name: 'Porrima' },
-    { x: 640, y: 140, mag: 3.4,  name: 'Heze' },
-    { x: 350, y: 165, mag: 3.89, name: 'Zaniah' },          // 臂：自 Porrima 回掠
-    { x: 255, y: 195, mag: 3.6,  name: 'Zavijava' },
-    { x: 775, y: 280, mag: 4.0,  name: 'Syrma' },           // 裙裾：两条短腿，止于文字右側净空
-    { x: 860, y: 265, mag: 3.87, name: 'mu-Vir' }
-  ];
-  var SP = { x: 830, y: 190 };
-
-  // 星等 → 尺寸/透明度：连续映射，告别阶梯跳变
-  function glowR(m){ return +(22 - m * 3.2).toFixed(1); }
-  function coreR(m){ return +Math.max(0.9, 2.6 - m * 0.42).toFixed(2); }
-  function glowOp(m){ return +Math.max(0.12, 0.62 - m * 0.12).toFixed(2); }
-  function coreOp(m){ return +Math.max(0.45, 1.05 - m * 0.14).toFixed(2); }
-
   // —— 背景星场：固定种子的确定性散点，构建之间稳定不跳动 ——
   function mulberry32(a){ return function(){ a |= 0; a = a + 0x6D2B79F5 | 0; var t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
   var rand = mulberry32(20260420);
@@ -43,11 +11,6 @@
     var b  = rand();                         // 亮度 0..1（偏暗，少数偏亮）
     var fr = +(0.4 + b * 1.0).toFixed(1);
     var fop = +(0.12 + b * b * 0.46).toFixed(2);
-    // 首页：在角宿一焦点周围让出留白，使本命星座“浮”出来
-    if (home) {
-      var d = Math.hypot(fx - SP.x, fy - SP.y);
-      if (d < 135) fop = +(fop * (0.12 + d / 170)).toFixed(2);
-    }
     FIELD.push({ x: +fx.toFixed(0), y: +fy.toFixed(0), r: fr, op: fop, glow: b > 0.8 });
   }
 %>
@@ -90,37 +53,5 @@
       <% }); %>
     </g>
 
-    <% if (home) { %>
-      <g class="ns-scene">
-      <%# —— 本命星图：自画外奔赴角宿一的星河。pathLength=1 供描绘入场 —— %>
-      <g class="ns-links">
-        <%# 主脊（画外 → 角宿一）：Vindemiatrix → Auva → Porrima → Heze → Spica %>
-        <polyline pathLength="1" points="<%= [VIRGO[0], VIRGO[1], VIRGO[2], VIRGO[3], SP].map(function (p) { return p.x + ',' + p.y; }).join(' ') %>"/>
-        <%# 臂：Porrima → Zaniah → Zavijava %>
-        <polyline pathLength="1" points="<%= [VIRGO[2], VIRGO[4], VIRGO[5]].map(function (p) { return p.x + ',' + p.y; }).join(' ') %>"/>
-        <%# 裙裾：Syrma → Spica → μ-Vir（短腿） %>
-        <polyline pathLength="1" points="<%= [VIRGO[6], SP, VIRGO[7]].map(function (p) { return p.x + ',' + p.y; }).join(' ') %>"/>
-      </g>
-      <g class="ns-virgo">
-        <% VIRGO.forEach(function (s, i) { %>
-          <% var tw = (i === 2 || i === 4 || i === 6); %>
-          <circle class="ns-glow" cx="<%= s.x %>" cy="<%= s.y %>" r="<%= glowR(s.mag) %>" style="opacity:<%= glowOp(s.mag) %>"/>
-          <circle class="ns-core<%= tw ? ' ns-tw' : '' %>" cx="<%= s.x %>" cy="<%= s.y %>" r="<%= coreR(s.mag) %>" style="opacity:<%= coreOp(s.mag) %><%= tw ? ';--tw-a:' + (coreOp(s.mag) * 0.4).toFixed(2) + ';--tw-hi:' + coreOp(s.mag) + ';--tw-dur:' + (5 + i * 0.7).toFixed(1) + 's;--tw-del:-' + (i * 1.3).toFixed(1) + 's' : '' %>"/>
-        <% }); %>
-      </g>
-      <%# 角宿一 Spica (α Vir, mag ~1.0)：本命星 —— 星河抵达时才亮起（ns-spica-wrap），
-         四角闪星为主体，只留一团贴身微辉 %>
-      <g class="ns-spica-wrap">
-        <circle class="ns-spica-glow" cx="<%= SP.x %>" cy="<%= SP.y %>" r="15" fill="url(#nsGlowPink)"/>
-        <g class="ns-spica-breath">
-          <path class="ns-spica" d="M<%= SP.x %> <%= SP.y - 11 %> Q<%= SP.x %> <%= SP.y %> <%= SP.x + 11 %> <%= SP.y %> Q<%= SP.x %> <%= SP.y %> <%= SP.x %> <%= SP.y + 11 %> Q<%= SP.x %> <%= SP.y %> <%= SP.x - 11 %> <%= SP.y %> Q<%= SP.x %> <%= SP.y %> <%= SP.x %> <%= SP.y - 11 %> Z"/>
-        </g>
-        <circle class="ns-spica-hi" cx="<%= SP.x %>" cy="<%= SP.y %>" r="1.4"/>
-      </g>
-      </g>
-    <% } %>
   </svg>
 </div>
-<% if (home && theme.effects && theme.effects.wish) { %>
-<div class="ns-wish" id="ns-wish" hidden><%= theme.effects.wish %></div>
-<% } %>
