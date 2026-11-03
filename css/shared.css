@@ -1,4 +1,17 @@
 /*! Spica theme · © 2026 织星 / Astraea · https://github.com/misterrabbit0w0/misterrabbit0w0.github.io · MIT */
+/* Spring response sampled at 15ms: damping ratio .78, angular frequency 18.
+   Fallback keeps older browsers usable; colors/opacity never overshoot. */
+:root {
+  --motion-settle: 600ms;
+  --motion-press: 120ms;
+  --motion-fade: 200ms;
+  --motion-spring: cubic-bezier(.2, .8, .2, 1);
+  --motion-smooth: cubic-bezier(.2, .8, .2, 1);
+}
+@supports (animation-timing-function: linear(0, 1)) {
+  :root { --motion-spring: linear(0, 0.03164, 0.10967, 0.21353, 0.32819, 0.44317, 0.55155, 0.64919, 0.73402, 0.80541, 0.86378, 0.91013, 0.94587, 0.97252, 0.99164, 1.00468, 1.01296, 1.01762, 1.01965, 1.01981, 1.01875, 1.01694, 1.01475, 1.01245, 1.0102, 1.00812, 1.00627, 1.00469, 1.00337, 1.00231, 1.00148, 1.00084, 1.00038, 1.00005, 0.99983, 0.9997, 0.99963, 0.9996, 0.99961, 0.99964, 1); }
+}
+
 /* ── shared.css — Spica kawaii + Light/Dark/System ── */
 :root,
 [data-color-mode="light"] {
@@ -178,17 +191,19 @@ body::before {
    因此无 JS / reduced-motion 时内容始终可见，纯增强。 */
 html.js-reveal .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  will-change: opacity, transform;
+  translate: 0 10px;
+  will-change: opacity, translate;
 }
-html.js-reveal .reveal.reveal-in {
+html.js-reveal .reveal.reveal-in:not(.reveal-done) {
   opacity: 1;
-  transform: none;
+  translate: 0 0;
   transition:
-    opacity .66s cubic-bezier(.22,.61,.36,1),
-    transform .66s cubic-bezier(.22,.61,.36,1);
+    opacity var(--motion-fade) var(--motion-smooth),
+    translate var(--motion-settle) var(--motion-spring);
 }
 html.js-reveal .reveal.reveal-done {
+  opacity: 1;
+  translate: 0 0;
   will-change: auto;
 }
 
@@ -201,7 +216,7 @@ html.js-reveal .reveal.reveal-done {
   z-index: 0;
   pointer-events: none;
   opacity: 0;
-  transition: opacity .9s ease;
+  transition: opacity var(--motion-fade) var(--motion-smooth);
 }
 .nightsky svg { display: block; width: 100%; height: 100%; }
 [data-color-mode="dark"] .nightsky { opacity: 1; }
@@ -237,7 +252,7 @@ html.js-reveal .reveal.reveal-done {
   filter: drop-shadow(0 0 2px oklch(86% 0.06 330 / .45));
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: ns-draw 1.6s ease-out .3s forwards;
+  animation: ns-draw var(--motion-settle) var(--motion-smooth) .1s forwards;
 }
 .ns-links polyline:nth-child(2) { animation-delay: .6s; }
 .ns-links polyline:nth-child(3) { animation-delay: 1s; }
@@ -259,7 +274,7 @@ html.js-reveal .reveal.reveal-done {
   fill: var(--pink);
   transform-box: fill-box;
   transform-origin: center;
-  transition: transform .25s ease;
+  transition: transform var(--motion-settle) var(--motion-spring);
 }
 .ns-spica.ns-spica-hot { transform: scale(1.3); }
 .ns-spica-breath {
@@ -278,7 +293,7 @@ html.js-reveal .reveal.reveal-done {
 .ns-spica-wrap {
   transform-box: fill-box;
   transform-origin: center;
-  animation: ns-spica-in .9s cubic-bezier(.22,.61,.36,1) 1.7s both;
+  animation: ns-spica-in var(--motion-settle) var(--motion-spring) .2s both;
 }
 @keyframes ns-spica-in {
   from { opacity: 0; transform: scale(.35); }
@@ -352,7 +367,7 @@ html.js-reveal .reveal.reveal-done {
   text-shadow: 0 0 16px color-mix(in oklch, var(--pink) 50%, transparent);
   pointer-events: none;
   opacity: 0;
-  transition: opacity .6s ease, transform .6s ease;
+  transition: opacity var(--motion-fade) var(--motion-smooth), transform var(--motion-settle) var(--motion-spring);
 }
 .ns-wish.show { opacity: 1; transform: translate(-50%, 8px); }
 
@@ -456,7 +471,7 @@ html.js-reveal .reveal.reveal-done {
   color: var(--pink);
   text-decoration: none;
   font-weight: 600;
-  transition: opacity .2s;
+  transition: opacity var(--motion-fade) var(--motion-smooth);
 }
 .sec-more:hover { opacity: .75; }
 .sec-more::after { content: ' →'; }
@@ -532,7 +547,7 @@ html.js-reveal .reveal.reveal-done {
   font-size: 11px;
   line-height: 1;
   color: var(--pink);
-  transition: transform .2s ease;
+  transition: transform var(--motion-settle) var(--motion-spring);
 }
 .footer-pill-issue:hover .footer-pill-spark { transform: rotate(-12deg) scale(1.15); }
 .counter-value {
@@ -566,7 +581,7 @@ html.js-reveal .reveal.reveal-done {
 .footer-links a {
   color: var(--pink);
   text-decoration: none;
-  transition: opacity .2s;
+  transition: opacity var(--motion-fade) var(--motion-smooth);
 }
 .footer-links a:hover { opacity: .75; }
 .footer-sep {
@@ -592,13 +607,18 @@ html.js-reveal .reveal.reveal-done {
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow);
-  transition: transform .2s ease, color .2s, border-color .2s;
+  transition: transform var(--motion-settle) var(--motion-spring), color var(--motion-fade) var(--motion-smooth), border-color var(--motion-fade) var(--motion-smooth);
   cursor: pointer;
 }
 #tweaks-toggle:hover { color: var(--pink); border-color: var(--pink-light); transform: rotate(45deg); }
 #tweaks-toggle.open { color: var(--pink); border-color: var(--pink-light); transform: rotate(90deg); }
 #tweaks-panel {
-  display: none;
+  display: block;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(8px) scale(.97);
+  transform-origin: bottom right;
+  transition: transform var(--motion-settle) var(--motion-spring), opacity var(--motion-fade) var(--motion-smooth), visibility 0s var(--motion-settle);
   position: fixed;
   bottom: 80px;
   right: 24px;
@@ -611,10 +631,11 @@ html.js-reveal .reveal.reveal-done {
   box-shadow: var(--shadow);
   font-size: 13px;
 }
-#tweaks-panel.open { display: block; animation: tweaks-in .2s ease; }
-@keyframes tweaks-in {
-  from { opacity: 0; transform: scale(.9) translateY(6px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+#tweaks-panel.open {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition-delay: 0s;
 }
 .tweaks-title { font-weight: 700; margin-bottom: 14px; font-size: 14px; }
 .tweak-row { margin-bottom: 12px; }
@@ -734,11 +755,11 @@ body.lightbox-open { overflow: hidden; }
   background: oklch(12% 0.02 290 / 0.72);
   backdrop-filter: blur(6px); /* deslop-ignore 19 */
   cursor: zoom-out;
-  animation: lightbox-fade .22s ease;
+  animation: lightbox-fade var(--motion-fade) var(--motion-smooth);
 }
 @keyframes lightbox-fade { from { opacity: 0; } to { opacity: 1; } }
-.img-lightbox-closing .img-lightbox-panel { animation: lightbox-out .18s ease forwards; }
-.img-lightbox-closing .img-lightbox-backdrop { animation: lightbox-fade-out .18s ease forwards; }
+.img-lightbox-closing .img-lightbox-panel { animation: lightbox-out var(--motion-fade) var(--motion-smooth) forwards; }
+.img-lightbox-closing .img-lightbox-backdrop { animation: lightbox-fade-out var(--motion-fade) var(--motion-smooth) forwards; }
 @keyframes lightbox-out {
   from { opacity: 1; transform: scale(1); }
   to   { opacity: 0; transform: scale(.95); }
@@ -756,7 +777,7 @@ body.lightbox-open { overflow: hidden; }
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  animation: lightbox-in .2s ease;
+  animation: lightbox-in var(--motion-settle) var(--motion-spring);
 }
 
 @keyframes lightbox-in {
@@ -800,7 +821,7 @@ body.lightbox-open { overflow: hidden; }
   line-height: 1;
   cursor: pointer;
   box-shadow: var(--shadow);
-  transition: transform .15s ease, border-color .15s ease;
+  transition: transform var(--motion-settle) var(--motion-spring), border-color var(--motion-fade) var(--motion-smooth);
 }
 
 .img-lightbox-close:hover {
@@ -820,6 +841,8 @@ body.lightbox-open { overflow: hidden; }
   *, *::before, *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-delay: 0s !important;
     transition-duration: .01ms !important;
   }
 }
@@ -838,10 +861,16 @@ body.lightbox-open { overflow: hidden; }
    不支持的浏览器回退为原本的背景淡入。 */
 ::view-transition-old(root) { animation: none; z-index: 0; }
 ::view-transition-new(root) {
-  animation: vt-reveal .55s cubic-bezier(.22,.61,.36,1);
+  animation: vt-reveal var(--motion-settle) var(--motion-smooth);
   z-index: 1;
 }
 @keyframes vt-reveal {
   from { clip-path: circle(0% at var(--vt-x, 50%) var(--vt-y, 0%)); }
   to   { clip-path: circle(var(--vt-r, 150%) at var(--vt-x, 50%) var(--vt-y, 0%)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #tweaks-panel { transition: none !important; }
+  html.js-reveal .reveal { opacity: 1; translate: none; transition: none !important; }
+  .skydust, .ns-ripple, .shooting-star { display: none; }
+  html.js-card-glow .card-glow-on::after { opacity: 0; }
 }

@@ -4,7 +4,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/projects/index.html</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -13,7 +13,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/index.html</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -22,7 +22,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/about/index.html</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -31,7 +31,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/categories/index.html</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -40,7 +40,16 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/2026/08/03/2026-08-03-why-predict-is-romantic/</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/2026/10/27/2026-10-27-best-practice-with-ai/</loc>
+    
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -49,7 +58,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/2026/06/27/2026-06-27-elegant-git-guideline/</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -58,7 +67,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/2026/04/20/2026-04-20-little-book-of-algorithms-zh/</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -67,7 +76,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/2026/06/02/2026-06-02-elegant-agent-guideline/</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -76,7 +85,7 @@
   <url>
     <loc>https://misterrabbit0w0.github.io/404.html</loc>
     
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -94,113 +103,120 @@
 
   <url>
     <loc>https://misterrabbit0w0.github.io/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>https://misterrabbit0w0.github.io/tags/Hexo/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://misterrabbit0w0.github.io/tags/CSS/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://misterrabbit0w0.github.io/tags/oklch/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://misterrabbit0w0.github.io/tags/algorithms/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/KaTeX/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/VitePress/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/Hexo/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/CSS/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/oklch/</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/Agent/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/Prompt-Engineering/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://misterrabbit0w0.github.io/tags/love/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://misterrabbit0w0.github.io/tags/ai/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://misterrabbit0w0.github.io/tags/robotics/</loc>
-    <lastmod>2026-08-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://misterrabbit0w0.github.io/tags/philosophy/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/git/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/workflow/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/tags/best-practices/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/love/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/ai/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/robotics/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/philosophy/</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://misterrabbit0w0.github.io/tags/best-practice/</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -208,29 +224,29 @@
 
   
   <url>
-    <loc>https://misterrabbit0w0.github.io/categories/tools/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://misterrabbit0w0.github.io/categories/translation/</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://misterrabbit0w0.github.io/categories/translation/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <loc>https://misterrabbit0w0.github.io/categories/tools/</loc>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/categories/AI/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://misterrabbit0w0.github.io/categories/articles/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

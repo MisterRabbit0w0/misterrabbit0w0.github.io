@@ -50,6 +50,11 @@
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
 
+  // CSS and Web Animations share the same response, including the fallback.
+  function motionEase(name = 'spring') {
+    return getComputedStyle(document.documentElement).getPropertyValue('--motion-' + name).trim();
+  }
+
   function burstStardust(x, y) {
     if (motionReduced()) return;
     const glyphs = ['✦', '✧', '·'];
@@ -65,7 +70,7 @@
       el.animate([
         { transform: 'translate(-50%,-50%) scale(1)', opacity: 1 },
         { transform: `translate(calc(-50% + ${(Math.cos(a) * d).toFixed(1)}px), calc(-50% + ${(Math.sin(a) * d).toFixed(1)}px)) scale(.3)`, opacity: 0 }
-      ], { duration: 650 + Math.random() * 250, easing: 'cubic-bezier(.22,.61,.36,1)' }).onfinish = () => el.remove();
+      ], { duration: 600, easing: motionEase() }).onfinish = () => el.remove();
     }
   }
 
@@ -81,7 +86,7 @@
       { opacity: 0.6, transform: 'translate(-50%,-50%) scale(.3)' },
       { opacity: 0.35, offset: 0.3 },
       { opacity: 0, transform: 'translate(-50%,-50%) scale(7)' }
-    ], { duration: 1100, easing: 'cubic-bezier(.22,.61,.36,1)' }).onfinish = () => ring.remove();
+    ], { duration: 600, easing: motionEase() }).onfinish = () => ring.remove();
   }
 
   // 流星：暗色模式下偶发划过夜空的一道细光。
@@ -93,7 +98,7 @@
       setTimeout(fire, 16000 + Math.random() * 26000);
     }
     function fire() {
-      if (isDarkMode() && document.visibilityState === 'visible') shoot();
+      if (!motionReduced() && isDarkMode() && document.visibilityState === 'visible') shoot();
       scheduleNext();
     }
     function shoot() {
@@ -122,7 +127,7 @@
     scheduleNext();
   }
 
-  // 星座视差：夜空与封面随指针反向轻移（分层深度 + lerp 平滑追随），
+  // 星座视差：夜空与封面随指针反向轻移（分层深度 + 阻尼弹簧追随），
   // 让星座在入场动画之后依然「活」在指针下。幅度克制（≤8 单位），松手即缓停。
   function initConstellationParallax() {
     if (motionReduced()) return;
@@ -148,22 +153,43 @@
       s.els = s.layers.map(l => ({ el: s.root.querySelector(l.sel), depth: l.depth })).filter(l => l.el);
     });
 
-    let tx = 0, ty = 0, cx = 0, cy = 0, raf = null;
-    function frame() {
-      cx += (tx - cx) * 0.06;
-      cy += (ty - cy) * 0.06;
+    let tx = 0, ty = 0, cx = 0, cy = 0, vx = 0, vy = 0, raf = null, lastTime = null;
+    function frame(now) {
+      const dt = Math.min((now - (lastTime ?? now - 16)) / 1000, 0.032);
+      lastTime = now;
+      // Small fixed substeps keep the spring stable at both 60 and 120 Hz.
+      const steps = Math.ceil(dt / 0.008) || 1, h = dt / steps;
+      for (let i = 0; i < steps; i++) {
+        vx += (324 * (tx - cx) - 28.08 * vx) * h;
+        vy += (324 * (ty - cy) - 28.08 * vy) * h;
+        cx += vx * h;
+        cy += vy * h;
+      }
+      const settled = Math.abs(tx - cx) + Math.abs(ty - cy) + Math.abs(vx) + Math.abs(vy) < 0.002;
+      if (settled || motionReduced()) {
+        cx = motionReduced() ? 0 : tx;
+        cy = motionReduced() ? 0 : ty;
+        vx = vy = 0;
+      }
       scenes.forEach(s => s.els.forEach(l => {
         l.el.style.transform = 'translate3d(' + (-cx * l.depth).toFixed(2) + 'px,' + (-cy * l.depth).toFixed(2) + 'px,0)';
       }));
-      if (Math.abs(tx - cx) > 0.001 || Math.abs(ty - cy) > 0.001) raf = requestAnimationFrame(frame);
-      else raf = null;
+      if (!settled && !motionReduced()) raf = requestAnimationFrame(frame);
+      else { raf = null; lastTime = null; }
     }
     document.addEventListener('pointermove', (e) => {
-      if (e.pointerType === 'touch') return;
+      if (e.pointerType === 'touch' || motionReduced()) return;
       tx = (e.clientX / window.innerWidth - 0.5) * 2;
       ty = (e.clientY / window.innerHeight - 0.5) * 2;
       if (!raf) raf = requestAnimationFrame(frame);
     }, { passive: true });
+    function reset() {
+      tx = ty = 0;
+      if (!raf) raf = requestAnimationFrame(frame);
+    }
+    document.documentElement.addEventListener('pointerleave', reset);
+    window.addEventListener('blur', reset);
+    window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', reset);
   }
 
   // 许愿星：暗色下点亮角宿一(Spica)，浮现一句悄悄话
@@ -557,7 +583,7 @@
     let dataReady = null, visible = false, played = false;
 
     function animateSparkline() {
-      if (!sparkPath || reduce) return;
+      if (!sparkPath || motionReduced()) return;
       let len = 0;
       try { len = sparkPath.getTotalLength(); } catch (e) {}
       if (!len) return;
@@ -565,7 +591,7 @@
       sparkPath.style.strokeDasharray = len + ' ' + len;
       sparkPath.style.strokeDashoffset = String(len);
       void sparkPath.getBoundingClientRect(); // 强制回流，让隐藏态先落一帧
-      sparkPath.style.transition = 'stroke-dashoffset 1.15s cubic-bezier(.22,.61,.36,1)';
+      sparkPath.style.transition = 'stroke-dashoffset var(--motion-settle) var(--motion-smooth)';
       sparkPath.style.strokeDashoffset = '0';
       sparkPath.addEventListener('transitionend', function done(ev) {
         if (ev.propertyName !== 'stroke-dashoffset') return;
@@ -577,12 +603,12 @@
 
     function countUp(el, target) {
       if (!el) return;
-      if (reduce || target <= 0) { el.textContent = String(target); return; }
+      if (motionReduced() || target <= 0) { el.textContent = String(target); return; }
       const dur = 900;
       let start = null;
       function step(ts) {
         if (start === null) start = ts;
-        const t = Math.min(1, (ts - start) / dur);
+        const t = motionReduced() ? 1 : Math.min(1, (ts - start) / dur);
         el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3)))); // easeOutCubic
         if (t < 1) requestAnimationFrame(step);
         else el.textContent = String(target);
@@ -881,7 +907,9 @@
 
       document.body.appendChild(lb);
 
+      let closeTimer;
       const finishClose = () => {
+        clearTimeout(closeTimer);
         lb.classList.remove('img-lightbox-closing');
         lb.hidden = true;
         document.body.classList.remove('lightbox-open');
@@ -892,8 +920,16 @@
         if (motionReduced()) { finishClose(); return; }
         const panel = lb.querySelector('.img-lightbox-panel');
         lb.classList.add('img-lightbox-closing');
-        const onEnd = () => { panel.removeEventListener('animationend', onEnd); finishClose(); };
+        const onEnd = ev => {
+          if (ev.target !== panel || ev.animationName !== 'lightbox-out') return;
+          panel.removeEventListener('animationend', onEnd);
+          finishClose();
+        };
         panel.addEventListener('animationend', onEnd);
+        closeTimer = setTimeout(() => {
+          panel.removeEventListener('animationend', onEnd);
+          finishClose();
+        }, 400);
       };
 
       lb.querySelector('.img-lightbox-backdrop').addEventListener('click', close);
@@ -966,12 +1002,12 @@
 
     cards.forEach(card => {
       card.addEventListener('pointerenter', e => {
-        if (e.pointerType === 'touch') return;
+        if (e.pointerType === 'touch' || motionReduced()) return;
         card.classList.add('card-glow-on');
         setGlow(card, e);
       });
       card.addEventListener('pointermove', e => {
-        if (e.pointerType === 'touch' || !card.classList.contains('card-glow-on')) return;
+        if (e.pointerType === 'touch' || motionReduced() || !card.classList.contains('card-glow-on')) return;
         setGlow(card, e);
       });
       card.addEventListener('pointerleave', () => {
@@ -1010,12 +1046,18 @@
       if (el.classList.contains('reveal-in')) return;
       if (delayMs) el.style.transitionDelay = delayMs + 'ms';
       el.classList.add('reveal-in');
-      el.addEventListener('transitionend', function te(ev) {
-        if (ev.propertyName !== 'opacity') return;
+      const finish = () => {
+        clearTimeout(timer);
         el.style.transitionDelay = '';
         el.classList.add('reveal-done');
         el.removeEventListener('transitionend', te);
-      });
+      };
+      function te(ev) {
+        if (ev.target === el && ev.propertyName === 'translate') finish();
+      }
+      // A cancelled transition or a skipped first paint must not keep entry styles.
+      const timer = setTimeout(finish, (delayMs || 0) + 700);
+      el.addEventListener('transitionend', te);
     }
     function inViewport(el) {
       const r = el.getBoundingClientRect();
